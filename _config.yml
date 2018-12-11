@@ -1,0 +1,86 @@
+# Welcome to Jekyll!
+#
+# This config file is meant for settings that affect your whole blog, values
+# which you are expected to set up once and rarely edit after that. If you find
+# yourself editing this file very often, consider using Jekyll's data files
+# feature for the data you need to update frequently.
+#
+# For technical reasons, this file is *NOT* reloaded automatically when you use
+# 'bundle exec jekyll serve'. If you change this file, please restart the server process.
+
+# Site settings
+# These are used to personalize your new site. If you look in the HTML files,
+# you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
+# You can create any custom variable you would like, and they will be accessible
+# in the templates via {{ site.myvariable }}.
+
+# ----- base config -----
+title: Eric 的博客
+author: Eric Zong
+brief-intro: Anything about program.
+description: >- # this means to ignore newlines until "baseurl:"
+  Anything about program.
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "https://ericzong.github.io" # the base hostname & protocol for your site, e.g. http://example.com
+
+# ----- system config -----
+# port: 
+# host: 
+# timezone: Asia/Chongqing
+# permalink: /:year/:month/:day/:title/
+
+# ----- other links -----
+email: ericzonglu@126.com
+github_username:  ericzong
+# twitter_username: 
+# facebook_username: 
+# weibo_username: 
+# zhihu_username: 
+# linkedIn_username: 
+# dribbble_username: 
+
+# ----- page config -----
+markdown: kramdown
+highlighter: rouge
+# kramdown: 
+  # input: GFM
+  # syntax_highlighter: rouge
+
+# paginate
+paginate: 5
+paginate_path: "page:num"
+# gems: [jekyll-paginate]
+
+excerpt_separator: <!--more-->
+
+# url
+category_dir: category/
+tag_dir: tag/
+
+comments_enabled: false
+
+plugins:
+  - jekyll-paginate
+  - jekyll-feed
+  - jemoji
+
+# theme: minima
+
+# duoshuo_shortname: 
+# disqus_shortname: 
+
+# baidu_tongji_id: 
+# google_analytics_id: 
+
+
+# Exclude from processing.
+# The following items will not be processed, by default. Create a custom list
+# to override the default setting.
+# exclude:
+#   - Gemfile
+#   - Gemfile.lock
+#   - node_modules
+#   - vendor/bundle/
+#   - vendor/cache/
+#   - vendor/gems/
+#   - vendor/ruby/
