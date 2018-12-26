@@ -7,3 +7,5 @@ tags: demo
 excerpt: demo
 ---
 
+* content
+{:toc}
