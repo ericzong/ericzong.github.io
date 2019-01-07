@@ -105,11 +105,11 @@ class C1 { class N1 {} }
 class C2 extends C1 {} 
 ```
 
-p.C1.N1 和 p.C2.N2 都是完全限定名，但只有 p.C1.N1 是规范名。
+p.C1.N1 和 p.C2.N1 都是完全限定名，但只有 p.C1.N1 是规范名。
 
 注意：完全限定名和规范名同 Class.getName() 方法返回的名称是有区别的，主要是体现在嵌套类和数组的表示上。
 
-Java API 中没有方法返回完全限定名，但 Class.getCanonicalName() 方法可返回规范名。
+Java API 中没有方法返回完全限定名（不唯一），但 Class.getCanonicalName() 方法可返回规范名。
 
 # 示例
 
