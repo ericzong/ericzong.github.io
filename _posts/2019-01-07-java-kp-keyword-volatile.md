@@ -1,3 +1,15 @@
+---
+layout: post
+title: "Java知识点：volatile关键字"
+categories: Java
+tags: Java Java基础 Java知识点
+excerpt: Java关键字volatile相关知识点。
+author: "Eric Zong"
+---
+
+* content
+{:toc}
+
 volatile 关键字的作用主要是：
 
  - 保证变量可见性
