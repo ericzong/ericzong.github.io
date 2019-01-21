@@ -24,8 +24,9 @@ type: navigator
 
 [Tomcat项目部署方式汇总]({{site.url}}/page/tomcat-deployment-reference)
 
----
-
 # 随笔
 
 [科技那些事儿]({{site.url}}/page/something-about-technology)
+
+[名人名言·科技篇]({{site.url}}/page/famous-quotes)
+
