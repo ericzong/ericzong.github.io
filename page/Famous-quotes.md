@@ -12,6 +12,10 @@ permalink: /page/famous-quotes
 中年人是艰难的。青年时代的理想主义已经消退，健康和活力也不可避免地有一点降低，但是承担的责任却在增长，再加上一些对死亡的恐惧和一些对活着的恐惧，你就有了叫做中年危机的东西。
 <p style="text-align: right">-- Bryan Cantrill（dtrace 的作者）</p>
 
+JavaScript 的优点是可以写任何东西，缺点是你真的会用它去写这些东西。
+
+<p style="text-align: right">-- Reg Braithwaite</p>
+
 # 文摘
 
 我们为了降低能源消耗，发明了节省能源的 LED 照明。结果，更高效的照明导致了更多的照明，从而使得社会整体能源消耗增加。

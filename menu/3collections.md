@@ -12,6 +12,8 @@ type: navigator
 
 [CSS选择器]({{site.url}}/page/css-selector-reference)
 
+[npm与yarn命令比较]({{site.url}}/page/npm-vs-yarn)
+
 # 后端
 
 [Maven参考]({{site.url}}/page/maven-reference)
