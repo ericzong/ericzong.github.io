@@ -8,6 +8,7 @@ type: navigator
 
 * content
 {:toc}
+
 # 前端
 
 [CSS选择器]({{site.url}}/page/css-selector-reference)
@@ -21,6 +22,10 @@ type: navigator
 [Maven配置参考]({{site.url}}/page/maven-settings-reference)
 
 [Tomcat项目部署方式汇总]({{site.url}}/page/tomcat-deployment-reference)
+
+# 综合理论
+
+[HTTP参考]({{site.url}}/page/http-reference)
 
 # 随笔
 
