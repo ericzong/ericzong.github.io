@@ -15,6 +15,8 @@ type: navigator
 
 [npm与yarn命令比较]({{site.url}}/page/npm-vs-yarn)
 
+[package.json参考]({{site.url}}/page/package-json)
+
 # 后端
 
 [Maven参考]({{site.url}}/page/maven-reference)
