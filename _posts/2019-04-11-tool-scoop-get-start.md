@@ -121,31 +121,31 @@ scoop update *
 scoop list
 ```
 
-## 资源库
+## Bucket
 
 作为一个“应用安装器”，Scoop 使用 Bucket 来定义软件源。
 
 > 注意：Bucket 维护的是应用相关信息清单，而不是应用本身。Scoop 没有用于存放应用的中央仓库。
 
-Scoop 提供了一个内置的主库 [main bucket](https://github.com/lukesampson/scoop/tree/master/bucket)，存放了许多“符合标准”的应用。
+Scoop 提供了一个内置的 [main bucket](https://github.com/lukesampson/scoop/tree/master/bucket)，存放了许多“符合标准”的应用。
 
-默认情况下，当执行 `scoop search`、`scoop install` 等命令时，Scoop 便是从主库中搜索应用的。
+默认情况下，当执行 `scoop search`、`scoop install` 等命令时，Scoop 便是从 main bucket 中搜索应用的。
 
-但这不足以满足各种人群的需要，因此，Scoop 还提供了几个可选库，通过以下命令可查看它们的名字：
+但这不足以满足各种人群的需要，因此，Scoop 还提供了几个 known bucket，通过以下命令可查看它们的名字：
 
 ```powershell
 scoop bucket known
 ```
 
-这些可选库通常都是 GigHub 项目，使用如下命令可为 Scoop 添加指定的可选库：
+这些 known bucket 通常都是 GitHub 项目，使用如下命令可为 Scoop 添加指定的 known bucket：
 
 ```powershell
 scoop bucket add <NAME>
 ```
 
-添加可选库后就可以从其中搜索安装应用了。
+添加 known bucket 后就可以从其中搜索安装应用了。
 
-> 如果这些库还满足不了你的需求，那么，我们甚至可以自己创建一个 Bucket。但这已超出了本文的讨论范围，这里就不进一步说明了。
+> 如果这些 bucket 还满足不了你的需求，那么，我们甚至可以自己创建一个 bucket。但这已超出了本文的讨论范围，这里就不进一步说明了。
 
 ## 实践
 
