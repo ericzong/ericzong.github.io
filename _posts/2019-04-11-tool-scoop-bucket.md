@@ -43,9 +43,9 @@ scoop bucket add <name>
 要创建 bucket 其实很简单，bucket 实质上是一个 GitHub 仓库，因此，在自己的 GitHub 帐号下新建一个仓库，你就得到了一个 bucket。并且通过以下命令就可以添加到 Scoop 中：
 
 ```powershell
-# 添加应用库（指定库名和库 GitHub 地址）
+# 添加 bucket（指定名称和 GitHub 仓库地址）
 scoop bucket add my-bucket https://github.com/<your-username>/my-bucket
-# 查看已添加的应用库列表（新添加的应用库应该也在其中）
+# 查看已添加的 bucket 列表（新添加的 bucket 应该也在其中）
 scoop bucket list
 ```
 
@@ -129,7 +129,7 @@ scoop install hello
 
 ### 更新应用清单
 
-scoop 提供了一个脚本，位于 `scoop\apps\scoop\current\bin\checkver.ps1`，用以更新应用清单。不过，通常我们不会直接使用该脚本，而是使用有批处理能力的 checkver.ps1 脚本，它位于任一 known bucket 的 `bin` 目录下，比如：`scoop\buckets\extras\bin\checkver.ps1`。我们应在自定义的应用库中创建一个 `bin` 目录，并将该脚本拷贝过去。
+scoop 提供了一个脚本，位于 `scoop\apps\scoop\current\bin\checkver.ps1`，用以更新应用清单。不过，通常我们不会直接使用该脚本，而是使用有批处理能力的 checkver.ps1 脚本，它位于任一 known bucket 的 `bin` 目录下，比如：`scoop\buckets\extras\bin\checkver.ps1`。我们应在自定义的 bucket 中创建一个 `bin` 目录，并将该脚本拷贝过去。
 
 这样，我们在自定义 bucket 根目录就可以执行以下命令：
 
@@ -349,5 +349,5 @@ Typora 的特殊之处在于它只有安装版，没有便携版。因此，我�
 
 [Scoop Wiki - Autoupdate](https://github.com/lukesampson/scoop/wiki/App-Manifest-Autoupdate)
 
-[我的应用库](https://github.com/ericzong/ericzone)
+[我的 bucket](https://github.com/ericzong/ericzone)
 
