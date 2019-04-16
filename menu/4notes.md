@@ -2,7 +2,7 @@
 layout: page
 title: 笔记
 permalink: /note/
-icon: bookmark
+icon: sticky-note
 type: navigator
 ---
 
