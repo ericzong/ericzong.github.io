@@ -45,6 +45,9 @@ highlighter: rouge
 # kramdown: 
   # input: GFM
   # syntax_highlighter: rouge
+collections:
+  references:
+    output: true
 
 # paginate
 paginate: 5

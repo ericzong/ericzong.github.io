@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Maven配置参考
-permalink: /page/maven-settings-reference
+categories: Java
 ---
 
 * content

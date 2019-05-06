@@ -1,7 +1,7 @@
 ---
 layout: page
 title: 科技那些事儿
-permalink: /page/something-about-technology
+categories: 其他
 ---
 
 * content

@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Tomcat项目部署方式汇总
-permalink: /page/tomcat-deployment-reference
+categories: Java
 ---
 
 * content

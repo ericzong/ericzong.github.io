@@ -1,7 +1,7 @@
 ---
 layout: page
 title: HTTP参考
-permalink: /page/http-reference
+categories: 编程综合
 ---
 
 * content

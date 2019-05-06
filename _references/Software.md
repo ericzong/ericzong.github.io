@@ -1,7 +1,7 @@
 ---
 layout: page
 title: 常用软件集锦
-permalink: /page/software
+categories: 其他
 ---
 
 * content

@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "npm与yarn命令比较"
-permalink: /page/npm-vs-yarn
+categories: Node.js
 ---
 
 | npm(v5)                               | Yarn                          |

@@ -1,7 +1,7 @@
 ---
 layout: page
 title: 名人名言·科技篇
-permalink: /page/famous-quotes
+categories: 其他
 ---
 
 * content

@@ -1,7 +1,7 @@
 ---
 layout: page
 title: package.json参考
-permalink: /page/package-json
+categories: Node.js
 ---
 
 * content

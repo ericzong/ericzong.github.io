@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Maven参考
-permalink: /page/maven-reference
+categories: Java
 ---
 
 * content
