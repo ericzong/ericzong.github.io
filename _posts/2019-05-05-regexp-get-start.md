@@ -1,9 +1,9 @@
 ---
 layout: post
-title: "PowerShell 入门"
-categories: PowerShell
-tags: PowerShell 入门
-excerpt: "PowerShell 入门教程。"
+title: "正则表达式入门"
+categories: 正则表达式
+tags: 正则表达式 入门
+excerpt: "正则表达式入门教程。"
 author: "Eric Zong"
 ---
 
