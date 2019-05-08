@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "正则表达式入门"
-categories: 正则表达式
+category: "Regular Expression"
 tags: 正则表达式 入门
 excerpt: "正则表达式入门教程。"
 author: "Eric Zong"
