@@ -128,11 +128,55 @@ function Add([int]$one=1, [int]$another=1)
 
 调用函数时，命名参数的名称是可以截断的，只要无歧义即可。换句话说，调用函数时指定参数名可以不写参数全名，而只写部分前缀，前提是通过这个前缀能唯一确定一个参数。
 
-## 定义在函数体内
+## 另一种参数定义方式
 
+PowerShell 函数的参数可以像前文那样定义，这跟大多数语言类似，但还可以用其他方式定义参数——将参数定义在函数内部——而且这是 PowerShell 推荐的定义方式，因为该定义方式赋予更多的配置能力。语法如下：
 
+```powershell
+function FunctionName
+{
+	[CmdletBinding()]
+	Param(
+		[Parameter(Mandatory=$true, Position=0)]
+		[int]$arg,
+		[Parameter()]
+		[Alias("a2", "p2")]
+		$arg2
+	)
+	
+	# code
+}
+```
+
+`Mandatory=$true` 指定参数为必需的，如调用函数时未传递该参数，会提示输入，手动输入后会继续执行。
+
+> PowerShell 3.0+ 可以省略赋值，直接写为 `Mandatory` 即为必需。
+
+`Position=0` 指定参数位置，索引从 0 开始。
+
+`[Alias()]` 可定义参数别名，多个别名用 `,` 分隔。
+
+> 参数有个 `ParameterSetName` 属性用以设置**参数集**名称。
+>
+> 参数集有点类似于一种函数重载的实现，它根据不同的参数集名称将参数分组，当传入不同的参数时，匹配不同的参数集，以实现不同的函数功能。相关参考[这里](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_functions_advanced_parameters?view=powershell-6#parametersetname-argument)。
+>
+> 但是，可能传入的参数对于多个参数集都适用，这时，需要通过 `CmdletBinding()` 配置 `DefaultParameterSetName` 属性，以指定此时默认应该选择哪个参数集。相关参考[这里](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_functions_cmdletbindingattribute?view=powershell-6#defaultparametersetname)。
+
+还有一系列的验证属性可用于配置，比如：`[ValidateNotNull()]`、`[ValidateNotNullOrEmpty()]` 等等，这里不一一例举。可通过 `help about_functions_advanced_parameters` 查看相关说明。
 
 # 返回值
 
+PowerShell 比较特殊的一点是，会将函数中所有的“输出”作为返回值。
 
+> 这里的“输出”指的是除写控制台操作外，执行后会在控制台回显值的语句。
+>
+> 如果不想某些输出成为返回值，可以用写入控制台的方式避免。
+
+函数的返回值可以不是单值，当有多个输出时，它们将被收集到一个数组中返回。
+
+`return` 语句可以返回值，并且它将阻止后续语句执行。
+
+# 脚本
+
+脚本本质上与函数有很多相似性，除了不能使用第一种参数定义方式外，其他几乎可以照搬。
 
