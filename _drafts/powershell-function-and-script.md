@@ -1,9 +1,9 @@
 ---
 layout: post
-title: "PowerShell专题：函数与脚本"
+title: "PowerShell入门：函数与脚本"
 category: PowerShell
-tags: PowerShell 专题
-excerpt: "PowerShell函数与脚本专题讨论。"
+tags: PowerShell 入门
+excerpt: "PowerShell函数与脚本入门教程。"
 ---
 
 * content
@@ -127,6 +127,8 @@ function Add([int]$one=1, [int]$another=1)
 ## 调用
 
 调用函数时，命名参数的名称是可以截断的，只要无歧义即可。换句话说，调用函数时指定参数名可以不写参数全名，而只写部分前缀，前提是通过这个前缀能唯一确定一个参数。
+
+> **参数截断**应当被视为一种命令行快速编写方式，不应在脚本中使用，这会降低脚本的可读性。
 
 ## 另一种参数定义方式
 

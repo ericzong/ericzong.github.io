@@ -90,9 +90,40 @@ category: 编程语言
 | Temporary files          | 公有临时文件目录               | $env:temp               |
 | Windows directory        | Windows系统安装的目录          | $env:windir             |
 
-# 参数定义属性
+# 变量类型
 
-| 参数名                          | 说明                                       | 备注                                                        |
+| 变量类型         | 说明                                                         | 示例                                                         |
+| ---------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| [array]          | An array                                                     |                                                              |
+| [bool]           | Yes-no value                                                 | [boolean]$flag= $true                                        |
+| [byte]           | Unsigned 8-bit integer, 0...255                              | [byte]$value= 12                                             |
+| [char]           | Individual Unicode character                                 | [char]$a= "t"                                                |
+| [datetime]       | Date and time indications                                    | [datetime]$date= "12.Nov 2004 12:30"                         |
+| [decimal]        | Decimal number                                               | [decimal]$a= 12 $a = 12d                                     |
+| [double]         | Double-precision floating point decimal                      | $amount= 12.45                                               |
+| [guid]           | Globally unambiguous 32-byte identification number           | [guid]$id= [System.Guid]::NewGuid() $id.toString()           |
+| [hashtable]      | Hashtable                                                    |                                                              |
+| [int16]          | 16-bit integer with characters                               | [int16]$value= 1000                                          |
+| [int32],[int]    | 32-bit integers with characters                              | [int32]$value= 5000                                          |
+| [int64],[long]   | 64-bit integers with characters                              | [int64]$value= 4GB                                           |
+| [nullable]       | Widens another data type to include the ability to contain null values. It can be used, among others, to implement optional parameters | [Nullable``1[[System.DateTime]]]$test= Get-Date $test = $null |
+| [psobject]       | PowerShell object                                            |                                                              |
+| [regex]          | Regular expression                                           | $text= "Hello World" [regex]::split($text, "lo")             |
+| [sbyte]          | 8-bit integers with characters                               | [sbyte]$value= -12                                           |
+| [scriptblock]    | PowerShell script block                                      |                                                              |
+| [single],[float] | Single-precision floating point number                       | [single]$amount= 44.67                                       |
+| [string]         | String                                                       | [string]$text= "Hello"                                       |
+| [switch]         | PowerShell switch parameter                                  |                                                              |
+| [timespan]       | Time interval                                                | [timespan]$t= New-TimeSpan $(Get-Date) "1.Sep 07"            |
+| [type]           | Type                                                         |                                                              |
+| [uint16]         | Unsigned 16-bit integer                                      | [uint16]$value= 1000                                         |
+| [uint32]         | Unsigned 32-bit integer                                      | [uint32]$value= 5000                                         |
+| [uint64]         | Unsigned 64-bit integer                                      | [uint64]$value= 4GB                                          |
+| [xml]            | XML document                                                 |                                                              |
+
+# 参数属性
+
+| 参数/属性名                     | 说明                                       | 备注                                                        |
 | ------------------------------- | ------------------------------------------ | ----------------------------------------------------------- |
 | Mandatory                       | 是否必须                                   | 布尔型；缺省为可选；PS v3+ 支持写法：[Parameter(Mandatory)] |
 | Position                        | 参数位置                                   | 数值型；缺省为命名参数                                      |
