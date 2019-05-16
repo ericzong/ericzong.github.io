@@ -267,7 +267,7 @@ SCSS 允许规则嵌套，这有利于避免重复的父选择器，以及复杂
 
 CSS 中有一些属性在同一命名空间中，比如：font-family、font-size……可以简写命名空间：
 
-```SCSS
+```scss
 p.note {
 	font: {
         size: 1em; // font-size
