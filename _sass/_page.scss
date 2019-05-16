@@ -1,3 +1,8 @@
+$font-1level: 1.5rem;
+$font-2level: 1.3rem;
+$font-3level: 1.1rem;
+$font-normal: 1rem;
+		
 .clearfix:after {
     content: "\200B";
     display: block;
@@ -23,6 +28,23 @@
         >h1 {
             margin-bottom: -10px;
         }
+		h1 {
+			font-size: $font-1level;
+		}
+		h2 {
+			font-size: $font-2level;
+			border-bottom: inherit;
+			margin-top: 0;
+			margin-bottom: 0;
+		}
+		h3 {
+			margin-top: 0;
+			margin-bottom: 0;
+			font-size: $font-3level;
+		}
+		h4, h5, h6 {
+			font-size: $font-normal;
+		}
         a:not([title]){
             word-break: break-all;
         }
