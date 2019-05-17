@@ -25,6 +25,28 @@ Typora 是一个 Markdown 编辑器。
 * [官网 - About Themes](https://support.typora.io/About-Themes/)
 * [官网 - Write Custom Theme for Typora](https://theme.typora.io/doc/Write-Custom-Theme/)
 
+# 知识管理
+
+## 思维导图
+
+### Desktop Naotu
+
+Desktop Naotu 是基于百度脑图的一款本地应用，不需要网络连接也可以正常使用。
+
+Desktop Naotu 实现了百度脑图的基本功能，同时支持自动保存。Desktop Naotu 支持 macOS、Windows 及 Linux，你可以在 [GitHub](https://github.com/NaoTu/DesktopNaotu) 下载它。
+
+# 网络
+
+## 下载
+
+### Motrix
+
+一款全能的下载工具，支持下载 HTTP、FTP、BT、磁力链、百度网盘等资源。
+
+甚至可以解析 `thunder://` 开头的迅雷下载链接。配合 Chrome 插件，Motrix 也可以支持百度网盘文件的下载。
+
+Motrix 支持 macOS、Windows 及 Linux 系统，你可以在 [GitHub](https://github.com/agalwood/Motrix) 或 [官网](https://motrix.app/) 下载 Motrix。
+
 # 编程
 
 ## 转换
