@@ -1,9 +1,9 @@
 ---
 layout: post
-title: "PowerShell入门"
+title: "PowerShell入门：语言篇"
 categories: PowerShell
 tags: PowerShell 入门
-excerpt: "PowerShell入门教程。"
+excerpt: "PowerShell脚本语言入门教程。"
 author: "Eric Zong"
 ---
 
@@ -54,7 +54,7 @@ PowerShell 变量使用 `$` 作为前缀，即 `$variable` 的格式。
 
 字符串连接符应该是最常用的运算符了，与大多数语言相同，PowerShell 也使用 `+`。
 
-与大多数语言不同的是，PowerShell 转义符使用 <code>\`</code>（重音符/沉音符），而非 `\`（反斜杠） 。要注意的是，<code>\`</code> 同时也是续行符，当用作续行符时，其后不能有其他字符，包括空白字符，否则视作转义符。
+与大多数语言不同的是，PowerShell 转义符使用 `` ` ``（重音符/沉音符），而非 `\`（反斜杠） 。要注意的是，`` ` `` 同时也是续行符，当用作续行符时，其后不能有其他字符，包括空白字符，否则视作转义符。
 
 > 续行符，脚本语言中较常见的一个概念，通常在以行为自然分割的语言中，将一行长代码分割为多行。
 
@@ -299,9 +299,7 @@ function xxx
         [Parameter()]
         [int]$one,
         [Parameter(position=0)]
-
         [string]$another='test'
-
     )
 
     $one
