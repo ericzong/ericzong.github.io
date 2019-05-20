@@ -62,6 +62,19 @@ category: 编程语言
 | `Get-Command`  | gcm   |
 | `Get-Alias`    | gal   |
 
+# 配置文件位置
+
+| profile 位置                    | 范围             | 文件                             |
+| ------------------------------- | ---------------- | -------------------------------- |
+| $profile.CurrentUserCurrentHost | 当前用户当前主机 | Microsoft.PowerShell_profile.ps1 |
+| $profile.CurrentUserAllHosts    | 当前用户所有主机 | profile.ps1                      |
+| $profile.AllUsersCurrentHost    | 所有用户当前主机 | Microsoft.PowerShell_profile.ps1 |
+| $profile.AllUsersAllHosts       | 所有用户所有主机 | profile.ps1                      |
+
+> 当前用户配置文件位于：`~\Documents\WindowsPowerShell\`
+>
+> 所有用户配置文件位于：`C:\Windows\System32\WindowsPowerShell\v1.0\`
+
 # 转义字符
 
 | 转义字符 | 描述       |
@@ -143,3 +156,23 @@ category: 编程语言
 | ValidateScript                  | 脚本验证                                   | [ValidateScript({...})]                                     |
 | ValidateNotNull                 | 不允许为 Null                              |                                                             |
 | ValidateNotNullOrEmpty          | 不允许为 Null 或空（包括空字符串、数组等） |                                                             |
+
+# `[system.IO.Path]` 方法
+
+| 方法                          | 描述                                               | 示例                                            |
+| ----------------------------- | -------------------------------------------------- | ----------------------------------------------- |
+| ChangeExtension()             | 更改文件的扩展名                                   | ChangeExtension("test.txt", "ps1")              |
+| Combine()                     | 拼接路径字符串; 对应Join-Path                      | Combine("C:\test", "test.txt")                  |
+| GetDirectoryName()            | 返回目录对象：对应Split-Path -parent               | GetDirectoryName("c:\test\file.txt")            |
+| GetExtension()                | 返回文件扩展名                                     | GetExtension("c:\test\file.txt")                |
+| GetFileName()                 | 返回文件名：对应Split-Path -leaf                   | GetFileName("c:\test\file.txt")                 |
+| GetFileNameWithoutExtension() | 返回不带扩展名的文件名                             | GetFileNameWithoutExtension("c:\test\file.txt") |
+| GetFullPath()                 | 返回绝对路径                                       | GetFullPath(".\test.txt")                       |
+| GetInvalidFileNameChars()     | 返回所有不允许出现在文件名中字符                   | GetInvalidFileNameChars()                       |
+| GetInvalidPathChars()         | 返回所有不允许出现在路径中的字符                   | GetInvalidPathChars()                           |
+| GetPathRoot()                 | 返回根目录：对应Split-Path -qualifier              | GetPathRoot("c:\test\file.txt")                 |
+| GetRandomFileName()           | 返回一个随机的文件名                               | GetRandomFileName()                             |
+| GetTempFileName()             | 在临时目录中返回一个临时文件名                     | GetTempFileName()                               |
+| GetTempPath()                 | 返回临时文件目录                                   | GetTempPath()                                   |
+| HasExtension()                | 如果路径中包含了扩展名，则返回True                 | HasExtension("c:\test\file.txt")                |
+| IsPathRooted()                | 如果是绝对路径，返回为True; Split-Path -isAbsolute | IsPathRooted("c:\test\file.txt")                |
