@@ -69,9 +69,9 @@ PS > paramFunction hello -arg2 world
 PS > paramFunction -arg2 world hello
 ```
 
-## `$args` 访问所有参数
+## 访问所有参数
 
-PowerShell 允许不定义参数，但在调用时传递参数。此时，如果要在函数体中使用传递的参数就需要用到内置的参数变量 `$args`，它是一个数组，依序存储了传入的所有参数。
+PowerShell 允许不定义参数，但在调用时传递参数。此时，如果要在函数体中使用传递的参数就需要用到自动变量 `$args`，它是一个数组，依序存储了传入的所有参数。
 
 ```powershell
 function sum
@@ -81,12 +81,30 @@ function sum
     $sum
 }
 
-PS > sum 2 5 8
+PS > sum 2 5 8 
+# 15
 ```
 
 上面的函数并没有定义任何参数，但在调用时传入了参数，并在函数体中通过 `$args` 访问它们。
 
-> 如果熟悉 JavaScript 的话，会发现这点上很类似。
+如果函数的所有参数都是具名的，那么，可以使用自动变量 `$PSBoundParameters` 访问，它是一个字典，以参数名为键，参数值为值。
+
+```powershell
+function print($a, $b)
+{
+    $PSBoundParameters
+}
+
+PS > print xxx yyy
+# Key Value
+# --- -----
+# a   xxx  
+# b   yyy  
+```
+
+读者应该已经注意到，上面分别展示了所有参数均不具名和均具名的情况下，使用 `$args` 或 `$PSBoundParameters`。事实上，`$args` 只包含函数未声明的参数，而 `$PSBoundParameters` 包含函数声明的参数。两个变量合在一起才能访问所有参数。
+
+> 特别注意，`$args`  和 `$PSBoundParameters` 是互补关系，不存在交集。
 
 ## 参数类型
 
