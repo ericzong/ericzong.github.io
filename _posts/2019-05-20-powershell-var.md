@@ -45,7 +45,7 @@ Remove-Item -Path Variable:\number
 # 位置转换到变量驱动器
 Set-Location Variable:
 # 查看所有变量
-Get-Variable
+Get-Variable [-Scope <Global | Local* | Script | number>]
 Get-ChildItem Variable:
 ```
 
@@ -79,7 +79,27 @@ PowerShell 中自动变量非常多，这里挑几个常用的说说。
 
 # 作用域
 
-默认 PowerShell 解释器会自动处理和限制变量作用域。
+PowerShell 作用域可以是具名的（绝对作用域）也可以数字化的（相对作用域） ：
+
+* 全局域（Global）
+* 本地域（Local），可能是 global 作用域或其他任何作用域
+* 脚本域（Script）
+* 私有域（Private）
+* 数字域（Number），Scope 0 代表当前作用域，向父级回溯一层数字加 1。
+
+默认 PowerShell 解释器会自动处理和限制变量作用域。但也可以指定作用域修饰符，语法如下：
+
+```powershell
+$[<scope-modifier>:]<name> = <value>
+```
+
+> 作用域修饰符同样适用于函数：
+>
+> ```powershell
+> function [<scope-modifier>:]<name> {<function-body>}
+> ```
+>
+> 脚本默认作用域是脚本域，函数和别名的默认作用域是本地域。
 
 # 参考
 
