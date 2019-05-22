@@ -204,6 +204,8 @@ PowerShell 调用函数跟执行命令格式类似：
 
 ```powershell
 PS > function-name -arg1 value1 others
+# 命名参数也可以用“:”分隔
+PS > function-name -arg1:value1
 ```
 
 ## 传递数组
