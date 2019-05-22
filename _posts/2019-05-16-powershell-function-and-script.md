@@ -214,6 +214,21 @@ PS > function-name -arg1 value1 others
 PS > function-name -arrayArg e1,e2,e3
 ```
 
+## Splatting
+
+Splatting 是一种参数传递方式，它可将一系列参数传入命令，而不需要一一将其列在命令之后。以官方示例来说明：
+
+```powershell
+function Get-MyCommand { Get-Command @Args }
+PS > Get-MyCommand -Name Get-ChildItem
+```
+
+`@Args` 代表的是 `$Args`，即 `Get-MyCommand` 函数将调用它的所有未声明参数都传给了 `Get-Command` 函数进行了调用。
+
+同理，也可以使用 `@PSBoundParameters` 代表 `$PSBoundParameters`。
+
+更一般地，可以使用 `@<HashTable>` 和 `@<Array>` 分别传递哈希表和数组表示的一系列参数。
+
 ## 参数截断
 
 调用函数时，命名参数的名称是可以截断的，只要无歧义即可。换句话说，调用函数时指定参数名可以不写参数全名，而只写部分前缀，前提是通过这个前缀能唯一确定一个参数。
