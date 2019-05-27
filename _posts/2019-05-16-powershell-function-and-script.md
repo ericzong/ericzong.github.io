@@ -311,7 +311,7 @@ Param(
 
 最显明的，简单函数不具有 `CmdletBinding` 属性的配置能力，不能使用高级参数。
 
-高级函数将拥有与 cmdlet 类似的能力，其中之一就是支持通用参数（Common Parameter），而简单函数不支持。
+高级函数将拥有与 cmdlet 类似的能力，其中之一就是支持常见参数（Common Parameter），而简单函数不支持。
 
 ## 必需参数
 
@@ -363,3 +363,4 @@ function [<scope:>]<name> [([type]$parameter1[,[type]$parameter2])]
 [MS PS Doc - About Functions CmdletBindingAttribute](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_functions_cmdletbindingattribute?view=powershell-6)
 
 [Cmdlet Parameter Sets](https://docs.microsoft.com/en-us/powershell/developer/cmdlet/cmdlet-parameter-sets)
+
