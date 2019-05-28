@@ -1,7 +1,8 @@
 ---
 layout: page
 title: PowerShell参考
-category: 编程语言
+category: PowerShell
+date: 2019-05-16
 ---
 
 * content
