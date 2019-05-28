@@ -31,22 +31,36 @@ categories: 其他
 测试只能证明程序有错误，而不能证明程序没有错误。
 <p style="text-align: right">-- Edsger W. Dijkstra, 得克萨斯大学</p>
 
+## 调优
+
+不要试图和 JavaScript 引擎比谁聪明。对性能优化来说，你很可能会输。
+
+<p style="text-align: right">——Nick Berardi 《You Don't Know JavaScript（中卷）》第二部分 6.5</p>
+
 ## 其它
 
 JavaScript 的优点是可以写任何东西，缺点是你真的会用它去写这些东西。
 <p style="text-align: right">-- Reg Braithwaite</p>
+
+如果某些事情对你来说像魔法一样，那意味着你看到了新生事物的曙光。
+
+<p style="text-align: right">——Nick Berardi 《You Don't Know JavaScript（上卷）》第二部分序</p>
 
 # 大神语录
 
 中年人是艰难的。青年时代的理想主义已经消退，健康和活力也不可避免地有一点降低，但是承担的责任却在增长，再加上一些对死亡的恐惧和一些对活着的恐惧，你就有了叫做中年危机的东西。
 <p style="text-align: right">-- Bryan Cantrill（dtrace 的作者）</p>
 
+公司发展到一定阶段，能力强的员工容易离职，因为他们对公司内愚蠢的行为的容忍度不高，他们也容易找到好工作，能力差的员工倾向于留着不走，他们也不太好找工作，年头久了，他们就变中高层了。这种现象叫"死海效应"；好员工像死海的水一样蒸发掉，然后死海盐度就变得很高，正常生物不容易存活。
+
+<p style="text-align: right">——周鸿祎</p>
+
 # 文摘
 
 我们为了降低能源消耗，发明了节省能源的 LED 照明。结果，更高效的照明导致了更多的照明，从而使得社会整体能源消耗增加。
 很多事情都是这样，为了省电，我们提高了能源效率，结果人们因此买更多的电器，消耗更多的电。
 
-<p style="text-align: right">-- 《能源效率的诅咒》</p>
+<p style="text-align: right">——《能源效率的诅咒》</p>
 
 # 定律
 
