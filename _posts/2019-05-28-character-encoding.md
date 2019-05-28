@@ -1,3 +1,12 @@
+---
+layout: post
+title: 字符编码概论
+category: Others
+tags: 综合理论 字符编码
+excerpt: "介绍字符编码和解码以及乱码的形成。"
+author: "Eric Zong"
+---
+
 # 概述
 
 ## 编码和解码
