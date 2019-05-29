@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "SCSS 入门"
-categories: CSS
+category: 前端
 tags: SCSS 入门
 excerpt: "SCSS 入门教程。"
 author: "Eric Zong"

@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Scoop 入门"
-categories: Tool
+categories: 工具
 tags: Scoop 应用管理
 excerpt: "介绍Scoop的基本使用。"
 author: "Eric Zong"

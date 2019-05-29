@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Scoop bucket"
-categories: Tool
+categories: 工具
 tags: Scoop 应用管理
 excerpt: "介绍Scoop Bucket及其创建。"
 author: "Eric Zong"

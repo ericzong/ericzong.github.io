@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Git应用：统一修正提交历史中的用户名和邮箱"
-categories: Git
+categories: 工具
 tags: Git Git应用
 excerpt: "介绍利用shell脚本批量重写Git提交历史中的用户名和邮箱的方法。"
 author: "Eric Zong"
