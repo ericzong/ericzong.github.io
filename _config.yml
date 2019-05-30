@@ -48,6 +48,8 @@ highlighter: rouge
 collections:
   references:
     output: true
+  notes:
+    output: true
 
 # paginate
 paginate: 5

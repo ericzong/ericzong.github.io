@@ -1,10 +1,53 @@
 ---
-layout: page
+layout: default
 title: 笔记
 permalink: /note/
 icon: sticky-note
 type: navigator
 ---
 
-* content
-{:toc}
+
+
+<div class="page clearfix">
+    <div class="left">
+        <h1>{{page.title}}</h1>
+        <hr>
+        <ul>
+			{% assign categories = site.notes | group_by_exp: "item", "item.categories | first" %}
+            {% for category in categories %}
+			<h2 id="{{category.name}}">
+				{{category.name}}
+			</h2>
+				{% for ref in category.items %}
+				<li>
+					<a class="title" href="{{ ref.url | prepend: site.baseurl }}">{{ ref.title }}</a>
+				</li>
+				{% endfor %}
+			{% endfor %}
+        </ul>
+    </div>
+    <button class="anchor"><i class="fa fa-anchor"></i></button>
+    <div class="right">
+        <div class="wrap">
+
+            <!-- Content -->
+            <div class="side content">
+                <div>
+                    列表
+                </div>
+                <ul id="content-side" class="content-ul">
+                    {% for category in categories %}
+						<li>
+							<a data-scroll href="#{{category.name}}">
+								{{ category.name }} ({{ category.size }})
+							</a>
+						</li>
+					{% endfor %}
+                </ul>
+            </div>
+            <!-- 其他div框放到这里 -->
+            <!-- <div class="side">bbbb</div> -->
+        </div>
+    </div>
+</div>
+<script src="{{ "/js/pageContent.js " | prepend: site.baseurl }}" charset="utf-8"></script>
