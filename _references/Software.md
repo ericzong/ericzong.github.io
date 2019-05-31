@@ -2,6 +2,7 @@
 layout: page
 title: 常用软件集锦
 categories: 其他
+author: "Eric Zong"
 ---
 
 * content
@@ -35,6 +36,18 @@ Desktop Naotu 是基于百度脑图的一款本地应用，不需要网络连接
 
 Desktop Naotu 实现了百度脑图的基本功能，同时支持自动保存。Desktop Naotu 支持 macOS、Windows 及 Linux，你可以在 [GitHub](https://github.com/NaoTu/DesktopNaotu) 下载它。
 
+## 资料管理
+
+### POLAR
+
+POLAR 是一个跨平台的文档管理器，可以管理网页内容、书籍、笔记等等，并支持打标签、注释、高亮和保存阅读进度等功能。它是开源的，从 [GitHub](https://github.com/burtonator/polar-bookshelf) 可以得到其源代码。
+
+POLAR 基于 Electron 等技术，本质上是一个 Web 应用，因此，可以安装桌面版或是在浏览器中打开其 [网页](https://app.getpolarized.io/)。
+
+POLAR 自带云服务，可同步上传文档。但要注意，云服务不是完全免费的。免费用户会有同步设备数量、存储空间、网页文档数量等限制。
+
+与云服务相关的“中国特色”问题是，其登录、同步等服务都有“墙”。当然，桌面版可以本地工作，不使用云服务。
+
 # 网络
 
 ## 下载
@@ -48,6 +61,34 @@ Desktop Naotu 实现了百度脑图的基本功能，同时支持自动保存。
 Motrix 支持 macOS、Windows 及 Linux 系统，你可以在 [GitHub](https://github.com/agalwood/Motrix) 或 [官网](https://motrix.app/) 下载 Motrix。
 
 # 编程
+
+## 数据库
+
+### DB Browser for SQLite
+
+DB Browser for SQLite（[DB4S](http://sqlitebrowser.org/)）是一个高质量可视化的开源工具，用于创建、设计和编辑与 SQLite 兼容的数据库文件。
+
+它是跨平台桌面数据库，支持的数据库文件后缀有：.db、.db3、.sqlite、.sqlite3。
+
+Windows 版甚至包含 PortableApp 安装文件。
+
+### KEXI
+
+[KEXI](http://www.kexi-project.org/) 是一个开源的可视化数据库应用程序，同 MS Access 和 Filemaker 一样，属于桌面数据库。
+
+号称是 Linux 版的 Access。
+
+跨平台，但目前尚不完全，Windows 和 Mac OS X 版本仍在开发中。
+
+是 [Calligra Suite](https://www.calligra.org/) 的一部分。
+
+> Calligra Suite 是跟 MS Office 类似的办公套件，不同的是前者是开源软件。
+
+### nuBuilder Forte
+
+[nuBuilder Forte](https://www.nubuilder.com/) 是一个基于 Web 的开源数据库。
+
+它是 PHP 开发的，因此……
 
 ## 转换
 
