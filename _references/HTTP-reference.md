@@ -77,11 +77,11 @@ categories: 编程综合
 
 # 客户端请求消息
 
-![Client Request Message]({{site.url}}/image/http_reference_client_request_message.png)
+![Client Request Message]({{site.url}}/image/reference_http_client_request_message.png)
 
 # 服务器响应消息
 
-![Server Response Message]({{site.url}}/image/http_reference_server_response_message.jpg)
+![Server Response Message]({{site.url}}/image/reference_http_server_response_message.jpg)
 
 # HTTP 请求方法
 
