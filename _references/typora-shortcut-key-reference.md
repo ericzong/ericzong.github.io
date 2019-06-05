@@ -2,6 +2,8 @@
 layout: page
 title: Typora快捷键参考
 category: 编辑器
+date: 2019-05-06
+author: "Eric Zong"
 ---
 
 * content

@@ -3,6 +3,7 @@ layout: page
 title: "[译]关于脚本块"
 category: PowerShell
 date: 2019-05-28
+author: "Eric Zong"
 ---
 
 * content

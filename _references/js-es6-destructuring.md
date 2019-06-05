@@ -2,6 +2,8 @@
 layout: page
 title: ES6解构示例
 category: JS
+date: 2019-05-29
+author: "Eric Zong"
 ---
 
 * content

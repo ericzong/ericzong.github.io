@@ -1,7 +1,9 @@
 ---
 layout: page
 title: 名人名言·科技篇
-categories: 其他
+category: 其他
+date: 2019-01-22
+author: "Eric Zong"
 ---
 
 * content

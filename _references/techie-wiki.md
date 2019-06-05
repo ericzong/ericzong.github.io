@@ -2,6 +2,7 @@
 layout: page
 title: 你应该知道的：科技大百科
 category: 其他
+date: 2019-05-31
 author: "Eric Zong"
 ---
 

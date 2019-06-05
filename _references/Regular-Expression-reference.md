@@ -1,7 +1,9 @@
 ---
 layout: page
 title: 正则表达式参考
-categories: 编程综合
+category: 编程综合
+date: 2019-05-06
+author: "Eric Zong"
 ---
 
 * content

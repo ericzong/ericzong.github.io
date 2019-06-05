@@ -1,7 +1,9 @@
 ---
 layout: page
 title: HTTP参考
-categories: 编程综合
+category: 编程综合
+date: 2019-04-10
+author: "Eric Zong"
 ---
 
 * content

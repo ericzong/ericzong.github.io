@@ -1,7 +1,9 @@
 ---
 layout: page
 title: 科技那些事儿
-categories: 其他
+category: 其他
+date: 2019-01-07
+author: "Eric Zong"
 ---
 
 * content

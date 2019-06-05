@@ -3,6 +3,7 @@ layout: page
 title: PowerShell参考
 category: PowerShell
 date: 2019-05-16
+author: "Eric Zong"
 ---
 
 * content

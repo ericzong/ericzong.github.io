@@ -1,7 +1,9 @@
 ---
 layout: page
 title: package.json参考
-categories: Node.js
+category: Node.js
+date: 2019-04-11
+author: "Eric Zong"
 ---
 
 * content

@@ -1,7 +1,9 @@
 ---
 layout: page
 title: Tomcat项目部署方式汇总
-categories: Java
+category: Java
+date: 2019-01-02
+author: "Eric Zong"
 ---
 
 * content

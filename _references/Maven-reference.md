@@ -1,7 +1,9 @@
 ---
 layout: page
 title: Maven参考
-categories: Java
+category: Java
+date: 2019-01-02
+author: "Eric Zong"
 ---
 
 * content

@@ -1,7 +1,9 @@
 ---
 layout: page
 title: "npm与yarn命令比较"
-categories: Node.js
+category: Node.js
+date: 2019-03-01
+author: "Eric Zong"
 ---
 
 | npm(v5)                               | Yarn                          |

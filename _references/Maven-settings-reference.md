@@ -1,7 +1,9 @@
 ---
 layout: page
 title: Maven配置参考
-categories: Java
+category: Java
+date: 2019-01-02
+author: "Eric Zong"
 ---
 
 * content

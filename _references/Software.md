@@ -1,7 +1,8 @@
 ---
 layout: page
 title: 常用软件集锦
-categories: 其他
+category: 其他
+date: 2019-01-23
 author: "Eric Zong"
 ---
 

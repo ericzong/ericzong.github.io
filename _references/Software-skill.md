@@ -2,6 +2,7 @@
 layout: page
 title: 软件使用技巧
 category: 其他
+date: 2019-06-04
 author: "Eric Zong"
 ---
 

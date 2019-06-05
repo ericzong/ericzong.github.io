@@ -2,6 +2,8 @@
 layout: page
 title: Eclipse vs. IDEA
 category: 工具
+date: 2019-05-28
+author: "Eric Zong"
 ---
 
 * content
