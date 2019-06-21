@@ -120,6 +120,20 @@ Windows 版甚至包含 PortableApp 安装文件。
 
 官网还提供相应的在线转换工具：<http://www.f2ko.de/en/op2e.php>
 
+# 系统工具
+
+## 配置查看
+
+### [Windows Hotkey Explorer](http://hkcmdr.anymania.com)
+
+它是一个系统热键查看工具。
+
+当你常用的某个系统热键突然失效，或者想要设置的热键有冲突时，通常你并不知道具体是哪个软件占用了该热键。这时，Windows Hotkey Explorer 可以简单地列出所有系统热键以及注册它们的进程。
+
+> 该官网还有另一个名为 Hotkey Commander 的工具，它是 Windows Hotkey Explorer 的增强版，不仅可以查看热键，还可以管理和覆写热键。
+>
+> 不过它是收费软件，需要注册，不过目前看来已经不能注册了。
+
 # 浏览器插件
 
 ## 内容过滤
@@ -164,3 +178,10 @@ UI 设计简约美观，释义来自牛津词典，支持发音和词根词缀�
 
 <mark>仅谷歌</mark>
 
+## 娱乐
+
+### 豆瓣电影传送门
+
+为豆瓣电影右侧添加资源链接。
+
+可以在 [chrome 网上应用商店](https://chrome.google.com/webstore/detail/%E8%B1%86%E7%93%A3%E7%94%B5%E5%BD%B1%E4%BC%A0%E9%80%81%E9%97%A8/pkidecliagangmpphpelecaoogfbnihi) 安装，或者在 [GitHub](https://github.com/Neulana/douban-movie-extension) 找到它。
