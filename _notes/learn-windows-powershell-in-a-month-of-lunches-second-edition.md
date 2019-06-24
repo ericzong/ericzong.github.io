@@ -1,6 +1,6 @@
 ---
 layout: page
-title: "《Windows PowerShell实战指南（第2版）》"
+title: Windows PowerShell实战指南（第2版）
 category: 脚本语言
 author: "Eric Zong"
 ---
