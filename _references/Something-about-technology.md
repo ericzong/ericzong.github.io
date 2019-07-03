@@ -8,6 +8,91 @@ author: "Eric Zong"
 
 * content
 {:toc}
+
+# 那些名称的来源
+
+## 公司名称
+
+* EMC2
+
+Intel前高管Richard Egan与大学室友Roger Marino在1979年创建了公司。公司名称EMC代表创始人的首写字母，第三和第四创始人分别为Connelly和Curly，因此有EMC2。
+
+* VMware
+
+由VM（Virtual Machine，虚拟机）+ ware (Software)而来。值得一提的是VMware最著名的产品，ESX的名称由来。ESX的全称是Elastic Sky X，是当初VMware虚拟化产品开发代号的缩写，另一个已经淘汰的产品GSX全称则是Ground Storm X。
+
+* IBM
+
+即International Business Machines Corporation，国际商业机器股份有限公司。IBM有“蓝色巨人”（Big Blue）的昵称。
+
+* SAP
+
+代表“Systems, Applications, Products in Data Processing”。四个IBM的前雇员组建了SAP。他们为IBM工作时属于的部门叫“Systems/Applications/Projects”。
+
+* Oracle
+
+公司创始人Larry Ellison、Ed Oates和Bob Miner曾经为CIA的一个项目服务，这个项目就称为Oracle（意为神谕或预言）。
+
+* Microsoft
+
+最早公司的名称叫做Micro-Soft，由Microcomputer（微型计算机）和Software（软件）合并而成。后来把中间的“-”去掉了。
+
+* DELL
+
+1984年创立时公司名称是PC's Limited，几年后公司创始人Michael Dell将其的姓用于公司的名称上。
+
+* HP
+
+Bill Hewlett和Dave Packard是公司的创始人，于是他们用丢硬币的方式来决定他们的公司叫Hewlett-Packard还是Packard-Hewlett。
+
+* Cisco
+
+公司的名字来自所在城市San Francisco（旧金山）。公司的徽标也对应旧金山标志性的金门大桥Golden Gate Bridge（金门大桥）。
+
+* Google
+
+最初Larry Page和 Sergey Brin将他们的搜索引擎称作BackRub，属意系统会通过反向链接来估计站点的权重。直到后来改为Google——这个新名字来源于一个数学大数googol（数字1后有100个0，即自然数10^100）。但在查询域名是否被注册时，参与讨论的工程师错误地将单词拼写为google.com。那时当然不会有人注册了google.com，大家也觉得这域名不错，于是当天就完成了注册。
+
+* Apple
+
+根据Steve Jobs叙述，之所以叫Apple是因为Steve Jobs、Steve Wozniak和Ronald Wayne决定成立公司时，Jobs正好从一个苹果庄园旅行归来，并且正在通过水果饮食法节食。他希望新公司的名称是“有趣、有灵性、不咄咄逼人”的。而之所以被咬掉一口只是为了“让它看起来不像樱桃”。
+
+* Adobe
+
+源于Adobe创始人John Warnock和Charles Geschke家屋后的一条小河：Adobe Creek（位于Los Altos, California）。
+
+* Symantec
+
+Symantec由Syntax Semantics Technology三个单词组合而来。其在存储管理与备份领域最有名的产品，Veritas 的出处就更有来头了。它的名字来自1989年加入公司并成为CEO的Mark Leslie的母校，Harvard University的校训Veritas（拉丁语，意为真理）。
+
+* Amazon
+
+原来这家公司叫做Cadabra，后来其创立者Jeff Bezos改用世界上最著名的河流——亚马逊——来命名这家公司。
+
+* Yahoo
+
+《格列佛游记》的作者Jonathan Swift发明了yahoo这个单词。在小说里，它代表了一个在外表和行为举止上都令人厌恶的家伙，简直都不能算是一个人。Yahoo!的创始人杨致远和David Filo选择这个名字的原因是他们觉得自己是yahoo。
+
+另一种说法，Yahoo是“Yet Another Hierarchical Officious Oracle”的首字母缩写，不过David Filo和杨致远坚持他们选择这个名称的原因是他们喜欢字典里对yahoo的定义：“粗鲁，不通世故，粗俗。”
+
+* Sum
+
+公司创始人Vinod Khosla，Andy Bechtolsheim和Scott McNealy都来自斯坦福大学（Stanford University），SUN是Stanford University Network的缩写。
+
+* Red Hat
+
+创始人Marc Ewing还在卡耐基梅隆大学大学（Carnegie Mellon University）念书时，他祖父给了他一顶红色的康奈尔大学曲棍球队（Cornell University）的帽子。于是在大学的时候，他所有的软件项目就叫Red Hat、Red Hat 1、Red Hat 2……
+
+* Salesforce
+
+Salesforce.com于1999年由Oracle的前执行总裁Marc Benioff，Parker Harris，Dave Moellenhoff和Frank Dominguez创办。公司提出云计算的SaaS（软件即服务）的理念，是现今在线CRM（客户关系管理）的领导者。正因为主要市场是CRM，所以叫Sales（销售）- force（力量）。
+
+## 其他名称
+
+* spool
+
+printer spool，打印假脱机，源自IBM。Simultaneous Peripheral Operation On-Line，联机同步外围操作。
+
 # 那些科技定律
 
 ## 摩尔定律
@@ -134,3 +219,18 @@ vi 编辑器中，H、J、K、L 分别代表左、下、上、右；Linux 等系
 * 1721 年的瑞典的 2 月有 30 天。
 * 1751 年英格兰的第一天是 3 月 25 日，和法国相比差了 11 天。
 * 美国采用公历纪年后，它往前追溯了上百年，这样原先记录的那些日期都可以用两种日历来进行表示（通常为了更精确会同时提供两个日期）。比如乔治华盛顿的生日从 1731 年 2 月 11 变成了 1732 年 2 月 22。
+
+## 大写字母开头命名
+
+在各种操作系统中，有很多系统文件和文件夹，它们多以大写字母开头来命名，这是为什么呢？
+
+这是从 Unix 系统沿袭的惯例，而 Unix 系统为什么要这样呢？那是因为其 ls 命令先列出大写字母开头的路径。
+
+## 为什么ECMAScript不由W3C管理？
+
+1996 年，JavaScript 是来自 Netscape 的一个广泛流行的浏览器创新，正在 web 浏览器领域迎头赶上的 Microsoft® 对其进行了反向工程并将其呈现为 Windows® Internet Explorer® 浏览器中的一个特性。
+
+Yahoo! 的 JavaScript 架构师 Douglas Crockford 解释：
+“Netscape 觉得（JScript）面临危险：噢，不，我们（的技术）就要被吞并和扩展了，因此我们需要根据这种技术制定出一种标准。因此，他们找到 W3C，对他们说，好吧，我们发明了一种语言，请你们标准化。W3C 一直在等待一个机会以便对 Netscape 说 ‘下地狱去吧’，于是他们对 Netscape 说，‘下地狱去吧！’ ”
+“Netscape 前往 ISO 和其他地方，想找到一个可以购买标准的地方，最终他们找到了 European Computer Manufacturers Association，这对于一个加利福尼亚软件公司来说是一个漫长旅程，但那就是他们的终点。”
+
