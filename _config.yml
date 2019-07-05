@@ -34,7 +34,7 @@ collections:
 # port: 
 # host: 
 # timezone: Asia/Chongqing
-permalink: /posts/:title/
+permalink: /posts/:title.html
 
 # ----- other links -----
 email: ericzonglu@126.com
