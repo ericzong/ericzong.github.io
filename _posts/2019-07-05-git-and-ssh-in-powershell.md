@@ -221,6 +221,23 @@ git remote set-url origin git@github.com:USERNAME/REPOSITORY.git
 ssh -T git@github.com
 ```
 
+# 注意事项
+
+## 启动正确的ssh-agent
+
+有可能按照以上配置，PowerShell 中仍然报 SSH 连接拒绝。可能的原因是：启动的 ssh-agent 来自于 OpenSSH 而非 Git 自带的。
+
+你可以执行 `which ssh-agent` 或 `where ssh-agent` 来查看 ssh-agent 应用文件路径。
+
+如果系统安排了 OpenSSH，且其位于 `System32` 目录下，那么由于 `porfile.ps1` 中我们是向 `path` 追加的 Git `bin` 目录，因此 OpenSSH 路径下的 ssh-agent 先被搜索到，导致错误启动了 OpenSSH 的 ssh-agent。
+
+解决方案很简单，将 Git `bin` 目录加在 `path` 之前即可：
+
+```powershell
+# ~/Documents/WindowsPowerShell/profile.ps1
+$env:path += ";$env:SCOOP\apps\git\current\bin;$env:SCOOP\apps\git\current\usr\bin"
+```
+
 # 参考
 
 [《Pro Git》Git 工具 - 凭证存储](https://git-scm.com/book/zh/v2/Git-%E5%B7%A5%E5%85%B7-%E5%87%AD%E8%AF%81%E5%AD%98%E5%82%A8)
