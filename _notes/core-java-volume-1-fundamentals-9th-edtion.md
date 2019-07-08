@@ -5,7 +5,8 @@ category: Java
 author: Eric Zong
 ---
 
-
+* content
+{:toc}
 
 # 第3章 Java 的基本程序设计结构
 
@@ -337,7 +338,7 @@ Comparable.compareTo() 应该是反对称的，即x.compareTo(y)和y.compareTo(x
 由于构造器的名字必须与类名相同，而匿名类没有类名，所以，匿名类不能有构造器。取而代之的是，将构造器参数传递给超类（superclass）构造器。尤其是在内部类实现接口的时候，有不能有任何构造参数。
 
 > 技巧：“双括号初始化”（double brace initialization），用于创建匿名列表并添加元素。
-> `invite(new ArrayList<String>() {{ add(“Eric”); add(“Zong”) }});`
+> `invite(new ArrayList<String>() { { add(“Eric”); add(“Zong”) } });`
 > 说明：外层括号建立了ArrayList的一个匿名子类，内层括号则是一个对象构造块。
 
 ### 6.4.7 静态内部类
