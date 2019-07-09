@@ -63,6 +63,14 @@ Motrix 支持 macOS、Windows 及 Linux 系统，你可以在 [GitHub](https://g
 
 # 编程
 
+## 管理
+
+### Tig
+
+[Tig](https://jonas.github.io/tig/) 是一个 Git 增强工具，它可以在命令行模式下更方便地浏览版本库，甚至还可以浏览暂存内容。
+
+Git 目前已经内置了 Tig，因此，不必再额外安装。
+
 ## 数据库
 
 ### DB Browser for SQLite
