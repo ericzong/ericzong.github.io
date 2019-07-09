@@ -69,3 +69,23 @@ end
 ```
 
 Ruby 中，每种对象都有自己特有的相等概念。数字对象的值相等时，它们相等。
+
+```ruby
+puts 'This appears to be true.' if true
+```
+
+除了 `nil` 和 `false` 外，其他值都代表 `true`。0 也是 `true`。
+
+```ruby
+true and false
+true or false
+false && false
+true || this_will_not_cause_an_error
+true | this_will_cause_an_error
+```
+
+### 2.2.5 鸭子类型
+
+Ruby 是强类型语言，这意味着发生类型冲突时，你将得到一个错误。Ruby 在运行时而非编译时进行类型检查的。
+
+利用鸭子类型，实现对接口编码更简单。
