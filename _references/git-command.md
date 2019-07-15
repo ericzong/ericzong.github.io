@@ -61,12 +61,11 @@ git branch <--merged | --no-merged>
 
 # 撤销
 
+## 暂存
+
 ```shell
-# 撤销暂存
-git checkout --
-git checkout <FILES>
-# 撤销暂存，不指定文件则清空暂存区
-git reset HEAD <FILES>
+# 支持 glob，需用单引号引起来
+git checkout -- <files>
 # 撤销暂存，支持 glob 模式
 # 注意：* 需要 \ 转义
 git rm \*~
@@ -75,4 +74,6 @@ git reset --hard <COMMIT-ID>
 # 回退到上个版本
 git reset --hard HEAD^
 ```
+
+
 
