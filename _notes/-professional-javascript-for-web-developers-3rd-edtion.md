@@ -398,3 +398,6 @@ ECMAScript 中的表达式上下文（expression context）指的是能够返回
 
 instanceof 操作符的问题在于，它假定单一的全局执行环境。如果网页中包含多个框架，那实际上就存在两个以上不同的全局执行环境，从而存在两个以上不同版本的 Array 构造函数。
 
+## 5.3 Date类型
+
+ECMAScript 中的 Date 类型是在早期 Java 中的 java.util.Date 类基础上构建的。为此， Date 类型使用自 UTC （ Coordinated Universal Time ，国际协调时间） 1970 年 1 月 1 日午夜（零时）开始经过的毫秒数来保存日期。在使用这种数据存储格式的条件下， Date 类型保存的日期能够精确到 1970 年 1 月 1 日之前或之后的 285 616 年。
