@@ -89,3 +89,42 @@ true | this_will_cause_an_error
 Ruby 是强类型语言，这意味着发生类型冲突时，你将得到一个错误。Ruby 在运行时而非编译时进行类型检查的。
 
 利用鸭子类型，实现对接口编码更简单。
+
+### 2.2.7 第一天自习
+
+[Ruby 中文官网](http://www.ruby-lang.org/zh_cn/)
+
+[Ruby API 文档](http://ruby-doc.org/core-2.6.3/)
+
+```ruby
+# 字符串替换
+'hello'.gsub(/o/, '*') # => "hell*"
+```
+
+[Ruby 正则表达式](https://www.runoob.com/ruby/ruby-regular-expressions.html)
+
+[Ruby 区间（range）](https://www.runoob.com/ruby/ruby-range.html)
+
+```ruby
+# 输出“Hello, world.”
+puts 'Hello, world.'
+# 查找“Ruby”下标
+'Hello, Ruby.'.index('Ruby')
+# 打印 10 遍
+puts 'Eric '*10
+# 范围
+(1..10).each do |num|
+	puts "This is sentence number #{num}"
+end
+# 猜数字
+number = rand(10)
+
+begin
+	n = gets.to_i
+	puts "up" if number > n
+	puts "down" if number < n
+end while number != n
+
+puts "Good"
+```
+
