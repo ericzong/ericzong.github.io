@@ -401,3 +401,117 @@ instanceof 操作符的问题在于，它假定单一的全局执行环境。如
 ## 5.3 Date类型
 
 ECMAScript 中的 Date 类型是在早期 Java 中的 java.util.Date 类基础上构建的。为此， Date 类型使用自 UTC （ Coordinated Universal Time ，国际协调时间） 1970 年 1 月 1 日午夜（零时）开始经过的毫秒数来保存日期。在使用这种数据存储格式的条件下， Date 类型保存的日期能够精确到 1970 年 1 月 1 日之前或之后的 285 616 年。
+
+## 5.4 RegExp类型
+
+```js
+var expression = /pattern/flags;
+```
+
+元字符：`( [ { \ ^ $ | ) ? * + . ] }`
+
+由于 RegExp 构造函数的模式参数是字符串，所以在某些情况下要对字符进行双重转义。所有元字符都必须双重转义，那些已经转义过的字符也是如此。
+
+ES3 中，正则字面量共享 RegExp 实例，构造函数总创建新实例。ES5 中，正则字面量和构造函数行为一致，总创建新实例。
+
+### 5.4.1 RegExp实例属性
+
+global/ignoreCase/multiline：布尔值，标志
+
+lastIndex：整数，从 0
+
+source：正则字符串表示，字面量形式
+
+### 5.4.2 RegExp实例方法
+
+pattern.exe(text) => {index, input, [match_text, groups...]}
+
+pattern.text(text) => true/false
+
+toLocaleString()/toString() 返回字面值，valueOf() 返回正则本身。
+
+> 我的注释：在 NodeJS（实验版本：v12.6.0）中，返回正好相反。
+
+### 5.4.3 RegExp构造函数属性
+
+| 长属性名     | 短属性名 | 说明                        |
+| ------------ | -------- | --------------------------- |
+| input        | $_       | 最近要匹配字符串            |
+| lastMatch    | $&       | 最近匹配项                  |
+| lastParen    | &+       | 最近捕获组                  |
+| leftContext  | &`       | input 中 lastMatch 之前文本 |
+| rightContext | $'       | input 中 lastMatch 之后文本 |
+| multiline    | $*       | 布尔，多行模式              |
+
+注：短属性名访问，`RegExp.$_`。`RegExp.$1` ~ `RegExp.$9`。
+
+调用 exec() / test() 时，这些属性会被自动填充。
+
+### 5.4.4 模式的局限性
+
+不支持特性：
+
+* 开始结尾锚：`\A` `\Z`
+* 向后查找（lookbehind）
+* 并集和交集类
+* 原子组（atomic grouping）
+* Unicode 支持（单个字符除外，如 \uFFFF）
+* 命名的捕获组
+* s（single，单行）和 ×（free-spacing，无间隔）匹配模式
+* 条件匹配
+* 正则表达式注释
+
+## 5.5 Function类型
+
+每个函数都是 Function 类型的实例，而且都与其他引用类型一样具有属性和方法。由于函数是对象，因此函数名实际上也是一个指向函数对象的指针，不会与某个函数绑定。
+
+在使用函数表达式定义函数时，没有必要使用函数名。
+
+定义函数的方法：
+
+* 函数声明语法
+* 函数表达式
+* Function 构造函数
+
+```js
+new Function(args..., functionBody)
+```
+
+影响性能，导致解析两次代码：第一次是解析常规 ES 代码，第二次是解析传入构造函数中的字符串。
+
+一个函数可能会有多个名字。
+
+### 5.5.2 函数声明与函数表达式
+
+解析器会率先读取函数声明，并使其在执行任何代码之前可用（可以访问）；至于函数表达式，则必须等到解析器执行到它所在的代码行，才会真正被解释执行。
+
+函数声明提升（function declaration hoisting）
+
+### 5.5.4 函数内部属性
+
+arguments，是一个类数组对象，包含着传入函数中的所有参数。
+
+arguments.callee，拥有这个 arguments 对象的函数。
+
+> 递归使用函数名调用，会使函数执行与函数名耦合，而使用 arguments.callee 可消除耦合。
+
+function.caller，调用当前函数的函数的引用。全局作用域中为 null。
+
+### 5.5.5 函数属性和方法
+
+length，函数希望接收的命名参数的个数。
+
+对于 ECMAScript 中的引用类型而言，prototype 是保存它们所有实例方法的真正所在。
+
+prototype 不可枚举。
+
+每个函数都包含两个非继承而来的方法：apply() 和call()。在特定的作用域中调用函数，实际上等于设置函数体内 this 对象的值。能够扩充函数赖以运行的作用域。对象不需要与方法有任何耦合关系。
+
+ES5，bind()，创建一个函数的实例，其 this 值会被绑定到传给 bind() 函数的值。
+
+每个函数继承的 toLocaleString()、toString() 、valueOf() 方法始终都返回函数的代码。
+
+
+
+
+
