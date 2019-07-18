@@ -511,7 +511,64 @@ ES5，bind()，创建一个函数的实例，其 this 值会被绑定到传给 b
 
 每个函数继承的 toLocaleString()、toString() 、valueOf() 方法始终都返回函数的代码。
 
+## 5.6 基本包装类型
 
+Boolean、Number、String
 
+实际上，每当读取一个基本类型值的时候，后台就会创建一个对应的基本包装类型的对象，从而让我们能够调用一些方法来操作这些数据。
 
+后台自动完成：
+
+1. 创建 String 类型的一个实例；
+2. 在实例上调用指定的方法；
+3. 销毁这个实例。
+
+自动创建的基本包装类型的对象，则只存在于一行代码的执行瞬间，然后立即被销毁。这意味着不能在运行时为基本类型值添加属性和方法。
+
+Object 构造函数也会像工厂方法一样，根据传入值的类型返回相应基本包装类型的实例。
+
+> 基本包装类型同名转型函数会将指定的值转换为对应的基本类型。
+
+### 5.6.1 Boolean类型
+
+Boolean 对象在布尔表达式中常造成误解。
+
+Boolean 对象和基本类型布尔值在 typeof 和 instanceof 操作符下执行结果都不同。
+
+### 5.6.2 Number类型
+
+```js
+number.toString(2) // 二进制
+number.toFixed(2)  // 保留小数位
+number.toExponential(2) // 指数表示法，参数表示小数位
+number.toPrecision(2)   // 固定大小/指数格式，参数表示所有数字位数（除指数部分）
+```
+
+### 5.6.3 String类型
+
+```js
+str.charAt(0)
+str.charCodeAt(0) // 字符编码
+str[0]
+str.concat(str1)
+
+// 以下方法当参数为负数时，行为有差异
+str.slice(0, 3)
+str.substring(3)
+str.substr(3)
+
+str.indexOf('x')
+str.lastIndexOf('x')
+
+str.trim()
+
+str.toLocaleUpperCase()
+str.toUpperCase()
+str.toLocaleLowerCase()
+str.toLowerCase()
+
+str.match(pattern)  // => [matchText, groups]
+str.search(pattern) // => index
+str.replace(strOrPattern, newText)
+```
 
