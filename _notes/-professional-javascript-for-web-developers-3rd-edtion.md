@@ -732,3 +732,65 @@ Object.getOwnPropertyDescriptor(obj, prop);
 
 对象构造函数属性：obj.constructor
 
+构造函数的缺点：每个实例都包含不同的 Function 实例，这会导致不同的作用域链和标识符解析。可将函数转移到构造函数外来规避这个问题。（但这会导致声明全局函数的问题，应使用原型。）
+
+### 6.2.3 原型模式
+
+使用原型对象的好处是可以让所有对象实例共享它所包含的属性和方法。
+
+构造函数的原型属性的构造器属性指向构造函数本身：Person.prototype.constructor -> Person
+
+ES5 实例内部指针 [[Prototype]] 指向构造函数的原型对象。
+
+```js
+Person.prototype.isPrototypeOf(person); // true
+Object.getPrototypeOf(person) == Person.prototype; // true
+```
+
+实例属性会覆盖原型中同名属性，除非 delete 实例属性，否则不能访问原型中的同名属性。
+
+```js
+person.hasOwnProperty("name"); // true
+```
+
+ES5 `Object.getOwnPropertyDescriptor()` 只能用于实例属性，要取得原型属性描述符须在原型对象上调用。
+
+```js
+"name" in person; // true，无论在对象上，还是原型上
+
+function hasPrototypeProperty(object, name){     return !object.hasOwnProperty(name) && (name in object); 
+}
+
+Object.keys(person); // 可枚举实例属性
+Object.getOwnPropertyNames(Person.prototype); // 所有实例属性
+```
+
+更简单的原型语法：
+
+```js
+function Person() {}
+Person.prototype = {
+    name : "Nicholas",
+    age : 29,
+    job: "Software Engineer",
+    sayName : function () {
+        alert(this.name);     
+    } 
+};
+```
+
+本质上完全重写了默认的 prototype 对象，constructor 属性不再指向 Person 函数，而指向 Object 函数。
+
+```js
+// 可手动设置构造器，此时构造器可枚举
+Person.prototype = {
+    constructor: Person,
+    // ...
+}
+// ES5 修正为不可枚举
+Object.defineProperty(Person.prototype, "constructor", {
+    enumerable: false,
+    value: Person 
+});
+```
+
