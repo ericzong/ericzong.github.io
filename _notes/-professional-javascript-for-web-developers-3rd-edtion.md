@@ -452,14 +452,17 @@ toLocaleString()/toString() 返回字面值，valueOf() 返回正则本身。
 不支持特性：
 
 * 开始结尾锚：`\A` `\Z`
-* 向后查找（lookbehind）
+* 向后查找（lookbehind）[^5441]
 * 并集和交集类
 * 原子组（atomic grouping）
 * Unicode 支持（单个字符除外，如 \uFFFF）
-* 命名的捕获组
+* 命名的捕获组[^5442]
 * s（single，单行）和 ×（free-spacing，无间隔）匹配模式
 * 条件匹配
 * 正则表达式注释
+
+[^5441]: 支持向前查找（lookahead）
+[^5442]: 支持编号捕获组
 
 ## 5.5 Function类型
 
@@ -547,28 +550,185 @@ number.toPrecision(2)   // 固定大小/指数格式，参数表示所有数字�
 ### 5.6.3 String类型
 
 ```js
-str.charAt(0)
-str.charCodeAt(0) // 字符编码
-str[0]
-str.concat(str1)
+str.charAt(0);
+str.charCodeAt(0); // 字符编码
+str[0];
+str.concat(str1);
 
 // 以下方法当参数为负数时，行为有差异
-str.slice(0, 3)
-str.substring(3)
-str.substr(3)
+str.slice(0, 3);
+str.substring(3);
+str.substr(3);
 
-str.indexOf('x')
-str.lastIndexOf('x')
+str.indexOf('x');
+str.lastIndexOf('x');
 
-str.trim()
+str.trim();
 
-str.toLocaleUpperCase()
-str.toUpperCase()
-str.toLocaleLowerCase()
-str.toLowerCase()
+str.toLocaleUpperCase();
+str.toUpperCase();
+str.toLocaleLowerCase();
+str.toLowerCase();
 
-str.match(pattern)  // => [matchText, groups]
-str.search(pattern) // => index
-str.replace(strOrPattern, newText)
+str.match(pattern);  // => [matchText, groups]
+str.search(pattern); // => index
+str.replace(strOrPattern, newText);
+str.replace(pattern, function(match, pos, originalText) {});
+str.split(strOrPattern, returnCount?);
+          
+str.localeCompare(str1); // 符号方法
+          
+String.fromCharCode(codes...);
 ```
+
+| 字符序列 | 替换文本                                     |
+| -------- | -------------------------------------------- |
+| $$       | $                                            |
+| $&       | 匹配整个模式的子字符串。<=> RegExp.lastMatch |
+| $'       | 匹配前子串。 <=> RegExp.leftContext          |
+| $`       | 匹配后子串。 <=> RegExp.rightContext         |
+| $n       | 捕获组。n∈(0, 9)。无分组为空。               |
+| $nn      | 捕获组。n∈(01, 99)。无分组为空。             |
+
+## 5.7 单体内置对象
+
+内置对象：由 ECMAScript 实现提供的、不依赖于宿主环境的对象，这些对象在 ECMAScript 程序执行之前就已经存在了。
+
+### 5.7.1 Global对象
+
+事实上，没有全局变量或全局函数；所有在全局作用域中定义的属性和函数，都是 Global 对象的属性。
+
+```js
+encodeURI()
+encodeURIComponent()
+decodeURI()
+decodeURIComponent()
+```
+
+encodeURI() 不会对本身属于 URI 的特殊字符进行编码，例如冒号、正斜杠、问号和井字号；而 encodeURIComponent() 则会对它发现的任何非标准字符进行编码。
+
+在 eval() 中创建的任何变量或函数都不会被提升，因为在解析代码的时候，它们被包含在一个字符串中；它们只在 eval() 执行的时候创建。
+
+Global属性
+
+| 分类     | 属性           |
+| -------- | -------------- |
+| 特殊值   | undefined      |
+|          | NaN            |
+|          | Infinity       |
+| 构造函数 | Object         |
+|          | Array          |
+|          | Function       |
+|          | Boolean        |
+|          | String         |
+|          | Number         |
+|          | Date           |
+|          | RegExp         |
+| 异常     | Error          |
+|          | EvalError      |
+|          | RangeError     |
+|          | ReferenceError |
+|          | SyntaxError    |
+|          | TypeError      |
+|          | URIError       |
+
+```js
+// 取得 Global 对象的方法
+var global = function () {
+    return this;
+}
+```
+
+# 第6章 面向对象的程序设计
+
+ECMA-262 对象定义：无序属性的集合，其属性可以包含基本值、对象或者函数。
+
+## 6.1 理解对象
+
+对象字面量已成为创建对象的首选模式。
+
+为了表示特性是内部值，ES5 将其放在两对方括号中，如 [[Enumerable]]。
+
+### 6.1.1 属性类型
+
+ECMAScript 中有两种属性：数据属性和访问器属性。
+
+数据属性包含一个数据值的位置。
+
+数据属性特性：[[Configurable]]、[[Enumerable]]、[[Writable]]、[[Value]]。
+
+```js
+Object.defineProperty(obj, prop, descriptor)
+
+Object.defineProperty(person, "name", {
+    configurable: false,
+    value: 'XXX'
+});
+Object.defineProperty(person, "name", {
+    configurable: true, // 异常，设置为 false 后不能再设为 true
+    value: 'YYY'
+});
+```
+
+访问器属性特性：[[Configurable]]、[[Enumerable]]、[[Get]]、[[Set]]
+
+```js
+Object.defineProperty(book, 'year', {
+    get: function() {
+        return this._year; 
+    },
+    set: function(newValue) {
+   	 	// set _year
+    }
+});
+// 遗留方法
+obj.__defineGetter__('year', function() { 
+    return xxx; 
+});
+obj.__defineSetter__('year', function(newValue) {});
+```
+
+### 6.1.2 定义多个属性
+
+```js
+Object.defineProperties(obj, {
+	_year: {
+        value: 2004
+    },
+    year: {
+   	 	get: function() {
+       	 	return this._year;
+        }
+    }
+});
+```
+
+### 6.1.3 读取属性的特性
+
+```js
+Object.getOwnPropertyDescriptor(obj, prop);
+```
+
+## 6.2 创建对象
+
+### 6.2.1 工厂模式
+
+工厂模式解决了创建多个相似对象的问题，但却没有解决对象识别问题（即获知对象类型）。
+
+### 6.2.2 构造函数模式
+
+构造函数模式 vs. 工厂模式：
+
+* 没有显式地创建对象
+* 直接将属性和方法赋给了 this 对象
+* 没有 return 语句
+
+构造函数步骤：
+
+1. 创建一个新对象
+2. 将构造函数作用域赋给新对象（因此 this 指向了这个新对象）
+3. 执行构造函数中的代码
+4. 返回新对象
+
+对象构造函数属性：obj.constructor
 
