@@ -794,3 +794,63 @@ Object.defineProperty(Person.prototype, "constructor", {
 });
 ```
 
+原型与实例之间只有指针，因此不能完全重写原型对象，否则修改不会反应在实例上。
+
+原型对象问题：
+
+* 没有参数传递，默认情况下属性值相同
+* 共享引用类型
+
+### 6.2.4 组合使用构造函数模式和原型模式
+
+创建自定义类型的最常见方式，就是组合使用构造函数模式与原型模式。构造函数模式用于定义实例属性，而原型模式用于定义方法和共享的属性。
+
+```js
+function Person(name, age, job) {
+    this.name = name;
+    this.age = age;
+    this.job = job;
+    this.friends = ["Shelby", "Court"];
+}
+Person.prototype = {
+ 	constructor: Person, 
+    sayName: function() {
+        alert(this.name);
+    }
+}
+```
+
+### 6.2.5 动态原型模式
+
+把所有信息都封装在了构造函数中，而通过在构造函数中初始化原型（仅在必要的情况下），又保持了同时使用构造函数和原型的优点。
+
+```js
+function Person(name, age, job) {
+    // 属性初始化
+    // ...
+    // 方法
+    if(typeof this.sayName != "function") {
+   	    // do sth 
+    }
+}
+```
+
+### 6.2.6 寄生构造函数模式
+
+寄生（ parasitic ）构造函数模式，创建一个函数，该函数的作用仅仅是封装创建对象的代码，然后再返回新创建的对象。
+
+```js
+function Person(name, age, job) {
+    var o = new Object();
+    // 属性和方法初始化
+    return o;
+}
+```
+
+实例与构造函数及其原型属性之间没有关系，instanceof 不能确定其类型。
+
+最佳实践：有其他模式可用时不要使用。
+
+### 6.2.7 稳妥构造函数模式
+
+稳妥对象（ durable objects ），没有公共属性，而其方法也不引用 this 的对象。
