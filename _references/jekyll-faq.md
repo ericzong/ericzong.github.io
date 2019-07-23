@@ -58,3 +58,33 @@ Server = https://mirrors.tuna.tsinghua.edu.cn/msys2/msys/$arch
 gem sources --add https://gems.ruby-china.com/ --remove https://rubygems.org/
 ```
 
+# 各种转义
+
+{% assign openDouble = '{{' %}
+
+{% assign openTag = '{%' %}
+
+有时我们可能在文档中想要显示成对的双花括号（即 `{{ openDouble }}` 和 `}}`），但这会被 Liquid 替换为对象或变量值。
+
+最简单的一种解决方案是，在双花括号间插入空格：
+
+```liquid
+{ { content } }
+```
+
+但有时这不是理想的显示效果，更进一步地看，这其实是 Liquid 语法导致的问题，当然可以用 Liquid 来解决：
+
+```liquid
+{{ openTag }} raw %}content{{ openTag }} endraw %}
+```
+
+如果要显示 `{{ openTag }} raw %}` 和 `{{ openTag }} endraw %}`，则可把 `{{ openTag }}` 作为变量来拼接：
+
+```liquid
+{% raw %}{% assign openTag = '{%' %} 
+{{ openTag }} raw %}    
+    content 
+{{ openTag }} endraw %}{% endraw %}
+```
+
+> 可以想见本文为了显示这些正确的转义使用了大量自身提及的转义技巧。
