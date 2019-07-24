@@ -292,3 +292,161 @@ attr 定义实例变量和访问变量的同名方法，而 attr_accessor 定义
 
 如果在类中包含了一个模块，那么该模块的行为和常量也会成为类的一部分。
 
+混入（mixin），由 Flavors 引入，上至 Smalltalk 下至 Python 都采用的编程风格。
+
+### 2.3.7 模块、可枚举和集合
+
+Ruby 两个至关重要的 mixin：枚举（enumerable）和比较（comparable）。
+
+类可枚举，实现 each 方法；类可比较，实现 <=> 操作符（太空船操作符）。
+
+```ruby
+'begin' <=> 'end'
+# -1
+a = [5, 3, 4, 1]
+a.sort
+a.any? {|i| i > 6}
+a.all? {|i| i > 4}
+a.collect {|i| i * 2}
+a.select {|i| i % 2 == 0}
+a.max
+a.member?(2)
+# 求和
+a.inject(0) {|sum, i| sum + i}
+a.inject {|sum, i| sum + i}
+a.inject(0) do |sum, i|
+    # ...
+    sum + i
+end
+```
+
+### 2.3.9 第二天自习
+
+```ruby
+# 1. 读取文件
+# 方法一
+file = File.open('...\data.txt', 'r')
+while line = file.gets
+    puts line
+end
+# 方法二
+File.open('...\data.txt', 'r').each_line do |line|
+    puts line
+end
+
+# 2. 写入文件
+File.open('...\data.txt', 'a+') do |f|
+    f.puts 'hello, world!'
+end
+# r: 只读，指针在文件头；
+# r+：读写，指针在文件头；
+# w：只写；
+# w+：读写，新建，指针在文件头；
+# a：追加，指针在文件尾；
+# a+：读写，读指针在文件头，写指针在文件尾。
+
+# 3. 数组转散列表
+# 索引、值交替数组 => 散列表
+ary = [1, 'a', 2, 'b', 3, 'c']
+p Hash[*ary]
+# 索引-值对数组 => 散列表
+alist = [[1, 'a'], [2, 'b'], [3, 'c']]
+p Hash[*alist.flatten]
+# 索引数组、值数组 => 散列表
+keys = [1, 2, 3]
+vals = ['a', 'b', 'c']
+alist = keys.zip(vals) # alist = [keys, vals].transpose
+p.Hash[*alist.flatten]
+
+# 4. 散列表 => 数组
+arr = []
+hash.each_value do |v|
+    arr << v
+end
+
+# 5. 数组用作队列
+arr.push(1)
+arr.shift
+
+# 6. 打印数组
+a = (1..16).to_a
+a.each do |e|
+    i = a.index(e)
+    if i % 4 == 0
+        puts "#{a[i]}, #{a[i + 1]}, #{a[i + 2]}, #{a[i + 3]}"
+    end
+end
+
+i = 0
+(1..16).to_a.each do |e|
+    i += 1
+    print i % 4 == 0 ? "#{e}\n" : "#{e}, "
+end
+
+a.each_index do |i|
+    print (i + 1) % 4 == 0 ? "#{a[i]}\n" : "#{a[i]}, "
+end
+
+(1..16).to_a.each_slice(4) {|i| p i}
+
+# 7. 树
+class Tree 
+  attr_accessor :children, :node_name 
+
+  def initialize(treeSet)
+    @children = []
+    @node_name = treeSet.keys
+	treeSet.each_value do |childrenSet|
+		unless childrenSet.empty?
+			@children.push(Tree.new(childrenSet))
+		end
+	end
+  end 
+
+  def visit_all(&block)
+    visit &block
+    children.each {|c| c.visit_all &block}
+  end
+
+  def visit(&block)
+    block.call self
+  end
+end 
+
+set = {
+	'grandpa' => {
+		'dad' => {
+			'child 1' => {},
+			'child 2' => {}
+		},
+		'uncle' => {
+			'child 3' => {},
+			'child 4' => {}
+		}
+	}, 
+}
+
+ruby_tree = Tree.new(set)
+puts "Visiting a node"
+ruby_tree.visit {|node| puts node.node_name}
+puts 
+
+puts "visiting entire tree"
+ruby_tree.visit_all {|node| puts node.node_name}
+
+# 8. grep
+def grep
+	puts "输入关键字："
+	$keyword = gets.strip
+	index = 0;
+	File.foreach('data') do |line|
+		index += 1
+		if line.include? $keyword
+			puts "#{index}: #{line}"
+		end
+	end
+end
+
+grep
+```
+

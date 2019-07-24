@@ -1,10 +1,10 @@
 ---
 layout: post
-title: "Maven笔记：2 最佳实践"
-categories: Java
-tags: Java Java 工具
+title: Maven笔记：2 最佳实践
+category: Java
+tags: Java Java工具
 excerpt: Maven最佳实践
-author: "Eric Zong"
+author: Eric Zong
 ---
 
 * content

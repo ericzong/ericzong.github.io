@@ -172,7 +172,7 @@ add-sshkey ~/.ssh/git
 
 在资源管理器中右击要配置的本地仓库根目录，在右键菜单中选择 “TortoiseGit → Settings”菜单，弹出配置对话框，将“Git → Remote”配置页面中的“Putty Key”栏位设置为新生成的私钥路径即可。
 
-![tortoisegit-settings](../image/post_git-and-ssh-in-powershell/tortoisegit-settings.pnG)
+![tortoisegit-settings](../image/post_git-and-ssh-in-powershell/tortoisegit-settings.png)
 
 ## 启动并配置Pageant
 
@@ -229,7 +229,7 @@ ssh -T git@github.com
 
 你可以执行 `which ssh-agent` 或 `where ssh-agent` 来查看 ssh-agent 应用文件路径。
 
-如果系统安排了 OpenSSH，且其位于 `System32` 目录下，那么由于 `porfile.ps1` 中我们是向 `path` 追加的 Git `bin` 目录，因此 OpenSSH 路径下的 ssh-agent 先被搜索到，导致错误启动了 OpenSSH 的 ssh-agent。
+如果系统安装了 OpenSSH，且其位于 `System32` 目录下（如 Win10 内置的 OpenSSH），那么由于 `porfile.ps1` 中我们是向 `path` 追加的 Git `bin` 目录，因此 OpenSSH 路径下的 ssh-agent 先被搜索到，导致错误启动了 OpenSSH 的 ssh-agent。
 
 解决方案很简单，将 Git `bin` 目录加在 `path` 之前即可：
 
