@@ -55,11 +55,11 @@ foo.call({ id: 42 });
 
 因此，不应该将箭头函数作为对象方法，尤其当其中使用了 `this` 时（`this` 不会指向当前对象，很可能它指向全局对象，通常这不是我们想要的效果）。
 
-> 全局作用域中的 `this` 在浏览器环境和 Node.js 环境下指向不同。
+> 上面的例子在浏览器环境或是 Node.js 交互环境中执行 `foo()` 都会输出 `id: 21`，上文已经分析了。
+>
+> 但是，如果我们把以上代码保存在 `demo.js` 文件中，并通过 `node demo.js` 执行，会发现 `foo()` 的执行结果输出 `id: undefined`。你可以尝试输出 `this`，通常会看到一个空对象，说明此时 `this` 指向的不是全局对象 `global`。那它指向的是什么对象呢？答案是指向 `module.exports`。这是由于对于 Node.js 而言，每个文件都是一个模块，它的顶级作用域不是全局作用域而是模块作用域。因此，很好理解此时 `this` 的指向了。
 
-# 注意
-
-## 返回对象字面量
+# 返回对象字面量
 
 试图使用“简写体”形式`params => {object: literal}` 返回一个对象字面量是不行的：
 
@@ -83,7 +83,7 @@ var func = () => { foo: 1 };
 var func = () => ({ foo: 1 });
 ```
 
-## 其他
+# 其他
 
 不绑定 `arguments`， 可使用 `rest` 参数代替。也不绑定 `caller` 和 `callee` 等。
 
@@ -100,3 +100,4 @@ var func = () => ({ foo: 1 });
 [MDN - JavaScript 箭头函数](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Functions/Arrow_functions)
 
 [《ECMAScript 6入门》8. 函数的扩展#箭头函数](http://es6.ruanyifeng.com/#docs/function#%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0)
+
