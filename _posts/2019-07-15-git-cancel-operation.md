@@ -144,6 +144,8 @@ git reset [--mixed | --soft | --hard] [HEAD | <commit>]
 
 `--hard` 模式选项，强制退回指定版本状态，暂存区和工作区都将丢弃。
 
+`HEAD` 是一个特殊值，它代表当前版本。可以在 `HEAD` 之后追加 `^` 来代表前一个版本，加 n 个 `^` 代表前 n 个版本，如 `HEAD^^` 代表上上个版本。但当回溯版本过多时，我们并不想键入一堆 `^`，可以简化为 `~n` 的形式，代表 n 个 `^`。比如，`HEAD~10` 代表回溯 10 个版本；其默认值是 1，因此 `HEAD~` 等价于 `HEAD^`。
+
 # 附加说明
 
 ## 关于`checkout`的`--`
@@ -157,6 +159,21 @@ git reset [--mixed | --soft | --hard] [HEAD | <commit>]
 > 事实上，在 `cmd` 或是 `bash` 中执行结果都符合官方文档说明，这个差异应该是由 `PowerShell` 参数解析引起的。
 >
 > 最佳实践：恢复文件时总是添加 `--` 选项。
+
+## 关于`HEAD^`
+
+在 cmd 中执行 `git reset HEAD^` 时，可能会得到一个“More?”的询问。这是由于在 cmd 中，行末的 `^` 是续行符，它代表本行命令未结束，将换行后继续。
+
+最简单的解决方案是不要让 `^` 出现在行末，在其后加个空格即可。当然也可以这样：
+
+```cmd
+git reset --hard "HEAD^"
+git reset --hard HEAD^^
+git reset --hard HEAD~
+git reset --hard HEAD~1
+```
+
+> 这个问题源自 cmd 的续行符解析，而在 bash 或 powershell 不存在这个问题。
 
 ## 关于glob的扩展差异
 
