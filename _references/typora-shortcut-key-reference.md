@@ -8,6 +8,7 @@ author: "Eric Zong"
 
 * content
 {:toc}
+> 配置文件位于：`C:\Users\<username>\AppData\Roaming\Typora\conf\conf.user.json`。
 
 # 文件
 
@@ -125,7 +126,7 @@ author: "Eric Zong"
 |           | Spell Check                        |                        |
 | Paragraph | Task List                          | Ctrl + Alt + L         |
 |           | Link Reference                     | Ctrl + Shift + R       |
-|           | Footnotes                          | Ctrl + Shift + F       |
+|           | Footnotes                          | Ctrl + Alt + F         |
 |           | Horizontal Line                    | Ctrl + Shift + Alt + - |
 |           | Table of Contents                  | Ctrl + Shift + Alt + T |
 |           | YAML Front Matter                  | Ctrl + Shift + Alt + Y |
