@@ -33,9 +33,14 @@ layout: default
  * target _blank
  */
 (function() {
-    var aTags = document.querySelectorAll('div.left a:not([id])')
+    var aTags = document.querySelectorAll('article a');
+	// currentUrl = '{{ page.url | prepend: site.baseurl }}';
     for (var i = 0; i < aTags.length; i++) {
-        aTags[i].setAttribute('target', '_blank')
+		var aTag = aTags[i];
+		var href = aTag.getAttribute('href');
+		if(!href.startsWith('#')) {
+			aTag.setAttribute('target', '_blank');
+		}
     }
 }());
 </script>

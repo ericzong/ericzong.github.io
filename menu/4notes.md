@@ -18,9 +18,9 @@ type: navigator
 			<h2 id="{{category.name}}">
 				{{category.name}}
 			</h2>
-				{% for ref in category.items %}
+				{% for post in category.items %}
 				<li>
-					<a class="title" href="{{ ref.url | prepend: site.baseurl }}">{{ ref.title }}</a>
+					<a class="title" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
 				</li>
 				{% endfor %}
 			{% endfor %}
