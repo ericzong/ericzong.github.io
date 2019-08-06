@@ -93,11 +93,19 @@ Set-ItemProperty -path 'hklm:\system\currentcontrolset\control\session manager\e
 
 ## 环境变量名包含句点或括号
 
-环境变量名可能包含句点 `.` 或括号 `()` ，当使用 `$Env:<variable>` 访问环境变量时会出现错误，此时，应该使用 `${Env:<variable>}` 方法访问。
+环境变量名可能包含句点 `.` 或括号 `()` ，当使用 `$Env:<variable>` 访问环境变量时会出现错误，此时，应该使用 `${Env:<variable>}` 方法访问：
+
+```powershell
+${Env:ProgramFiles(x86)}
+```
 
 ## 使用`$Env:`还是`Env:`
 
-在命令中，可能会发现有时使用 `$Env:<variable>` 有时使用 `Env:<variable>`。那什么时候使用 `$Env:<variable>`，什么时候使用 `Env:<variable>` 呢？
+在命令中，可能会发现有时使用 `$Env:<variable>` 有时使用 `Env:<variable>`。那什么时候使用前者，什么时候使用后者呢？（这一度让我困惑。）
 
-事实上，它们的语义是不同的，`Env:<variable>` 表示的是一个路径，跟 `C:/Windows` 是类似的，上文也可以看到它通常用于操作路径的命令，大多数时候作为 `-Path` 参数值；`$Env:<variable>` 开头的 `$` 暗示了它是一个变量，使用时它通常被替换为对应的环境变量的值。
+事实上，它们的语义是不同的。
+
+`Env:<variable>` 表示的是一个虚拟路径，跟 `C:/Windows` 在形式上没有什么不同。使用时关注的是其路径形式而非其代表的值，因此它通常用于操作路径的命令，大多数时候作为 `-Path` 参数值。
+
+`$Env:<variable>` 开头的 `$` 暗示了它是一个变量，虽然同时 `Env:` 暗示它是一个环境变量，但本质上与普通变量并无不同，使用时关注的是其对应的值。命令中将其置换为它引用的值是等价的。
 
