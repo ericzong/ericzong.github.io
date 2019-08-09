@@ -2,6 +2,7 @@
 layout: post
 title: Node.js专题：模块
 category: Node.js
+tags: Node.js 专题
 excerpt: Node.js模块及导入、导出介绍。
 author: Eric Zong
 ---
@@ -45,7 +46,13 @@ module.exports === exports; // true
 const myModule = require('myModule');
 ```
 
-讲到这里，应该意识到，对于 Node.js 模块系统而言，模块与文件几乎是一一对应的。因此，导入的概念其实就是引入某个文件中公开的接口。而 `require` 函数的参数可以是：模块标识符、相对路径或绝对路径。这就涉及文件查找的问题，绝对路径自然不必说明了。
+讲到这里，应该意识到，对于 Node.js 模块系统而言，模块与文件几乎是一一对应的。因此，导入的概念其实就是引入某个文件中公开的接口。而 `require` 函数的参数可以是：
+
+* 模块标识符
+* 相对路径
+* 绝对路径
+
+这就涉及文件查找的问题，绝对路径自然不必说明了。
 
 当参数为模块标识符时，通常代表该模块是一个发布模块，Node.js 将从当前目录逐层上溯查找 `node_modules/myModule`，如果直到根目录都没有找到，则进行全局查找，查找位置包括：
 
@@ -74,3 +81,56 @@ delete require.cache[require.resolve('myModule')];
 ```
 
 # ES6模块
+
+ES6 的模块系统就“标准”很多了，它使用较为常见的 `import` 和 `export` 关键字。
+
+## 导出
+
+```js
+// 导出变量
+export var one = 42;
+// 导出函数
+export function test() {};
+// 导出类
+export class MyClass {};
+// 批量导出
+export { x, f1, c1 };
+// 默认导出
+export default xxx; // <=> export { xxx as default };
+// 重命名
+export { a as x };
+// 重导出
+export { x, y, z } from 'anotherModule';
+```
+
+## 导入
+
+```js
+import {x} from 'myModule';
+// 重命名
+import {a as x} from 'myModule';
+// 默认导入
+import defaultValue from 'myModule';
+// 混合导入
+import dv, {x} from 'myModule';
+// 整体导入
+import * as myModule from 'myModule';
+```
+
+# 比较
+
+1. Node.js 导出的是副本，因此模块内部变化不会影响导出接口；但是 ES 模块不是这样，模块内部变化会影响导出接口。
+2. `import` 执行静态解析，不能使用表达式和变量等运行时元素。
+3. `import` 导入的接口标识符是只读的，不可重新赋值。
+4. 两个模块系统可以混用，如果想要 `import` Node.js 导出的接口需要注意。由于 Node.js 导出的是运行时对象，而 `import` 是编译时解析的，所以 `import` 不允许解构，应该整体导入或默认导入。
+
+```js
+// 错误
+import {readFile} from 'fs';
+// 整体导入
+import * as express from 'express';
+const app = express.default();
+// 默认导入
+import express from 'express';
+const app = express();
+```
