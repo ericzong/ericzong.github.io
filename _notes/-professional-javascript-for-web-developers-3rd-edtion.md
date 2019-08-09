@@ -930,3 +930,15 @@ function createAnother(original){
 function inheritPrototype(subType, superType){     var prototype = object(superType.prototype);       // 创建对象     prototype.constructor = subType;                   // 增强对象     subType.prototype = prototype;                     // 指定对象 }
 ```
 
+# 第7章 函数表达式
+
+函数声明提升（function declaration hoisting），在执行代码之前会先读取函数声明。
+
+匿名函数（anonymous function），也叫拉姆达函数，name 属性是空字符串。
+
+## 7.2 闭包
+
+闭包是指有权访问另一个函数作用域中的变量的函数。
+
+由于闭包会携带包含它的函数的作用域，因此会比其他函数占用更多的内存。过度使用闭包可能会导致内存占用过多。
+
