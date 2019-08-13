@@ -128,6 +128,60 @@ Windows 版甚至包含 PortableApp 安装文件。
 
 官网还提供相应的在线转换工具：<http://www.f2ko.de/en/op2e.php>
 
+## Node.js
+
+### [ESLint](http://eslint.cn/)
+
+```powershell
+npm install eslint --save-dev
+./node_modules/.bin/eslint --init
+./node_modules/.bin/eslint yourfile.js
+npm install eslint --global
+
+yarn add -D eslint
+yarn add -g eslint
+```
+
+配置文件：
+
+* `.eslintrc.js`
+* `.eslintrc.yaml`
+* `.eslintrc.yml`
+* `.eslintrc.json`
+* `.eslintrc`
+* `package.json`
+
+规则参考 [这里](http://eslint.cn/docs/rules/)。
+
+### JSHint
+
+[JSHint](https://jshint.com/) 是一个 JS 静态代码分析工具。
+
+```powershell
+npm install -g jshint
+npm install --save-dev jshint
+```
+
+在 vscode 中安装 jslint 插件集成。
+
+### markdownlint
+
+[markdownlint](https://github.com/DavidAnson/markdownlint)，一个 Node.js 风格检查器和 lint 工具。
+
+```powershell
+npm install markdownlint --save-dev
+```
+
+[vscode-markdownlint](https://github.com/DavidAnson/vscode-markdownlint)，vscode 插件。
+
+配置文件：
+
+* `.markdownlint.json` 
+* `.markdownlint.yaml`
+* `.markdownlint.yml`
+
+规则参考 [这里](https://github.com/DavidAnson/markdownlint/blob/master/doc/Rules.md)。
+
 # 系统工具
 
 ## 配置查看

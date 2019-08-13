@@ -27,6 +27,7 @@ Jekyll 是一个简单的博客形态的静态站点生成器。
 ```powershell
 scoop install ruby
 # Install MSYS2 via 'scoop install msys2' and then run 'ridk install' to install the toolchain!
+ruby -v
 scoop install msys2
 msys2
 ridk install
@@ -39,6 +40,9 @@ ridk install
 使用 `gem install` 命令安装各种软件包即可：
 
 ```powershell
+gem -v
+gem sources -l
+gem sources [--add | -a] http://gems.ruby-china.com/ [--remove | -r] https://rubygems.org/
 gem install jekyll bundler
 # 可能需要安装以下插件等
 gem install jekyll-paginate
@@ -55,7 +59,8 @@ Jekyll 安装成功后，就可以使用 `jekyll` 命令创建项目了！
 ```shell
 jekyll new demo
 cd demo
-jekyll serve
+jekyll build
+jekyll [serve | s] --port <port>
 ```
 
 浏览器访问 `127.0.0.1:4000` 即可预览。
