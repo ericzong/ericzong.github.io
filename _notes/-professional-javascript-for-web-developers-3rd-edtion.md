@@ -1008,5 +1008,26 @@ JS 是以对象字面量的方式来创建单例对象的。
 
 每个框架都有一套自己的构造函数，并不相等，影响对跨框架传递的对象使用 `instanceof` 操作符。
 
-### 8.1.3 窗口位置
+### 8.1.6 间歇调用和超时调用
 
+超时调用的代码是在全局作用域中执行的，故函数中 `this` 在非严格模式下指向 `window`，严格模式下为 `undefined`。
+
+最佳模式：使用超时调用来模拟间歇调用。因为后一个间歇调用可能会在前一个间歇调用结束之前启动。
+
+## 8.2 location对象
+
+`location` 对象很特别，它既是 `window` 对象的属性，也是 `document` 对象的属性。即：
+
+```js
+window.location === document.location; // true
+```
+
+### 8.2.2 位置操作
+
+```js
+location.assign('http://www.baidu.com');
+window.location = 'http://www.baidu.com'
+location.href = 'http://www.baidu.com';
+```
+
+## 8.3 navigator对象
