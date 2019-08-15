@@ -1030,4 +1030,13 @@ window.location = 'http://www.baidu.com'
 location.href = 'http://www.baidu.com';
 ```
 
-## 8.3 navigator对象
+# 第9章 客户端检测
+
+## 9.1 能力检测
+
+能力检测/特性检测，目标是识别浏览器的能力。
+
+## 9.2 怪癖检测
+
+怪癖检测（quirks detection），目标是识别浏览器的特殊行为。
+
