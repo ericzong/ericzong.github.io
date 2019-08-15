@@ -1040,3 +1040,6 @@ location.href = 'http://www.baidu.com';
 
 怪癖检测（quirks detection），目标是识别浏览器的特殊行为。
 
+## 9.3 用户代理检测
+
+电子欺骗（spoofing），浏览器通过在自己的用户代理字符串加入一些错误或误导性信息，来达到欺骗服务器的目的。
