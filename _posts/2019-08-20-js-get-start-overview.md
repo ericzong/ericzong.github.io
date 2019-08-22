@@ -3,7 +3,7 @@ layout: post
 title: JS入门：概述
 category: JS
 tags: JS 入门
-excerpt: JS入门教程：概述。
+excerpt: JS入门教程，概要说明。
 author: Eric Zong
 ---
 
