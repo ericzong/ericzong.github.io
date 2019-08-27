@@ -109,6 +109,25 @@ JavaScript 的对象以“键-值对”的形式表示，与 `Map` 结构极为�
 
 > 注意：严格模式禁止自动或隐式地创建全局变量。
 
+## 函数
+
+函数是“可调用对象”，有一个内部属性 `call`，使其可被调用。
+
+函数可拥有属性，其 `length` 属性表示其参数个数。
+
+在整个声明中，如果 `function` 是第一个词，则是函数声明，否则是函数表达式。函数表达式可以是匿名的，而函数声明不可以省略函数名。
+
+立即执行函数表达式（IIFE，Immediately Invoked Function Expression），常见形式有：
+
+```javascript
+// 形式一
+(function(){...})();
+// 形式二
+(function(){...}());
+```
+
+`Function.prototype` 本身就是一个没有操作的空函数。
+
 # 附录
 
 ## Unicode相关概念
