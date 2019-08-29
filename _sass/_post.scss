@@ -1,6 +1,9 @@
 #markdown-toc {
     display: none;
 }
+article table {
+    min-width: 80%;
+}
 .page[post] {
     .label {
         margin-top: 16px;
