@@ -1101,3 +1101,6 @@ location.href = 'http://www.baidu.com';
 
 3. 避免与 null 进行比较。
 4. 使用常量。
+
+## 24.2 性能
+
