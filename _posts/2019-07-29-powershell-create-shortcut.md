@@ -37,13 +37,13 @@ $desktop = [System.Environment]::GetFolderPath('Desktop')
 
 ## WScript.Shell组件属性
 
-| 属性             | 说明                                                      | 示例 |
-| ---------------- | --------------------------------------------------------- | ---- |
-| Arguments        | 参数，追加到“TargetPath”后合并为“目标”属性值              |      |
-| Description      | 备注                                                      |      |
-| Hotkey           | 快捷键                                                    |      |
-| IconLocation     | 图标位置                                                  |      |
-| TargetPath       | 目标路径，在“Arguments”前（如果有），一起作为“目标”属性值 |      |
-| WindowStyle      | 运行方式，即窗口样式                                      |      |
-| WorkingDirectory | 起始位置，即工作目录                                      |      |
+| 属性             | 说明                                                      |
+| ---------------- | --------------------------------------------------------- |
+| Arguments        | 参数，追加到“TargetPath”后合并为“目标”属性值              |
+| Description      | 备注                                                      |
+| Hotkey           | 快捷键                                                    |
+| IconLocation     | 图标位置                                                  |
+| TargetPath       | 目标路径，在“Arguments”前（如果有），一起作为“目标”属性值 |
+| WindowStyle      | 运行方式，即窗口样式                                      |
+| WorkingDirectory | 起始位置，即工作目录                                      |
 
