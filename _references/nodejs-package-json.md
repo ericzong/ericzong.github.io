@@ -104,8 +104,8 @@ major.minor.patch
 | 1.x.3 | [1.0.0, 2.0.0) | 左起第 1 个占位符右边的版本号就没有约束作用了 |
 
 > *、X、x 都是“占位符”。
-
-版本号可省略，省略部分默认为 X 范围。
+>
+> 版本号可省略，省略部分默认为 X 范围。
 
 | 示例     | 示例范围       | 说明                          |
 | -------- | -------------- | ----------------------------- |
@@ -149,20 +149,42 @@ major.minor.patch
 
 ## 混合应用
 
-| 示例    | 示例范围       | 说明                 |
-| ------- | -------------- | -------------------- |
-| 1.2.3-3 | [1.2.3, 4.0.0) | 连字符范围出现开区间 |
-| ~1      | [1.0.0, 2.0.0) | 锁定主版本号         |
+| 示例           | 示例范围       | 说明                 |
+| -------------- | -------------- | -------------------- |
+| 1.2.3-3        | [1.2.3, 4.0.0) | 连字符范围出现开区间 |
+| ~1             | [1.0.0, 2.0.0) | 锁定主版本号         |
+| ^1.2.x 或 ^1.2 | [1.2.0, 1.3.0) | 缺省与占位符等价     |
+| ^1.x 或 ^1     | [1.0.0, 2.0.0) |                      |
+
+## semver
+
+semver 是一个 Node 语义化版本模块，如果不确定某些语义版本的范围，可以使用它来进行测试，但其应用远不止于此。
+
+但 semver 不是 Node 内核模块，因此需要安装。
+
+```shell
+npm install --save semver
+yarn add semver
+```
+
+可利用其判断一个确定版本是否满足某个语义化版本：
+
+```js
+const semver = require('semver');
+semver.satisfies('1.2.3', '1.x'); // true
+```
+
+该模块还可以进行版本有效性检查、版本标准化、比较版本大小、计算特定版本号等等，并且提供命令行工具。（详见 [参考](#参考) 部分对应的说明文档链接）
 
 # 参考
 
-[npm-semver](https://docs.npmjs.com/misc/semver)
+[语义化版本规范](https://semver.org/lang/zh-CN/)
 
-[语义化版本](https://semver.org/lang/zh-CN/)
+[yarn 文档 - 依赖的版本](https://yarnpkg.com/zh-Hans/docs/dependency-versions)
 
-[yarn - 依赖的版本](https://yarnpkg.com/zh-Hans/docs/dependency-versions)
+[npm 文档 - npm-semver](https://docs.npmjs.com/misc/semver)
 
-[node-semver - Node 语义解析及应用](https://github.com/npm/node-semver/blob/master/README.md)
+[Node 语义化版本模块 - node-semver](https://github.com/npm/node-semver/blob/master/README.md)
 
-[工具 - npm semver calculator](https://semver.npmjs.com/)
+[语义化版本在线测试工具 - npm semver calculator](https://semver.npmjs.com/)
 
