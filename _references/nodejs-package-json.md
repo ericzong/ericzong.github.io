@@ -105,6 +105,14 @@ major.minor.patch
 
 > *、X、x 都是“占位符”。
 
+版本号可省略，省略部分默认为 X 范围。
+
+| 示例     | 示例范围       | 说明                          |
+| -------- | -------------- | ----------------------------- |
+| 空字符串 | [0.0.0, )      | 等价于一个占位符，* 或 X 或 x |
+| 1        | [1.0.0, 2.0.0) | 等价于 2.x.x                  |
+| 1.2      | [1.2.0, 1.3.0) | 等价于 1.2.x                  |
+
 ### 波浪号（Tilde）范围
 
 | 示例   | 示例范围       | 说明     |
@@ -131,11 +139,11 @@ major.minor.patch
 
 ### 特殊范围
 
-| 版本             | 说明             |
-| ---------------- | ---------------- |
-| latest           | 最新版本。慎用！ |
-| ""(empty string) | 任意版本。       |
-| *、X、x          | 任意版本。       |
+| 版本     | 说明             |
+| -------- | ---------------- |
+| latest   | 最新版本。慎用！ |
+| 空字符串 | 任意版本。       |
+| *、X、x  | 任意版本。       |
 
 > 基本都属于危险的版本范围，实际应用很少。
 
@@ -151,3 +159,10 @@ major.minor.patch
 [npm-semver](https://docs.npmjs.com/misc/semver)
 
 [语义化版本](https://semver.org/lang/zh-CN/)
+
+[yarn - 依赖的版本](https://yarnpkg.com/zh-Hans/docs/dependency-versions)
+
+[node-semver - Node 语义解析及应用](https://github.com/npm/node-semver/blob/master/README.md)
+
+[工具 - npm semver calculator](https://semver.npmjs.com/)
+
