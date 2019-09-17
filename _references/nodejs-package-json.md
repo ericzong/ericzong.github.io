@@ -8,7 +8,6 @@ author: "Eric Zong"
 
 * content
 {:toc}
-
 # 依赖
 
 ## dependencies
@@ -175,6 +174,46 @@ semver.satisfies('1.2.3', '1.x'); // true
 ```
 
 该模块还可以进行版本有效性检查、版本标准化、比较版本大小、计算特定版本号等等，并且提供命令行工具。（详见 [参考](#参考) 部分对应的说明文档链接）
+
+# 其他字段
+
+## scripts
+
+运行脚本命令缩写。
+
+```json
+"scripts": {
+    "start": "node index.js"
+}
+```
+
+## bin
+
+指定内部命令可执行文件位置。
+
+```json
+"bin": {
+    "oneTool": "./bin/oneTool.js"
+}
+```
+
+> `node_modules/.bin` 目录下建立符号链接 `oneTool`。而 `node_modules/.bin` 目录在运行时会加入 `PATH` 变量中，因此，可以直接使用这些命令。
+
+## main
+
+指定加载入口文件，默认值为 `index.js`。
+
+## engines
+
+指定该模块运行的平台版本。
+
+```json
+"engines": {
+    "node": ">=10",
+    "npm": ">=6",
+    "yarn": ">=1"
+}
+```
 
 # 参考
 

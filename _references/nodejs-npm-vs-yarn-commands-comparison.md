@@ -8,41 +8,41 @@ author: Eric Zong
 
 | No.  | npm(v5)                                                      | Yarn                              |
 | ---- | ------------------------------------------------------------ | --------------------------------- |
-|      | npm init                                                     | yarn init                         |
-|      | npm link                                                     | yarn link                         |
-|      | npm outdated                                                 | yarn outdated                     |
-|      | npm publish                                                  | yarn publish                      |
-|      | npm run                                                      | yarn run                          |
-|      | npm cache clean                                              | yarn cache clean                  |
-|      | npm login                                                    | yarn login                        |
-|      | npm test                                                     | yarn test                         |
-|      | npm install                                                  | yarn [install]                    |
-|      | npm install --no-package-lock                                | yarn install --no-lockfile        |
-|      | npm install --production                                     | yarn --production                 |
-|      | npm install *package* --save<br>npm install *package*@latest --save | yarn add *package*                |
-|      | npm install *package* --save-dev                             | yarn add *package* --dev          |
-|      | npm install *package* --save-optional                        | yarn add *package* --optional     |
-|      | npm install *package* --save-exact                           | yarn add *package* --exact        |
-|      | npm install *package* --global                               | yarn global add *package*         |
-|      | npm uninstall *package* --save                               | yarn remove *package*             |
-|      | npm update                                                   | yarn upgrade                      |
-|      | npm update --global                                          | yarn global upgrade               |
-|      | npm rebuild                                                  | yarn add --force                  |
-|      | rm -rf node_modules && npm install                           | yarn upgrade                      |
-|      | npm version major                                            | yarn version --major              |
-|      | npm version minor                                            | yarn version --minor              |
-|      | npm version patch                                            | yarn version --patch              |
-|      |                                                              | yarn install --flat               |
-|      |                                                              | yarn install --har                |
-|      |                                                              | yarn install --pure-lockfile      |
-|      |                                                              | yarn add *package* --peer         |
-|      |                                                              | yarn add *package* --tilde        |
-|      |                                                              | yarn licenses ls                  |
-|      |                                                              | yarn licenses generate-disclaimer |
-|      |                                                              | yarn why *package*                |
-|      |                                                              | yarn upgrade-interactive          |
-|      | npm xmas                                                     |                                   |
-|      | npm visnup                                                   |                                   |
+| 1    | npm init                                                     | yarn init                         |
+| 2    | npm link                                                     | yarn link                         |
+| 3    | npm outdated                                                 | yarn outdated                     |
+| 4    | npm publish                                                  | yarn publish                      |
+| 5    | npm run                                                      | yarn run                          |
+| 6    | npm cache clean                                              | yarn cache clean                  |
+| 7    | npm login                                                    | yarn login                        |
+| 8    | npm test                                                     | yarn test                         |
+| 9    | npm install                                                  | yarn [install]                    |
+| 10   | npm install --no-package-lock                                | yarn install --no-lockfile        |
+| 11   | npm install --production                                     | yarn --production                 |
+| 12   | npm install *package* --save<br>npm install *package*@latest --save | yarn add *package*                |
+| 13   | npm install *package* --save-dev                             | yarn add *package* --dev          |
+| 14   | npm install *package* --save-optional                        | yarn add *package* --optional     |
+| 15   | npm install *package* --save-exact                           | yarn add *package* --exact        |
+| 16   | npm install *package* --global                               | yarn global add *package*         |
+| 17   | npm uninstall *package* --save                               | yarn remove *package*             |
+| 18   | npm update                                                   | yarn upgrade                      |
+| 19   | npm update --global                                          | yarn global upgrade               |
+| 20   | npm rebuild                                                  | yarn add --force                  |
+| 21   | rm -rf node_modules && npm install                           | yarn upgrade                      |
+| 22   | npm version major                                            | yarn version --major              |
+| 23   | npm version minor                                            | yarn version --minor              |
+| 24   | npm version patch                                            | yarn version --patch              |
+| 25   |                                                              | yarn install --flat               |
+| 26   |                                                              | yarn install --har                |
+| 27   |                                                              | yarn install --pure-lockfile      |
+| 28   |                                                              | yarn add *package* --peer         |
+| 29   |                                                              | yarn add *package* --tilde        |
+| 30   |                                                              | yarn licenses ls                  |
+| 31   |                                                              | yarn licenses generate-disclaimer |
+| 32   |                                                              | yarn why *package*                |
+| 33   |                                                              | yarn upgrade-interactive          |
+| 34   | npm xmas                                                     |                                   |
+| 35   | npm visnup                                                   |                                   |
 
 注：
 
