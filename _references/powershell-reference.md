@@ -31,6 +31,26 @@ author: "Eric Zong"
 | Ctrl + M     | 执行当前命令                      | 等效于 Enter                                                 |
 | Ctrl + Break | 终止当前命令执行                  | 等效于 Ctrl + C                                              |
 
+# 重定向
+
+| 输出符号 | 说明            | 版本支持 |
+| -------- | --------------- | -------- |
+| *        | 所有输出        | 3.0+     |
+| 1        | 成功输出/标准流 |          |
+| 2        | 错误输出/错误流 |          |
+| 3        | 警告输出        | 3.0+     |
+| 4        | 详细输出        | 3.0+     |
+| 5        | 调试输出        | 3.0+     |
+| 6        | 信息流          | 5.0+     |
+
+```powershell
+# 2>&1，将错误流重定向到标准流
+# >>mylog.txt，将标准流（默认）重定向并追加到文件
+COMMAND 2>&1 >>mylog.txt
+# 将所有输出重定向到文件（重写文件，覆盖原有内容）
+COMMAND *>newlog.txt
+```
+
 # 可用cmd/Unix命令别名
 
 | cmd/Unix |         |       |       |
@@ -178,3 +198,4 @@ author: "Eric Zong"
 | GetTempPath()                 | 返回临时文件目录                                   | GetTempPath()                                   |
 | HasExtension()                | 如果路径中包含了扩展名，则返回True                 | HasExtension("c:\test\file.txt")                |
 | IsPathRooted()                | 如果是绝对路径，返回为True; Split-Path -isAbsolute | IsPathRooted("c:\test\file.txt")                |
+

@@ -1046,6 +1046,14 @@ location.href = 'http://www.baidu.com';
 
 # 第10章 DOM
 
+## 10.1 节点层次
+
+### 10.1.1 Node类型
+
+NodeList 对象的独特之处在于，它实际上是基于 DOM 结构动态执行查询的结果，因此 DOM 结构的变化能够自动反映在 NodeList 对象中。
+
+### 10.1.2 Document类型
+
 
 
 # 第24章 最佳实践
@@ -1103,4 +1111,128 @@ location.href = 'http://www.baidu.com';
 4. 使用常量。
 
 ## 24.2 性能
+
+Chrome 是第一款内置优化引擎，将 JavaScript 编译成本地代码的浏览器。
+
+### 24.2.1 注意作用域
+
+随着作用域链中的作用域数量的增加，访问当前作用域以外的变量的时间也在增加。访问全局变量总是要比访问局部变量慢，因为需要遍历作用域链。只要能减少花费在作用域链上的时间，就能增加脚本的整体性能。
+
+1. 避免全局查找
+2. 避免 with 语句
+
+
+
+和函数类似， with 语句会创建自己的作用域。
+
+with 主要用于消除额外的字符。
+
+### 24.2.2 选择正确方法
+
+1. 避免不必要的属性查找
+2. 优化循环
+   1. 减值迭代
+   2. 简化终止条件
+   3. 简化循环体
+   4. 使用后测试循环（do-while）
+3. 展开循环
+4. 避免双重解释
+5. 性能的其他注意事项
+   1. 原生方法较快
+   2. Switch 语句较快
+   3. 位运算符较快
+
+使用变量和数组要比访问对象上的属性更有效率，后者是一个 O(n) 操作。对象上的任何属性查找都要比访问变量或者数组花费更长时间，因为必须在原型链中对拥有该名称的属性进行一次搜索。简而言之，属性查找越多，执行时间就越长。
+
+Duff 装置，循环展开技术，Tom Duff 创建，最早在 C 语言中使用。Jeff Greenberg 用 JavaScript 实现了 Duff 装置。
+
+Duff 装置的基本概念是通过计算迭代的次数是否为 8 的倍数将一个循环展开为一系列语句。
+
+```js
+//credit: Jeff Greenberg for JS implementation of Duff’s Device  
+// 假设  values.length > 0 
+var iterations = Math.ceil(values.length / 8);  
+var startAt = values.length % 8;
+var i = 0;
+do {
+    switch(startAt){
+        case 0: process(values[i++]);
+        case 7: process(values[i++]);
+        case 6: process(values[i++]);
+        case 5: process(values[i++]);
+        case 4: process(values[i++]);
+        case 3: process(values[i++]);
+        case 2: process(values[i++]);
+        case 1: process(values[i++]);
+    }
+    startAt = 0;
+} while (--iterations > 0);
+```
+
+```js
+//credit: Speed Up Your Site (New Riders, 2003)  
+var iterations = Math.floor(values.length / 8);  
+var leftover = values.length % 8;  
+var i = 0;  
+
+if (leftover > 0){ 
+    do {
+        process(values[i++]);
+    } while (--leftover > 0);
+}
+do {
+    process(values[i++]);
+    process(values[i++]);
+    process(values[i++]);
+    process(values[i++]);
+    process(values[i++]);
+    process(values[i++]);
+    process(values[i++]);
+    process(values[i++]);
+} while (--iterations > 0);
+```
+
+当 JavaScript 代码想解析 JavaScript 的时候就会存在双重解释惩罚。当使用 eval() 函数或者是 Function 构造函数以及使用 setTimeout() 传一个字符串参数时都会发生这种情况。
+
+包含在字符串中的代码在 JavaScript 代码运行的同时必须新启动一个解析器来解析。实例化一个新的解析器有不容忽视的开销。
+
+### 24.2.3 最小化语句数
+
+JavaScript 代码中的语句数量也影响所执行的操作的速度。完成多个操作的单个语句要比完成单个操作的多个语句快。
+
+1. 多个变量声明
+2. 插入迭代值
+3. 使用数组和对象字面量
+
+### 24.2.4 优化DOM交互
+
+1. 最小化现场更新
+2. 使用innerHTML
+3. 使用事件代理
+4. 注意HTMLCollection
+
+减少现场更新的方法之一是使用文档碎片来构建 DOM 结构。
+
+```js
+fragment = document.createDocumentFragment();
+fragment.appendChild(item);
+list.appendChild(fragment);
+```
+
+当把 innerHTML 设置为某个值时，后台会创建一个 HTML 解析器，然后使用内部的 DOM 调用来创建 DOM 结构，而非基于 JavaScript 的 DOM 调用。由于内部方法是编译好的而非解释执行的，所以执行快得多。
+
+返回 HTMLCollection 对象：
+
+* 进行了对 getElementsByTagName() 的调用；
+* 获取了元素的 childNodes 属性；
+* 获取了元素的 attributes 属性；
+* 访问了特殊的集合，如 document.forms 、 document.images 等。
+
+## 24.3 部署
+
+### 24.3.3 压缩
+
+代码长度：浏览器所需解析的字节数。
+
+配重（Wire weight）：实际从服务器传送到浏览器的字节数。
 
