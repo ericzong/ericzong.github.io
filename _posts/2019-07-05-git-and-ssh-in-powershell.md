@@ -238,6 +238,13 @@ ssh -T git@github.com
 $env:path += ";$env:SCOOP\apps\git\current\bin;$env:SCOOP\apps\git\current\usr\bin"
 ```
 
+或者通过环境变量 `GIT_SSH` 来明确指定 SSH 的位置：
+
+```powershell
+# 注意，以下命令是通过查找定位的 SSH 位置，如果这不是你想要的，请修改该路径
+[environment]::setenvironmentvariable('GIT_SSH', (resolve-path (scoop which ssh)), 'USER')
+```
+
 # 参考
 
 [《Pro Git》Git 工具 - 凭证存储](https://git-scm.com/book/zh/v2/Git-%E5%B7%A5%E5%85%B7-%E5%87%AD%E8%AF%81%E5%AD%98%E5%82%A8)
