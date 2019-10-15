@@ -67,6 +67,6 @@ FAQ：这样的配置下还有一个小问题，如果首先是通过右键菜�
 
 右侧面板中，将“可使用的DSP”中“SoundTouch”加入“已激活的DSP”，并配置——勾选“Tempo adjust”并调整播放速度。
 
-![foobar2000_foo_dsp_soundtouch]({{site.url}}/image/reference_software_skill_foobar2000_foo_dsp_soundtouch.png)
+![foobar2000_foo_dsp_soundtouch](../image/reference_software_skill_foobar2000_foo_dsp_soundtouch.png)
 
 
