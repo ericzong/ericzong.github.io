@@ -88,6 +88,29 @@ author: "Eric Zong"
 |            | UTF-16                | 变长字节，大部分双字节。不兼容 ASCII。                       |
 |            | UTF-32                | Unicode 代码点 4 字节，其他 Unicode 编码方式不定长度。       |
 
+# 小结
+
+1. 字符集是由 3 部分组成的，且它在概念上是包括字符编码的。
+
+$$
+字符集/Charset
+\begin{cases}
+字库表/Character Repertoire \\
+编码字符集/Coded Character Set \Leftrightarrow {{代码点/Code Point}^{数字}} 集合 \\
+字符编码/Character Encoding
+\end{cases}
+$$
+
+2. 字库表将字符对应的代码点集合为编码字符集，再由字符编码转换为二进制存储格式。
+
+$$
+\begin{CD}
+字库表 @>{\text{代码点}}>> 编码字符集 @>{\text{字符编码}}>> 二进制
+\end{CD}
+$$
+
+3. 一个字符集可以包含多个字符编码。
+
 # 参考
 
 [常见乱码问题分析和总结](https://www.ibm.com/developerworks/cn/java/analysis-and-summary-of-common-random-code-problems/index.html?cm_mmc=dwchina-_-homepage-_-social-_-qq)
