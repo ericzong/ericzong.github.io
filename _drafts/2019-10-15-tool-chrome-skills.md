@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Chrome应用技巧
+title: Chrome应用技巧（持续更新……）
 category: 浏览器
 tags: 浏览器 Chrome 应用技巧
 excerpt: 介绍Chrome各种实用功能、应用技巧以及调试技巧等。
@@ -35,8 +35,41 @@ author: Eric Zong
 ```js
 // 控制台输入
 // 图片链接复制到剪贴板
-copy($$('img').map(item => item.src).join("\r\n")
+copy($$('img').map(item => item.src).join("\r\n"))
 // 输出到控制台
 $$('img').map(item => item.src).join('\r\n')
 ```
 
+# 控制台常用技巧
+
+## 格式化日志
+
+| 指示符  | 说明            | 示例                                  |
+| ------- | --------------- | ------------------------------------- |
+| %s      | 字符串          |                                       |
+| %i / %d | 整型            |                                       |
+| %f      | 浮点型          |                                       |
+| %o      | DOM 对象        |                                       |
+| %O      | JavaScript 对象 |                                       |
+| %c      | CSS 样式        | `console.log("%c样式", "color:#f00")` |
+
+## 常用API
+
+| API                          | 说明                                                         | 示例                                    |
+| ---------------------------- | ------------------------------------------------------------ | --------------------------------------- |
+| `$0`~`$4`                    | 缓存最近查看过的 5 个元素，序号越小越近，`$0` 表示当前查看/选择的元素 | `$0`                                    |
+| `$('selector')`              | 返回首个匹配元素                                             | `$('#root')`                            |
+| `$$('selector')`             | 返回所有匹配元素                                             | `$$('button')`                          |
+| `getEventListeners(element)` | 查看元素上的事件                                             |                                         |
+| `monitorEvents(element)`     | 监控元素上的事件                                             | `monitorEvents(document.body, "click")` |
+| `monitor(functionName)`      | 监控函数                                                     | `monitor(add)`                          |
+| `copy(value)`                | 复制内容到剪贴板                                             |                                         |
+| `inspect(element)`           | 选中指定的元素                                               |                                         |
+
+# 参考
+
+[Google - Console API Reference](https://developers.google.com/web/tools/chrome-devtools/console/api)
+
+[Google - Console Utilities API Reference](https://developers.google.com/web/tools/chrome-devtools/console/utilities)
+
+[Google - Chrome 开发者工具](https://developers.google.com/web/tools/chrome-devtools/)
