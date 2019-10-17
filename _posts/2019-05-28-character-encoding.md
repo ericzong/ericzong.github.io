@@ -90,13 +90,15 @@ author: "Eric Zong"
 
 # 小结
 
+{% assign cp = '{{代码点/Code Point}^{数字}}' %}
+
 1. 字符集是由 3 部分组成的，且它在概念上是包括字符编码的。
 
 $$
 字符集/Charset
 \begin{cases}
 字库表/Character Repertoire \\
-编码字符集/Coded Character Set \Leftrightarrow {{代码点/Code Point}^{数字}} 集合 \\
+编码字符集/Coded Character Set \Leftrightarrow {{cp}} 集合 \\
 字符编码/Character Encoding
 \end{cases}
 $$
