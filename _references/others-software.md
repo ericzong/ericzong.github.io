@@ -23,9 +23,85 @@ Typora 是一个 Markdown 编辑器。
 
 **参考**
 
-* [官网 - Add Custom CSS](https://support.typora.io/Add-Custom-CSS/)
-* [官网 - About Themes](https://support.typora.io/About-Themes/)
-* [官网 - Write Custom Theme for Typora](https://theme.typora.io/doc/Write-Custom-Theme/)
+* [Typora 官网 - Add Custom CSS](https://support.typora.io/Add-Custom-CSS/)
+* [Typora 官网 - About Themes](https://support.typora.io/About-Themes/)
+* [Typora 官网 - Write Custom Theme for Typora](https://theme.typora.io/doc/Write-Custom-Theme/)
+
+### Mark Text
+
+与 Typora 一样，工作在“所见即所得”模式下。 它支持 [CommonMark Spec](https://spec.commonmark.org/0.29/) 和 [GitHub Flavored Markdown Spec](https://github.github.com/gfm/) Markdown 扩展、数学表达式（KaTeX）、front matter 和 emoji。它还有各种预设主题，但目前不能自定义主题。
+
+跨平台，支持三大平台。
+
+**参考**
+
+[Mark Text 官网](https://marktext.app/)
+
+[GitHub - Mark Text](https://github.com/marktext/marktext/)
+
+### VNote
+
+号称“一个更懂程序员和Markdown的笔记！”。
+
+基于文件夹的笔记管理方式，支持标签和附件。
+
+它没有双边实时预览，也不是“所见即所得”的，它通过阅读和编辑模式进行切换。
+
+ 有 Vim 模式和一系列强大的快捷键、可以直接从剪切板插入图片、支持 [Mermaid](http://knsv.github.io/mermaid/)、 [Flowchart.js](http://flowchart.js.org/)、 [MathJax](https://www.mathjax.org/)、 [PlantUML](http://plantuml.com/) 和 [Graphviz](http://www.graphviz.org/)、强大的原地预览（图片、图表、公式）等功能。
+
+跨平台，支持三大平台。
+
+**参考**
+
+[VNote 官网](https://tamlok.github.io/vnote)
+
+[GitHub - VNote](https://github.com/tamlok/vnote)
+
+### Notable
+
+ Notable 支持 GFM(GitHub-Flavored Markdown)、KaTeX 以及 Mermaid 图。 
+
+采用分栏设计，可导入 Evernote 笔记。
+
+注意，在它的 GitHub 库 README 文档中有一张 Markdown 编辑器对比图，可以看到其他一些常见的 Markdown 编辑器以及其功能对比。
+
+跨平台，支持三大平台。
+
+**参考**
+
+[Notable 官网](https://notable.md/)
+
+[GitHub - Notable](https://github.com/notable/notable)
+
+### Boostnote
+
+ Boostnote 是一款面向程序员的漂亮 Markdown 笔记软件，基于 Electron、React+Redux、Webpack 和 CSSModules 构建。采用分栏式预览，你可以根据自己的喜好对它的缩进、字体、样式以及 UI 语言进行自定义。 
+
+跨平台，支持三大平台。
+
+**参考**
+
+[Boostnote 官网](https://boostnote.io/)
+
+[GitHub - Boostnote](https://github.com/BoostIO/Boostnote)
+
+### Simplenote
+
+ 由 Wordpress 的母公司 Automattic 开发（收购 Tumblr 的那个）。正如其名，它是一款很 simple、很小巧的编辑器。你在 simplenote 上写的笔记会在所有设备上同步更新，同时它还支持多人协作编辑文档。 
+
+支持全主流平台。
+
+**参考**
+
+[Simplenote 官网](https://simplenote.com/)
+
+[GitHub - Windows/Linux 版](https://github.com/Automattic/simplenote-electron)
+
+[GitHub - MacOS 版](https://github.com/Automattic/simplenote-macos)
+
+[GitHub - Android 版](https://github.com/Automattic/simplenote-android)
+
+[GitHub - iOS 版](https://github.com/Automattic/simplenote-ios)
 
 # 知识管理
 
