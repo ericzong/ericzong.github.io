@@ -2,7 +2,7 @@
 layout: post
 title: PowerShell专题：系统管理（持续更新……）
 category: PowerShell
-tags: PowerShell 专题
+tags: PowerShell 专题 持续更新
 excerpt: 介绍PowerShell与系统管理相关的命令。
 author: Eric Zong
 ---

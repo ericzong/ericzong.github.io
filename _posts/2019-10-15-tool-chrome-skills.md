@@ -2,7 +2,7 @@
 layout: post
 title: Chrome应用技巧（持续更新……）
 category: 浏览器
-tags: 浏览器 Chrome 应用技巧
+tags: 浏览器 Chrome 应用技巧 持续更新
 excerpt: 介绍Chrome各种实用功能、应用技巧以及调试技巧等。
 author: Eric Zong
 ---
