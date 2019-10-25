@@ -69,16 +69,17 @@ $$('img').map(item => item.src).join('\r\n')
 
 ## 常用API
 
-| API                          | 说明                                                         | 示例                                    |
-| ---------------------------- | ------------------------------------------------------------ | --------------------------------------- |
-| `$0`~`$4`                    | 缓存最近查看过的 5 个元素，序号越小越近，`$0` 表示当前查看/选择的元素 | `$0`                                    |
-| `$('selector')`              | 返回首个匹配元素                                             | `$('#root')`                            |
-| `$$('selector')`             | 返回所有匹配元素                                             | `$$('button')`                          |
-| `getEventListeners(element)` | 查看元素上的事件                                             |                                         |
-| `monitorEvents(element)`     | 监控元素上的事件                                             | `monitorEvents(document.body, "click")` |
-| `monitor(functionName)`      | 监控函数                                                     | `monitor(add)`                          |
-| `copy(value)`                | 复制内容到剪贴板                                             |                                         |
-| `inspect(element)`           | 选中指定的元素                                               |                                         |
+| API                           | 说明                                                         | 示例                                    |
+| ----------------------------- | ------------------------------------------------------------ | --------------------------------------- |
+| `$0`~`$4`                     | 缓存最近查看过的 5 个元素，序号越小越近，`$0` 表示当前查看/选择的元素 | `$0`                                    |
+| `$('selector', [startNode])`  | 返回首个匹配元素，根节点可选，默认为 `document`              | `$('#root')`                            |
+| `$$('selector', [startNode])` | 返回所有匹配元素，根节点可选，默认为 `document`              | `$$('button')`                          |
+| `$x(path, [startNode])`       | XPath 选择器                                                 | `$x('//p')`                             |
+| `getEventListeners(element)`  | 查看元素上的事件                                             |                                         |
+| `monitorEvents(element)`      | 监控元素上的事件                                             | `monitorEvents(document.body, "click")` |
+| `monitor(functionName)`       | 监控函数                                                     | `monitor(add)`                          |
+| `copy(value)`                 | 复制内容到剪贴板                                             |                                         |
+| `inspect(element)`            | 选中指定的元素                                               |                                         |
 
 # 参考
 
