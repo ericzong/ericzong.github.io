@@ -45,21 +45,28 @@ author: Eric Zong
 
 ## 特定视图操作
 
-| 视图   | 种类     | 键                             | 说明                                                         |
-| ------ | -------- | ------------------------------ | ------------------------------------------------------------ |
-| 搜索   | 视图操作 | `Ctrl + C`                     | 关闭当前视图                                                 |
-|        | 搜索中   | `Up`, `Ctrl + P`, `Ctrl + K`   | 查找下一个匹配                                               |
-|        |          | `Down`, `Ctrl + n`, `Ctrl + j` | 查找上一个匹配                                               |
-| 主视图 | 选项开关 | `G`                            | 提交标题图型                                                 |
-|        |          | `F`                            | 提交标题引用                                                 |
-|        | 扩展命令 | `C`                            | `?git cherry-pick %(commit)`                                 |
-|        |          | u                              | Update status of file. In the status view, this allows you to add an untracked file or stage changes to a file for next commit (similar to running git-add <filename>). In the stage view, when pressing this on a diff chunk line stages only that chunk for next commit, when not on a diff chunk line all changes in the displayed diff are staged. |
-|        |          | M                              | Resolve unmerged file by launching git-mergetool(1). Note, to work correctly this might require some initial configuration of your preferred merge tool. See the manpage of git-mergetool(1). |
-|        |          | !                              | Checkout file with unstaged changes. This will reset the file to contain the content it had at last commit. |
-|        |          | 1                              | Stage single diff line.                                      |
-|        |          | @                              | Move to next chunk in the stage view.                        |
-|        |          | ]                              | Increase the diff context.                                   |
-|        |          | [                              | Decrease the diff context.                                   |
+| 视图   | 种类     | 键                             | 说明                                            |
+| ------ | -------- | ------------------------------ | ----------------------------------------------- |
+| 搜索   | 视图操作 | `Ctrl + C`                     | 关闭当前视图                                    |
+|        | 搜索中   | `Up`, `Ctrl + P`, `Ctrl + K`   | 查找下一个匹配                                  |
+|        |          | `Down`, `Ctrl + n`, `Ctrl + j` | 查找上一个匹配                                  |
+| 主视图 | 选项开关 | `G`                            | 提交标题图型                                    |
+|        |          | `F`                            | 提交标题引用                                    |
+|        | 扩展命令 | `C`                            | `?git cherry-pick %(commit)`                    |
+| 差异   | 选项开关 | `[`                            | <span title="diff-context">差异上下文</span> -1 |
+|        |          | `]`                            | <span title="diff-context">差异上下文</span> +1 |
+|        | 内部命令 | `@`                            | `/^@@`                                          |
+| 引用   | 扩展命令 | `C`                            | `?git checkout %(branch)`                       |
+|        |          | `!`                            | `?git branch -D %(branch)`                      |
+| 状态   |          | `u`                            | 更新，暂存/取消暂存                             |
+|        |          | `!`                            | 还原，检出                                      |
+|        |          | `M`                            | 合并                                            |
+|        | 扩展命令 | `C`                            | `!git commit`                                   |
+| 暂存   |          | `1`                            | 单行暂存/取消暂存                               |
+|        |          | `\`                            | 分割当前差异区块                                |
+| 贮藏   | 扩展命令 | `A`                            | `?git stash apply %(stash)`                     |
+|        |          | `P`                            | `?git stash pop %(stash)`                       |
+|        |          | `!`                            | `?git stash drop %(stash)`                      |
 
 ## 光标导航
 
