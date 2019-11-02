@@ -130,28 +130,28 @@ author: Eric Zong
 
 ## <span title="Prompt">提示符</span>
 
-| Key                  | Action                                                       |
-| -------------------- | ------------------------------------------------------------ |
-| :<number>            | Jump to the specific line number, e.g. `:80`.                |
-| :<sha>               | Jump to a specific commit, e.g. `:2f12bcc`.                  |
-| :<x>                 | Execute the corresponding key binding, e.g. `:q`.            |
-| :!<command>          | Execute a system command in a pager, e.g. `:!git log -p`.    |
-| :<action>            | Execute a Tig command, e.g. `:edit`.                         |
-| :goto <rev>          | Jump to a specific revision, e.g. `:goto %(commit)^2` to goto the current commit’s 2nd parent or `:goto some/branch` to goto the commit denoting the branch `some/branch`. |
-| :save-display <file> | Save current display to ``.                                  |
-| :save-options <file> | Save current options to ``.                                  |
-| :save-view <file>    | Save view info to `` (for testing purposes).                 |
-| :script <file>       | Execute commands from ``.                                    |
-| :exec <flags><args…> | Execute command using `` with external user-defined command option flags defined in ``. |
-| :echo <args…>        | Display text in the status bar.                              |
+| Key                    | Action                                                       |
+| ---------------------- | ------------------------------------------------------------ |
+| `:<number>`            | 跳转到指定行号，比如：`:80`                                  |
+| `:<sha>`               | 跳转到指定提交，比如：`:2f12bcc`                             |
+| `:<x>`                 | 执行相应的键绑定，比如： `:q`                                |
+| `:!<command>`          | 在分页器中执行一个系统命令，比如：`:!git log -p`             |
+| `:<action>`            | 执行一个 tig 命令，比如： `:edit`                            |
+| `:goto <rev>`          | 跳转到一个指定的修改，比如： `:goto %(commit)^2` 跳转到当前提交的第 2 个父级，或者 `:goto some/branch` 跳转到这个提交指向的分支 `some/branch` |
+| `:save-display <file>` | 保存当前显示到文件                                           |
+| `:save-options <file>` | 保存当前选项到文件                                           |
+| `:save-view <file>`    | 保存视图信息到文件（为了测试目的）                           |
+| `:script <file>`       | 从文件执行命令                                               |
+| `:exec <flags><args…>` | 使用具有外部用户定义命令选项标志的命令来执行命令             |
+| `:echo <args…>`        | 在状态条中显示文本                                           |
 
 ## 扩展命令
 
-| Keymap  | Key  | Action                    |
-| ------- | ---- | ------------------------- |
-| main    | C    | git cherry-pick %(commit) |
-| status  | C    | git commit                |
-| generic | G    | git gc                    |
+| Keymap  | Key  | Action                      |
+| ------- | ---- | --------------------------- |
+| main    | C    | `git cherry-pick %(commit)` |
+| status  | C    | `git commit`                |
+| generic | G    | `git gc`                    |
 
 # 版本限定
 
