@@ -1,5 +1,5 @@
 ---
-layout: posts
+layout: post
 title: tig入门
 category: 工具
 tags: Git 入门
