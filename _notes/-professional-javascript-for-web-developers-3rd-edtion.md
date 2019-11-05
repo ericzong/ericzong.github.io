@@ -1082,6 +1082,65 @@ var hasXmlDom = document.implementation.hasFeature("XML", "1.0");
 
 # 第11章 DOM扩展
 
+## 11.2 元素遍历
+
+Element Traversal 规范（ www.w3.org/TR/ElementTraversal/ ）：
+
+* childElementCount：返回子元素（不包括文本节点和注释）的个数。
+* firstElementChild：指向第一个子元素； firstChild 的元素版。
+* lastElementChild：指向最后一个子元素； lastChild 的元素版。
+* previousElementSibling ：指向前一个同辈元素； previousSibling 的元素版。
+* nextElementSibling：指向后一个同辈元素； nextSibling 的元素版。
+
+## 11.3 HTML5
+
+## 11.3.1 与类相关的扩充
+
+`getElementsByClassName()`，参数是一个包含一或多个类名的字符串。传入多个类名时，先后顺序不重要。
+
+`element.classList` => `DOMTokenList` => `item`/`[n]`
+
+`DOMTokenList` 方法：
+
+* add(value)
+* contains(value)
+* remove(value)
+* toggle(value)
+
+### 11.3.2 焦点管理
+
+文档加载中，`document.activeElement`  →   `null`
+
+文档加载完成，`document.activeElement`  →  `document.body`
+
+`document.hasFocus()`
+
+无障碍性。
+
+### 11.3.3 HTMLDocument的变化 
+
+`document.readyState` 属性：`loading` 和 `complete`。
+
+标准模式：`document.compatMode = 'CSS1Compat'` ；混杂模式：`document.compatMode = 'BackCompat'`
+
+### 11.3.4 字符集属性
+
+`charset` 属性默认值为 UTF-16。
+
+### 11.3.5 自定义数据属性
+
+前缀 `data-`，为元素提供与渲染无关的信息，或提供语义信息。
+
+`element.dataset` 属性，`DOMStringMap`，`data-name`。
+
+### 11.3.7 scrollIntoView()方法
+
+为某个元素设置焦点也会导致浏览器滚动并显示出获得焦点的元素。
+
+>  https://developer.mozilla.org/zh-CN/docs/Web/API/Element/scrollIntoView 
+
+## 11.4 专有扩展
+
 
 
 # 第24章 最佳实践
