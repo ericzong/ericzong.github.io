@@ -1141,6 +1141,30 @@ Element Traversal 规范（ www.w3.org/TR/ElementTraversal/ ）：
 
 ## 11.4 专有扩展
 
+### 11.4.1 文档模式
+
+IE8 引入，决定可以使用什么功能。
+
+```js
+document.documentMode
+```
+
+### 11.4.4 插入文本
+
+`innerText` 会忽略行内样式和脚本；`textContent` 会返回行内样式和脚本代码。
+
+### 11.4.5 滚动
+
+```js
+scrollIntoViewIfNeeded(alignCenter);
+scrollByLines(lineCount);
+scrollByPages(pageCount);
+```
+
+scrollIntoView() 和 scrollIntoViewIfNeeded() 的作用对象是元素的容器，而 scrollByLines() 和 scrollByPages() 影响的则是元素自身。
+
+# 第12章 DOM2和DOM3
+
 
 
 # 第24章 最佳实践
