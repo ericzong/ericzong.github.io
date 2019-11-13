@@ -65,7 +65,7 @@ scoop create <url>
 
 ## 简单示例
 
-比如，在 GitHub 仓库根目录创建文件“hello.json”，其内容大致如下：
+比如，在 GitHub 仓库根目录创建文件 `hello.json`，其内容大致如下：
 
 ```json
 {
@@ -88,17 +88,17 @@ scoop install hello
 
 ## 属性配置
 
-前文只给出了一个简单的应用清单示例，不过，应用清单中的 JSON 对象有很多配置属性，主要分为 [必要属性](https://github.com/lukesampson/scoop/wiki/App-Manifests#required-properties) 和 [可选属性](https://github.com/lukesampson/scoop/wiki/App-Manifests#optional-properties)，详细说明请参考官方 Wiki。
+前文只给出了一个简单的应用清单示例，不过，应用清单中的 JSON 对象有很多配置属性，主要分为 [必要属性](https://github.com/lukesampson/scoop/wiki/App-Manifests#required-properties) 和 [可选属性](https://github.com/lukesampson/scoop/wiki/App-Manifests#optional-properties)，详细说明请参考官方 [Wiki](https://github.com/lukesampson/scoop/wiki/App-Manifests#required-properties)。
 
-通常，要一个应用清单是可用的，至少必须配置必要属性，即 version 和 url，分别指定应用版本和下载地址。这样，scoop 就可以依此判断应用状态，以正确执行各种命令。而可选属性并非总是可缺省的，这取决于应用的形式，下文应用清单示例会进行相关说明。
+通常，要一个应用清单是可用的，至少必须配置必要属性，即 `version` 和 `url`，分别指定应用版本和下载地址。这样，scoop 就可以依此判断应用状态，以正确执行各种命令。而可选属性并非总是可缺省的，这取决于应用的形式，下文应用清单示例会进行相关说明。
 
 ## 自动更新
 
-当应用版本升级时，可以手动维护应用清单，以升级相关信息，主要包括：版本号（version）、下载地址（url）、哈希码（hash）等。
+当应用版本升级时，可以手动维护应用清单，以升级相关信息，主要包括：版本号（`version`）、下载地址（`url`）、哈希码（`hash`）等。
 
 但是，手动维护工作量很大，所以，scoop 提供了自动更新应用清单的功能，只是需要进行相关属性配置即可启用。
 
-简单来说，需要配置 checkver 和 autoupdate 两个属性，前者用以获取最新版本，后者用以获取更新的下载地址和哈希码等。
+简单来说，需要配置 `checkver` 和 `autoupdate` 两个属性，前者用以获取最新版本，后者用以获取更新的下载地址和哈希码等。
 
 ### 自动更新配置
 
@@ -125,7 +125,7 @@ scoop install hello
 }
 ```
 
-通常，配置的难点在于，checkver 和 autoupdate.hash.find 的配置，因为，它们的配置方式有多种，需根据实际情况选择。具体可参考下文相关示例。
+通常，配置的难点在于，`checkver` 和 `autoupdate.hash.find` 的配置，因为，它们的配置方式有多种，需根据实际情况选择。具体可参考下文相关示例。
 
 ### 更新应用清单
 
@@ -140,13 +140,15 @@ scoop 提供了一个脚本，位于 `scoop\apps\scoop\current\bin\checkver.ps1`
 ./bin/checkver.ps1 [app | *] -u
 ```
 
+> 注意：仅配置 `checkver` 属性的情况下，`checkver.ps1 <app>` 仍然具有检查版本更新的能力。但没有配置 `autoupdate` 属性的情况下是不能更新应用清单文件的。
+
 ## 持久化数据
 
 默认情况下，升级应用时，通常相当于全新安装新版本，安装目录下的所有数据或配置文件都不会自动迁移。
 
-Scoop 使用 persist 属性来配置处理这些需要持久化的数据或配置文件。
+Scoop 使用 `persist` 属性来配置处理这些需要持久化的数据或配置文件。
 
-> 原理是安装时将这些文件保存在 scoop/persist/\<app\> 目录下，应用版本目录下创建相应的目录联接（对于目录）或硬链接（对于文件）。
+> 原理是安装时将这些文件保存在 `scoop/persist/<app>` 目录下，应用版本目录下创建相应的目录联接（对于目录）或硬链接（对于文件）。
 
 持久化的数据通常是安装后就存在的文件（夹），如果不存在会被视为目录处理。
 
@@ -163,7 +165,7 @@ Scoop 使用 persist 属性来配置处理这些需要持久化的数据或配�
 }
 ```
 
-persist 属性可以是一个字符串，当且仅当只有一个文件（夹）需要持久化时；通常，它是一个数组，列出了所有需要持久化的文件（夹）。当然，可以为持久化目录中的文件（夹）取不同的名字，像上面配置示例那样给出一个两个元素的子数组，两个元素分别指定原名称和数据存储别名即可。
+｀persist｀ 属性可以是一个字符串，当且仅当只有一个文件（夹）需要持久化时；通常，它是一个数组，列出了所有需要持久化的文件（夹）。当然，可以为持久化目录中的文件（夹）取不同的名字，像上面配置示例那样给出一个两个元素的子数组，两个元素分别指定原名称和数据存储别名即可。
 
 ### 卸载时清理数据
 
@@ -195,9 +197,9 @@ main bucket 位于：`scoop\apps\scoop\current\bucket\`，其他添加的 bucket
 
 涉及知识点：
 
-* GitHub 仓库版本检测。"checkver": "github"
-* autoupdate.architecture.xxbit.url 属性中引用版本变量 `$version`。
-* autoupdate.architecture.hash.find 属性中引用文件名变量 `$basename`。
+* GitHub 仓库版本检测。`"checkver": "github"`
+* `autoupdate.architecture.xxbit.url` 属性中引用版本变量 `$version`。
+* `autoupdate.architecture.hash.find` 属性中引用文件名变量 `$basename`。
 
 ```json
 {
@@ -223,15 +225,15 @@ main bucket 位于：`scoop\apps\scoop\current\bucket\`，其他添加的 bucket
 
 > 完整配置参见 [这里](https://raw.githubusercontent.com/ericzong/ericzone/master/powershell.json)。
 
-上例中，由于 [powershell](https://github.com/PowerShell/PowerShell) 发布于 GitHub，homepage 即是其仓库地址，所以，checkver 属性指定为 github 即可。
+上例中，由于 [powershell](https://github.com/PowerShell/PowerShell) 发布于 GitHub，`homepage` 即是其仓库地址，所以，`checkver` 属性指定为 `github` 即可。
 
-> 注意，github 是一个特殊值。默认的正则表达式（`\/releases\/tag\/(?:v)?([\d.]+)`）只匹配了正式版，不会查找到预览版等版本。
+> 注意，`github` 是一个特殊值。默认的正则表达式是 `\/releases\/tag\/(?:v)?([\d.]+)`。而且它匹配的应该不是页面内容，而是 `/releases/latest` 跳转到的页面的 URL——即最后一个正式版的发布页面，因此，不会匹配到预览版等版本。
 >
-> checkver 属性通常是一个正则表达式，可以从主页、指定页面、在线 JSON 文件、GitHub 仓库等中查找版本号。详细配置可参考 [这里](https://github.com/lukesampson/scoop/wiki/App-Manifest-Autoupdate#add-checkver-to-a-manifest)。
+> `checkver` 属性通常是一个正则表达式，可以从主页、指定页面、在线 JSON 文件、GitHub 仓库等中查找版本号。详细配置可参考 [这里](https://github.com/lukesampson/scoop/wiki/App-Manifest-Autoupdate#add-checkver-to-a-manifest)。
 
-autoupdate 属性中的 url 通常会引用版本变量 `$version`，以生成更新的下载地址。详见 [这里](https://github.com/lukesampson/scoop/wiki/App-Manifest-Autoupdate#add-autoupdate-to-a-manifest)。
+`autoupdate` 属性中的 `url` 通常会引用版本变量 `$version`，以生成更新的下载地址。详见 [这里](https://github.com/lukesampson/scoop/wiki/App-Manifest-Autoupdate#add-autoupdate-to-a-manifest)。
 
-> 示例中，url 比较简单，只包含了一个版本变量。
+> 需要说明的是，版本变量 `$version` 的值默认来源于 `checkver` 的正则匹配中捕获的第一个分组。
 
 示例中，哈希码的获取使用了一些技巧。
 
