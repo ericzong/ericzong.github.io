@@ -102,30 +102,129 @@ scoop install hello
 
 ### 自动更新配置
 
-自动更新配置结构大致如下：
+> 应用清单的配置难点在于，部分关键属性的结构是可变的，同一个属性，可能既可以是一个字符串，也可以是一个数组，还可以是一个对象……
+>
+> 这并非是 scoop 的开发者有意为之，而是由于应用的提供方式并没有一个统一的规范，所以需要不同的配置方式与之对应。
+>
+> 而 `checkver` 和 `autoupdate` 属性正在其列。我们需要清楚哪种应用提供方式对应哪种属性配置方式，否则会很混乱。
+
+#### checkver属性
+
+**在主页匹配版本**
+
+最简单的配置是给一个正则表达式，比如后文的 Q-Dir 的配置 `"checkver": "Q-Dir ([^\\ ]+)"`。scoop 将使用该正则表达式去 `homepage` 属性指定的主页中去匹配版本。
+
+**在指定页面匹配版本**
+
+但是，如果应用主页没有版本信息，而要去其他页面查找，那么 `checkver` 将配置为一个 JSON 对象（`checkver.url` 指定该页面；`checkver.regex` 指定正则），比如后文中的 Typora：
 
 ```json
-{
-    ...
-    "checkver": ...,
-    "autoupdate": {
-        "architecture": {
-            "64bit": {
-                "url": ...
-            },
-            "32bit": {
-                "url": ...
-            }
+"checkver": {
+    "url": "https://typora.io/windows/dev_release.html",
+    "regex": "<h4>([\\d\\.]+)"
+}
+```
+
+> **在 JSON 文件中匹配版本**
+>
+> 如果查找的不是一个页面，而是一个在线 JSON 文件，则需要利用 JSONPath 等相关配置，详见 [这里](https://github.com/lukesampson/scoop/wiki/App-Manifest-Autoupdate#using-jsonpath-in-checkver)。
+
+**在 GitHub 仓库主页匹配版本**
+
+特别地，当应用发布于 GitHub 上时，`homepage` 正是该仓库位置，那么仅需配置 `"checkver": "github"` 即可。比如后文 PowerShell 的配置。
+
+> 注意，`github` 是一个特殊值。默认的正则表达式是 `\/releases\/tag\/(?:v)?([\d.]+)`。而且它匹配的应该不是页面内容，而是 `/releases/latest` 重定向到的页面的 URL——即最后一个正式版的发布页面，因此，不会匹配到预览版等版本。
+
+**指定 GitHub 仓库匹配版本**
+
+关于 GitHub 发布的应用的另一种情况是，该应用有自己的主页（`homepage` 属性不是 GitHub 仓库位置），但版本信息需要在 GitHub 中获取，则需要用 `checkver.github` 来指定仓库位置。
+
+```json
+"checkver": {
+    "github": "https://github.com/<user>/<project>"
+}
+```
+
+**指定页面匹配版本**
+
+更一般的，如果版本信息不在主页，而在其他页面，则需要配置 `checkver.url` 和 `checkver.regex` 分别指定版本所在页面的 URL 和正则表达式。
+
+```json
+"checkver": {
+    "url": "https://path/to/version/page",
+    "regex": "..."
+}
+```
+
+**`checkver`下常用的其他属性**
+
+* `checkver.reverse`：`true`/`false`，返回最后一次匹配，默认是首次。
+* `checkver.replace`：替换版本值。这通常会使用[捕获变量](https://github.com/lukesampson/scoop/wiki/App-Manifest-Autoupdate#captured-variables)（随后说明）。
+
+> 注意：`checkver.replace` 使用捕获变量的格式（`${1}`/`${name1}`）与 `autoupdate` 中格式（`$match1`/`$matchName1`）的区别。
+>
+> `checkver` 下所有属性可参考 [这里](https://github.com/lukesampson/scoop/wiki/App-Manifest-Autoupdate#properties-of-checkver)。
+
+**关于版本变量**
+
+所谓版本变量，就是存储了当前版本信息的变量。
+
+最常见的应该是 ` $version `，它存储了当前应用的版本。默认情况下，它的值来源于 `checkver` 的正则表达式匹配的第一个捕获分组。通常，它用于需自动更新的各种 URL 中，比如：`autoupdate.url`（可参考 PowerShell 应用清单示例）。
+
+> 注意：经测试，一旦正则匹配中有命名捕获分组，那么 `$version` 就不会有值，除非有捕获分组被命名为 `version`。
+>
+> 当然，版本变量不止这一个，更多版本变量信息参考 [这里](https://github.com/lukesampson/scoop/wiki/App-Manifest-Autoupdate#version-variables)。
+
+**关于捕获变量**
+
+所谓捕获变量，就是在 `checkver` 正则匹配中捕获分组匹配的文本。
+
+> 更多参考 [这里](https://github.com/lukesampson/scoop/wiki/App-Manifest-Autoupdate#captured-variables)。
+
+#### autoupdate属性
+
+从用途上说，`autoupdate` 属性是要自动更新应用清单文件中的一系列版本相关信息，这包括：`url`（应用链接）、`hash`、`extract_dir`……
+
+`autoupdate` 属性配置大致类似下面这样：
+
+```json
+"autoupdate": {
+    "architecture": {
+        "64bit": {
+            "url": ...
         },
-        "hash": {
-            "url": ...,
-            "find": ...
+        "32bit": {
+            "url": ...
         }
+    },
+    "hash": {
+        "url": ...,
+        "find": ...
     }
 }
 ```
 
-通常，配置的难点在于，`checkver` 和 `autoupdate.hash.find` 的配置，因为，它们的配置方式有多种，需根据实际情况选择。具体可参考下文相关示例。
+但是，与 `checkver` 属性类似，这个结构是易变的。
+
+**关于`url`配置**
+
+如果应用不区分 32/64 位系统架构，那么，`autoupdate.architecture` 属性的层次就不是必须的，直接指定 `autoupdate.url` 属性就好。
+
+通常，`url` 都会使用版本变量或捕获变量，除非下载链接是固定的。（可参考本文示例部分）
+
+**关于`hash`配置**
+
+如果 HASH 码的获取无关系统架构，那么，通常独立配置 `autoupdate.hash` 属性；但是，如果有关，那么通常分别配置 `autoupdate.architecture.32bit.hash` 和 `autoupdate.architecture.64bit.hash`。
+
+HASH 码有多种获取方式，这要根据应用提供 HASH 码的形式来确定使用哪种配置方式。通常需要配置 `hash.url` 和 `hash.find` 属性。
+
+> `hash` 属性不是必须的，但应尽力配置，否则自动更新时将会通过下载应用来计算其 HASH 码——这可能很耗时。
+>
+> HASH 码 可通过多种方式获取，包括：请求链接、在线文件中正则查找、JSON path 查找在线 JSON 文件等。
+>
+> 更多 `hash` 配置参考 [这里](https://github.com/lukesampson/scoop/wiki/App-Manifest-Autoupdate#adding-hash-to-autoupdate)。
+>
+> 更多 `autoupdate` 配置参考 [这里](https://github.com/lukesampson/scoop/wiki/App-Manifest-Autoupdate#adding-autoupdate-to-a-manifest)。
 
 ### 更新应用清单
 
@@ -141,6 +240,8 @@ scoop 提供了一个脚本，位于 `scoop\apps\scoop\current\bin\checkver.ps1`
 ```
 
 > 注意：仅配置 `checkver` 属性的情况下，`checkver.ps1 <app>` 仍然具有检查版本更新的能力。但没有配置 `autoupdate` 属性的情况下是不能更新应用清单文件的。
+>
+> 更多可用的参数可参考 [这里](https://github.com/lukesampson/scoop/wiki/App-Manifest-Autoupdate#parameters-of-checkverps1)。
 
 ## 持久化数据
 
@@ -165,7 +266,7 @@ Scoop 使用 `persist` 属性来配置处理这些需要持久化的数据或配
 }
 ```
 
-｀persist｀ 属性可以是一个字符串，当且仅当只有一个文件（夹）需要持久化时；通常，它是一个数组，列出了所有需要持久化的文件（夹）。当然，可以为持久化目录中的文件（夹）取不同的名字，像上面配置示例那样给出一个两个元素的子数组，两个元素分别指定原名称和数据存储别名即可。
+`persist` 属性可以是一个字符串，当且仅当只有一个文件（夹）需要持久化时；通常，它是一个数组，列出了所有需要持久化的文件（夹）。当然，可以为持久化目录中的文件（夹）取不同的名字，像上面配置示例那样给出一个两个元素的子数组，两个元素分别指定原名称和数据存储别名即可。
 
 ### 卸载时清理数据
 
@@ -193,7 +294,7 @@ main bucket 位于：`scoop\apps\scoop\current\bucket\`，其他添加的 bucket
 
 # 应用清单示例
 
-## [powershell](https://github.com/PowerShell/PowerShell)
+## [PowerShell ](https://github.com/PowerShell/PowerShell)
 
 涉及知识点：
 
@@ -217,7 +318,7 @@ main bucket 位于：`scoop\apps\scoop\current\bucket\`，其他添加的 bucket
         },
         "hash": {
             "url": "https://github.com/PowerShell/PowerShell/releases/latest",
-            "find": "(?:$basename)[\\s\\S]{1,64}([a-fA-F0-9]{64})"
+            "find": "(?:$basename)(?:[\\s\\S]*?)([a-fA-F0-9]{64})"
         }
     }
 }
@@ -225,31 +326,23 @@ main bucket 位于：`scoop\apps\scoop\current\bucket\`，其他添加的 bucket
 
 > 完整配置参见 [这里](https://raw.githubusercontent.com/ericzong/ericzone/master/powershell.json)。
 
-上例中，由于 [powershell](https://github.com/PowerShell/PowerShell) 发布于 GitHub，`homepage` 即是其仓库地址，所以，`checkver` 属性指定为 `github` 即可。
-
-> 注意，`github` 是一个特殊值。默认的正则表达式是 `\/releases\/tag\/(?:v)?([\d.]+)`。而且它匹配的应该不是页面内容，而是 `/releases/latest` 跳转到的页面的 URL——即最后一个正式版的发布页面，因此，不会匹配到预览版等版本。
->
-> `checkver` 属性通常是一个正则表达式，可以从主页、指定页面、在线 JSON 文件、GitHub 仓库等中查找版本号。详细配置可参考 [这里](https://github.com/lukesampson/scoop/wiki/App-Manifest-Autoupdate#add-checkver-to-a-manifest)。
+上例中，由于 [PowerShell  ](https://github.com/PowerShell/PowerShell) 发布于 GitHub，`homepage` 即是其仓库地址，所以，`checkver` 属性指定为 `github` 即可。
 
 `autoupdate` 属性中的 `url` 通常会引用版本变量 `$version`，以生成更新的下载地址。详见 [这里](https://github.com/lukesampson/scoop/wiki/App-Manifest-Autoupdate#add-autoupdate-to-a-manifest)。
 
-> 需要说明的是，版本变量 `$version` 的值默认来源于 `checkver` 的正则匹配中捕获的第一个分组。
-
 示例中，哈希码的获取使用了一些技巧。
 
-首先，url 使用的是 latest 路径，这里展示的也是最后一个正式版本，与 checkver 查找对应。（可以看下这个页面的结构）
+首先，`url` 使用的是 latest 路径，这里展示的也是最后一个正式版本，与 `checkver` 查找对应。（可以看下这个页面的结构）
 
-匹配的正则表达式中使用到了 $basename 变量，它代表下载地址中的文件名。因为 powershell 一个正式版本发布包含多个系统及位数的文件，所以需要文件名去匹配。注意文件名后换了一行列出 SHA256 哈希码，因此使用 `[\\s\\S]{1, 64}` 匹配换行。这里量词不能是 *，否则会匹配到最后一个哈希码，而且实验发现使用 *? 勉强匹配并不生效，所以只好写一个范围——其数量不确定，所以使用 1~64（SHA256 码是 64 位，所以一般不会匹配出错）。
-
-> autoupdate 属性中的 hash 可通过多种方式获取哈希码，包括：请求链接、在线文件中正则查找、JSON path 查找在线 JSON 文件等。详见 [这里](https://github.com/lukesampson/scoop/wiki/App-Manifest-Autoupdate#add-hash-to-autoupdate)。
+匹配的正则表达式中使用到了 `$basename` 变量，它代表下载地址中的文件名。因为 PowerShell 一个正式版本发布包含多个系统及位数的文件，所以需要文件名去匹配。注意文件名后换了一行列出 SHA256 哈希码，因此使用 `(?:[\\s\\S]*?)` 匹配换行。这里量词不能是 `*`，否则会匹配到最后一个哈希码，应使用 `*?` （勉强匹配）。
 
 ## Q-Dir
 
 涉及知识点：
 
-* extract_dir 属性指定解压文件夹。
-* persist 属性持久化数据。
-* checkver 属性为正则表达式。
+* `extract_dir` 属性指定解压文件夹。
+* `persist` 属性持久化数据。
+* `checkver` 属性为正则表达式。
 
 ```json
 {
@@ -264,21 +357,22 @@ main bucket 位于：`scoop\apps\scoop\current\bucket\`，其他添加的 bucket
     "autoupdate": {
         ...
         "hash": {
-            "url": "https://www.softwareok.com/?Download=Q-Dir"
+            "url": "https://www.softwareok.com/?Download=Q-Dir",
+            "find": "$basename.*?([a-fA-F0-9]{64})"
         }
     }
 }
 ```
 
-> 完整配置参见 [这里](https://raw.githubusercontent.com/ericzong/ericzone/master/qdir.json)。与 powershell 类似的配置就不再赘述了。
+> 完整配置参见 [这里](https://raw.githubusercontent.com/ericzong/ericzone/master/qdir.json)。与 PowerShell   类似的配置就不再赘述了。
 
-首先，注意 Q-Dir 配置了 extract_dir 属性，但 powershell 没有。这是因为，powershell 压缩包直接包含所有文件，而 Q-Dir 压缩包包含的是 Q-Dir 目录，所以，需要 extract_dir 属性指明解压出 Q-Dir 目录中的文件。
+首先，注意 Q-Dir 配置了 `extract_dir` 属性，但 PowerShell 没有。这是因为，PowerShell   压缩包直接包含所有文件，而 Q-Dir 压缩包包含的是 Q-Dir 目录，所以，需要 `extract_dir` 属性指明解压出 Q-Dir 目录中的文件。
 
-其次，配置了 persist 属性，这是指定持久化数据的。这里主要是为了保存 Q-Dir 的配置文件和快捷目录。
+其次，配置了 `persist` 属性，这是指定持久化数据的。这里主要是为了保存 Q-Dir 的配置文件和快捷目录。
 
-checkver 属性是一个正则表达式，它从 homepage 中匹配版本信息。
+`checkver` 属性是一个正则表达式，它从 `homepage` 中匹配版本信息。
 
-最后，注意哈希码的查找。实事上，这里并没有正确配置。autoupdate.hash.url 指出的页面的确有相关的哈希码，但笔者多次实验均没有写出一个能正确匹配哈希码的正则表达式。不过，并不是说自动更新脚本就没法获取到哈希码了，只是会将文件缓存到本地计算出其哈希码而已。当然，如果文件较大会耗时一些。
+Q-Dir 的文件名与 HASH 码间没有换行，所以使用 `.*?` 匹配即可。
 
 ## Typora
 
@@ -299,7 +393,7 @@ checkver 属性是一个正则表达式，它从 homepage 中匹配版本信息�
 
 Typora 的特殊之处在于它只有安装版，没有便携版。因此，我们需要执行安装程序。
 
-不过，由于 Typora 安装程序是基于 InnoSetup 的，所以直接将 innosetup 属性设置为 `true` 即可。
+不过，由于 Typora 安装程序是基于 InnoSetup 的，所以直接将 `innosetup` 属性设置为 `true` 即可。
 
 配置方案二：
 
@@ -331,13 +425,13 @@ Typora 的特殊之处在于它只有安装版，没有便携版。因此，我�
 }
 ```
 
-另外，我们也可以通过 installer 和 uninstaller 属性来指定安装和卸载行为。由于 Typora 提供了命令行安装与卸载接口，因此，配置方案二将具有更多的控制权。
+另外，我们也可以通过 `installer` 和 `uninstaller` 属性来指定安装和卸载行为。由于 Typora 提供了命令行安装与卸载接口，因此，配置方案二将具有更多的控制权。
 
-安装文件是确定的，所以只需要 installer.args 指定选项即可；而卸载不，还需要 uninstaller.file 指定卸载程序文件。
+安装文件是确定的，所以只需要 `installer.args` 指定选项即可；而卸载不同，还需要 `uninstaller.file` 指定卸载程序文件。
 
 > 通常，安装/卸载程序都应提供命令行接口，并且有静默安装/卸载的选项，否则将不能自动化的安装与卸载，即不适合用这种方式管理。
 
-此外，我们还通过 shortcuts 属性来为 Typora 在开始菜单中添加了快捷方式。
+此外，我们还通过 `shortcuts` 属性来为 Typora 在开始菜单中添加了快捷方式。
 
 # 参考资源
 
