@@ -177,7 +177,7 @@ scoop install hello
 
 **关于捕获变量**
 
-所谓捕获变量，就是在 `checkver` 正则匹配中捕获分组匹配的文本。
+所谓捕获变量，就是存储了在 `checkver` 正则匹配中捕获分组所匹配文本的变量。
 
 > 更多参考 [这里](https://github.com/lukesampson/scoop/wiki/App-Manifest-Autoupdate#captured-variables)。
 
