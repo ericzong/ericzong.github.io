@@ -272,6 +272,16 @@ npm install markdownlint --save-dev
 >
 > 不过它是收费软件，需要注册，不过目前看来已经不能注册了。
 
+## 功能增强
+
+### PowerToys
+
+微软发布的开源实用小工具集。scoop 及 Chocolatey 中都可以安装它，也可以在 [GitHub](https://github.com/Microsoft/PowerToys) 下载。
+
+它包括：FancyZones（窗口管理器）、Shortcut（快捷键指南）、PowerRename（重命名工个具）……
+
+<mark>仅Win10</mark>
+
 # 浏览器插件
 
 ## 内容过滤
