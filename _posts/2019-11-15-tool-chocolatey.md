@@ -1,5 +1,5 @@
 ---
-layout: posts
+layout: post
 title: Chocolatey入门
 category: 工具
 tags: Chocolatey 入门
@@ -34,7 +34,7 @@ Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.We
 Set-ExecutionPolicy Bypass -Scope Process -Force; iwr https://chocolatey.org/install.ps1 -UseBasicParsing | iex
 ```
 
-> 更多安装方式参考 [这里](https://chocolatey.org/install) 或 [教程](https://chocolatey.org/courses/installation/installing)。
+> 更多安装方式参考 [官方安装手册](https://chocolatey.org/install) 或 [官方教程的安装部分](https://chocolatey.org/courses/installation/installing)（推荐这个，可以通过选择来查看不同的安装方法）。
 
 ## 自定义安装位置
 
@@ -72,7 +72,7 @@ Chocolatey 的主命令是 `chocolatey`，但它很长，因此，通常我们�
 **帮助系统**
 
 ```powershell
-choco --help
+choco [subcommand] --help
 ```
 
 > 与大多数现代终端命令类似，Chocolatey 的命令格式为 `choco 子命令 选项/开关`。
@@ -104,11 +104,11 @@ choco config set proxyUser <username> #optional
 choco config set proxyPassword <passwordThatGetsEncryptedInFile> # optional
 choco config set proxyBypassList "'<bypasslist, comma separated>'" # optional, Chocolatey v0.10.4 required
 choco config set proxyBypassOnLocal true # optional, Chocolatey v0.10.4 required
-# 运行时配置参数
+# 运行时配置代码参数，比如 install 命令时即可使用
 --proxy="'value'" --proxy-user="'<user>'" --proxy-password="'<pwd>'" --proxy-bypass-list="'<comma separated, list>'" --proxy-bypass-on-local
 ```
 
-> 更多参考 [这里](https://github.com/chocolatey/choco/wiki/Proxy-Settings-for-Chocolatey#proxy-support-for-chocolatey)。
+> 更多代理配置支持参考 [Chocolatey GitHub Wiki](https://github.com/chocolatey/choco/wiki/Proxy-Settings-for-Chocolatey#proxy-support-for-chocolatey)。
 
 **其他**
 
@@ -118,7 +118,7 @@ choco list <filter>
 choco list --local-only
 choco list --page=0 --page-size=25
 
-choco install <app>
+choco install <app> [-y | --yes | --confirm]
 choco uninstall <app>
 
 choco outdated
@@ -126,6 +126,26 @@ choco outdated
 choco upgrade all
 choco upgrade <app>
 ```
+
+**关于安装命令**
+
+```powershell
+choco install <app>
+```
+
+默认情况下，使用以上命令安装应用时，需要交互确认执行安装脚本，如果想要临时自动确认，需要加上相应选项：
+
+```powershell
+choco install <app> [-y | --yes | --confirm]
+```
+
+如果在全局范围内安装应用都不想默认进行交互确认，那么可以执行：
+
+```powershell
+choco feature enable -n allowGlobalConfirmation
+```
+
+> Chocolatey 的帮助信息还是很人性化的，当在默认情况下执行应用安装，以上两种自动确认的命令会与交互确认信息一同显示。
 
 # 参考
 
