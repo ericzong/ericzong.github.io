@@ -6,7 +6,7 @@ author: Eric Zong
 ---
 
 * content
-{:toc}
+  {:toc}
 
 # 第1章 JavaScript简介
 
@@ -35,15 +35,19 @@ ECMAScript 兼容实现必须：
 DOM级别
 
 * DOM1级（DOM Level 1） = DOM Core + DOM HTML，目标主要是映射文档的结
+  
   * DOM 核心：如何映射基于 XML 的文档结构，以便简化对文档中任意部分的访问和操作
   * DOM HTML：在 DOM 核心的基础上加以扩展，添加了针对 HTML 的对象和方法。
 
 * DOM2级
+  
   * DOM 视图（DOM Views）：定义了跟踪不同文档（例如，应用 CSS 之前和之后的文档）视图的接口；
   * DOM 事件（DOM Events）：定义了事件和事件处理的接口；
   * DOM 样式（DOM Style）：定义了基于CSS为元素应用样式的接口；
   * DOM 遍历和范围（DOM Traversal and Range）：定义了遍历和操作文档树的接口。
+
 * DOM3级
+  
   * DOM 加载和保存（DOM Load and Save）模块：以统一方式加载和保存文档的方法
   * DOM 验证（DOM Validation）模块：验证文档的方法
   * 开始支持 XML 1.0 规范，涉及 XML Infoset、XPath 和 XML Base
@@ -71,7 +75,7 @@ BOM 只处理浏览器窗口和框架；习惯上，把所有针对浏览器的 
 * 对 cookies 的支持；
 * 像 XMLHttpRequest 和 IE 的 ActiveXObject 这样的自定义对象。
 
-## 1.4 小结 
+## 1.4 小结
 
 JavaScript 是一种专为与网页交互而设计的脚本语言，包括：
 
@@ -96,7 +100,7 @@ HTML 4.01 \<script\> 6 个属性：
 
 带有 src 属性的 \<script\> 元素中若嵌入代码，嵌入代码会被忽略。
 
-### 2.1.2 延迟脚本 
+### 2.1.2 延迟脚本
 
 HTML5 规范，延迟脚本按顺序执行，并在 DOMContentLoaded 事件之前执行。
 
@@ -214,23 +218,23 @@ ECMA-262 不负责定义宿主对象，因此宿主对象可能会也可能不�
 
 ECMAScript 以 64 位存储数值，但会转换为 32 位执行位操作，并将结果转换回 64 位。这个转换过程导致一个严重的副效应，即在对特殊的 NaN 和 Infinity 值应用位操作时，两个值会被当成 0 来处理。
 
-| 操作       | 英文 | 符号   |
-| ---------- | ---- | ------ |
-| 按位非     | NOT  | ~      |
-| 按位与     | AND  | &      |
-| 按位或     | OR   | \|     |
-| 按位异或   | XOR  | ^      |
-| 左移       |      | \<\<   |
-| 有符号右移 |      | \>\>   |
-| 无符号右移 |      | \>\>\> |
+| 操作    | 英文  | 符号     |
+| ----- | --- | ------ |
+| 按位非   | NOT | ~      |
+| 按位与   | AND | &      |
+| 按位或   | OR  | \|     |
+| 按位异或  | XOR | ^      |
+| 左移    |     | \<\<   |
+| 有符号右移 |     | \>\>   |
+| 无符号右移 |     | \>\>\> |
 
 ### 3.5.3 布尔操作符
 
-| 操作   | 英文 | 符号 |
-| ------ | ---- | ---- |
-| 逻辑非 | NOT  | !    |
-| 逻辑与 | AND  | &&   |
-| 逻辑或 | OR   | \|\| |
+| 操作  | 英文  | 符号   |
+| --- | --- | ---- |
+| 逻辑非 | NOT | !    |
+| 逻辑与 | AND | &&   |
+| 逻辑或 | OR  | \|\| |
 
 逻辑非操作符可作用于任何数据类型，会先将操作数转换为一个布尔值，再求反。
 
@@ -283,9 +287,9 @@ arguments对象只是与数组类似（它并不是Array的实例）。只能索
 ECMAScript函数的一个重要特点：命名的参数只提供便利，但不是必需的。
 
 > 原文指出 arguments 元素与相应的命名参数内存空间是独立的，但值会同步。并且影响是单向的：修改命名参数不会改变 arguments 中对应值。
->
+> 
 > 但实验表明 arguments 元素与对应的命名参数严格相等，且修改影响也是双向的。（环境 Node.js v12.4.0）
->
+> 
 > 过时？
 
 为缺省的命名参数对应的 arguments 元素赋值不会反应到命名参数。
@@ -328,9 +332,9 @@ typeof 操作符是检测一个变量是不是基本数据类型的最佳工具�
 > 在 IE8 及之前版本的 JavaScript 实现中，在 catch 语句中捕获的错误对象会被添加到执行环境的变量对象，而不是 catch 语句的变量对象中。换句话说，即使是在 catch 块的外部也可以访问到错误对象。 IE9 修复了这个问题。
 
 > 我的注释：
->
+> 
 > 比如如下立即执行函数，
->
+> 
 > ```js
 > (function() { 
 >     try { throw 'error message'; } catch(e) { console.log(e) }
@@ -347,7 +351,7 @@ typeof 操作符是检测一个变量是不是基本数据类型的最佳工具�
 变量查询有代价。但 JS 引擎优化不错，差别可忽略。
 
 > 我的注释：
->
+> 
 > 已过时，ES6 已经支持块级作用域。
 
 ## 4.3 垃圾收集
@@ -434,14 +438,14 @@ toLocaleString()/toString() 返回字面值，valueOf() 返回正则本身。
 
 ### 5.4.3 RegExp构造函数属性
 
-| 长属性名     | 短属性名 | 说明                        |
-| ------------ | -------- | --------------------------- |
-| input        | $_       | 最近要匹配字符串            |
-| lastMatch    | $&       | 最近匹配项                  |
-| lastParen    | &+       | 最近捕获组                  |
-| leftContext  | &`       | input 中 lastMatch 之前文本 |
-| rightContext | $'       | input 中 lastMatch 之后文本 |
-| multiline    | $*       | 布尔，多行模式              |
+| 长属性名         | 短属性名 | 说明                     |
+| ------------ | ---- | ---------------------- |
+| input        | $_   | 最近要匹配字符串               |
+| lastMatch    | $&   | 最近匹配项                  |
+| lastParen    | &+   | 最近捕获组                  |
+| leftContext  | &`   | input 中 lastMatch 之前文本 |
+| rightContext | $'   | input 中 lastMatch 之后文本 |
+| multiline    | $*   | 布尔，多行模式                |
 
 注：短属性名访问，`RegExp.$_`。`RegExp.$1` ~ `RegExp.$9`。
 
@@ -575,20 +579,20 @@ str.search(pattern); // => index
 str.replace(strOrPattern, newText);
 str.replace(pattern, function(match, pos, originalText) {});
 str.split(strOrPattern, returnCount?);
-          
+
 str.localeCompare(str1); // 符号方法
-          
+
 String.fromCharCode(codes...);
 ```
 
-| 字符序列 | 替换文本                                     |
-| -------- | -------------------------------------------- |
-| $$       | $                                            |
-| $&       | 匹配整个模式的子字符串。<=> RegExp.lastMatch |
-| $'       | 匹配前子串。 <=> RegExp.leftContext          |
-| $`       | 匹配后子串。 <=> RegExp.rightContext         |
-| $n       | 捕获组。n∈(0, 9)。无分组为空。               |
-| $nn      | 捕获组。n∈(01, 99)。无分组为空。             |
+| 字符序列 | 替换文本                             |
+| ---- | -------------------------------- |
+| $$   | $                                |
+| $&   | 匹配整个模式的子字符串。<=> RegExp.lastMatch |
+| $'   | 匹配前子串。 <=> RegExp.leftContext    |
+| $`   | 匹配后子串。 <=> RegExp.rightContext   |
+| $n   | 捕获组。n∈(0, 9)。无分组为空。              |
+| $nn  | 捕获组。n∈(01, 99)。无分组为空。            |
 
 ## 5.7 单体内置对象
 
@@ -611,26 +615,26 @@ encodeURI() 不会对本身属于 URI 的特殊字符进行编码，例如冒号
 
 Global属性
 
-| 分类     | 属性           |
-| -------- | -------------- |
-| 特殊值   | undefined      |
-|          | NaN            |
-|          | Infinity       |
+| 分类   | 属性             |
+| ---- | -------------- |
+| 特殊值  | undefined      |
+|      | NaN            |
+|      | Infinity       |
 | 构造函数 | Object         |
-|          | Array          |
-|          | Function       |
-|          | Boolean        |
-|          | String         |
-|          | Number         |
-|          | Date           |
-|          | RegExp         |
-| 异常     | Error          |
-|          | EvalError      |
-|          | RangeError     |
-|          | ReferenceError |
-|          | SyntaxError    |
-|          | TypeError      |
-|          | URIError       |
+|      | Array          |
+|      | Function       |
+|      | Boolean        |
+|      | String         |
+|      | Number         |
+|      | Date           |
+|      | RegExp         |
+| 异常   | Error          |
+|      | EvalError      |
+|      | RangeError     |
+|      | ReferenceError |
+|      | SyntaxError    |
+|      | TypeError      |
+|      | URIError       |
 
 ```js
 // 取得 Global 对象的方法
@@ -678,7 +682,7 @@ Object.defineProperty(book, 'year', {
         return this._year; 
     },
     set: function(newValue) {
-   	 	// set _year
+            // set _year
     }
 });
 // 遗留方法
@@ -692,12 +696,12 @@ obj.__defineSetter__('year', function(newValue) {});
 
 ```js
 Object.defineProperties(obj, {
-	_year: {
+    _year: {
         value: 2004
     },
     year: {
-   	 	get: function() {
-       	 	return this._year;
+            get: function() {
+                return this._year;
         }
     }
 });
@@ -813,7 +817,7 @@ function Person(name, age, job) {
     this.friends = ["Shelby", "Court"];
 }
 Person.prototype = {
- 	constructor: Person, 
+     constructor: Person, 
     sayName: function() {
         alert(this.name);
     }
@@ -830,7 +834,7 @@ function Person(name, age, job) {
     // ...
     // 方法
     if(typeof this.sayName != "function") {
-   	    // do sth 
+           // do sth 
     }
 }
 ```
@@ -1002,7 +1006,7 @@ JS 是以对象字面量的方式来创建单例对象的。
 
 没有框架的情况下，`parent` 一定等于 `top`。
 
-除非最高层窗口是通过 `window.open()` 打开，否则其 `window` 对象的 `name` 属性不会包含任何值。	
+除非最高层窗口是通过 `window.open()` 打开，否则其 `window` 对象的 `name` 属性不会包含任何值。    
 
 `self` 始终指向 `window`，引入只是为了与 `top` 和 `parent` 对应起来。
 
@@ -1117,7 +1121,7 @@ Element Traversal 规范（ www.w3.org/TR/ElementTraversal/ ）：
 
 无障碍性。
 
-### 11.3.3 HTMLDocument的变化 
+### 11.3.3 HTMLDocument的变化
 
 `document.readyState` 属性：`loading` 和 `complete`。
 
@@ -1171,7 +1175,73 @@ DOM3 级 -> XPath 模块
 
 DOM2 级定义的 CSS 能力
 
+## 12.4 范围
 
+Range
+
+# 第13章 事件
+
+## 13.1 事件流
+
+IE 的事件流是事件冒泡流，而 Netscape Communicator 的事件流是事件捕获流。
+
+### 13.1.1 事件冒泡
+
+事件冒泡（ event bubbling ），即事件开始时由最具体的元素（文档中嵌套层次最深的那个节点）接收，然后逐级向上传播到较为不具体的节点（文档）。
+
+### 13.1.2 事件捕获
+
+事件捕获（ event capturing ），不太具体的节点应该更早接收到事件，而最具体的节点应该最后接收到事件。事件捕获的用意在于在事件到达预定目标之前捕获它。
+
+### 13.1.3 DOM事件流
+
+“DOM2级事件”规定的事件流包括三个阶段：事件捕获阶段 → 处于目标阶段 → 事件冒泡阶段。
+
+## 13.2 事件处理程序
+
+事件就是用户或浏览器自身执行的某种动作。
+
+事件处理程序/事件侦听器，响应某个事件的函数。以“on”开头。
+
+### 13.2.1 HTML事件处理程序
+
+HTML 中指定事件处理程序的缺点：
+
+* 时差问题。事件可能在处理程序不具备执行条件（比如加载）前触发。解决方案：`try-catch` 块；
+* 扩展事件处理程序的作用域链在不同浏览器中会导致不同结果。不同 JavaScript 引擎遵循的标识符解析规则略有差异，很可能会在访问非限定对象成员时出错；
+* HTML 与 JavaScript 代码紧密耦合。解决方案：使用 JavaScript 指定事件处理程序。
+
+## 13.3 事件对象
+
+### 13.3.1 DOM中的事件对象
+
+只有 cancelable 属性设置为 true 的事件，才可以使用 preventDefault() 来取消其默认行为。
+
+stopPropagation() 方法用于立即停止事件在 DOM 层次中的传播，即取消进一步的事件捕获或冒泡。
+
+### 13.3.2 IE中的事件对象
+
+事件处理程序的作用域是根据指定它的方式来确定的，因此，`this` 不一定指向事件目标。最佳实践：使用 `event.srcElement`。
+
+## 13.4 事件类型
+
+### 13.4.3 鼠标与滚轮事件
+
+位置：
+
+* 客户区坐标位置
+* 页面坐标位置
+* 屏幕坐标位置
+
+## 13.5 内存和性能
+
+### 13.5.1 事件委托
+
+对“事件处理程序过多”问题的解决方案就是事件委托。事件委托利用了事件冒泡，只指定一个事件处理程序，就可以管理某一类型的所有事件。
+
+## 13.6 模拟事件
+
+可使用 JS 模拟各种事件。
 
 # 第24章 最佳实践
 
@@ -1203,7 +1273,7 @@ DOM2 级定义的 CSS 能力
 * 匈牙利标记法来指定类型。（o→对象；s→字符串；i→整数；f→浮点数；b→布尔型）。优点：函数参数可用；缺点：让代码某种程度上难以阅读，阻碍了没有用它时代码的直观性和句子式的特质。
 
 * 用类型注释。在变量旁边放一段指定类型的注释。优点：维持了代码的整体可读性，同时注入了类型信息；缺点：不能用多行注释一次注释大块的代码，因为类型注释也是多行注释，两者会冲突。
-
+  
   ```js
   var found /* : Boolean */ = false;
   ```
@@ -1221,10 +1291,11 @@ DOM2 级定义的 CSS 能力
 1. 尊重对象所有权。不能修改不属于你的对象。
 
 2. 避免全局量。
-
+   
    单一的全局量的延伸便是命名空间的概念。
 
 3. 避免与 null 进行比较。
+
 4. 使用常量。
 
 ## 24.2 性能
@@ -1237,8 +1308,6 @@ Chrome 是第一款内置优化引擎，将 JavaScript 编译成本地代码的�
 
 1. 避免全局查找
 2. 避免 with 语句
-
-
 
 和函数类似， with 语句会创建自己的作用域。
 
@@ -1352,4 +1421,3 @@ list.appendChild(fragment);
 代码长度：浏览器所需解析的字节数。
 
 配重（Wire weight）：实际从服务器传送到浏览器的字节数。
-
