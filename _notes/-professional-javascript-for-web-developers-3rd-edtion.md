@@ -704,6 +704,7 @@ Object.defineProperties(obj, {
                 return this._year;
         }
     }
+
 });
 ```
 
@@ -762,7 +763,7 @@ ES5 `Object.getOwnPropertyDescriptor()` 只能用于实例属性，要取得原�
 ```js
 "name" in person; // true，无论在对象上，还是原型上
 
-function hasPrototypeProperty(object, name){     return !object.hasOwnProperty(name) && (name in object); 
+function hasPrototypeProperty(object, name){     return !object.hasOwnProperty(name) && (name in object); 
 }
 
 Object.keys(person); // 可枚举实例属性
@@ -773,12 +774,12 @@ Object.getOwnPropertyNames(Person.prototype); // 所有实例属性
 
 ```js
 function Person() {}
-Person.prototype = {
-    name : "Nicholas",
-    age : 29,
-    job: "Software Engineer",
-    sayName : function () {
-        alert(this.name);     
+Person.prototype = {
+    name : "Nicholas",
+    age : 29,
+    job: "Software Engineer",
+    sayName : function () {
+        alert(this.name);     
     } 
 };
 ```
@@ -792,9 +793,9 @@ Person.prototype = {
     // ...
 }
 // ES5 修正为不可枚举
-Object.defineProperty(Person.prototype, "constructor", {
-    enumerable: false,
-    value: Person 
+Object.defineProperty(Person.prototype, "constructor", {
+    enumerable: false,
+    value: Person 
 });
 ```
 
@@ -913,12 +914,12 @@ ECMAScript 5 通过新增 Object.create() 方法规范化了原型式继承。
 寄生式（ parasitic ）继承，创建一个仅用于封装继承过程的函数，该函数在内部以某种方式来增强对象，最后再像真地是它做了所有工作一样返回对象。
 
 ```js
-function createAnother(original){
-    var clone = object(original);    // 通过调用函数创建一个新对象
-    clone.sayHi = function(){        // 以某种方式来增强这个对象
+function createAnother(original){
+    var clone = object(original);    // 通过调用函数创建一个新对象
+    clone.sayHi = function(){        // 以某种方式来增强这个对象
         alert("hi");
     };
-    return clone;                    // 返回这个对象
+    return clone;                    // 返回这个对象
 }
 ```
 
@@ -931,7 +932,7 @@ function createAnother(original){
 寄生组合式继承，即通过借用构造函数来继承属性，通过原型链的混成形式来继承方法。基本思路是：不必为了指定子类型的原型而调用超类型的构造函数，需要的无非就是超类型原型的一个副本而已。
 
 ```js
-function inheritPrototype(subType, superType){     var prototype = object(superType.prototype);       // 创建对象     prototype.constructor = subType;                   // 增强对象     subType.prototype = prototype;                     // 指定对象 }
+function inheritPrototype(subType, superType){     var prototype = object(superType.prototype);       // 创建对象     prototype.constructor = subType;                   // 增强对象     subType.prototype = prototype;                     // 指定对象 }
 ```
 
 # 第7章 函数表达式
@@ -1243,6 +1244,11 @@ stopPropagation() 方法用于立即停止事件在 DOM 层次中的传播，即
 
 可使用 JS 模拟各种事件。
 
+
+# 第14章 表单脚本
+
+
+
 # 第24章 最佳实践
 
 ## 24.1 可维护性
@@ -1335,47 +1341,47 @@ Duff 装置，循环展开技术，Tom Duff 创建，最早在 C 语言中使用
 Duff 装置的基本概念是通过计算迭代的次数是否为 8 的倍数将一个循环展开为一系列语句。
 
 ```js
-//credit: Jeff Greenberg for JS implementation of Duff’s Device  
-// 假设  values.length > 0 
-var iterations = Math.ceil(values.length / 8);  
-var startAt = values.length % 8;
-var i = 0;
-do {
-    switch(startAt){
-        case 0: process(values[i++]);
-        case 7: process(values[i++]);
-        case 6: process(values[i++]);
-        case 5: process(values[i++]);
-        case 4: process(values[i++]);
-        case 3: process(values[i++]);
-        case 2: process(values[i++]);
-        case 1: process(values[i++]);
+//credit: Jeff Greenberg for JS implementation of Duff’s Device  
+// 假设  values.length > 0 
+var iterations = Math.ceil(values.length / 8);  
+var startAt = values.length % 8;
+var i = 0;
+do {
+    switch(startAt){
+        case 0: process(values[i++]);
+        case 7: process(values[i++]);
+        case 6: process(values[i++]);
+        case 5: process(values[i++]);
+        case 4: process(values[i++]);
+        case 3: process(values[i++]);
+        case 2: process(values[i++]);
+        case 1: process(values[i++]);
     }
-    startAt = 0;
-} while (--iterations > 0);
+    startAt = 0;
+} while (--iterations > 0);
 ```
 
 ```js
-//credit: Speed Up Your Site (New Riders, 2003)  
-var iterations = Math.floor(values.length / 8);  
-var leftover = values.length % 8;  
-var i = 0;  
+//credit: Speed Up Your Site (New Riders, 2003)  
+var iterations = Math.floor(values.length / 8);  
+var leftover = values.length % 8;  
+var i = 0;  
 
-if (leftover > 0){ 
-    do {
+if (leftover > 0){ 
+    do {
         process(values[i++]);
-    } while (--leftover > 0);
+    } while (--leftover > 0);
 }
-do {
+do {
     process(values[i++]);
     process(values[i++]);
     process(values[i++]);
     process(values[i++]);
     process(values[i++]);
     process(values[i++]);
-    process(values[i++]);
     process(values[i++]);
-} while (--iterations > 0);
+    process(values[i++]);
+} while (--iterations > 0);
 ```
 
 当 JavaScript 代码想解析 JavaScript 的时候就会存在双重解释惩罚。当使用 eval() 函数或者是 Function 构造函数以及使用 setTimeout() 传一个字符串参数时都会发生这种情况。
@@ -1400,7 +1406,7 @@ JavaScript 代码中的语句数量也影响所执行的操作的速度。完成
 减少现场更新的方法之一是使用文档碎片来构建 DOM 结构。
 
 ```js
-fragment = document.createDocumentFragment();
+fragment = document.createDocumentFragment();
 fragment.appendChild(item);
 list.appendChild(fragment);
 ```

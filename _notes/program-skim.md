@@ -1,13 +1,12 @@
 ---
-[layout](https://mp.weixin.qq.com/s?__biz=MzI3NzE0NjcwMg==&mid=2650125199&idx=3&sn=bbbf0704d1363283e7ca53ae0e766d11&chksm=f36baeaec41c27b854cfff98cbe91a196e7785e9a45e13c1d5f7d5e4bbbfb4af4adb31c59c36&scene=0&xtrack=1&key=a48cc49b2aac2e464e3938bef88520247b27c4ca4181c48d3e5da206f8bacd3280cb312e2e9595f3339814c83e3e21e11346f3da74cabd2ef51f65521df058460c4fe26a12524c087207b2ba2cfdbb9a&ascene=14&uin=MTY2NDYyMDYwMQ%3D%3D&devicetype=Windows+7&version=62060841&lang=zh_CN&pass_ticket=ICEPZCgxURwi5DBgKTvxocfcyWbYfTVxD8Xzlgn6grKBoTioQ9dVIUq4fyuC15l6): page
+layout: page
 title: 编程文档略读笔记
 category: 略读笔记
 author: Eric Zong
 ---
 
 * content
-  
-  {:toc}
+{:toc}
 
 # Java
 
@@ -51,6 +50,10 @@ author: Eric Zong
 
 [只需五步，自己动手写一个静态博客](http://muxueqz.top/a-small-static-site-generator.html)
 
+## 语言
+
+[阮一峰 - awk入门教程](http://www.ruanyifeng.com/blog/2018/11/awk.html)：处理文本文件工具，一种编程语言，仅介绍命令行用法
+
 # 架构
 
 [96秒100亿！阿里到底做了什么？看完这篇你就明白了！](https://app.yinxiang.com/shard/s4/nl/1131083/b2532714-fbe8-42ac-8b35-95f4eda6115e)：分布式、高可用……；架构的演进。
@@ -66,6 +69,8 @@ author: Eric Zong
 [程序员：我终于知道post和get的区别](https://mp.weixin.qq.com/s?__biz=MzI3NzE0NjcwMg==&mid=2650125199&idx=3&sn=bbbf0704d1363283e7ca53ae0e766d11&chksm=f36baeaec41c27b854cfff98cbe91a196e7785e9a45e13c1d5f7d5e4bbbfb4af4adb31c59c36&scene=0&xtrack=1&key=a48cc49b2aac2e464e3938bef88520247b27c4ca4181c48d3e5da206f8bacd3280cb312e2e9595f3339814c83e3e21e11346f3da74cabd2ef51f65521df058460c4fe26a12524c087207b2ba2cfdbb9a&ascene=14&uin=MTY2NDYyMDYwMQ%3D%3D&devicetype=Windows+7&version=62060841&lang=zh_CN&pass_ticket=ICEPZCgxURwi5DBgKTvxocfcyWbYfTVxD8Xzlgn6grKBoTioQ9dVIUq4fyuC15l6)
 
 [HTTP的前世今生](https://coolshell.cn/articles/19840.html)
+
+[“三次握手，四次挥手”你真的懂吗？](http://blog.jobbole.com/114633/)
 
 # 区块链
 
