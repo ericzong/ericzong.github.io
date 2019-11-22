@@ -6,6 +6,7 @@ author: Eric Zong
 ---
 
 * content
+  
   {:toc}
 
 # 第1章 JavaScript简介
@@ -1247,7 +1248,17 @@ stopPropagation() 方法用于立即停止事件在 DOM 层次中的传播，即
 
 # 第14章 表单脚本
 
+## 14.5 富文本编辑
 
+原理一：嵌入一个包含空 HTML 页面的 iframe，设置 designMode 属性为“on”。
+
+### 14.5.1 使用contenteditable属性
+
+```html
+<div contenteditable></div>
+
+mydiv.contentEditable = "true";
+```
 
 # 第24章 最佳实践
 
