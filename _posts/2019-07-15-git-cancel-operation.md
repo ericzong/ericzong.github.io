@@ -166,7 +166,7 @@ git reset [--mixed | --soft | --hard] [HEAD | <commit>]
 
 最简单的解决方案是不要让 `^` 出现在行末，在其后加个空格即可。当然也可以这样：
 
-```cmd
+```shell
 git reset --hard "HEAD^"
 git reset --hard HEAD^^
 git reset --hard HEAD~
