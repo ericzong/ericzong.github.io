@@ -69,4 +69,10 @@ FAQ：这样的配置下还有一个小问题，如果首先是通过右键菜�
 
 ![foobar2000_foo_dsp_soundtouch](../image/reference_software_skill_foobar2000_foo_dsp_soundtouch.png)
 
+# Windows系统工具
+
+```powershell
+# MD5、SHA1、SHA256 工具
+certutil -hashfile <filename> <MD5|SHA1|SHA256>
+```
 
