@@ -1,5 +1,5 @@
 ---
-layout: posts
+layout: post
 title: 使用Git管理SVN项目
 category: 工具
 tags: Git 专题
