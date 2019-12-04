@@ -9,6 +9,7 @@ author: Eric Zong
 
 * content
 {:toc}
+
 # 概述
 
 Markdown 是一种纯文本轻量级标记语言。
@@ -276,19 +277,117 @@ Content inthe first column | Content in the second column
 
 脚注跟引用链接语法很像，只是脚注标识是带有 `^` 前缀的。
 
-> 
+> 在 Markdown 编辑器预览时：
+>
+> * 正文中的脚注标识
+>   * 通常显示为上标
+>   * 通常是指向对应脚注定义的超链接
+>   * 可能会将脚注内容显示为悬停帮助信息
+>   * 无论标识为何都会按出现顺序转换为有序数字序列
+> * 脚注定义
+>   * 总是会显示在正文末尾，且通常以分隔线与正文分开
+>   * 脚注内容末尾可能会显示一个链接跳转回脚注对应的正文
 
 ## 图片
 
+与超链接类似，图片也有内联与引用之分：
 
+```markdown
+内联图片语法
+![Alt text](path/to/img.jpg "title")
+引用图片语法
+![Alt text][id]
+[id]: path/to/img.jpg "title"
+```
 
-## 代码
+语法上看，只是比对应的链接形式多了一个 `!` 前缀，而 `[]` 中的是图片的 `alt` 属性。
 
+> 值得注意的是，以上两种语法不仅仅支持指定图片链接，还可以内嵌 base64 编码的图片。（具有可参考 [这里](./markdown-application-and-technique.html#base64-图片)）
+>
+> 使用内嵌图片的好处就是图文一体，不需要依赖图床等；但其缺点也很明显，base64 编码巨长，在编辑器中通常使得可读性较差，还可能引起滚动卡顿。
 
+## 文本样式
 
+### 内联代码
 
+上文提到了代码块语法，通常用以显示大段代码。如果只是嵌在行内的一小段代码，则应使用如下语法：
 
+```markdown
+后面是一段代码 `code` 使用反引号将代码包裹起来
+```
 
+> 如果代码片段中也包含 `` ` ``，可以使用多个反引号将其包裹。
+>
+> 如果代码片段中仅包含 `` ` ``，则需要在开始标记后及结束标记前插入一个空格。
+
+### 强调
+
+```markdown
+*斜体text*
+_斜体text_
+**加粗text**
+__加粗text__
+```
+
+* 使用 1 个或 2 个 `*` 或 `_` 符号包裹
+* 1 个符号包裹转换成 `<em>`，2 个符号包裹转换成 `<strong>`
+* 开闭标记必须匹配，不能混用
+* 开闭标记内部不能紧临空格，否则会被当成普通符号
+* 如果要输出强调语法类似的字面量，需要使用 `\` 转义标记
+
+### 删除线
+
+```markdown
+~~delete~~
+```
+
+# 杂项
+
+## 目录
+
+与 Word 类似，Markdown 支持依据各级标题生成目录，最简单的语法如下：
+
+```markdown
+[TOC]
+```
+
+如果使用 jekyll 这样的工具生成静态网站，那么生成目录需要用以下语法：
+
+```markdown
+* content
+{:toc}
+```
+
+> 后一种语法 Markdown 编辑器不一定支持。
+
+## YAML Front Matter
+
+YAML Front Matter 主要用于提供文档信息，在 jekyll 中会使用到：
+
+```markdown
+---
+title: 标题
+---
+```
+
+## 转义
+
+由于 Markdown 语法使用了一些常用符号作为标记，当要使用这些符号的字面量时，需要用 `\` 进行转义，可转义的字符有：
+
+```markdown
+\   backslash
+`   backtick
+*   asterisk
+_   underscore
+{}  curly braces
+[]  square brackets
+()  parentheses
+#   hash mark
++   plus sign
+-   minus sign (hyphen)
+.   dot
+!   exclamation mark
+```
 
 # 参考
 
