@@ -75,5 +75,22 @@ git reset --hard <COMMIT-ID>
 git reset --hard HEAD^
 ```
 
+# 远程操作
+
+## 多分支/标签
+
+```shell
+# 推送所有分支
+git push REMOTE '*:*'
+git push REMOTE --all
+git push --all origin
+# 推送所有标签
+git push REMOTE --tags
+# 拉取所有分支
+git pull --all
+# 抓取所有分支
+git fetch --all
+```
+
 
 
