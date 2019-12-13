@@ -39,6 +39,16 @@ Typora 是一个 Markdown 编辑器。
 
 [GitHub - Mark Text](https://github.com/marktext/marktext/)
 
+### ghostwriter
+
+免费、开源的跨平台 Markdown 编辑器。
+
+支持双边实时预览；可配置主题，控制有限的显示外观；可自定义样式。
+
+其特别之处是其大纲是一个悬浮窗口，不与编辑器一体，并可隐藏。
+
+[ghostwriter 官网](http://wereturtle.github.io/ghostwriter/)
+
 ### VNote
 
 号称“一个更懂程序员和Markdown的笔记！”。
@@ -259,6 +269,18 @@ npm install markdownlint --save-dev
 规则参考 [这里](https://github.com/DavidAnson/markdownlint/blob/master/doc/Rules.md)。
 
 # 系统工具
+
+## 文件处理
+
+### FreeFileSync
+
+FreeFileSync 是一个文件夹比较和同步软件，创建和管理所有重要文件的备份副本。
+
+FreeFileSync 不是每次都复制每个文件，而是确定源文件夹和目标文件夹之间的差异，只传输所需的最低数据量。
+
+FreeFileSync 是开源软件，可用于Windows、macOS和Linux。
+
+[FreeFileSync 官网](https://freefilesync.org/)
 
 ## 配置查看
 
