@@ -1260,6 +1260,32 @@ stopPropagation() 方法用于立即停止事件在 DOM 层次中的传播，即
 mydiv.contentEditable = "true";
 ```
 
+# 第16章
+
+## 16.1 跨文档消息传递
+
+跨文档消息传送（ cross-document messaging ），有时候简称为 XDM ，指的是在来自不同域的页面间传递消息。
+
+# 第20章 JSON
+
+关于 JSON ，最重要的是要理解它是一种数据格式，不是一种编程语言。
+
+## 20.1 语法
+
+JSON 不支持 JavaScript 中的特殊值 undefined 。
+
+JSON 字符串必须使用双引号
+
+## 20.2 解析与序列化
+
+JSON 是 JavaScript 语法的子集
+
+# 第21章 Ajax与Comet
+
+Ajax ，Asynchronous JavaScript + XML
+
+Ajax 技术的核心是 XMLHttpRequest 对象（简称 XHR ）
+
 # 第24章 最佳实践
 
 ## 24.1 可维护性
