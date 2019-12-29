@@ -1286,6 +1286,8 @@ Ajax ，Asynchronous JavaScript + XML
 
 Ajax 技术的核心是 XMLHttpRequest 对象（简称 XHR ）
 
+
+
 # 第24章 最佳实践
 
 ## 24.1 可维护性
