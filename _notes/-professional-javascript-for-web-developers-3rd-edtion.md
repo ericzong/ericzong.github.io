@@ -1286,7 +1286,25 @@ Ajax ，Asynchronous JavaScript + XML
 
 Ajax 技术的核心是 XMLHttpRequest 对象（简称 XHR ）
 
+## 21.1 XMLHttpRequest对象
 
+从性能角度来看，以发送相同的数据计，GET 请求的速度最多可在到 POST 请求的两倍。
+
+## 21.4 跨源资源共享
+
+默认情况下，XHR 对象只能访问与包含它的页面位于同一个域中的资源。
+
+CORS，Cross-Origin Sharing，跨源资源共享。
+
+## 21.5 其他跨域技术
+
+### 21.5.2 JSONP
+
+JSONP，JSON padding，填充式 JSON 或参数式 JSON。
+
+### 21.5.3 Comet
+
+实现 Comet 的方式：长轮询和流。
 
 # 第24章 最佳实践
 
