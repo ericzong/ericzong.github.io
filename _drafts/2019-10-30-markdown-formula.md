@@ -18,7 +18,7 @@ Markdown 的强大之处在于它可以使用纯文本描述复杂公式。
 
 一个坏消息是，Markdown 查看器、编辑器或者转换器通常不支持所有形式的公式；更坏的消息是，GitHub Pages 也尚不支持 Markdown 公式；但好在，可以通过 MathJax 间接地支持公式。
 
-# 语法
+# 公式语法
 
 在 Markdown 中有两种插入公式的形式：内联公式和公式块。
 
@@ -32,7 +32,7 @@ Markdown 的强大之处在于它可以使用纯文本描述复杂公式。
 | -------- | ------------------------------------------------------- | ------------------------------------------------------------ |
 | 上标     | `^`                                                     |                                                              |
 | 下标     | `_`                                                     |                                                              |
-| 左右标   | `\sideset`                                              |                                                              |
+| 左右标   | `\sideset`                                              | `\sideset {左标} {右标}`                                     |
 | 分数     | 1. `\frac {分子} {分母}`  <br/>2. `{分子} \over {分母}` |                                                              |
 | 连分数   | `\cfrac`                                                |                                                              |
 | 省略号   | 1. `\ldots`<br/>2. `\cdots`                             | 1. 垂直底部对齐<br/>2. 垂直居中对齐                          |
@@ -138,6 +138,132 @@ Markdown 的强大之处在于它可以使用纯文本描述复杂公式。
 | `\varrho`     | $\varrho$     |
 | `\varsigma`   | $\varsigma$   |
 | `\varphi`     | $\varphi$     |
+
+## 关系运算符
+
+| 输入       | 显示       | 输入         | 显示         | 输入        | 显示        | 输入         | 显示         |
+| :--------- | :--------- | :----------- | :----------- | :---------- | :---------- | :----------- | ------------ |
+| `\pm`      | $\pm$      | `\times`     | $\times$     | `\div`      | $\div$      | `\mid`       | $\mid$       |
+| `\nmid`    | $\nmid$    | `\cdot`      | $\cdot$      | `\circ`     | $\circ$     | `\ast`       | $\ast$       |
+| `\bigodot` | $\bigodot$ | `\bigotimes` | $\bigotimes$ | `\bigoplus` | $\bigoplus$ | `\leq`       | $\leq$       |
+| `\geq`     | $\geq$     | `\neq`       | $\neq$       | `\approx`   | $\approx$   | `\equiv`     | $\equiv$     |
+| `\sum`     | $\sum$     | `\prod`      | $\prod$      | `\coprod`   | $\coprod$   | `\backslash` | $\backslash$ |
+
+## 集合运算符
+
+| 输入        | 显示          | 输入        | 显示        | 输入        | 显示        |
+| :---------- | :------------ | :---------- | :---------- | :---------- | :---------- |
+| `\emptyset` | $$\emptyset$$ | `\in`       | $\in$       | `\notin`    | $\notin$    |
+| `\subset`   | $\subset$     | `\supset`   | $\supset$   | `\subseteq` | $\subseteq$ |
+| `\supseteq` | $\supseteq$   | `\bigcap`   | $\bigcap$   | `\bigcup`   | $\bigcup$   |
+| `\bigvee`   | $\bigvee$     | `\bigwedge` | $\bigwedge$ | `\biguplus` | $\biguplus$ |
+
+## 对数运算符
+
+| 输入   | 显示   |
+| ------ | ------ |
+| `\log` | $\log$ |
+| `\lg`  | $\lg$  |
+| `\ln`  | $\ln$  |
+
+## 三角运算符
+
+| 输入       | 显示       | 输入   | 显示   | 输入       | 显示       |
+| :--------- | :--------- | :----- | :----- | :--------- | :--------- |
+| `90^\circ` | $90^\circ$ | `\bot` | $\bot$ | `\angle A` | $\angle A$ |
+| `\sin`     | $\sin$     | `\cos` | $\cos$ | `\tan`     | $\tan$     |
+| `\csc`     | $\csc$     | `\sec` | $\sec$ | `\cot`     | $\cot$     |
+
+## 微积分运算符
+
+| 输入      | 显示      | 输入     | 显示     | 输入     | 显示     |
+| :-------- | :-------- | :------- | :------- | :------- | :------- |
+| `\int`    | $\int$    | `\iint`  | $\iint$  | `\iiint` | $\iiint$ |
+| `\iiiint` | $\iiiint$ | `\oint`  | $\oint$  | `\prime` | $\prime$ |
+| `\lim`    | $\lim$    | `\infty` | $\infty$ | `\nabla` | $\nabla$ |
+
+## 逻辑运算符
+
+| 输入       | 显示       | 输入         | 显示         | 输入          | 显示          |
+| :--------- | :--------- | :----------- | :----------- | :------------ | :------------ |
+| `\because` | $\because$ | `\therefore` | $\therefore$ |               |               |
+| `\forall`  | $\forall$  | `\exists`    | $\exists$    | `\not\subset` | $\not\subset$ |
+| `\not<`    | $\not<$    | `\not>`      | $\not>$      | `\not=`       | $\not=$       |
+
+## 戴帽符号
+
+| 输入         | 显示         | 输入              | 显示              |
+| :----------- | :----------- | :---------------- | :---------------- |
+| `\hat{xy}`   | $\hat{xy}$   | `\widehat{xyz}`   | $\widehat{xyz}$   |
+| `\tilde{xy}` | $\tilde{xy}$ | `\widetilde{xyz}` | $\widetilde{xyz}$ |
+| `\check{x}`  | $\check{x}$  | `\breve{y}`       | $\breve{y}$       |
+| `\grave{x}`  | $\grave{x}$  | `\acute{y}`       | $\acute{y}$       |
+
+## 连线符号
+
+| 输入                                             | 显示                                             |
+| :----------------------------------------------- | :----------------------------------------------- |
+| `\fbox{a+b+c+d}`                                 | $\fbox{a+b+c+d}$                                 |
+| `\overleftarrow{a+b+c+d}`                        | $\overleftarrow{a+b+c+d}$                        |
+| `\overrightarrow{a+b+c+d}`                       | $\overrightarrow{a+b+c+d}$                       |
+| `\overleftrightarrow{a+b+c+d}`                   | $\overleftrightarrow{a+b+c+d}$                   |
+| `\underleftarrow{a+b+c+d}`                       | $\underleftarrow{a+b+c+d}$                       |
+| `\underrightarrow{a+b+c+d}`                      | $\underrightarrow{a+b+c+d}$                      |
+| `\underleftrightarrow{a+b+c+d}`                  | $\underleftrightarrow{a+b+c+d}$                  |
+| `\overline{a+b+c+d}`                             | $\overline{a+b+c+d}$                             |
+| `\underline{a+b+c+d}`                            | $\underline{a+b+c+d}$                            |
+| `\overbrace{a+b+c+d}^{sum}`                      | $\overbrace{a+b+c+d}^{sum}$                      |
+| `\underbrace{a+b+c+d}_{sum}`                     | $\underbrace{a+b+c+d}_{sum}$                     |
+| `\overbrace{a+\underbrace{b+c}_{10}+d}^{10}`     | $\overbrace{a+\underbrace{b+c}_{10}+d}^{10}$     |
+| `\underbrace{a\cdot a\cdots a}_{n\text{ times}}` | $\underbrace{a\cdot a\cdots a}_{n\text{ times}}$ |
+
+## 箭头符号
+
+| 输入                  | 显示                  | 输入                  | 显示                  |
+| --------------------- | --------------------- | --------------------- | --------------------- |
+| `\to`                 | $\to$                 | `\mapsto`             | $\mapsto$             |
+| `\implies`            | $\implies$            | `\impliedby`          | $\impliedby$          |
+| `\iff`                | $\iff$                |                       |                       |
+| `\uparrow`            | $\uparrow$            | `\Uparrow`            | $\Uparrow$            |
+| `\downarrow`          | $\downarrow$          | `\Downarrow`          | $\Downarrow$          |
+| `\leftarrow`          | $\leftarrow$          | `\Leftarrow`          | $\Leftarrow$          |
+| `\rightarrow`         | $\rightarrow$         | `\Rightarrow`         | $\Rightarrow$         |
+| `\leftrightarrow`     | $\leftrightarrow$     | `\Leftrightarrow`     | $\Leftrightarrow$     |
+| `\longleftarrow`      | $\longleftarrow$      | `\Longleftarrow`      | $\Longleftarrow$      |
+| `\longrightarrow`     | $\longrightarrow$     | `\Longrightarrow`     | $\Longrightarrow$     |
+| `\longleftrightarrow` | $\longleftrightarrow$ | `\Longleftrightarrow` | $\Longleftrightarrow$ |
+
+## 字体转换
+
+| 输入    | 说明       | 显示            |
+| :------ | :--------- | :-------------- |
+| `\rm`   | 罗马体     | $\rm{Sample}$   |
+| `\it`   | 意大利体   | $\it{Sample}$   |
+| `\frak` | 旧德式字体 | $\frak{Sample}$ |
+| `\bf`   | 粗体       | $\bf{Sample}$   |
+| `\mit`  | 数学斜体   | $\mit{SAMPLE}$  |
+| `\Bbb`  | 黑板粗体   | $\Bbb{SAMPLE}$  |
+| `\cal`  | 花体       | $\cal{SAMPLE}$  |
+| `\sf`   | 等线体     | $\sf{Sample}$   |
+| `\tt`   | 打字机体   | $\tt{Sample}$   |
+| `\scr`  | 手写体     | $\scr{SAMPLE}$  |
+
+注：`{\字体 string}`，默认为 `\it`。
+
+## 文本颜色
+
+| 颜色   | 显示                   | 颜色    | 显示                    |
+| :----- | :--------------------- | :------ | :---------------------- |
+| black  | $\color{black}{text}$  | grey    | $\color{grey}{text}$    |
+| silver | $\color{silver}{text}$ | white   | $\color{white}{text}$   |
+| maroon | $\color{maroon}{text}$ | red     | $\color{red}{text}$     |
+| yellow | $\color{yellow}{text}$ | lime    | $\color{lime}{text}$    |
+| olive  | $\color{olive}{text}$  | green   | $\color{green}{text}$   |
+| teal   | $\color{teal}{text}$   | auqa    | $\color{auqa}{text}$    |
+| blue   | $\color{blue}{text}$   | navy    | $\color{navy}{text}$    |
+| purple | $\color{purple}{text}$ | fuchsia | $\color{fuchsia}{text}$ |
+
+注：文本颜色依赖浏览器支持，以上是 HTML4/CSS2 预定义的颜色，另外也可能支持 HTML5/CSS3 预定义的颜色。可以用 `\color {color name} {text}` 或 `\color {#rgb} {text}`。
 
 
 
