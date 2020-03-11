@@ -21,3 +21,23 @@ author: "Eric Zong"
 * `...\xxx\command\(默认)`：String 值。菜单项执行命令的具体内容，通常为某个可执行程序路径后跟参数列表。`%1` 通常表示菜单项关联的文件夹。注意：可执行程序路径以及 `%1`，最好都用 `"`（双引号）包裹起来。
 * `...\xxx\MultiSelectMode`：String 值。它用以限制文件夹的选择方式，候选值有 `Player`（默认值，无论单选或多选文件夹都会显示菜单项）/ `Single`（仅单选时显示菜单项）。
 
+## 示例
+
+这里以 Cmder 右键菜单为例。
+
+我们为文件夹添加打开 Cmder 的右键菜单，并在打开的 Cmder 中 cd 到该文件夹：
+
+```
+Windows Registry Editor Version 5.00
+
+[HKEY_CLASSES_ROOT\Directory\shell\Cmder]
+"Icon"="X:\\path\\to\\Cmder.exe,0"
+"MultiSelectModel"="Single"
+
+[HKEY_CLASSES_ROOT\Directory\shell\Cmder\command]
+@="\"X:\\path\\to\\Cmder.exe\"  /x \"-new_console:a\" /start \"%1\" /task \"PowerShell::PowerShell as Admin\""
+```
+
+> **注册表合并**
+>
+> 修改上面注册表脚本中的 Cmder 路径为你本地正确的路径，然后将其保存在新建的纯文本文件中，并重命名为 Cmder.reg。最后，双击合并入注册表即可。
