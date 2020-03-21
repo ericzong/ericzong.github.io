@@ -71,6 +71,17 @@ plugins:
   - jekyll-feed
   - jemoji
 
+# front matter defaults
+defaults:
+  -
+    scope:
+      path: "" # an empty string here means all files in the project
+      type: "posts" # pages, posts, drafts, any collection
+    values:
+      layout: post
+      excerpt: ""
+      author: "Eric Zong"
+
 # theme: minima
 
 # duoshuo_shortname: 
