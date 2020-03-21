@@ -5,6 +5,7 @@ category: 工具
 tags: Markdown 入门
 excerpt: Markdown入门教程。
 author: Eric Zong
+date: 2020-03-21 21:00
 ---
 
 * content
@@ -12,11 +13,17 @@ author: Eric Zong
 
 # 概述
 
-Markdown 是一种纯文本轻量级标记语言。
+> Markdown 是一种轻量级标记语言，具有纯文本格式语法。
+>
+> ——维基百科 
 
 Markdown 是一种创作格式，更多的关注语义。因而，即便是查看其纯文本形式，依然有很高的可读性。
 
 Markdown 可以转换成多种格式的文件，常见的 Markdown 编辑器通常是将其转换为 HTML 文档进行预览或查看。
+
+> 与常规意义上的纯文本不同，Markdown 具有自己的语法，因此它具有**内在一致性**。
+>
+> 具有内在一致性是计算机的最爱，换句话说，计算机可以很容易地处理 Markdown 文档。因此，Markdown 具有一次编辑即可转换成多种格式的优点。（这听起来有点像是专门为开发人员编写的文件类型，但事实并非如此。）
 
 # Markdown vs. HTML
 
@@ -420,6 +427,8 @@ _   underscore
 [《GitHub 风格的 Markdown 正式规范》发布](https://linux.cn/article-8399-1.html)：GFM 规范发布说明
 
 [Markdown：语法（中文翻译版）](https://markdown-zh.readthedocs.io/en/latest/)
+
+[一份 Markdown 简介（译文）](https://linux.cn/article-11402-1.html)
 
 ## 规范文档
 

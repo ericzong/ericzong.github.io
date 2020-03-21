@@ -153,9 +153,19 @@ Motrix 支持 macOS、Windows 及 Linux 系统，你可以在 [GitHub](https://g
 
 ### Tig
 
-[Tig](https://jonas.github.io/tig/) 是一个 Git 增强工具，它可以在命令行模式下更方便地浏览版本库，甚至还可以浏览暂存内容。
+[Tig](https://jonas.github.io/tig) 是 git 的基于 ncurses 的文本界面。它主要用作 Git 仓库浏览器，但也有助于在块级别暂存提交更改，并作为各种 Git 命令的输出分页器。
 
-Git 目前已经内置了 Tig，因此，不必再额外安装。
+Git for Windows 目前已经内置了 Tig，因此，不必再额外安装。
+
+其他系统安装 Tig 命令如下：
+
+* Fedora 和 RHEL： `sudo dnf install tig`
+* Ubuntu 和 Debian： `sudo apt install tig`
+* MacOS： `：brew install tig`
+
+## 制图
+
+[PlantUML](https://plantuml.com/zh/)，绘制 UML 及非 UML 图的开源工具。
 
 ## 数据库
 
