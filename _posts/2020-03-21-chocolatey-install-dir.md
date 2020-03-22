@@ -12,7 +12,7 @@ author: Eric Zong
 
 # 概述
 
-简单地使用 `choco install app` 命名显然结果也是简单地默认安装，但如果你对安装应用有一定的配置要求——比如，指定安装目录——那么默认安装通常是远远不够的。
+简单地使用 `choco install app` 命令显然结果也是简单地默认安装，但如果你对安装应用有一定的配置要求——比如，指定安装目录——那么默认安装通常是远远不够的。
 
 这就需要为安装命令传递相关配置选项/开关。
 
@@ -22,7 +22,7 @@ author: Eric Zong
 --ia, --installargs, --installarguments, --install-arguments=VALUE
 ```
 
-该选项用以传递安装参数给本地（native）安装器。
+该选项用以传递安装参数给本地安装器（native installer）。
 
 # 指定默认安装位置
 

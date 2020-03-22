@@ -5,7 +5,7 @@ category: 工具
 tags: Markdown 入门
 excerpt: Markdown入门教程。
 author: Eric Zong
-date: 2020-03-21 21:00
+update: 2020-03-21 21:00
 ---
 
 * content

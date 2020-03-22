@@ -47,7 +47,7 @@ sass --watch input.scss:output.css
 sass --watch app/sass:public/stylesheets
 ```
 
-> 风格参数：--styple <nested | expanded | compact | compressed>
+> 风格参数：`--styple <nested | expanded | compact | compressed>`
 
 两种语法间可以进行转换：
 
