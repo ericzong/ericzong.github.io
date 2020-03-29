@@ -135,6 +135,24 @@ POLAR 自带云服务，可同步上传文档。但要注意，云服务不是�
 
 与云服务相关的“中国特色”问题是，其登录、同步等服务都有“墙”。当然，桌面版可以本地工作，不使用云服务。
 
+# 多媒体
+
+## 图片
+
+### digiKam
+
+digiKam 是一个开源的专业照片管理软件。
+
+* 可以轻松处理包含 10 万+ 的图片库。
+* 具有高效的编辑工作流，可处理 RAW 文件以及编辑 JPEG 等文件，并发布到社交媒体（基本都是国外的）。
+* 使用元数据（metadata），利用 XMP 的强大功能，查看和编辑元数据。
+
+总之，digiKam 可以作为谷歌 Picasa3 的开源替代，并且在图片处理方面可能比 Picasa3 更强大。
+
+[digiKam 官网](https://www.digikam.org/)
+
+[Git repository - digiKam](https://invent.kde.org/kde/digikam)
+
 # 网络
 
 ## 下载
