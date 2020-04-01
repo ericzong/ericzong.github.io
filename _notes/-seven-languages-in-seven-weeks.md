@@ -2,6 +2,7 @@
 layout: page
 title: 七周七语言：理解多种编程范型
 category: 程序语言
+tags: 持续更新
 author: Eric Zong
 ---
 

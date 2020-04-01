@@ -2,6 +2,7 @@
 layout: page
 title: Effective Java 中文版（原书第 3 版）（阅读中……）
 category: Java
+tags: 持续更新
 author: Eric Zong	
 ---
 

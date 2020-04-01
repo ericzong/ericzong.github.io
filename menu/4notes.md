@@ -21,6 +21,8 @@ type: navigator
 				{% for post in category.items %}
 				<li>
 					<a class="title" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
+					
+					{% include tag.html %}
 				</li>
 				{% endfor %}
 			{% endfor %}
