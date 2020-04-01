@@ -282,18 +282,18 @@ Maven 默认父 POM 在上一层目录下。
 ## profile
 
 ```xml
-  <profiles>
+<profiles>
   <profile>
-  	<id>jdk-1.8</id>
-  	<activation>
+    <id>jdk-1.8</id>
+    <activation>
       <activeByDefault>true</activeByDefault>
       <jdk>1.8</jdk>
-  	</activation>
-  	<properties>
-  	  <maven.compiler.source>1.8</maven.compiler.source>
-  	  <maven.compiler.target>1.8</maven.compiler.target>
-  	  <maven.compiler.compilerVersion>1.8</maven.compiler.compilerVersion>
-  	</properties>
+    </activation>
+    <properties>
+      <maven.compiler.source>1.8</maven.compiler.source>
+      <maven.compiler.target>1.8</maven.compiler.target>
+      <maven.compiler.compilerVersion>1.8</maven.compiler.compilerVersion>
+    </properties>
   </profile>
   
   <profile>
@@ -310,19 +310,19 @@ Maven 默认父 POM 在上一层目录下。
         </snapshots>
       </repository>
     </repositories>
-  	
-  	<pluginRepositories>
+    
+    <pluginRepositories>
       <pluginRepository>
         <id>nexus</id>
        <url>http://localhost:8888/nexus/repository/maven-public/</url>
-      	<releases>
-      	  <enabled>true</enabled>
-      	</releases>
-      	<snapshots>
-      	  <enabled>true</enabled>
-      	</snapshots>
+        <releases>
+          <enabled>true</enabled>
+        </releases>
+        <snapshots>
+          <enabled>true</enabled>
+        </snapshots>
       </pluginRepository>
-  	</pluginRepositories>
+    </pluginRepositories>
   </profile>
   </profiles>
   <!-- 显示激活 -->
@@ -337,14 +337,14 @@ Maven 默认父 POM 在上一层目录下。
 ```xml
 <servers>
   <server>
-  	<id>nexus-releases</id>
-  	<username>zonglu</username>
-  	<password>password</password>
+    <id>nexus-releases</id>
+    <username>zonglu</username>
+    <password>password</password>
   </server>
   <server>
-  	<id>nexus-snapshots</id>
-  	<username>zonglu</username>
-  	<password>password</password>
+    <id>nexus-snapshots</id>
+    <username>zonglu</username>
+    <password>password</password>
   </server>
 </servers>
 ```
@@ -361,34 +361,34 @@ Maven 默认父 POM 在上一层目录下。
   <artifactId>jacoco-maven-plugin</artifactId>
   <version>${jacoco.version}</version>
   <executions>
-  	<execution>
-  	  <id>prepare-agent</id>
-  	  <goals>
-  	    <goal>prepare-agent</goal>
-  	  </goals>
-  	</execution>
-  	<execution>
+    <execution>
+      <id>prepare-agent</id>
+      <goals>
+        <goal>prepare-agent</goal>
+      </goals>
+    </execution>
+    <execution>
       <id>report</id>
       <phase>prepare-package</phase>
       <goals>
         <goal>report</goal>
       </goals>
-  	</execution>
-  	<execution>
+    </execution>
+    <execution>
       <id>post-unit-test</id>
       <phase>test</phase>
       <goals>
-      	<goal>report</goal>
+        <goal>report</goal>
       </goals>
       <configuration>
-      	<dataFile>target/jacoco.exec</dataFile>
-      	<outputDirectory>target/jacoco-ut</outputDirectory>
+        <dataFile>target/jacoco.exec</dataFile>
+        <outputDirectory>target/jacoco-ut</outputDirectory>
       </configuration>
-  	</execution>
+    </execution>
   </executions>
   <configuration>
     <systemPropertyVariables>
-  	  <jacoco-agent.destfile>target/jacoco.exec</jacoco-agent.destfile>
+      <jacoco-agent.destfile>target/jacoco.exec</jacoco-agent.destfile>
     </systemPropertyVariables>
   </configuration>
 </plugin>

@@ -126,7 +126,7 @@ author: "Eric Zong"
 
 有任何一个 profile 通过默认激活外的其他任意一种方式被激活，所有默认激活配置失效。
 
-详见[pom.xml配置]({{site.url}}/page/maven-settings-reference#profile)和[settings.xml配置]({{site.url}}/page/maven-settings-reference#profile-1)。
+详见[pom.xml配置]({{site.url}}/references/maven-settings-reference#profile)和[settings.xml配置]({{site.url}}/references/maven-settings-reference#profile-1)。
 
 # 命令参考
 
