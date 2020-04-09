@@ -1,5 +1,5 @@
 ---
-layout: post
+?layout: post
 title: "Maven笔记：1 入门"
 categories: Java
 tags: Java Java工具
@@ -68,7 +68,7 @@ mvn clean deploy site-deploy
 
 由于大型的项目通常会按模块开发，为了构建或管理等方面的便利，因此，会使用聚合和继承。
 
-相关配置参考 [聚合配置]({{site.url}}/references/maven-settings-reference#%E8%81%9A%E5%90%88) 和 [继承配置]({{site.url}}/references/maven-settings-reference#%E7%BB%A7%E6%89%BF)。
+相关配置参考 [聚合配置]({{site.url}}/references/Maven-settings-reference#%E8%81%9A%E5%90%88) 和 [继承配置]({{site.url}}/references/Maven-settings-reference#%E7%BB%A7%E6%89%BF)。
 
 ## 聚合
 
@@ -101,4 +101,4 @@ mvn clean deploy site-deploy
 
 ## 跳过
 
-Maven 支持跳过测试，甚至是跳过测试代码编译。这些都可以在命令行或是 POM 中设置，详见 [命令参考]({{site.url}}/references/Maven-reference#%E5%91%BD%E4%BB%A4%E5%8F%82%E8%80%83) 和 [配置参考]({{site.url}}/references/maven-settings-reference#%E8%B7%B3%E8%BF%87%E6%B5%8B%E8%AF%95)。
+Maven 支持跳过测试，甚至是跳过测试代码编译。这些都可以在命令行或是 POM 中设置，详见 [命令参考]({{site.url}}/references/Maven-reference#%E5%91%BD%E4%BB%A4%E5%8F%82%E8%80%83) 和 [配置参考]({{site.url}}/references/Maven-settings-reference#%E8%B7%B3%E8%BF%87%E6%B5%8B%E8%AF%95)。
