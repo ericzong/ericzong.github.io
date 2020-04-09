@@ -8,6 +8,23 @@ author: Eric Zong
 
 * content
 {:toc}
+# 别名
+
+```powershell
+git config --global alias.unstage 'reset HEAD --'
+git config --global alias.last 'log -1 HEAD'
+git config --global alias.ss 'status -s'
+git config --global alias.aa 'add .'
+git config --global alias.cm 'commit -m'
+git config --global alias.ps push
+git config --global alias.co checkout
+git config --global alias.bc branch
+git config --global alias.acm 'commit -a -m'
+git config --global alias.cg 'config --global'
+git config --global alias.bl 'branch -a'
+git config --global alias.setuser "!git config user.name 'Eric Zong'; git config user.email 'ericzonglu@126.com'"
+```
+
 # 信息查看
 
 ## 已提交未推送内容

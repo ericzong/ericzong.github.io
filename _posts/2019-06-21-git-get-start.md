@@ -379,6 +379,10 @@ git diff [--cached] [<PATH>...]
 git log [-p] [-n] [--stat] [--pretty=oneline|short|full|fuller] --graph
 ```
 
+# 参考
+
+[GitHub - gitignore](https://github.com/github/gitignore) 
+
 # 附录
 
 ## 文件存储
