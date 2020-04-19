@@ -1,8 +1,8 @@
 ---
 layout: page
-title: 《得到》笔记：概念篇
+title: 得到笔记：概念篇
 category: 其他
-tags: 《得到》
+tags: 得到
 author: Eric Zong
 ---
 
