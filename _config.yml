@@ -29,6 +29,8 @@ collections:
     output: true
   notes:
     output: true
+  favorites:
+    output: true
 
 # ----- system config -----
 # port: 
