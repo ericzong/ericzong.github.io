@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Mysql笔记：count函数
+title: MySQL笔记：count函数
 category: 数据库
 tags: MySQL
 excerpt: 介绍MySQL中count函数的几种用法以及差异。
