@@ -53,6 +53,34 @@ Git 只跟踪文件，不跟踪文件夹，也就是说空文件夹将不会被�
 
 简单来说，如果文件夹不为空就行了，即在空文件夹下创建一个任意的文件即可。但通常我们又不想把这个任意文件加入版本控制，那么，只要在空文件夹下创建一个名为“.gitkeep”的文件就可以达到效果了。
 
+## `git pull`关于处理冲突的警告
+
+```bash
+git pull --all
+warning: Pulling without specifying how to reconcile divergent branches is
+discouraged. You can squelch this message by running one of the following
+commands sometime before your next pull:
+
+ git config pull.rebase false # merge (the default strategy)
+ git config pull.rebase true  # rebase
+ git config pull.ff only    # fast-forward only
+
+You can replace "git config" with "git config --global" to set a default
+preference for all repositories. You can also pass --rebase, --no-rebase,
+or --ff-only on the command line to override the configured default per
+invocation.
+```
+
+当执行 `git pull` 命令时，可能会看到以上警告。其大意是说，未指定 pull 操作遇到冲突时的解决策略，并给出了对应的配置命令。选择一种策略配置后，就不会出现该警告。
+
+```bash
+git config [--global] pull.rebase false	# 合并（默认）
+git config [--global] pull.rebase true	# 变基
+git config [--global] pull.ff only		# 仅快进
+```
+
+如果想要临时切换策略，可分别指定 `--no-rebase`、`--rebase`、`--ff-only`。
+
 # 操作
 
 ## 创建分支失败
