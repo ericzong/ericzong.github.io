@@ -127,7 +127,7 @@ scoop list
 
 > 注意：Bucket 维护的是应用相关信息清单，而不是应用本身。Scoop 没有用于存放应用的中央仓库。
 
-Scoop 提供了一个内置的 [main bucket](https://github.com/lukesampson/scoop/tree/master/bucket)，存放了许多“符合标准”的应用。
+Scoop 提供了一个内置的 [main bucket](https://github.com/ScoopInstaller/Main)，存放了许多“符合标准”的应用。
 
 默认情况下，当执行 `scoop search`、`scoop install` 等命令时，Scoop 便是从 main bucket 中搜索应用的。
 
