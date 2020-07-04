@@ -88,3 +88,19 @@ gem sources --add https://gems.ruby-china.com/ --remove https://rubygems.org/
 ```
 
 > 可以想见本文为了显示这些正确的转义使用了大量自身提及的转义技巧。
+
+# 启动 wdm 提示
+
+启动服务时显示以下提示：
+
+```powershell
+Please add the following to your Gemfile to avoid polling for changes: 
+    gem 'wdm', '>= 0.1.0' if Gem.win_platform?
+```
+
+运行如下命令安装 wdm 即可：
+
+```powershell
+gem install wdm
+```
+
