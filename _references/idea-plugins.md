@@ -31,6 +31,7 @@ date: 2020-07-04
 | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------ |
 | [p3c](https://plugins.jetbrains.com/plugin/10046-alibaba-java-coding-guidelines) | 阿里巴巴出品的 Java 代码规范插件。另参考 [GitHub](https://github.com/alibaba/p3c/tree/master/idea-plugin)。 | Project 视图，右键菜单“编码规约扫描” |
 | [FindBugs-IDEA](https://plugins.jetbrains.com/plugin/3847-findbugs-idea) | 检测代码 Bug 及规范。检测模式较 p3c 更多。                   |                                      |
+| [CheckStyle](https://github.com/jshiell/checkstyle-idea)     | 编码规范检查。                                               |                                      |
 
 ## 代码调试
 
