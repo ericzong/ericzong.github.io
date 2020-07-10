@@ -141,11 +141,11 @@ hexo new [layout] <title>
 
 模板存在于 `<hexo>/scaffolds` 目录下，默认情况下该目录下有 `post.md`、`page.md`、`draft.md` 三个文件，即对应三种模板；生成的文件，所在路径根据使用的模板不同而不同；生成的文件名，默认为标题，后缀为 `.md`。
 
-| 布局  | 模板     | 路径           | 示例命令            | 示例文件生成路径       |
-| ----- | -------- | -------------- | ------------------- | ---------------------- |
-| post  | post.md  | source/_posts  | `hexo new post pf`  | `source/_posts/pf.md`  |
-| page  | page.md  | source         | `hexo new page pp`  | `source/pp/index.md`   |
-| draft | draft.md | source/_drafts | `hexo new draft df` | `source/_drafts/df.md` |
+| 布局  | 模板文件 | 路径             | 示例命令            | 示例文件生成路径       |
+| ----- | -------- | ---------------- | ------------------- | ---------------------- |
+| post  | post.md  | `source/_posts`  | `hexo new post pf`  | `source/_posts/pf.md`  |
+| page  | page.md  | `source`         | `hexo new page pp`  | `source/pp/index.md`   |
+| draft | draft.md | `source/_drafts` | `hexo new draft df` | `source/_drafts/df.md` |
 
 大多数情况下，我们会在模板文件中定制 Front Matter 以免重复编写，大致内容如下：
 
@@ -161,17 +161,71 @@ updated: {{ updated }}
 ---
 ```
 
-> 除 Front Matter 外，当然可以添加其他内容，这视你的需求而定。更多可参考官方中文文档 [Front Matter 章节](https://hexo.io/zh-cn/docs/front-matter)。
+> 除 Front Matter 外，当然可以添加其他内容，这视需求而定。更多可参考官方中文文档 [Front Matter 章节](https://hexo.io/zh-cn/docs/front-matter)。
 >
-> 
 
-https://hexo.io/zh-cn/docs/front-matter
+## 生成文章与显示效果
 
+值得注意的是，模板不仅影响生成文章的初始内容及路径，还会影响其显示效果。
 
+**post 模板**
+
+通常而言，使用 post 模板生成的文件就是常规意义上的帖子，它会出现在文章列表中。
+
+> **自定义模板**
+>
+> 自定义模板相当简单，只需在 `<hexo>/scaffolds` 目录下创建一个 Markdown 文件即可。比如：创建一个 `mydoc.md` 文件，这样就有了一个名为 `mydoc` 的模板。
+>
+> 自定义模板效果与 post 模板相同，生成文件的路径等都一样，仅仅是内容上的差异。
+>
+> **缺省值**
+>
+> `new` 命令中模板参数是可以省略的，默认缺省值为 `post`。缺省值是在 `_config.yml` 中由 `default_layout` 参数指定。
+
+**draft 模板**
+
+draft 模板生成的是草稿，即还未发布的帖子。草稿文件存放于 `source/_drafts` 目录——该目录初始并不存在，会在创建首个草稿时自动创建——默认启动 hexo 服务，草稿不会显示在文章列表中，除非启动命令添加了 `--draft` 选项。
+
+**page 模板**
+
+page 模板生成普通页面，并不显示在文章列表中，但可以在帖子中作为链接显示。
+
+> 使用 `page` 可创建 about 页。如：`hexo new page about`。
+
+## 发布草稿
+
+使用 draft 模板生成的草稿需要通过发布操作成为正式的帖子。本质上来说，就是将草稿文件从 `_draft` 目录发布到 `_posts` 目录。这可以手动操作，但 hexo 提供了专门的命令：
+
+```bash
+hexo publish [layout] <filename>
+```
+
+## 文件名
+
+`new` 命令中 title（标题）是必需指定的。默认情况下，生成的文件名就是指定的标题。
+
+> **配置**
+>
+> 新建文件名由 `_config.yml` 中的 `new_post_name` 参数决定，其默认配置为 `:title.md`，所以文件名默认是标题。
+>
+> 如果是从 Jekyll 迁移到 hexo，或者更偏好类似 Jekyll 的命名方式，可以使用 `:year-:month-:day-:title.md`。
+>
+> 但是，如果你的标题是中文而又想文件名是纯英文的，或者单纯想自定义文件名，那么，可以为 `new` 命令添加 `--path` 选项以指定文件路径及名称。比如：`hexo new post --path "dir/my-doc" "我的标题"`。
+>
+> **特殊符号**
+>
+> 文件名是不能包含某些特殊字符的，但是指定的标题可以是任意的。这时，特殊字符会转换为“-”。但是，如果你想通过 `--path` 创建一个文件名非法的文件，那么，你可能会得到一个错误。
 
 # 定制主题
 
+hexo 提供了很多现成的主题，你只需要在 [官方主题页面](https://hexo.io/zh-cn/docs/themes)  浏览选择你喜欢的主题，并从主题所在的 GitHub 库中下载它，并将主题文件夹拷贝到 `<hexo>/themes` 目录下即可使用。
 
+使用主题只需要配置 `_config.yml` 的 `theme` 参数即可。
+
+以 next 主题为例。首先，我们从 [GitHub 库](https://github.com/theme-next/hexo-theme-next) 将其代码 Clone 或下载 ZIP 压缩包（需解压）到本地；然后，将主题文件夹重命名为 `next` 并拷贝到 `<hexo>/themes` 目录；最后，将 `_config.yml` 的 `theme` 参数设置为 `next`（即主题文件夹名）。
+
+> 如果你是一位前端开发人员，想要完全自己写一个主题，可参考官方中文文档 [主题章节](https://hexo.io/zh-cn/docs/themes)。
+>
 
 # 更多的操作命令
 
@@ -184,4 +238,12 @@ https://hexo.io/zh-cn/docs/front-matter
 
 
 如果按步骤一边搭建一边查看帮助，会发现 hexo 的帮助是上下文相关的，在不同情况下查看帮助显示的命令列表可能是不同的。
+
+
+
+# 附录
+
+## 命令参考
+
+
 
