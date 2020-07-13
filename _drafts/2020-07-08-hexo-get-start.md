@@ -224,26 +224,94 @@ hexo 提供了很多现成的主题，你只需要在 [官方主题页面](https
 
 以 next 主题为例。首先，我们从 [GitHub 库](https://github.com/theme-next/hexo-theme-next) 将其代码 Clone 或下载 ZIP 压缩包（需解压）到本地；然后，将主题文件夹重命名为 `next` 并拷贝到 `<hexo>/themes` 目录；最后，将 `_config.yml` 的 `theme` 参数设置为 `next`（即主题文件夹名）。
 
-> 如果你是一位前端开发人员，想要完全自己写一个主题，可参考官方中文文档 [主题章节](https://hexo.io/zh-cn/docs/themes)。
+> 值得注意的是，主题本身也有自己的配置文件，即主题文件夹下的 `_config.yml`。各个主题的配置项是有差异的，因此，如果想要对主题进行一些配置，你需要阅读主题的配置说明——通常在主题的网站或 GitHub 库中。
 >
-
-# 更多的操作命令
-
-
+> 如果你是一位前端开发人员，想要完全自己写一个主题，可参考官方中文文档 [主题章节](https://hexo.io/zh-cn/docs/themes)。
 
 # 发布到网络
 
+在发布之前，应该在 `_config.yml` 配置文件中配置好博客的一些信息，比如：博客名、简介、作者等等。
 
+> 更多配置信息可参考官方中文文档 [配置章节](https://hexo.io/zh-cn/docs/configuration)。
 
+## 发布配置
 
+在配置中跟发布相关的配置主要有两部分：一是发布的配置，再是链接信息。
 
-如果按步骤一边搭建一边查看帮助，会发现 hexo 的帮助是上下文相关的，在不同情况下查看帮助显示的命令列表可能是不同的。
+先来看发布配置，即指明如何发布博客，这里以发布到 Gitee 为例，配置大致如下：
 
+```yaml
+deploy:
+  type: git
+  repo: https://gitee.com/ericzonglu/ericzonglu.git # Git 库地址，克隆时用的那个
+  branch: master
+  message: 更新于：{{ now('YYYY-MM-DD HH:mm:ss') }} # 发布的注释，即站点的提交日志
+```
 
+接着是指定站点的网址信息：
+
+```yaml
+url: http://ericzonglu.gitee.io
+root: /
+```
+
+注意，要发布到 Git 服务器的话，需要安装 `hexo-deployer-git`，执行如下命令安装即可：
+
+```bash
+npm install hexo-deployer-git --save
+```
+
+到此，我们有了发布博客所需的本地素材，接下来就是发布到 Gitee。因此，我们需要先在 Gitee 创建一个仓库。
+
+## 创建仓库
+
+最简单的方式是创建一个与自己用户名相同的仓库。
+
+比如笔者的 Gitee 用户名为 ericzonglu，因此，创建一个名为 ericzonglu 的仓库，一切默认配置就好。
+
+> 其实，发布配置跟这里的仓库是对应的，但可以并行操作不分先后。
+
+## 发布
+
+本地配置 OK，Git 仓库也有了，就可以正式发布了，执行以下命令即可：
+
+```bash
+# 执行任一命令即可发布
+hexo generate --deploy
+hexo deploy --generate
+# 两者的缩写形式
+hexo g -d
+hexo d -g
+```
+
+如果某些时候发布不生效，可以清楚下缓存：
+
+```bash
+hexo clean
+```
+
+待发布命令执行成功，就提交到了仓库，我们还需要开启 Gitee Pages 服务，以使站点可访问。
+
+## 开启 Gitee Pages 服务
+
+导航到对应仓库页，并点击“服务-Gitee Pages”菜单，来到 Gitee Pages 服务页，点击“启动”按钮启动服务，即可访问自己的博客了。
+
+> 注意，启动成功后页面会显示博客的网站地址，这个地址对应的正是 `_config.yml` 中的 `url` 参数。
 
 # 附录
 
-## 命令参考
+## hexo vs. Jekyll
 
+笔者之前使用的是 Jekyll + GitHub，hexo + Gitee 与之相比还是有明显差别的。
 
+### 提交并不等于发布
 
+如果你用过 Jekyll + GitHub，或许会认为提交后，Gitee 会自动发布站点使内容更新。
+
+呃……如果你是免费用户，还是老实地到 Gitee Pages 服务页点下“更新”按钮吧。
+
+### 仓库装的不是“源码”
+
+对于 Jekyll + GitHub 而言，我们提交的是博客“源码”，GitHub 会自动编译发布。
+
+但是，hexo 发布的是编译后的静态站点资源，所以，你还需要有一个仓库来存储博客站点的“源码”。
