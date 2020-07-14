@@ -6,6 +6,7 @@ tags: hexo 入门
 excerpt: "hexo入门教程。"
 author: "Eric Zong"
 date: 2020-07-08
+syntax: jekyll
 ---
 
 * content
@@ -245,8 +246,10 @@ deploy:
   type: git
   repo: https://gitee.com/ericzonglu/ericzonglu.git # Git 库地址，克隆时用的那个
   branch: master
-  message: 更新于：{{ now('YYYY-MM-DD HH:mm:ss') }} # 发布的注释，即站点的提交日志
+  message: 更新于：{% raw %}{{ now('YYYY-MM-DD HH:mm:ss') }}{% endraw %} # 发布的注释，即站点的提交日志
 ```
+
+> 注意：`deploy` 可以是一个数组，换句话说，hexo 支持同时发布到多个平台。
 
 接着是指定站点的网址信息：
 
@@ -315,3 +318,10 @@ hexo clean
 对于 Jekyll + GitHub 而言，我们提交的是博客“源码”，GitHub 会自动编译发布。
 
 但是，hexo 发布的是编译后的静态站点资源，所以，你还需要有一个仓库来存储博客站点的“源码”。
+
+## 参考
+
+[hexo 中文文档](https://hexo.io/zh-cn/docs/)
+
+[Next 主题](https://github.com/theme-next/hexo-theme-next)
+
