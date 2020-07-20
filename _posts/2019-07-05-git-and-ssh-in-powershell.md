@@ -259,8 +259,6 @@ unable to start ssh-agent service, error :1058
 Set-Service -Name ssh-agent -StartupType automatic
 ```
 
-<<<<<<< HEAD
-=======
 ## push时仍要求输入用户密码
 
 通常应该是远程仓库使用的是 HTTPS URL，通过如下命令查看：
@@ -279,11 +277,6 @@ git remote add origin git@github.com:username/project.git
 git push --set-upstream origin master
 ```
 
-<<<<<<< HEAD
->>>>>>> 723d90061354f42386ea0fabce88f834c35746f9
-=======
->>>>>>> d95f31885b5c7d813c5d8056dc0054146b9e11ae
->>>>>>> dev
 # 参考
 
 [《Pro Git》Git 工具 - 凭证存储](https://git-scm.com/book/zh/v2/Git-%E5%B7%A5%E5%85%B7-%E5%87%AD%E8%AF%81%E5%AD%98%E5%82%A8)

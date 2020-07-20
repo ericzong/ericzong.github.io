@@ -44,7 +44,7 @@ TestNG包含几个等级的测试部件，包括：测试套（件）、测试�
 
 官网：http://www.testng.org
 
-> 官网文档本身就十分详细，适合学习入门。But...是全英文的，如果英文不好，看起来会有些费劲。不过，好在仅仅用了一页的篇幅就覆盖了TestNG几乎所有特性
+> 官网文档本身就十分详细，适合学习入门。But...是全英文的，如果英文不好，看起来会有些费劲。不过，好在仅仅用了一页的篇幅就覆盖了TestNG几乎所有特性。
 
 ## TestNG vs. JUnit
 
@@ -344,7 +344,7 @@ public Object[][] createData()
     return new Object[][]
     {
         { "Eric", new Integer(100) },
-		{ "Zong", new Integer(500)},
+        { "Zong", new Integer(500)},
     };
 }
 ```
@@ -421,7 +421,7 @@ public void testMethod() {...}
 <test name="Factory" group-by-instances="true">
 ```
 
-> 说明：这仍然属性注解依赖，因为，依赖是以注解定义的，配置中只是指明了隔离性。
+> 说明：这仍然属于注解依赖，因为，依赖是以注解定义的，配置中只是指明了隔离性。
 
 ### 配置依赖
 
