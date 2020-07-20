@@ -2,7 +2,7 @@
 layout: post
 title: PS笔记：操作篇
 category: 工具
-tags: Photoshop 系列
+tags: Photoshop 系列 持续更新
 excerpt: 介绍Photoshop的基本操作。
 author: Eric Zong
 ---
