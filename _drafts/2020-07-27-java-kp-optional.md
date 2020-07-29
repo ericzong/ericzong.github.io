@@ -33,5 +33,39 @@ Optional<T> ofNullable(T value)
 
 `of()` 用于创建一个“非空”的 `Optional` 对象，因此，如果传入 `null` 将会抛出“空指针”。
 
-`ofNullable()` 顾名思义，它可以创建一个任意的 `Optional` 对象，即使它是“空”的。但是，如果传入 `null` 参数则还是会返回“缓存空对象”，而不会另创建一个“空”对象。
+`ofNullable()` 顾名思义，它可以创建一个任意的 `Optional` 对象，即使它是“空”的。但是，如果传入 `null` 参数则还是会返回“缓存空对象”，而不会另创建一个“空对象”。
+
+# 获取值
+
+`Optional` 包装了一个值，我们最终的目的必定是使用这个值，因此，总是需要提供获取该值的方法：
+
+```java
+var value = optional.get();
+```
+
+需要注意的是，直接调用 `get()` 方法是有风险的。如果 `optional` 是一个“空对象”，那么，调 `get()` 方法将抛出一个 `NoSuchElementException`。
+
+# 常规判断
+
+有时我们需要根据值是否为“空”要决定如何使用该值，所以，需要事先判断：
+
+```java
+opt1.isEmpty();
+opt2.isPresent();
+```
+
+
+
+# 不可避免的空指针
+
+```java
+Optional.of(null);
+```
+
+# 异常可不止空指针
+
+```java
+// NoSuchElementException
+emptyOptional.get();
+```
 
