@@ -54,6 +54,25 @@ opt1.isEmpty();
 opt2.isPresent();
 ```
 
+# 行为选择
+
+```java
+T orElse(T other)
+T orElseGet(Supplier<? extends T> supplier)
+Optional<T>	or(Supplier<? extends Optional<? extends T>> supplier)
+
+T orElseThrow()
+<X extends Throwable>
+T orElseThrow(Supplier<? extends X> exceptionSupplier)
+
+void ifPresent(Consumer<? super T> action)
+void ifPresentOrElse(Consumer<? super T> action, Runnable emptyAction)
+
+<U> Optional<U>	map(Function<? super T,​? extends U> mapper)
+<U> Optional<U>	flatMap(Function<? super T,​? extends Optional<? extends U>> mapper)
+Optional<T>	filter(Predicate<? super T> predicate)
+```
+
 
 
 # 不可避免的空指针
