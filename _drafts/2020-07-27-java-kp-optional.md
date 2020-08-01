@@ -54,22 +54,31 @@ opt1.isEmpty();
 opt2.isPresent();
 ```
 
-# 行为选择
+# 函数式条件选择
+
+“判断-行为”模式是命令式编程方式，如今 Java 逐渐加入了很多函数式编程能力，而 `Optional` 就有很多这样方法。
+
+
 
 ```java
 T orElse(T other)
 T orElseGet(Supplier<? extends T> supplier)
 Optional<T>	or(Supplier<? extends Optional<? extends T>> supplier)
 
-T orElseThrow()
-<X extends Throwable>
-T orElseThrow(Supplier<? extends X> exceptionSupplier)
-
 void ifPresent(Consumer<? super T> action)
-void ifPresentOrElse(Consumer<? super T> action, Runnable emptyAction)
+void ifPresentOrElse(Consumer<? super T> action, Runnable emptyAction)    
 
-<U> Optional<U>	map(Function<? super T,​? extends U> mapper)
-<U> Optional<U>	flatMap(Function<? super T,​? extends Optional<? extends U>> mapper)
+T orElseThrow()
+<X extends Throwable> T orElseThrow(Supplier<? extends X> exceptionSupplier)
+```
+
+
+
+# 数据处理
+
+```java
+<U> Optional<U>	map(Function<? super T, ? extends U> mapper)
+<U> Optional<U>	flatMap(Function<? super T, ? extends Optional<? extends U>> mapper)
 Optional<T>	filter(Predicate<? super T> predicate)
 ```
 
@@ -79,6 +88,7 @@ Optional<T>	filter(Predicate<? super T> predicate)
 
 ```java
 Optional.of(null);
+optional.orElseGet(null);
 ```
 
 # 异常可不止空指针
