@@ -14,7 +14,7 @@ author: Eric Zong
 
 `Optional` 是 Java 8 新增的一个工具类。它是一个容器，用以包装一个值对象。
 
-使用 `Optional` 可以大大消除充斥于代码中的“判空“操作，使代码更加优。
+使用 `Optional` 可以大大消除充斥于代码中的“判空“操作，使代码更加优雅。
 
 # 创建实例
 
@@ -50,8 +50,8 @@ var value = optional.get();
 有时我们需要根据值是否为“空”要决定如何使用该值，所以，需要事先判断：
 
 ```java
-opt1.isEmpty();
-opt2.isPresent();
+optional.isEmpty();
+optional.isPresent();
 ```
 
 # 函数式条件选择
@@ -82,12 +82,9 @@ Optional.of("value").orElse("default"); // value
 
 Optional.empty().orElseGet(() -> "default"); // default
 Optional.of("value").orElseGet(() -> "default"); // value
-Optional.empty().orElseGet(null); // NullPointerException
 
 Optional.empty().or(() -> Optional.of("default")); // default
 Optional.of("value").or(() -> Optional.of("default")); // Optional[value]
-Optional.empty().or(() -> null); // NullPointerException
-Optional.empty().or(null); // NullPointerException
 ```
 
 在某些情况下，不应得到一个“默认值”，而是应该抛出异常，报告错误。这就得用到以下两个方法了：
@@ -107,7 +104,7 @@ T orElseThrow()
 >
 > 编程中，应尽量使用 `orElseThrow()`  而非 `get()`。
 
-“值”的另一种处理行为是：如果不为空就以某种方式处理，或者以另一种方式处理。这对应以下两个方法：
+“值”的另一种处理行为是：如果不为空就以某种方式处理，或者为空则以另一种方式处理。这对应以下两个方法：
 
 ```java
 void ifPresent(Consumer<? super T> action)
@@ -116,7 +113,17 @@ void ifPresentOrElse(Consumer<? super T> action, Runnable emptyAction)
 
 显然，`ifPresent()` 只处理值存在的情况，而 `ifPresentOrElse()` 不论值是否存在都提供了处理方式。
 
+```java
+Optional.empty().ifPresent(value -> System.out.println(value)); // 无输出
+Optional.of("value").ifPresent(value -> System.out.println(value));  // value
+
+Optional.empty().ifPresentOrElse(value -> System.out.println(value), () -> System.out.println("null")); // null
+Optional.of("value").ifPresentOrElse(value -> System.out.println(value), () -> System.out.println("null")); // value
+```
+
 # 数据处理
+
+`Optional` 还提供了数据映射和过滤的能力，由以下 3 个方法提供：
 
 ```java
 <U> Optional<U>	map(Function<? super T, ? extends U> mapper)
@@ -124,21 +131,54 @@ void ifPresentOrElse(Consumer<? super T> action, Runnable emptyAction)
 Optional<T>	filter(Predicate<? super T> predicate)
 ```
 
+`map()` 和 `flatMap()` 区别在于，前者会将值自动包装为 `Optional` 而后者需要自行包装返回。而 `filter()` 用于过滤 `Optional`。
 
+```java
+Optional.empty().map(e -> "value"); // Optional.empty
+Optional.of("value").map(e -> "other"); // Optional[other]
+
+Optional.empty().flatMap(e -> Optional.of("value")); // Optional.empty
+Optional.of("value").flatMap(e -> Optional.of("other")); // Optional[other]
+
+empty.filter(e -> e == null); // Optional.empty，保留，但值为“空”
+empty.filter(e -> e != null); // Optional.empty，过滤，结果为“空”
+value.filter(e -> e == null); // Optional.empty，过滤
+ value.filter(e -> e != null); // Optional[value]，保留
+```
 
 # 不可避免的空指针
 
+`Optional` 可以更为“优雅”地处理“空”值，而不用频繁判断。但是，这并不代表其所有方法都不会抛出空指针异常，以下调用还是会导致空指针的：
+
 ```java
+// empty 代表一个“空”Optional
+// value 代表一个“非空”Optional
+// optional 代表任意的 Optional
 Optional.of(null);
 empty.orElseGet(null);
 empty.or(() -> null);
-empty.or(null);
+optional.or(null);
+value.ifPresent(null);
+empty.ifPresentOrElse(value -> System.out.println("non-null"), null);
+value.ifPresentOrElse(null, () -> System.out.println("null"));
+optional.map(null);
+optional.flatMap(null);
+value.flatMap(e -> null);
+optional.filter(null);
 ```
 
 # 异常可不止空指针
 
+关于异常，还值得注意的是，它可能还会抛出 `NoSuchElementException`。该异常意味着，试图获取一个“空对象”的“值”。显然，只有 `get()` 和 `orElseThrow()` 这两个取值方法可能导致该异常。
+
 ```java
 // NoSuchElementException
-emptyOptional.get();
+empty.get();
+empty.orElseThrow();
 ```
 
+# 小结
+
+使用 `Optional` 的优点之一就是不用关注空值，而只用关注处理逻辑，因此，代码具有一致性。
+
+当然，`Optional` 可以进行链式编辑，进行一系列的值处理。
