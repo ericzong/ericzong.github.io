@@ -1,6 +1,6 @@
 ---
 layout: post
-title: ”Java知识点：Optional类的使用"
+title: "Java知识点：Optional类的使用"
 category: Java
 tags: Java Java基础 Java知识点
 excerpt: Java类Optional的使用说明。
@@ -65,7 +65,7 @@ optional.isPresent();
 ```java
 T orElse(T other)
 T orElseGet(Supplier<? extends T> supplier)
-Optional<T>	or(Supplier<? extends Optional<? extends T>> supplier)
+Optional<T> or(Supplier<? extends Optional<? extends T>> supplier)
 ```
 
 最简单直接的就是 `orElse()`，调用该方法的 `Optional` 对象包装的“非空值”时，直接返回该“值”，否则返回参数给定的“默认值”。
@@ -128,7 +128,7 @@ Optional.of("value").ifPresentOrElse(value -> System.out.println(value), () -> S
 ```java
 <U> Optional<U>	map(Function<? super T, ? extends U> mapper)
 <U> Optional<U>	flatMap(Function<? super T, ? extends Optional<? extends U>> mapper)
-Optional<T>	filter(Predicate<? super T> predicate)
+Optional<T> filter(Predicate<? super T> predicate)
 ```
 
 `map()` 和 `flatMap()` 区别在于，前者会将值自动包装为 `Optional` 而后者需要自行包装返回。而 `filter()` 用于过滤 `Optional`。
@@ -169,7 +169,7 @@ optional.filter(null);
 
 # 异常可不止空指针
 
-关于异常，还值得注意的是，它可能还会抛出 `NoSuchElementException`。该异常意味着，试图获取一个“空对象”的“值”。显然，只有 `get()` 和 `orElseThrow()` 这两个取值方法可能导致该异常。
+关于异常，还值得注意的是，它可能还会抛出 `NoSuchElementException`。该异常意味着，试图获取一个“空对象的值”。显然，只有 `get()` 和 `orElseThrow()` 这两个取值方法可能导致该异常。
 
 ```java
 // NoSuchElementException
