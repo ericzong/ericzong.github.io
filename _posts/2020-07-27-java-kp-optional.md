@@ -14,7 +14,7 @@ author: Eric Zong
 
 `Optional` 是 Java 8 新增的一个工具类。它是一个容器，用以包装一个值对象。
 
-使用 `Optional` 可以大大消除充斥于代码中的“判空“操作，使代码更加优雅。
+使用 `Optional` 可以大大消除充斥于代码中的“判空”操作，使代码更加优雅。
 
 # 创建实例
 
@@ -29,7 +29,7 @@ Optional<T> ofNullable(T value)
 
 `empty()` 用于创建一个“空”的 `Optional` 对象，它不包含任何值。
 值得注意的是，`empty()` 返回的是 `Optional` 内部缓存的同一个对象，我们暂称之为“缓存空对象”。
-更进一步，`Optional` 方法所返回的“空”对象通常也都是这个“缓存空对象“。
+更进一步，`Optional` 方法所返回的“空对象”通常也都是这个“缓存空对象“。
 
 `of()` 用于创建一个“非空”的 `Optional` 对象，因此，如果传入 `null` 将会抛出“空指针”。
 
@@ -58,7 +58,7 @@ optional.isPresent();
 
 “判断-行为”模式是命令式编程方式，如今 Java 逐渐加入了很多函数式编程能力，而 `Optional` 就有很多这样方法。
 
-对于“值”而言，最常见的一种处理行为是：如果不为空就取其值，否则取另一个值（通常是“默认值”）。
+对于“值”而言，最常见的一种处理行为是：如果不为空就取其值，否则取另一个值（通常意义上的“默认值”）。
 
 为此，`Optional` 提供了以下 3 个方法来实现该功能：
 
@@ -117,8 +117,10 @@ void ifPresentOrElse(Consumer<? super T> action, Runnable emptyAction)
 Optional.empty().ifPresent(value -> System.out.println(value)); // 无输出
 Optional.of("value").ifPresent(value -> System.out.println(value));  // value
 
-Optional.empty().ifPresentOrElse(value -> System.out.println(value), () -> System.out.println("null")); // null
-Optional.of("value").ifPresentOrElse(value -> System.out.println(value), () -> System.out.println("null")); // value
+Optional.empty().ifPresentOrElse(value -> System.out.println(value), 
+  () -> System.out.println("null")); // null
+Optional.of("value").ifPresentOrElse(value -> System.out.println(value), 
+  () -> System.out.println("null")); // value
 ```
 
 # 数据处理
@@ -148,7 +150,7 @@ value.filter(e -> e == null); // Optional.empty，过滤
 
 # 不可避免的空指针
 
-`Optional` 可以更为“优雅”地处理“空”值，而不用频繁判断。但是，这并不代表其所有方法都不会抛出空指针异常，以下调用还是会导致空指针的：
+`Optional` 可以更为“优雅”地处理“空值”，而不用频繁判断。但是，这并不代表其所有方法都不会抛出空指针异常，以下调用还是会导致空指针的：
 
 ```java
 // empty 代表一个“空”Optional
