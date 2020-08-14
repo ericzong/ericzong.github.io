@@ -5,6 +5,7 @@ categories: 工具
 tags: Scoop 应用管理
 excerpt: "介绍Scoop Bucket及其创建。"
 author: "Eric Zong"
+updated: 2020-08-14
 ---
 
 * content
@@ -251,7 +252,11 @@ Scoop 使用 `persist` 属性来配置处理这些需要持久化的数据或配
 
 > 原理是安装时将这些文件保存在 `scoop/persist/<app>` 目录下，应用版本目录下创建相应的目录联接（对于目录）或硬链接（对于文件）。
 
-持久化的数据通常是安装后就存在的文件（夹），如果不存在会被视为目录处理。
+注意：持久化的数据通常是安装后就存在的文件（夹），如果不存在会被视为目录处理。
+
+> 有些应用的配置文件既不在文件夹中，也并非安装后就存在，而是在首次运行时创建的。
+>
+> 对于这种配置文件，持久化的一种思路是，在安装前自行创建该配置文件。详见 [MouseInc 应用清单示例](#mouseinc)。
 
 ### 持久化配置
 
@@ -432,6 +437,58 @@ Typora 的特殊之处在于它只有安装版，没有便携版。因此，我�
 > 通常，安装/卸载程序都应提供命令行接口，并且有静默安装/卸载的选项，否则将不能自动化的安装与卸载，即不适合用这种方式管理。
 
 此外，我们还通过 `shortcuts` 属性来为 Typora 在开始菜单中添加了快捷方式。
+
+## MouseInc
+
+涉及知识点：
+
+* `persist` 属性持久化数据。
+* `pre_install` 预安装脚本，在应用安装前执行。
+
+```json
+{
+	"homepage": "https://shuax.com/project/mouseinc/",
+	"url": "https://dl.shuax.com/MouseInc2.10.21.7z",
+	"version": "2.10.21",
+	"license": "Freeware",
+	"extract_dir": "MouseInc",
+	"checkver": "MouseInc ([\\d.]+)",
+	"autoupdate": {
+		"url": "https://dl.shuax.com/MouseInc$version.7z"
+	},
+	"pre_install": "ni \"$dir\\MouseInc.json\"",
+	"persist": [
+		"MouseInc.json"
+	],
+	"depends": "",
+	"hash": "fdb6dc659dc583fc3c7de911910defdae80b2c593180b6039f36d348ef345bb5",
+	"bin": [
+		[
+			"MouseInc.exe",
+			"mouseinc"
+		]
+	]
+}
+```
+
+关于 MouseInc，我们要讨论是其配置文件的持久化。
+
+MouseInc 配置文件的特殊之处在于，该文件是在首次运行时生成的。因此，如果只配置 `persist` 属性，那么安装后会发现配置文件被 `scoop` 视为文件夹处理了。而 MouseInc 启动时将不能再创建同名的文件，进而导致一些莫名的问题。
+
+想要正确处理这种运行时生成的配置文件，一种方案是使用预安装脚本事先创建配置文件，这样，`scoop` 就可以正确处理了。
+
+从 MouseInc 的应用清单可见，`pre_install` 属性配置了预安装脚本，该脚本会在应用安装前执行。
+
+```powershell
+# "ni \"$dir\\MouseInc.json\""  即
+ni $dir\MouseInc.json
+```
+
+注意：由于脚本是以 json 值的形式提供的，所以，双引号、反斜杠等特殊符号均需进行转义。
+
+> 脚本中可以使用一些相关变量，比如本例中的 `$dir` 即当前安装应用的目录，更多可用变量参考[这里](https://github.com/lukesampson/scoop/wiki/Pre--and-Post-install-scripts)。
+>
+> 另，`post_install` 属性可配置应用安装后执行的脚本。
 
 # 参考资源
 
