@@ -184,3 +184,9 @@ empty.orElseThrow();
 使用 `Optional` 的优点之一就是不用关注空值，而只用关注处理逻辑，因此，代码具有一致性。
 
 当然，`Optional` 可以进行链式编辑，进行一系列的值处理。
+
+# 参考
+
+* [Java API - Optional](https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/util/Optional.html)
+* [菜鸟教程 - Java 8 函数式接口](https://www.runoob.com/java/java8-functional-interfaces.html)
+
