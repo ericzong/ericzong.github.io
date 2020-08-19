@@ -1,6 +1,6 @@
 ---
 layout: page
-title: "ES6 Symbol类型"
+title: "ES6 Symbol类型示例"
 category: JS
 date: 2019-06-17
 author: "Eric Zong"

@@ -57,9 +57,3 @@ date: 2020-07-04
 | ------------------------------------------------------------ | ---- | ---- |
 | [Translation](https://plugins.jetbrains.com/plugin/8579-translation) | 翻译 |      |
 
-
-
-
-
-
-

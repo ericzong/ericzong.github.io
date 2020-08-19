@@ -2,8 +2,9 @@
 layout: page
 title: Git常见问题汇总
 category: 工具
-date: 2019-06-26
 author: "Eric Zong"
+date: 2019-06-26
+updated: 2020-08-19
 ---
 
 * content
@@ -13,7 +14,7 @@ author: "Eric Zong"
 
 ## SSL certificate problem
 
-触发场景：`push` 操作时。
+触发场景：`push` 等操作时。
 
 原因：Git 默认使用 SSL 连接，如果未做相关配置，仅使用 https 连接，则出现该错误。
 
