@@ -5,6 +5,7 @@ category: Java
 tags: Java Java基础 Java知识点
 excerpt: Java类Optional的使用说明。
 author: Eric Zong
+updated: 2020-08-25 22:27:00
 ---
 
 * content
@@ -183,7 +184,9 @@ empty.orElseThrow();
 
 使用 `Optional` 的优点之一就是不用关注空值，而只用关注处理逻辑，因此，代码具有一致性。
 
-当然，`Optional` 可以进行链式编辑，进行一系列的值处理。
+当然，`Optional` 可以进行链式编程，进行一系列的值处理。
+
+总之，`Optional` 为值处理提供了“确定性”，只要正确使用其“可信”的方法，其结果就是稳定可期的。
 
 # 参考
 
