@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Java专题：为什么必须是final的？
+title: Java专题：为什么内部类访问的外部局部变量必须是final的？
 categories: Java
 tags: Java Java专题
 excerpt: 讨论为什么Java内部类访问的外部局部变量必须是final的。
