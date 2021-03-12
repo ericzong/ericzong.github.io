@@ -12,7 +12,7 @@ author: Eric Zong
 
 > 英文原文：[A case for using `void` in modern JavaScript](https://gist.github.com/slikts/dee3702357765dda3d484d8888d3029e)
 >
-> 原谅作者：Reinis Ivanovs
+> 原文作者：Reinis Ivanovs
 >
 > 原文日期：2020-03-24
 
