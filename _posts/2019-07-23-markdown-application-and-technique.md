@@ -76,7 +76,7 @@ author: Eric Zong
 
 有很多在线编码的工具站，可以在线转换。如果熟悉编程，也可以编写程序进行转换。
 
-> base64 图片编码有类似的统一前缀：`data:image/png,base64,`。
+> base64 图片编码有类似的统一前缀：`data:image/png;base64,`。
 
 下面是 Python 代码：
 
