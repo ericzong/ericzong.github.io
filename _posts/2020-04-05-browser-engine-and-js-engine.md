@@ -71,7 +71,7 @@ KDE 使用 C++ 开发，以 LGPL 授权。
 
 ## WebKit/WebKit2
 
-WebKit 派生自 KTHML，主要由苹果公司开发，并用于 Apple Safari 浏览器，故俗称“Safari 内核”。
+WebKit 派生自 KHTML，主要由苹果公司开发，并用于 Apple Safari 浏览器，故俗称“Safari 内核”。
 
 苹果于 2001 年 6 月 25 日开始 WebKit 项目。
 
