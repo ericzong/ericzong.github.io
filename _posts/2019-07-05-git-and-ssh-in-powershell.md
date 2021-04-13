@@ -148,6 +148,26 @@ add-sshkey ~/.ssh/git
 
 这样，只要打开 PowerShell 就可以直接使用 SSH 操作 Git 仓库了。
 
+## posh-git v1.0 的变更和 posh-sshell
+
+如果你使用的是 1.0 之前的 posh-git，那就完事儿了。
+
+但是，某天笔者将 posh-git 升级到 1.0 时，发现所有 posh-git 中的 SSH 命令都不能识别了。看了 CHANGELOG 才知道，1.0 将所有 SSH 命令都移除了，移到了一个名为 [posh-sshell](https://github.com/dahlbyk/posh-sshell) 的模块中。
+
+还能说什么，安装 posh-sshell 吧！
+
+```powershell
+PowerShellGet\Install-Module posh-sshell -Scope CurrentUser
+```
+
+> scoop 暂未收录 posh-sshell，所以只好使用 PowerShellGet 安装了。
+
+安装好 posh-sshell 后，只需要导入模块，即可如往常一样使用相关 SSH 命令了：
+
+```powershell
+Import-Module posh-sshell
+```
+
 # 使用TortoiseGit
 
 以上配置只对 PowerShell 有效，如果你还使用 TortoiseGit 的话，会发现经过以上修改，TortoiseGit 已经不能正常访问远程仓库了。
