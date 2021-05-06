@@ -13,6 +13,10 @@ type: navigator
 
 这里是我堆放自己学习笔记、摘记以及撰写的技术、非技术的文档的地方，方便自己也方便大家查阅。
 
+# 关于迁移与同步
+
+鉴于 GitHub Pages 国内访问速度问题，已发布的文章都迁移到了 [Gitee Pages](https://ericzonglu.gitee.io/)，并且后续发布的文章通常会首发在 Gitee Pages 上，再陆续同步过来。
+
 # 关于主题
 
 本博客主题初始参考自 [HyG](https://github.com/Gaohaoyang/gaohaoyang.github.io)，并对一些引用库进行了版本升级和调整。
