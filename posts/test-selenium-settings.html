@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"ericzonglu.gitee.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="介绍浏览器的各种配置方法。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Selenium4学习笔记：配置篇">
+<meta property="og:url" content="http://ericzonglu.gitee.io/posts/test-selenium-settings.html">
+<meta property="og:site_name" content="八白龙的博客">
+<meta property="og:description" content="介绍浏览器的各种配置方法。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-06-14T12:00:00.000Z">
+<meta property="article:modified_time" content="2022-07-07T16:00:00.000Z">
+<meta property="article:author" content="Eric Zong">
+<meta property="article:tag" content="Selenium">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://ericzonglu.gitee.io/posts/test-selenium-settings.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Selenium4学习笔记：配置篇 | 八白龙的博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">八白龙的博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">程序员的杂货铺</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-references">
+
+    <a href="/references/" rel="section"><i class="bookmark fa-fw"></i>参考</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://ericzonglu.gitee.io/posts/test-selenium-settings.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Eric Zong">
+      <meta itemprop="description" content="这里有作为一个程序员想记录的一切。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="八白龙的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Selenium4学习笔记：配置篇
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-06-14 20:00:00" itemprop="dateCreated datePublished" datetime="2022-06-14T20:00:00+08:00">2022-06-14</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-07-08 00:00:00" itemprop="dateModified" datetime="2022-07-08T00:00:00+08:00">2022-07-08</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%B5%8B%E8%AF%95/" itemprop="url" rel="index"><span itemprop="name">测试</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <details>
+    <summary>针对 Python 版 Selenium 4.2.0 进行说明</summary>
+    <p>在编码方面与 Java 版有较大差异时，会特别指出说明。</p>
+    <p>不尝试列出所有配置，仅列出常用的一些重要配置。</p>
+</details>
+
+<p>如果不作任何设置，直接启动浏览器，显然浏览器将以默认配置启动。通常，默认配置可能不满足我们的需要，这就需要对浏览器进行一些设置。</p>
+<blockquote>
+<p>【关于浏览器配置】</p>
+<ul>
+<li>大多数配置需要在 WebDriver 启动浏览器前以“配置对象参数”的形式传入，并且一般在运行时不可修改；某些功能性相关的配置会在浏览器启动后进行，这通常通过 WebDriver 提供的设置方法实现。</li>
+<li>少量配置是所有浏览器共享的，但是不同的浏览器配置项通常有差异，各大主流浏览器都拥有属于自己的配置项。</li>
+</ul>
+</blockquote>
+<h1 id="共享配置"><a href="#共享配置" class="headerlink" title="共享配置"></a>共享配置</h1><p>一部分功能配置需要构建“配置（Option）”对象，并设置其“功能（Capability ）”，然后在创建驱动对象时将 配置对象作为参数传入。通常，这部分功能将在驱动对象生命周期内固定不可修改。</p>
+<p>另一部分功能配置是以方法的形式提供的，这说明能在运行时动态修改。</p>
+<p>如果只需配置公共功能，则不需要构建一个具体的浏览器 Option，可以构建一个基类 <code>ArgOptions</code>。</p>
+<blockquote>
+<p>【Java Options 的构建】</p>
+<p>就 Python 的类结构而言，所有 <code>Options</code> 类拥有公共基类 <code>ArgOptions</code>，可以构建基类对象进行配置。但对 Java 而言，这不太可行，Java 类结构表明，公共基类 <code>AbstractDriverOptions</code> 是一个抽象类。</p>
+</blockquote>
+<h2 id="代理"><a href="#代理" class="headerlink" title="代理"></a>代理</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">proxy_path = <span class="string">&#x27;localhost:9085&#x27;</span></span><br><span class="line">my_proxy = &#123;</span><br><span class="line">            <span class="string">&quot;httpProxy&quot;</span>: proxy_path, <span class="string">&quot;sslProxy&quot;</span>: proxy_path, <span class="string">&quot;proxyType&quot;</span>: <span class="string">&quot;MANUAL&quot;</span>,</span><br><span class="line">        &#125;</span><br><span class="line">driver_options.set_capability(<span class="string">&quot;proxy&quot;</span>, my_proxy)</span><br><span class="line">driver = webdriver.Remote(<span class="string">&#x27;http://192.168.10.1:4444&#x27;</span>,</span><br><span class="line">                                  options=driver_options)</span><br></pre></td></tr></table></figure>
+<p>一共分3步：</p>
+<ol>
+<li>构造 Proxy 字典对象</li>
+<li>为 Options 对象设置 Proxy Capability（传入 Proxy 字典对象）</li>
+<li>构造驱动对象（传入 Options 对象）</li>
+</ol>
+<blockquote>
+<p>【Proxy 网络路径格式】</p>
+<p>Proxy 网络路径格式为 <code>HOST:PORT</code>，最好不要加协议前缀，可能由于协议与对应端口错误导致代理不可用。</p>
+<p>比如，笔者使用 v2rayN 配置代理，本地 socks 对应 9084 端口，http 对应 9085 端口。因此，无论使用 <code>localhost:9084</code> 或 <code>localhost:9085</code> 都是可以的。如果要加协议前缀，<code>socks://localhost:9084</code> 或 <code>http://localhost:9085</code> 也都可以。但是，<code>socks://localhost:9085</code> 或 <code>http://localhost:9084</code> 就出错了。</p>
+<p>【Proxy 字典对象】</p>
+<p>Proxy 字典对象中，<code>httpProxy</code> 和 <code>sslProxy</code> 分别指定 http 和 https 协议的代理地址。一般都需要指定，比如不指定 <code>sslProxy</code> 则 https 协议的页面请求就不会经过代理。</p>
+<p><code>proxyType</code> 使用手动设置，值为 <code>MANUAL</code>。它是必需的，否则将导致错误。（Java 版本中 <code>ProxyType</code> 是个枚举值，可以看到所有支持的类型，以及它们的说明。）</p>
+<p>【Java 版】</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Proxy proxy = <span class="keyword">new</span> Proxy();</span><br><span class="line">proxy.setHttpProxy(<span class="string">&quot;&lt;HOST:PORT&gt;&quot;</span>);</span><br><span class="line">proxy.setSslProxy(<span class="string">&quot;&lt;HOST:PORT&gt;&quot;</span>);</span><br><span class="line">options.setCapability(<span class="string">&quot;proxy&quot;</span>, proxy);</span><br></pre></td></tr></table></figure>
+</blockquote>
+<h2 id="页面加载策略"><a href="#页面加载策略" class="headerlink" title="页面加载策略"></a>页面加载策略</h2><p>默认配置下，打开新页面时，Selenium 会等待所有资源下载完成。但对于有大量资源的页面不太友好，可以选择仅等到 DOM 就绪，或者不等待——不过要注意对测试稳定性的影响。</p>
+<p>原理上说，Selenium 检测的是 <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/API/Document/readyState"><code>document.readyState</code></a> 属性，与加载策略对应关系如下：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>策略</th>
+<th>状态</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>normal</td>
+<td>complete</td>
+<td>默认，等待所有资源下载完成</td>
+</tr>
+<tr>
+<td>eager</td>
+<td>interactive</td>
+<td>DOM 就绪，如图片等其他资源可能仍在加载中</td>
+</tr>
+<tr>
+<td>none</td>
+<td>任意值</td>
+<td>不阻塞，不等待</td>
+</tr>
+</tbody>
+</table>
+</div>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">options = Options()</span><br><span class="line">options.page_load_strategy = <span class="string">&#x27;eager&#x27;</span></span><br><span class="line">driver = webdriver.Chrome(options=options)</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>【Java 版】</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ChromeOptions chromeOptions = <span class="keyword">new</span> ChromeOptions();</span><br><span class="line">chromeOptions.setPageLoadStrategy(PageLoadStrategy.EAGER);</span><br><span class="line">WebDriver driver = <span class="keyword">new</span> ChromeDriver(chromeOptions);</span><br></pre></td></tr></table></figure>
+<p>与 Python 差异不大，Java 的主要区别在于“封装”方面：</p>
+<ol>
+<li>使用 set 方法设置加载策略；</li>
+<li>策略候选值 <code>PageLoadStrategy</code> 是一个枚举类。</li>
+</ol>
+</blockquote>
+<h2 id="浏览器窗口"><a href="#浏览器窗口" class="headerlink" title="浏览器窗口"></a>浏览器窗口</h2><p>以上列举的都是启动前的配置，下面说说启动后的设置。</p>
+<p>首先，就是对浏览器窗口的设置。Selenium 允许我们设置窗口位置、大小、最大化、最小化甚至是全屏显示等。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">driver.maximize_window()</span><br><span class="line">driver.minimize_window()</span><br><span class="line">driver.fullscreen_window()</span><br><span class="line">driver.set_window_rect(x, y , width, height)</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>【Java 版】</p>
+<p>主要还是封装程度更高。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">driver.manage().window().maximize();</span><br><span class="line">driver.manage().window().minimize();</span><br><span class="line">driver.manage().window().fullscreen();</span><br><span class="line">driver.manage().window().setPosition(x, y);</span><br><span class="line">driver.manage().window().setSize(dimension);</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p>注意：</p>
+<ul>
+<li>某些浏览器可能不支持像素级的大小设置，设置大小后窗口大小可能与设置值有所差异。</li>
+<li>窗口设置是在浏览器启动后，所以可以看到浏览器从“普通窗口”到设置状态的改变过程。这有别于某些浏览器的启动设置，比如 Chrome 添加启动参数 <code>--start-maximized</code> 则会在浏览器启动窗口显示时就已经最大化了——看不到状态改变过程。</li>
+</ul>
+<h2 id="超时时间"><a href="#超时时间" class="headerlink" title="超时时间"></a>超时时间</h2><p>Selenium 允许设置一些超时时间，控制诸如脚本执行、页面加载、元素定位等行为。</p>
+<p>脚本超时（Script Timeout），JS 脚本运行超时会被中断，默认 30000 毫秒（即 30 秒）。</p>
+<p>页面加载超时（Page Load Timeout），页面加载等待超时会抛出 <code>TimeoutException</code> 中止，默认 30000 毫秒（即 30 秒）。</p>
+<p>隐式等待超时（Implicit Wait Timeout），等待定位元素超时才报“找不到元素”，默认为 0（即不等待）。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 设置</span></span><br><span class="line">driver.set_script_timeout(seconds)</span><br><span class="line">driver.set_page_load_timeout(seconds)</span><br><span class="line">driver.implicitly_wait(seconds)</span><br><span class="line"><span class="comment"># 读取</span></span><br><span class="line">driver.timeouts.script</span><br><span class="line">driver.timeouts.page_load</span><br><span class="line">driver.timeouts.implicit_wait</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>【Java 版】</p>
+<p>注意时间间隔精度的差异，Python 是秒级，Java 是毫秒级（<code>Duration</code> 理论是纳秒级，但代码内部只取到了毫秒）。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 设置</span></span><br><span class="line">driver.manage().timeouts().scriptTimeout(duration);</span><br><span class="line">driver.manage().timeouts().pageLoadTimeout(duration);</span><br><span class="line">driver.manage().timeouts().implicitlyWait(duration);</span><br><span class="line"><span class="comment">// 读取</span></span><br><span class="line">driver.manage().timeouts().getScriptTimeout();</span><br><span class="line">driver.manage().timeouts().getPageLoadTimeout(); </span><br><span class="line">driver.manage().timeouts().getImplicitWaitTimeout();</span><br></pre></td></tr></table></figure>
+</blockquote>
+<h1 id="Chrome配置"><a href="#Chrome配置" class="headerlink" title="Chrome配置"></a>Chrome配置</h1><h2 id="Chrome路径识别与自定义"><a href="#Chrome路径识别与自定义" class="headerlink" title="Chrome路径识别与自定义"></a>Chrome路径识别与自定义</h2><p>没有配置 Chrome 路径的情况下，Selenium 尝试从 Chrome 的“默认安装位置”启动它。</p>
+<blockquote>
+<p>【默认安装位置】</p>
+<p>Windows 下可能是 <code>C:\Program Files (x86)\Google\Chrome\Application\chrome.exe</code>，这跟安装的浏览器位数有关。</p>
+</blockquote>
+<p>如果自定义安装在了别处，默认查找将失败，除非配置了正确的路径。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">options = webdriver.ChromeOptions()</span><br><span class="line">options.binary_location = <span class="string">&#x27;/path/to/chrome&#x27;</span></span><br><span class="line">webdriver.Chrome(options=options)</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>【Java 版】</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ChromeOptions options = <span class="keyword">new</span> ChromeOptions();</span><br><span class="line">options.setBinary(<span class="string">&quot;/path/to/chrome&quot;</span>);</span><br><span class="line">ChromeDriver driver = <span class="keyword">new</span> ChromeDriver(options);</span><br></pre></td></tr></table></figure>
+</blockquote>
+<h2 id="驱动文件路径识别与自定义"><a href="#驱动文件路径识别与自定义" class="headerlink" title="驱动文件路径识别与自定义"></a>驱动文件路径识别与自定义</h2><p>未配置 chromedriver 路径的情况下，Selenium 尝试在 <code>PATH</code> 环境变量下的路径查找。</p>
+<p>找不到则报错，如果不想设置环境变量，可以在代码中指定 chromedriver 路径。正确的方法是将路径通过 Service 传入：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">service = Service(chromedriver_path)</span><br><span class="line">service.command_line_args()</span><br><span class="line">driver = webdriver.Chrome(options=options, service=service)</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>【过时的写】</p>
+<p>当然，有一种更简洁的方法，就是在构造的时候直接传入路径，如：<code>webdriver.Chrome(&#39;/path/to/chromedriver&#39;)</code>。但是构造参数 <code>executable_path</code> 已废弃，该方法不推荐使用。</p>
+<p>【Java 版】</p>
+<p>Java 也应在 Service 中传入 chromedriver 路径，但是 <code>ChromeDriverService</code> 构造器参数太多又不像 Python 可以设置默认值，所以需要借助 <code>Builder</code> 来构造：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.openqa.selenium.chrome.ChromeDriverService.Builder;</span><br><span class="line"></span><br><span class="line"><span class="keyword">final</span> Builder builder = <span class="keyword">new</span> Builder();</span><br><span class="line">builder.usingDriverExecutable(<span class="keyword">new</span> File(chromedriver));</span><br><span class="line">ChromeDriverService service = builder.build();</span><br><span class="line">WebDrvier driver = <span class="keyword">new</span> ChromeDriver(service, options);</span><br></pre></td></tr></table></figure>
+<p>不过 Java 还有一个极简的方案，将系统属性 <code>webdriver.chrome.driver</code> 设置为 chromedriver 路径即可：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">System.setProperty(<span class="string">&quot;webdriver.chrome.driver&quot;</span>, <span class="string">&quot;/path/to/chromedriver&quot;</span>);</span><br></pre></td></tr></table></figure>
+</blockquote>
+<h2 id="无头模式"><a href="#无头模式" class="headerlink" title="无头模式"></a>无头模式</h2><p>Chrome 支持无头模式，即无界面运行，这可能在速度上有一些提升。</p>
+<p>要么直接设置 Options 相关属性，要么设置启动参数，如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 方法一</span></span><br><span class="line">options.headless = <span class="literal">True</span></span><br><span class="line"><span class="comment"># 方法二</span></span><br><span class="line">options.add_argument(<span class="string">&quot;headless&quot;</span>)</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>【Java 版】</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 方法一</span></span><br><span class="line">options.setHeadless(<span class="keyword">true</span>);</span><br><span class="line"><span class="comment">// 方法二</span></span><br><span class="line">options.addArguments(<span class="string">&quot;headless&quot;</span>)</span><br></pre></td></tr></table></figure>
+</blockquote>
+<h2 id="加载扩展程序"><a href="#加载扩展程序" class="headerlink" title="加载扩展程序"></a>加载扩展程序</h2><p>默认情况下，启动的 Chrome 是全新的，不带扩展程序的，如果想使用扩展程序需要编码加载。</p>
+<p>要加载扩展程序，首先需要获得扩展程序文件，这可以通过网站 <a target="_blank" rel="noopener" href="http://crxextractor.com/">http://crxextractor.com/</a> 下载。</p>
+<p>扩展程序文件后缀名为 .crx，其实它是一个压缩文件，将后缀名改为 .zip 即可解压。直接从扩展程序文件加载，或者从解压出来的文件夹加载都是可以的：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 加载 .crx</span></span><br><span class="line">options.add_extension(<span class="string">&#x27;/path/to/extension.crx&#x27;</span>)</span><br><span class="line"><span class="comment"># 加载解压的扩展程序文件夹</span></span><br><span class="line">options.add_argument(<span class="string">&#x27;load-extension=/path/to/extension-dir&#x27;</span>);</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>【Java 版】</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 加载 .crx</span></span><br><span class="line">options.addExtensions(<span class="keyword">new</span> File(<span class="string">&quot;/path/to/extension.crx&quot;</span>));</span><br><span class="line"><span class="comment">// 加载解压的扩展程序文件夹</span></span><br><span class="line">options.addArguments(<span class="string">&quot;load-extension=/path/to/extension-dir&quot;</span>);</span><br></pre></td></tr></table></figure>
+</blockquote>
+<h2 id="启动参数"><a href="#启动参数" class="headerlink" title="启动参数"></a>启动参数</h2><p>Chrome 一般的配置参数使用 <code>options.add_argument(arg)</code> 进行设置。</p>
+<blockquote>
+<p>【Java 版】</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">options.addArguments(arg);</span><br></pre></td></tr></table></figure>
+</blockquote>
+<h3 id="基本设置"><a href="#基本设置" class="headerlink" title="基本设置"></a>基本设置</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>参数名</th>
+<th>说明</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>args</td>
+<td>参数列表，可以将参数以数组形式一起传</td>
+<td>[‘start-maximized’, ‘user-data-dir=/tmp/temp_profile’]</td>
+</tr>
+<tr>
+<td>headless</td>
+<td>无头模式</td>
+<td></td>
+</tr>
+<tr>
+<td>incognito</td>
+<td>无痕模式</td>
+<td></td>
+</tr>
+<tr>
+<td>proxy-server</td>
+<td>代理</td>
+<td>proxy-server=localhost:9085</td>
+</tr>
+<tr>
+<td>user-agent</td>
+<td>用户代理</td>
+<td>user-agent=Mozilla/5.0 HELL</td>
+</tr>
+<tr>
+<td>load-extension</td>
+<td>加载扩展程序（目录）</td>
+<td>load-extension=/path/to/extension-dir</td>
+</tr>
+<tr>
+<td>start-maximized</td>
+<td>最大化</td>
+<td></td>
+</tr>
+<tr>
+<td>window-size</td>
+<td>浏览器窗口大小</td>
+<td>window-size=1920,1080</td>
+</tr>
+<tr>
+<td>auto-open-devtools-for-tabs</td>
+<td>开启浏览器时候是否打开开发者工具(F12)</td>
+<td></td>
+</tr>
+<tr>
+<td>host-resolver-rules</td>
+<td>域名解析映射</td>
+<td>host-resolver-rules=MAP www.googletagmanager.com 127.0.0.1,MAP connect.facebook.net</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="代理-1"><a href="#代理-1" class="headerlink" title="代理"></a>代理</h3><p>除了可使用通用设置代理（见“共享配置-代理”章节）外，Chrome 还支持特异设置，而且更加简单，通过 <code>proxy-server</code> 参数配置即可：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">driver_options.add_argument(<span class="string">&#x27;proxy-server=http://localhost:9085&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>【与通用代理配置的差异】</p>
+<p>试验后可以发现，Chrome 代理配置不能“自动探测协议”。换句话说，如果不指定协议前缀，那么默认是 http。</p>
+<p>比如，笔者使用 v2rayN 配置代理，本地 socks 对应 9084 端口，http 对应 9085 端口。</p>
+<p>如果带协议前缀，<code>socks://localhost:9084</code> 或 <code>http://localhost:9085</code> 都可以。</p>
+<p>但是，不带前缀只能用 <code>localhost:9085</code>，不能用 <code>localhost:9084</code>。</p>
+</blockquote>
+<h3 id="用户数据目录（User-Data-Directory）"><a href="#用户数据目录（User-Data-Directory）" class="headerlink" title="用户数据目录（User Data Directory）"></a>用户数据目录（User Data Directory）</h3><p>默认情况下，Chrome 每次启动都是全新的，这是因为 Selenium 每次都会自动创建一个新的“用户数据目录”。</p>
+<p>我们可以自行创建一个用户数据目录，并指定 Chrome 使用它启动。</p>
+<p>直接使用 Chrome 应用程序加上 <code>user-data-dir</code> 参数，就能在指定路径创建一个用户数据目录：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chrome.exe -<span class="literal">-user</span><span class="literal">-data</span><span class="literal">-dir</span>=/path/to/my<span class="literal">-profile</span></span><br></pre></td></tr></table></figure>
+<p>再在 Selenium 启动 Chrome 前配置好 <code>user-data-dir</code> 即可：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">options.add_argument(<span class="string">r&#x27;user-data-dir=/path/to/my-profile&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<p>这样，每次启动时，包括插件在内的绝大多数浏览器设置都将保留。</p>
+<blockquote>
+<p>【默认路径】</p>
+<p>用户数据目录默认路径为：<code>C:\Users\&lt;USERNAME&gt;\AppData\Local\Google\Chrome\User Data</code>，也可以使用 Chrome 打开 <code>chrome://version</code> 页面查看。</p>
+</blockquote>
+<h3 id="域名解析映射"><a href="#域名解析映射" class="headerlink" title="域名解析映射"></a>域名解析映射</h3><p>网站可能接入了很多“第三方功能”，诸如：谷歌分析、Facebook 分享等等。在测试过程中这些功能可能会影响响应时间，而测试暂时又不关注这方面的功能，则可以把它们的域名映射到 <code>127.0.0.1</code> 使其快速失败，以提高响应速度。</p>
+<p>这需要配置 <code>host-resolver-rules</code> 参数，值是 <code>MAP &lt;FROM-DOMAIN&gt; &lt;TO&gt;</code> 的形式，多个值可以英文逗号分隔：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">options.add_argument(<span class="string">&#x27;host-resolver-rules=MAP www.googletagmanager.com 127.0.0.1,MAP connect.facebook.net&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="实验选项"><a href="#实验选项" class="headerlink" title="实验选项"></a>实验选项</h2><p>Chrome 提供了很多实验选项，可以使用 <code>Options.add_experimental_option(key, value)</code> 配置。</p>
+<blockquote>
+<p>【Java 版】</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">options.setExperimentalOption(key, value);</span><br></pre></td></tr></table></figure>
+</blockquote>
+<h3 id="关闭“受控”提示"><a href="#关闭“受控”提示" class="headerlink" title="关闭“受控”提示"></a>关闭“受控”提示</h3><p>Selenium 启动的 Chrome 默认情况下会显示类似“chrome 正受到自动测试软件的控制”的提示信息。如果想配置关闭，则不同 Chrome 版本设置选项不同。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 老版 Chrome</span></span><br><span class="line">options.add_argument(<span class="string">&#x27;disable-infobars&#x27;</span>)</span><br><span class="line"><span class="comment"># 新版 Chrome</span></span><br><span class="line">Options.add_experimental_option(excludeSwitches, [<span class="string">&#x27;enable-automation&#x27;</span>])</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>【说明】</p>
+<p>具体来说哪个版本是“老版”与“新版”的分界线呢？呃，这个没有具体研究，自己试验一下吧。</p>
+</blockquote>
+<h3 id="自动下载"><a href="#自动下载" class="headerlink" title="自动下载"></a>自动下载</h3><p>想要 Chrome 自动下载文件到指定目录，而不弹出文件对话框，需要设置 <code>prefs</code>（字典类型）中的以下选项：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>download.prompt_for_download</td>
+<td>False</td>
+</tr>
+<tr>
+<td>profile.default_content_settings.popups</td>
+<td>0</td>
+</tr>
+<tr>
+<td>download.default_directory</td>
+<td>下载目录路径</td>
+</tr>
+<tr>
+<td>download.directory_upgrade</td>
+<td>True</td>
+</tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<p>【说明】</p>
+<p>可能不同作者关于自动下载的配置选项会略有出入，但核心都是那么几个。上面 4 个是笔者试验得出“必须”选项。</p>
+<p>【文件下载扩展说明】</p>
+<p>如果不设置自动下载，在有界面场景下会涉及文件对话框的操作（这超出了 Selenium 的控制范畴）——一般需要编写 Autoit 脚本等方式进行操作。</p>
+<p>显示，从复杂性上说，自动下载是个“更好的选择”，而且是无头模式下的“唯一选择”。</p>
+<p>但是，由于下载进度难以监控等问题，自动下载也并非一个推荐的做法。</p>
+<p>针对文件下载场景，一个“最佳实践”是，取得下载链接，使用其他 http 工具库下载——如果真的需要下载文件的话。</p>
+</blockquote>
+<h2 id="已废弃部分"><a href="#已废弃部分" class="headerlink" title="已废弃部分"></a>已废弃部分</h2><p>应尽量使用 Chrome Options 进行配置，Desired Capability 已经废弃，不要试图构造它并把它传入 Chrome Driver 来配置。</p>
+<h1 id="Firefox配置"><a href="#Firefox配置" class="headerlink" title="Firefox配置"></a>Firefox配置</h1><p>与 Chrome 类似，除了参数/选项名称及功能的差异外，其他设置基本上就是把 Chrome 相关的对应物的类名改成 Firefox 对等的类名即可。</p>
+<h2 id="Firefox及驱动路径识别与自定义"><a href="#Firefox及驱动路径识别与自定义" class="headerlink" title="Firefox及驱动路径识别与自定义"></a>Firefox及驱动路径识别与自定义</h2><p>与 Chrome 类似，Firefox 也使用 <code>options.binary_location</code> 自定义可执行文件位置，而在 <code>Service</code> 构造器中传入驱动路径。（详细请参考 Chrome 相关章节）</p>
+<blockquote>
+<p>【Java 版】</p>
+<p>Firefox 存在特异的方法设置可执行文件路径：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GeckoDriverService.Builder.usingFirefoxBinary(FirefoxBinary)</span><br></pre></td></tr></table></figure>
+<p>驱动路径使用系统属性 <code>webdriver.gecko.driver</code> 设置。</p>
+<p>【驱动兼容性】</p>
+<p>Chrome 驱动要求比较严格，一般需要对应版本的驱动才能正常启动该版本的 Chrome。但是 Firefox 使用的 GeckoDriver 没有这么严格的版本对应关系，一般而言，最新的驱动都可以向下兼容老版的 Firefox。</p>
+</blockquote>
+<h2 id="无头模式-1"><a href="#无头模式-1" class="headerlink" title="无头模式"></a>无头模式</h2><p>Firefox 支持 <code>options.headless = True</code> 设置无头模式启动，但是不支持 <code>options.add_argument(&#39;headless&#39;)</code>。</p>
+<h2 id="高级配置选项"><a href="#高级配置选项" class="headerlink" title="高级配置选项"></a>高级配置选项</h2><p>与 Chrome 不同，Firefox 的配置选项都可以访问 <code>about:config</code> 页面查看。</p>
+<p>因此，对于 Firefox 测试来说，不需要明确知道某个功能需要配置哪些选项。反过来，我们可以在“设置”页面配置好某个功能后，查看哪些选项修改了（自定义选项会以粗体显示），测试脚本里就设置这些选项即可。</p>
+<h3 id="加载扩展程序-1"><a href="#加载扩展程序-1" class="headerlink" title="加载扩展程序"></a>加载扩展程序</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">driver.install_addon(<span class="string">&#x27;/path/to/firebug.xpi&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>【扩展程序文件下载】</p>
+<p>在非 Firefox 浏览器——比如 Chrome——中打开扩展程序页面，通过“下载链接”可以直接下载 .xpi 文件。</p>
+<p>【过时的写法】</p>
+<p>通过 <code>FirefoxProfile</code> 也可以加载扩展程序，虽然有效，但是在 Python 版本中 <code>FirefoxProfile</code> 已废弃，使用将会有警告。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 从一个 URL、.xpi 文件路径、扩展所在目录等安装扩展程序</span></span><br><span class="line">profile.add_extension(extension)</span><br></pre></td></tr></table></figure>
+</blockquote>
+<h3 id="配置文件夹"><a href="#配置文件夹" class="headerlink" title="配置文件夹"></a>配置文件夹</h3><p>Firefox 的“配置文件夹”跟 Chrome 的“用户数据目录”是等价的概念。</p>
+<p>在<strong>无 Firefox 进程</strong>的情况下，执行 <code>firefox.exe -ProfileManager</code> 命令会弹出“用户配置文件管理”对话框，可以选择目录创建一个新的配置文件夹。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">options.set_capability(<span class="string">&quot;moz:firefoxOptions&quot;</span>, &#123;</span><br><span class="line">            <span class="string">&#x27;args&#x27;</span>: [<span class="string">&#x27;-profile&#x27;</span>, <span class="string">&#x27;/path/to/profile-dir&#x27;</span>]</span><br><span class="line">        &#125;)</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>【信息查看】</p>
+<p>访问 <code>about:support</code> 打开“排障信息”页面，“配置文件夹”属性查看。</p>
+<p>【过时的写法】</p>
+<p>一个过时的写法是，构造 <code>FirefoxProfile</code>，如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">profile = webdriver.FirefoxProfile(<span class="string">&#x27;/path/to/profile-dir&#x27;</span>)</span><br><span class="line">driver = webdriver.Firefox(options=options, service=service, firefox_profile=profile)</span><br></pre></td></tr></table></figure>
+<p>Python 版本中，<code>FirefoxProfile</code> 已废弃，虽然依然可用，但会输出警告。</p>
+<p>【Java 版】</p>
+<p>Java 版本中，<code>FirefoxProfile</code> 并未废弃，仍然可用：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">FirefoxProfile profile = <span class="keyword">new</span> FirefoxProfile(<span class="keyword">new</span> File(<span class="string">&quot;/path/to/profile-dir&quot;</span>));</span><br><span class="line">options.setProfile(profile);</span><br></pre></td></tr></table></figure>
+</blockquote>
+<h3 id="代理-2"><a href="#代理-2" class="headerlink" title="代理"></a>代理</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用手动配置代码</span></span><br><span class="line">options.set_preference(<span class="string">&#x27;network.proxy.type&#x27;</span>, <span class="number">1</span>)</span><br><span class="line"><span class="comment"># HTTP 代理</span></span><br><span class="line">options.set_preference(<span class="string">&#x27;network.proxy.http&#x27;</span>, <span class="string">&#x27;localhost&#x27;</span>)</span><br><span class="line">options.set_preference(<span class="string">&#x27;network.proxy.http_port&#x27;</span>, <span class="number">9085</span>)</span><br><span class="line"><span class="comment"># HTTPS 代理</span></span><br><span class="line">options.set_preference(<span class="string">&#x27;network.proxy.ssl&#x27;</span>, <span class="string">&#x27;localhost&#x27;</span>)</span><br><span class="line">options.set_preference(<span class="string">&#x27;network.proxy.ssl_port&#x27;</span>, <span class="number">9085</span>)</span><br><span class="line"><span class="comment"># SOCKS 代理</span></span><br><span class="line">options.set_preference(<span class="string">&#x27;network.proxy.socks&#x27;</span>, <span class="string">&#x27;localhost&#x27;</span>)</span><br><span class="line">options.set_preference(<span class="string">&#x27;network.proxy.socks_port&#x27;</span>, <span class="number">9084</span>)</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>【探索代理设置】</p>
+<p>Firefox 中，通过“设置-常规-网络设置”，可以打开“连接设置”对话框。通过该配置，可以对比各种代理设置对应的选项——大多是 <code>network.proxy</code> 开头的。</p>
+<p>【“共享代理设置”不“共享”】</p>
+<p>注意，“连接设置”对话框有个“也将此代理用于 HTTPS”的复选框，勾选后会将 HTTP 代理“快捷共享”给 HTTPS 代理——它对应的选项名为 <code>network.proxy.share_proxy_settings</code>，选中值为 <code>true</code>。</p>
+<p>有的小伙伴可能会想只设置 HTTP 代理，然后“共享”给 HTTPS 即可。现实情况是，这不可能！“共享”选项行为上是一个 GUI 特性——界面勾选时会联动设置 HTTPS 代理，最后，HTTPS 代理相关选项也会被设置——而脚本如果只设置“共享”不设置 HTTPS 代理，最终 HTTPS 代理还是“空”的。</p>
+<p>如果不设置 HTTPS 代理，网站又是 https 协议，那就 BBQ 了。</p>
+<p>所以，即使设置了 HTTP 代理，也还是要设置 HTTPS 代理，或者只设置 SOCKS 代理。</p>
+<p>【Java 版本】</p>
+<p>对于 Python 版本而言，Firefox 的配置废弃了 <code>FirefoxProfile</code>，而直接在 <code>Options</code> 上进行。</p>
+<p>但是，Java 版本并未废弃 <code>FirefoxProfile</code>，也没有在 <code>Options</code> 上添加 <code>setPreference()</code> 方法。所以，还是要使用 <code>FirefoxProfile</code> 进行设置：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">FirefoxProfile profile = <span class="keyword">new</span> FirefoxProfile();</span><br><span class="line">profile.setPreference(<span class="string">&quot;network.proxy.socks&quot;</span>, <span class="string">&quot;localhost&quot;</span>);</span><br><span class="line">profile.setPreference(<span class="string">&quot;network.proxy.socks_port&quot;</span>, <span class="number">9084</span>);</span><br><span class="line">options.setProfile(profile);</span><br></pre></td></tr></table></figure>
+</blockquote>
+<h3 id="自动下载-1"><a href="#自动下载-1" class="headerlink" title="自动下载"></a>自动下载</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">options.set_preference(<span class="string">&#x27;browser.download.useDownloadDir&#x27;</span>, <span class="literal">True</span>)</span><br><span class="line">options.set_preference(<span class="string">&#x27;browser.download.folderList&#x27;</span>, <span class="number">2</span>)</span><br><span class="line">options.set_preference(<span class="string">&#x27;browser.download.manager.showWhenStarting&#x27;</span>, <span class="literal">False</span>)</span><br><span class="line">options.set_preference(<span class="string">&#x27;browser.download.dir&#x27;</span>, <span class="string">&#x27;/path/to/download/dir&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<h1 id="扩展讨论"><a href="#扩展讨论" class="headerlink" title="扩展讨论"></a>扩展讨论</h1><h2 id="第三方库管理驱动"><a href="#第三方库管理驱动" class="headerlink" title="第三方库管理驱动"></a>第三方库管理驱动</h2><p>如果测试环境的浏览器会自动升级，那么，为了不频繁的替换驱动文件、修改配置或代码，一个推荐的做法是使用第三方库来管理驱动——WebDriver Manager 就是个这样的库。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> webdriver_manager.chrome <span class="keyword">import</span> ChromeDriverManager</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">service = Service(executable_path=ChromeDriverManager().install())</span><br><span class="line">driver = webdriver.Chrome(service=service)</span><br></pre></td></tr></table></figure>
+<p>大致的原理是：</p>
+<ol>
+<li>调用 <code>install()</code> 时，会获取相应浏览器的版本，并据此下载对应的驱动文件。</li>
+<li>下载的驱动文件会缓存在 <code>C:\Users\&lt;username&gt;\.wdm</code> 文件夹中，后续将不必下载直接从缓存中获取。</li>
+<li><code>drivers.json</code> 文件记录了驱动版本以及下载日期。</li>
+</ol>
+<blockquote>
+<p>【Java 版】</p>
+<p>WebDriver Manager 也有对应的 Java 版本，Maven 依赖如下：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>io.github.bonigarcia<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>webdrivermanager<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;webdrivermanager.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>只需要在创建 <code>WebDriver</code> 对象前调用如下代码，就不用关注驱动问题了：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ChromeDriverManager.getInstance().setup();</span><br><span class="line"><span class="comment">// 或者</span></span><br><span class="line">WebDriverManager.chromedriver().setup();</span><br></pre></td></tr></table></figure>
+<p>原理上与 Python 版大致相同，但略微有差异：</p>
+<ol>
+<li>调用 <code>setup()</code> 时，同样下载驱动文件。不同的是，Java 可以通过系统变量注入驱动，Python 没有类似机制还是需要将驱动传入 <code>Service</code>。</li>
+<li>驱动缓存文件夹为：<code>C:\Users\&lt;username&gt;\.cache\selenium</code>。</li>
+<li>注意浏览器版本探测结果以及驱动探测结果都是有时效的，浏览器时效为 1 小时，驱动时效为 24 小时——过期将重新探测。对应的版本及时效信息记录在 <code>resolution.properties</code> 中。</li>
+</ol>
+</blockquote>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a target="_blank" rel="noopener" href="https://peter.sh/experiments/chromium-command-line-switches/">List of Chromium Command Line Switches</a>：列出了 Chromium 1400+ 的命令行参数</p>
+<p><a target="_blank" rel="noopener" href="https://sites.google.com/chromium.org/driver/capabilities">ChromeDriver - Capabilities &amp; ChromeOptions</a></p>
+<p><a target="_blank" rel="noopener" href="http://kb.mozillazine.org/About:config_entries">MozillaZine - About:config entries</a>：按功能列出了 Firefox 的配置选项</p>
+<p><a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/WebDriver/Capabilities/firefoxOptions">mdn web docs - firefoxOptions</a></p>
+<p><a target="_blank" rel="noopener" href="https://datarebellion.com/blog/using-firefox-extensions-with-selenium-in-python/">Using Firefox Extensions with Selenium in Python</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.lambdatest.com/blog/adding-firefox-extensions-with-selenium-in-python/">Adding Firefox Extensions With Selenium In Python</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/SergeyPirogov/webdriver_manager">WebDriver Manager for Python</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/bonigarcia/webdrivermanager">WebDriverManager for Java</a></p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Eric Zong
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://ericzonglu.gitee.io/posts/test-selenium-settings.html" title="Selenium4学习笔记：配置篇">http://ericzonglu.gitee.io/posts/test-selenium-settings.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Selenium/" rel="tag"># Selenium</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/test-selenium-locators.html" rel="prev" title="Selenium学习笔记：定位器">
+      <i class="fa fa-chevron-left"></i> Selenium学习笔记：定位器
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/posts/test-selenium-grid.html" rel="next" title="Selenium4学习笔记：Grid篇">
+      Selenium4学习笔记：Grid篇 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%B1%E4%BA%AB%E9%85%8D%E7%BD%AE"><span class="nav-number">1.</span> <span class="nav-text">共享配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A3%E7%90%86"><span class="nav-number">1.1.</span> <span class="nav-text">代理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A1%B5%E9%9D%A2%E5%8A%A0%E8%BD%BD%E7%AD%96%E7%95%A5"><span class="nav-number">1.2.</span> <span class="nav-text">页面加载策略</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%8F%E8%A7%88%E5%99%A8%E7%AA%97%E5%8F%A3"><span class="nav-number">1.3.</span> <span class="nav-text">浏览器窗口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B6%85%E6%97%B6%E6%97%B6%E9%97%B4"><span class="nav-number">1.4.</span> <span class="nav-text">超时时间</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Chrome%E9%85%8D%E7%BD%AE"><span class="nav-number">2.</span> <span class="nav-text">Chrome配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Chrome%E8%B7%AF%E5%BE%84%E8%AF%86%E5%88%AB%E4%B8%8E%E8%87%AA%E5%AE%9A%E4%B9%89"><span class="nav-number">2.1.</span> <span class="nav-text">Chrome路径识别与自定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A9%B1%E5%8A%A8%E6%96%87%E4%BB%B6%E8%B7%AF%E5%BE%84%E8%AF%86%E5%88%AB%E4%B8%8E%E8%87%AA%E5%AE%9A%E4%B9%89"><span class="nav-number">2.2.</span> <span class="nav-text">驱动文件路径识别与自定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%97%A0%E5%A4%B4%E6%A8%A1%E5%BC%8F"><span class="nav-number">2.3.</span> <span class="nav-text">无头模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8A%A0%E8%BD%BD%E6%89%A9%E5%B1%95%E7%A8%8B%E5%BA%8F"><span class="nav-number">2.4.</span> <span class="nav-text">加载扩展程序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%AF%E5%8A%A8%E5%8F%82%E6%95%B0"><span class="nav-number">2.5.</span> <span class="nav-text">启动参数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E8%AE%BE%E7%BD%AE"><span class="nav-number">2.5.1.</span> <span class="nav-text">基本设置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A3%E7%90%86-1"><span class="nav-number">2.5.2.</span> <span class="nav-text">代理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%A8%E6%88%B7%E6%95%B0%E6%8D%AE%E7%9B%AE%E5%BD%95%EF%BC%88User-Data-Directory%EF%BC%89"><span class="nav-number">2.5.3.</span> <span class="nav-text">用户数据目录（User Data Directory）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90%E6%98%A0%E5%B0%84"><span class="nav-number">2.5.4.</span> <span class="nav-text">域名解析映射</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E9%AA%8C%E9%80%89%E9%A1%B9"><span class="nav-number">2.6.</span> <span class="nav-text">实验选项</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B3%E9%97%AD%E2%80%9C%E5%8F%97%E6%8E%A7%E2%80%9D%E6%8F%90%E7%A4%BA"><span class="nav-number">2.6.1.</span> <span class="nav-text">关闭“受控”提示</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%8A%A8%E4%B8%8B%E8%BD%BD"><span class="nav-number">2.6.2.</span> <span class="nav-text">自动下载</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B7%B2%E5%BA%9F%E5%BC%83%E9%83%A8%E5%88%86"><span class="nav-number">2.7.</span> <span class="nav-text">已废弃部分</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Firefox%E9%85%8D%E7%BD%AE"><span class="nav-number">3.</span> <span class="nav-text">Firefox配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Firefox%E5%8F%8A%E9%A9%B1%E5%8A%A8%E8%B7%AF%E5%BE%84%E8%AF%86%E5%88%AB%E4%B8%8E%E8%87%AA%E5%AE%9A%E4%B9%89"><span class="nav-number">3.1.</span> <span class="nav-text">Firefox及驱动路径识别与自定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%97%A0%E5%A4%B4%E6%A8%A1%E5%BC%8F-1"><span class="nav-number">3.2.</span> <span class="nav-text">无头模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%AB%98%E7%BA%A7%E9%85%8D%E7%BD%AE%E9%80%89%E9%A1%B9"><span class="nav-number">3.3.</span> <span class="nav-text">高级配置选项</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A0%E8%BD%BD%E6%89%A9%E5%B1%95%E7%A8%8B%E5%BA%8F-1"><span class="nav-number">3.3.1.</span> <span class="nav-text">加载扩展程序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E5%A4%B9"><span class="nav-number">3.3.2.</span> <span class="nav-text">配置文件夹</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A3%E7%90%86-2"><span class="nav-number">3.3.3.</span> <span class="nav-text">代理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%8A%A8%E4%B8%8B%E8%BD%BD-1"><span class="nav-number">3.3.4.</span> <span class="nav-text">自动下载</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%89%A9%E5%B1%95%E8%AE%A8%E8%AE%BA"><span class="nav-number">4.</span> <span class="nav-text">扩展讨论</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BA%93%E7%AE%A1%E7%90%86%E9%A9%B1%E5%8A%A8"><span class="nav-number">4.1.</span> <span class="nav-text">第三方库管理驱动</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-number">5.</span> <span class="nav-text">参考</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Eric Zong</p>
+  <div class="site-description" itemprop="description">这里有作为一个程序员想记录的一切。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">96</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Eric Zong</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

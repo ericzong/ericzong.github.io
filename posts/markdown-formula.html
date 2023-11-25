@@ -1,0 +1,1656 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"ericzonglu.gitee.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="介绍Markdown中公式的使用。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Markdown笔记·公式篇">
+<meta property="og:url" content="http://ericzonglu.gitee.io/posts/markdown-formula.html">
+<meta property="og:site_name" content="八白龙的博客">
+<meta property="og:description" content="介绍Markdown中公式的使用。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-09-26T12:00:00.000Z">
+<meta property="article:modified_time" content="2022-10-10T16:10:00.000Z">
+<meta property="article:author" content="Eric Zong">
+<meta property="article:tag" content="Markdown">
+<meta property="article:tag" content="公式">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://ericzonglu.gitee.io/posts/markdown-formula.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Markdown笔记·公式篇 | 八白龙的博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">八白龙的博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">程序员的杂货铺</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-references">
+
+    <a href="/references/" rel="section"><i class="bookmark fa-fw"></i>参考</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://ericzonglu.gitee.io/posts/markdown-formula.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Eric Zong">
+      <meta itemprop="description" content="这里有作为一个程序员想记录的一切。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="八白龙的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Markdown笔记·公式篇
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-09-26 20:00:00" itemprop="dateCreated datePublished" datetime="2022-09-26T20:00:00+08:00">2022-09-26</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-10-11 00:10:00" itemprop="dateModified" datetime="2022-10-11T00:10:00+08:00">2022-10-11</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">工具</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="插入公式"><a href="#插入公式" class="headerlink" title="插入公式"></a>插入公式</h1><p>Markdown 插入的数学公式有两种：行内公式和独立公式。</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$行内公式$</span><br><span class="line">$$独立公式$$</span><br></pre></td></tr></table></figure>
+<h1 id="特殊符号"><a href="#特殊符号" class="headerlink" title="特殊符号"></a>特殊符号</h1><h2 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h2><p>行注释使用 <code>%</code> 开头，直到行结束都是注释内容，不会渲染显示。</p>
+<p>换行（<code>\\</code>）应置于注释（<code>%</code>）之前。</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+line1 \\ % 这是注释，不会显示
+line2
+\end{align*}</script><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$$</span><br><span class="line">\begin&#123;align&#125;</span><br><span class="line">line1 \\ % 这是注释，不会显示</span><br><span class="line">line2</span><br><span class="line">\end&#123;align&#125;</span><br><span class="line">$$</span><br></pre></td></tr></table></figure>
+<h2 id="括号"><a href="#括号" class="headerlink" title="括号"></a>括号</h2><p><code>()</code>、<code>[]</code>、<code>|</code> 都可以表示符号本身，但是 <code>&#123;&#125;</code> 有特殊含义，即将其内容当成一个整体看待。如果要表示花括号需要要转义，即使用 <code>\&#123;\&#125;</code> 表示。</p>
+<p>更多括号符号详见【附录·括号】章节。</p>
+<h2 id="空格"><a href="#空格" class="headerlink" title="空格"></a>空格</h2><p>公式中键入的普通空格会被忽略，如果真的需要显示间隔，可以使用 <code>\,</code>、<code>\;</code>、<code>\quad</code>、<code>\qquad</code>，它们将显示为从小到大的间隔。甚至可以使用 <code>\text&#123;n个空格&#125;</code> 实现任意空格间隔。</p>
+<p>另外，<code>\!</code> 是一种负向间隔，它可以缩减字符间距（常用于物理单位中），重复使用可以叠加不同的字符。</p>
+<p>符号汇总：<code>\!</code>、<code>\,</code>、<code>\;</code>、<code>\quad</code>、<code>\qquad</code>、<code>\text&#123;n个空格&#125;</code></p>
+<p>更多空格命令可参考 <a target="_blank" rel="noopener" href="https://docs.mathjax.org/en/latest/input/tex/extensions/textmacros.html#spacing-commands">MathJax 相关说明</a>。</p>
+<h2 id="省略号"><a href="#省略号" class="headerlink" title="省略号"></a>省略号</h2><p>普通公式中常见有两种省略号：与文本底线对齐的省略号用 <code>\ldots</code>，与文本中线对齐的省略号用 <code>\cdots</code>。</p>
+<p>在矩阵中，省略号样式更为丰富，有水平（<code>\cdots</code>）、垂直（<code>\vdots</code>）甚至倾斜（<code>\ddots</code>）显示的。</p>
+<h1 id="位置相关"><a href="#位置相关" class="headerlink" title="位置相关"></a>位置相关</h1><h2 id="上下标"><a href="#上下标" class="headerlink" title="上下标"></a>上下标</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>符号</th>
+<th>作用</th>
+<th>示例代码</th>
+<th>示例显示</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>^</code></td>
+<td>上标</td>
+<td><code>$2^n$</code></td>
+<td>$2^n$</td>
+</tr>
+<tr>
+<td><code>_</code></td>
+<td>下标</td>
+<td><code>$A_0$</code></td>
+<td>$A_0$</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li>上下标不止一个字符</li>
+</ul>
+<p>使用花括号将上下标整体括起来，如：<script type="math/tex">T_n = 2T_{ n-1 } + 1 = 2 (2^{ n-1 } - 1) + 1 = 2^n - 1</script></p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$T<span class="emphasis">_n = 2T_</span>&#123;n-1&#125; + 1 = 2(2^&#123;n-1&#125; - 1) + 1 = 2^n - 1$</span><br></pre></td></tr></table></figure>
+<ul>
+<li>左右都有上下标</li>
+</ul>
+<p>使用 <code>\sideset</code> 命令，如：$\sideset{^1_2}{^3_4}\bigotimes$</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$\sideset&#123;^1<span class="emphasis">_2&#125;&#123;^3_</span>4&#125;\bigotimes$</span><br></pre></td></tr></table></figure>
+<h2 id="顶底部字符"><a href="#顶底部字符" class="headerlink" title="顶底部字符"></a>顶底部字符</h2><p>想把一串字符放在另一串字符上方或下方，需要使用：<code>\overset&#123;顶部内容&#125;&#123;常规内容&#125;</code> 和 <code>\underset&#123;底部内容&#125;&#123;常规内容&#125;</code>。</p>
+<h2 id="分数"><a href="#分数" class="headerlink" title="分数"></a>分数</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>格式</th>
+<th>示例代码</th>
+<th>示例显示</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>\frac</code></td>
+<td><code>\frac &#123;分子&#125; &#123;分母&#125;</code></td>
+<td><code>$\frac &#123;a + 1&#125; &#123;b + 1&#125;$</code></td>
+<td>$\frac {a + 1} {b + 1}$</td>
+</tr>
+<tr>
+<td><code>\over</code></td>
+<td><code>&#123;分子&#125; \over &#123;分母&#125;</code></td>
+<td><code>$\frac &#123;a - 1&#125; &#123;b - 1&#125;$</code></td>
+<td>$\frac {a - 1} {b - 1}$</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li>连分数</li>
+</ul>
+<p>使用 <code>\cfrac</code> 命令：</p>
+<script type="math/tex; mode=display">
+x = a_0 + \cfrac{1^2}{a_1 
+        + \cfrac{2^2}{a_2 
+        + \cfrac{3^2}{a_3 
+        + \cfrac{4^4}{a_4 
+        + \cdots}}}}</script><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$$</span><br><span class="line">x = a<span class="emphasis">_0 + \cfrac&#123;1^2&#125;&#123;a_</span>1 </span><br><span class="line"><span class="bullet">		+</span> \cfrac&#123;2^2&#125;&#123;a<span class="emphasis">_2 </span></span><br><span class="line"><span class="emphasis">		+ \cfrac&#123;3^2&#125;&#123;a_</span>3 </span><br><span class="line"><span class="bullet">		+</span> \cfrac&#123;4^4&#125;&#123;a<span class="emphasis">_4 </span></span><br><span class="line"><span class="emphasis">		+ \cdots&#125;&#125;&#125;&#125;</span></span><br><span class="line"><span class="emphasis">$$</span></span><br></pre></td></tr></table></figure>
+<p>注意：不要使用 <code>\frac</code> 或 <code>\over</code> 来创建连分数，否则会逐级缩小显示。</p>
+<h2 id="开方"><a href="#开方" class="headerlink" title="开方"></a>开方</h2><p>开方语法为：<code>\sqrt [根指数，默认为2] &#123;被开方数&#125;</code>。</p>
+<script type="math/tex; mode=display">\sqrt {2} \quad and \quad \sqrt[n]{5}</script><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$$ \sqrt &#123;2&#125; \quad and \quad \sqrt[n]&#123;5&#125;$$</span><br></pre></td></tr></table></figure>
+<h2 id="累加-乘"><a href="#累加-乘" class="headerlink" title="累加/乘"></a>累加/乘</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>作用</th>
+<th>格式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>\sum</td>
+<td>累加</td>
+<td>\sum_{下标}^{上标} {累加表达式}</td>
+</tr>
+<tr>
+<td>\prod</td>
+<td>累乘</td>
+<td>\prod_{下标}^{上标} {累乘表达式}</td>
+</tr>
+</tbody>
+</table>
+</div>
+<script type="math/tex; mode=display">S = \sum_{k = 0}^n {p^k} = 1 + p + p^2 + ... + p^n</script><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$$S = \sum<span class="emphasis">_&#123;k = 0&#125;^n &#123;p^k&#125; = 1 + p + p^2 + ... + p^n$$</span></span><br></pre></td></tr></table></figure>
+<script type="math/tex; mode=display">S = \prod_{k=0}^{m} \frac {1 - p_k^{a_{k+1}}} {1-p_k}</script><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$$S = \prod<span class="emphasis">_&#123;k=0&#125;^&#123;m&#125; \frac &#123;1 - p_</span>k^&#123;a<span class="emphasis">_&#123;k+1&#125;&#125;&#125; &#123;1-p_</span>k&#125;$$</span><br></pre></td></tr></table></figure>
+<h2 id="极限"><a href="#极限" class="headerlink" title="极限"></a>极限</h2><p>语法为：<code>\lim_&#123;变量 \to 表达式&#125; 表达式</code>。<code>\to</code> 可改为其他任意符号。</p>
+<script type="math/tex; mode=display">\lim_{n \to \infty} \frac{1}{n(n+1)}</script><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$$\lim<span class="emphasis">_&#123;n \to \infty&#125; \frac&#123;1&#125;&#123;n(n+1)&#125;$$</span></span><br></pre></td></tr></table></figure>
+<h2 id="积分"><a href="#积分" class="headerlink" title="积分"></a>积分</h2><p>语法为：<code>\int_积分下限^积分上限 &#123;被积表达式&#125;</code>。</p>
+<p>更多积分符号见附录。</p>
+<h2 id="矢量"><a href="#矢量" class="headerlink" title="矢量"></a>矢量</h2><p>语法为：<code>\vec&#123;矢量&#125;</code>。也可以使用位于字符上方的箭头命令：<code>\overleftarrow</code> 和 <code>\overrightarrow</code>。</p>
+<p>更多详见【附录·环绕符号】章节。</p>
+<h2 id="对齐"><a href="#对齐" class="headerlink" title="对齐"></a>对齐</h2><p><strong>默认居中对齐</strong></p>
+<p>默认情况下，公式是居中对齐的。在多行公式中，居中对齐会显得参差不齐。</p>
+<p>常见的场景是，期望“连等式”每行开头的等号对齐。这时需要使用 <code>\begin&#123;align&#125;</code> 和 <code>\end&#123;align&#125;</code> 包裹公式，并用 <code>&amp;</code> 标识要对齐的位置。</p>
+<script type="math/tex; mode=display">
+\begin{align}
+L_n & = L_{n-1} + n  \\
+    & = L_{n-2} + (n - 1) + n \\
+    & = \cdots \\
+    & = L_0 + 1 + 2 + \cdots + (n-1) + n \\
+    & = 1 + { {n(n+1)} \over {2} } \\ 
+    & = 1 + S_n
+\end{align}</script><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$$</span><br><span class="line">\begin&#123;align&#125;</span><br><span class="line">L<span class="emphasis">_n &amp; = L_</span>&#123;n-1&#125; + n  \\</span><br><span class="line"><span class="code">    &amp; = L_&#123;n-2&#125; + (n - 1) + n \\</span></span><br><span class="line"><span class="code">    &amp; = \cdots \\</span></span><br><span class="line"><span class="code">    &amp; = L_0 + 1 + 2 + \cdots + (n-1) + n \\</span></span><br><span class="line"><span class="code">    &amp; = 1 + &#123; &#123;n(n+1)&#125; \over &#123;2&#125; &#125; \\ </span></span><br><span class="line"><span class="code">    &amp; = 1 + S_n</span></span><br><span class="line"><span class="code">\end&#123;align&#125;</span></span><br><span class="line"><span class="code">$$</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>禁止自动编号</strong><br><code>&#123;align&#125;</code> 会自动编号，不需要可使用 <code>&#123;align*&#125;</code> 禁用。</p>
+</blockquote>
+<p><strong>左对齐与右对齐</strong></p>
+<p>要想公式左对齐或右对齐，就要用到 <code>&#123;flalign&#125;</code> 或 <code>&#123;flalign*&#125;</code> 了。它的效果是：首列左对齐，末列右对齐。</p>
+<p>因此，要左对齐效果就把公式放在首列，要右对齐效果就把公式放在末列。</p>
+<script type="math/tex; mode=display">
+\begin{flalign*}
+& 多行左对齐文本1 & \\
+& 多行左对齐文本2 & \\
+& 多行左对齐文本3 &
+\end{flalign*}</script><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$$</span><br><span class="line">\begin&#123;flalign<span class="emphasis">*&#125;</span></span><br><span class="line"><span class="emphasis">&amp; 多行左对齐文本1 &amp; \\</span></span><br><span class="line"><span class="emphasis">&amp; 多行左对齐文本2 &amp; \\</span></span><br><span class="line"><span class="emphasis">&amp; 多行左对齐文本3 &amp;</span></span><br><span class="line"><span class="emphasis">\end&#123;flalign*</span>&#125;</span><br><span class="line">$$</span><br></pre></td></tr></table></figure>
+<script type="math/tex; mode=display">
+\begin{flalign*}
+& & 多行右对齐文本1 \\ % 注意首列是空的
+& & 多行右对齐文本2 \\
+& & 多行右对齐文本3
+\end{flalign*}</script><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$$</span><br><span class="line">\begin&#123;flalign<span class="emphasis">*&#125;</span></span><br><span class="line"><span class="emphasis">&amp; &amp; 多行右对齐文本1 \\ % 注意首列是空的</span></span><br><span class="line"><span class="emphasis">&amp; &amp; 多行右对齐文本2 \\</span></span><br><span class="line"><span class="emphasis">&amp; &amp; 多行右对齐文本3</span></span><br><span class="line"><span class="emphasis">\end&#123;flalign*</span>&#125;</span><br><span class="line">$$</span><br></pre></td></tr></table></figure>
+<h1 id="变换相关"><a href="#变换相关" class="headerlink" title="变换相关"></a>变换相关</h1><h2 id="大小"><a href="#大小" class="headerlink" title="大小"></a>大小</h2><p>可以通过命令来调整字符的大小，MathJax 提供了从小到大共十种命令：</p>
+<p><code>\tiny</code>、<code>Tiny</code>、<code>\scriptsize</code>、<code>\small</code>、<code>\normalsize</code>、<code>\large</code>、<code>\Large</code>、<code>\LARGE</code>、<code>\huge</code>、<code>\Huge</code>。</p>
+<p>更多说明详见 <a target="_blank" rel="noopener" href="https://docs.mathjax.org/en/latest/input/tex/extensions/textmacros.html#size-control">MathJax 文档相关章节</a>。</p>
+<h2 id="字体"><a href="#字体" class="headerlink" title="字体"></a>字体</h2><p>更改字体语法为：<code>\字体 &#123;被转换字符&#125;</code>。（更多详见【附录·字体转换】章节）</p>
+<p>公式中“不可识别”的运算符号或普通文本均是以斜体显示的，如果想让其转换为常规字体显示，需要分别使用 <code>\operatorname</code> 和 <code>\text</code> 命令。</p>
+<p><code>\operatorname</code> 用以定义一个新的运算符号，其语法为：<code>\operatorname&#123;运算符&#125;&#123;表达式&#125;</code> 或 <code>\operatorname*&#123;运算符&#125;_&#123;下标&#125;^&#123;上标&#125;&#123;表达式&#125;</code>。</p>
+<p><code>\text</code> 用以定义普通文本，通常是注释，其语法为：<code>\text &#123;文本&#125;</code>。</p>
+<h2 id="颜色"><a href="#颜色" class="headerlink" title="颜色"></a>颜色</h2><p>更改字符颜色语法为：<code>\color&#123;颜色&#125;&#123;字符&#125;</code>。</p>
+<p>注意：文字颜色需要浏览器支持，否则将显示为黑色。对于较老的浏览器可能只支持有限的颜色名称，较新的浏览器支持 RGB 颜色。</p>
+<h2 id="高亮"><a href="#高亮" class="headerlink" title="高亮"></a>高亮</h2><p>语法：<code>\bbox[背景色,边距*,border:width* type color</code>。</p>
+<ul>
+<li>背景色：可以使用上节所述的颜色。</li>
+<li>边距：可使用绝对像素 px 或相对大小 em。</li>
+<li>边框宽度：同“边距”类似。</li>
+<li>边框类型：可用 solid、dotted、dashed 等。（与 CSS 中 border-style 值对应）</li>
+<li>边框颜色：与“背景色”类似。</li>
+</ul>
+<script type="math/tex; mode=display">
+\bbox[yellow, 5px, border:2px solid #ff0000]{
+    e^x=\lim_{n\to\infty} \left( 1+\frac{x}{n} \right)^n \qquad (1)
+}</script><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$$</span><br><span class="line">\bbox[yellow, 5px, border:2px solid #ff0000]&#123;</span><br><span class="line"><span class="code">    e^x=\lim_&#123;n\to\infty&#125; \left( 1+\frac&#123;x&#125;&#123;n&#125; \right)^n \qquad (1)</span></span><br><span class="line"><span class="code">&#125;</span></span><br><span class="line"><span class="code">$$</span></span><br></pre></td></tr></table></figure>
+<h2 id="删除线"><a href="#删除线" class="headerlink" title="删除线"></a>删除线</h2><p>可使用 <code>\cancel</code>、<code>\bcancel</code>、<code>\xcancel</code>、<code>\cancelto</code> 等命令添加删除效果。（更多详见【附录·删除线】章节）</p>
+<h2 id="括号-1"><a href="#括号-1" class="headerlink" title="括号"></a>括号</h2><p>普通的各种括号通常只显示为一行的大小，如果要显示为多行的括号，需要使用 <code>\left</code> 和 <code>\right</code> 命令——这使得括号会随内部公式大小调整大小高度。</p>
+<p><code>\left</code> 和 <code>\right</code> 必须配对使用，如果只想显示一半的括号，可以使用 <code>\left.</code> 或 <code>\right.</code> 来配对，但不显示。</p>
+<p>需要注意的是，配对范围被限制在“公式行”中，如果一对括号被换行（<code>\\</code>）分隔在不同的行，那括号所在行需要使用 <code>\left.</code> 或 <code>\right.</code> 来“虚假配对”。</p>
+<script type="math/tex; mode=display">
+\begin{align*} 
+S = & \left[ 1 + 2 + 3 + \cdots \right. \\ 
+    & \cdots + \left. (n-2) + (n-1) + n \right]
+\end{align*}</script><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$$</span><br><span class="line">\begin&#123;align<span class="emphasis">*&#125; </span></span><br><span class="line"><span class="emphasis">S = &amp; \left[ 1 + 2 + 3 + \cdots \right. \\ </span></span><br><span class="line"><span class="emphasis">	&amp; \cdots + \left. (n-2) + (n-1) + n \right]</span></span><br><span class="line"><span class="emphasis">\end&#123;align*</span>&#125;</span><br><span class="line">$$</span><br></pre></td></tr></table></figure>
+<p>更多括号符号详见【附录·括号】章节。</p>
+<h2 id="行标"><a href="#行标" class="headerlink" title="行标"></a>行标</h2><p>公式末尾前使用 <code>\tag &#123;行标&#125;</code> 注明行标。</p>
+<blockquote>
+<p>注：不要尝试给连分数“每行”标注行标，因为整体上看，连分数只有一行。</p>
+</blockquote>
+<p>使用如下语法可以实现自动编号：</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">\begin&#123;equation&#125;</span><br><span class="line"><span class="code">    表达式</span></span><br><span class="line"><span class="code">    \label&#123;eq:公式名&#125;</span></span><br><span class="line"><span class="code">\end&#123;equation&#125;</span></span><br></pre></td></tr></table></figure>
+<p>自动编号的公式，可以在全文任意位置使用 <code>\eqref&#123;eq:公式名&#125;</code> 引用自动编号的公式。</p>
+<blockquote>
+<p>注意：</p>
+<ol>
+<li>仍可以使用 <code>\tag</code> 手动编号；</li>
+<li>自动编号是个带圆括号的数字，引用显示的也是该“带圆括号的数字”。通常显示为超链接，指向引用的公式标注行；</li>
+<li>从经验看，一些 Markdown 编辑器不完全支持自动编号，可能会存在一些显示问题。但在 hexo 中通过 MathJax 渲染的公式通常是支持自动编号语法的。</li>
+</ol>
+</blockquote>
+<p>如果想不自动编号可以：</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">\begin&#123;equation<span class="emphasis">*&#125;</span></span><br><span class="line"><span class="emphasis">    表达式</span></span><br><span class="line"><span class="emphasis">\end&#123;equation*</span>&#125;</span><br></pre></td></tr></table></figure>
+<p>如果对公式的对齐方式有要求，则需要使用：</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">\begin&#123;align&#125;</span><br><span class="line"><span class="code">    表达式</span></span><br><span class="line"><span class="code">\end&#123;align&#125;</span></span><br></pre></td></tr></table></figure>
+<p>该语句是自动编号的，不想自动编号类似地可使用：</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">\begin&#123;align<span class="emphasis">*&#125;</span></span><br><span class="line"><span class="emphasis">    表达式</span></span><br><span class="line"><span class="emphasis">\end&#123;align*</span>&#125;</span><br></pre></td></tr></table></figure>
+<p>如果只是有些行不需要编号，可以使用 <code>\nonumber</code> 或 <code>\notag</code> 移除当前行的行标。</p>
+<p>另注意，自动编号是“全局”的，针对页面所有公式而言的。</p>
+<h1 id="复杂公式"><a href="#复杂公式" class="headerlink" title="复杂公式"></a>复杂公式</h1><h2 id="矩阵"><a href="#矩阵" class="headerlink" title="矩阵"></a>矩阵</h2><p>矩阵以 <code>\begin&#123;matrix&#125;</code> 开始 <code>\end&#123;matrix&#125;</code> 结束，以 <code>\\</code> 分行，以 <code>&amp;</code> 分隔元素。</p>
+<script type="math/tex; mode=display">
+\begin{matrix}
+1 & 2 & 3 \\
+4 & 5 & 6 \\
+7 & 8 & 9
+\end{matrix}</script><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$$</span><br><span class="line">\begin&#123;matrix&#125;</span><br><span class="line">1 &amp; 2 &amp; 3 \\</span><br><span class="line">4 &amp; 5 &amp; 6 \\</span><br><span class="line">7 &amp; 8 &amp; 9</span><br><span class="line">\end&#123;matrix&#125;</span><br><span class="line">$$</span><br></pre></td></tr></table></figure>
+<p><strong>矩阵边框</strong></p>
+<p>默认矩阵没有边框，要显示不同的边框，可以为 <code>matrix</code> 添加不同的前缀：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>matrix</th>
+<th>pmatrix</th>
+<th>bmatrix</th>
+<th>Bmatrix</th>
+<th>vmatrix</th>
+<th>Vmatrix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$\begin{matrix} 1 &amp; 2 \ 3 &amp; 4 \ \end{matrix}$</td>
+<td>$\begin{pmatrix} 1 &amp; 2 \ 3 &amp; 4 \ \end{pmatrix}$</td>
+<td>$\begin{bmatrix} 1 &amp; 2 \ 3 &amp; 4 \ \end{bmatrix}$</td>
+<td>$\begin{Bmatrix} 1 &amp; 2 \ 3 &amp; 4 \ \end{Bmatrix}$</td>
+<td>$\begin{vmatrix} 1 &amp; 2 \ 3 &amp; 4 \ \end{vmatrix}$</td>
+<td>$\begin{Vmatrix} 1 &amp; 2 \ 3 &amp; 4 \ \end{Vmatrix}$</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>省略号</strong></p>
+<p>矩阵中常用的省略号有水平（<code>\cdots</code>）、垂直（<code>\vdots</code>）以及倾斜（<code>\ddots</code>）等几种。</p>
+<p><strong>行内矩阵</strong></p>
+<p>如果矩阵行列足够少，就有可能显示在行中，此时使用 <code>\begin&#123;smallmatrix&#125;</code> 和 <code>\end&#123;smallmatrix&#125;</code> 界定。</p>
+<h2 id="条件表达式"><a href="#条件表达式" class="headerlink" title="条件表达式"></a>条件表达式</h2><p>条件表达式以 <code>\begin&#123;cases&#125;</code> 开始 <code>\end&#123;cases&#125;</code> 结束，插入 <code>&amp;</code> 来对齐内容，每行以 <code>\\</code> 结束换行。</p>
+<script type="math/tex; mode=display">
+L_n = 
+  \begin{cases}
+    1 & (n = 0)  \\[2ex]
+    L_{n-1} + n& ( n > 0 )
+\end{cases}</script><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$$</span><br><span class="line">L<span class="emphasis">_n = </span></span><br><span class="line"><span class="emphasis">  \begin&#123;cases&#125;</span></span><br><span class="line"><span class="emphasis">    1 &amp; (n = 0) \\[2ex]</span></span><br><span class="line"><span class="emphasis">    L_</span>&#123;n-1&#125; + n &amp; ( n &gt; 0 )</span><br><span class="line">  \end&#123;cases&#125;</span><br><span class="line">$$</span><br></pre></td></tr></table></figure>
+<p><strong>行高配置</strong></p>
+<p>默认情况下，条件表达式每行均显示为单倍行高，通常会显得比较紧凑，甚至有些较高的公式显示会存在问题。</p>
+<p>此时，可以在换行符（<code>\\</code>）后指定行高。如上例中指定了 <code>[2ex]</code>，当然可以视需要指定任意数量的 <code>[ex]</code>。</p>
+<blockquote>
+<p><strong>关于单位 <code>ex</code></strong><br><code>ex</code> 是一个相对的尺寸单位，指“x-height”，即字母 x 的高度。<br>注：在 CSS 中，字母 x 的下边缘即基线（baseline）所在的位置。</p>
+</blockquote>
+<p><strong>数组表示条件表达式</strong></p>
+<p>条件表达式除了使用 <code>&#123;cases&#125;</code> 外，也可以使用左对齐数组（<code>&#123;array&#125;</code>）来表示：</p>
+<script type="math/tex; mode=display">
+L_n = 
+\left\{
+  \begin{array}{l}
+    1 & (n = 0)\\[2ex]
+    L_{n-1} + n & ( n > 0 )
+  \end{array}
+\right.</script><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$$</span><br><span class="line">L<span class="emphasis">_n = </span></span><br><span class="line"><span class="emphasis">\left\&#123;</span></span><br><span class="line"><span class="emphasis">  \begin&#123;array&#125;&#123;l&#125;</span></span><br><span class="line"><span class="emphasis">    1 &amp; (n = 0)\\[2ex]</span></span><br><span class="line"><span class="emphasis">    L_</span>&#123;n-1&#125; + n &amp; ( n &gt; 0 )</span><br><span class="line">  \end&#123;array&#125;</span><br><span class="line">\right.</span><br><span class="line">$$</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>数组表示条件表达式的优点</strong><br>概念上说，条件表达式对应的应该是 <code>&#123;cases&#125;</code>，但 <code>&#123;array&#125;</code> 可以实现相同的效果，并且更为灵活，可以实现“右括号”显示的条件表达式效果。</p>
+</blockquote>
+<h2 id="数组与表格"><a href="#数组与表格" class="headerlink" title="数组与表格"></a>数组与表格</h2><p>数组以表格形式展示，使用 <code>\begin&#123;array&#125;</code> 开始 <code>\end&#123;array&#125;</code> 结束。</p>
+<p><code>\begin&#123;array&#125;</code> 后紧跟花括号定义列及其文本对齐方式，可选对齐方式有居中（<code>c</code>）、左对齐（<code>l</code>）、右对齐（<code>r</code>）。一个有四列的表格可能这样开头：<code>\begin&#123;array&#125;&#123;lcrc&#125;</code>。</p>
+<p>默认表格没有分割线。垂直分割线，在定义式中插入 <code>|</code>，如：<code>&#123;l|crc&#125;</code>。水平分割线在行间插入 <code>\hline</code>。</p>
+<p>行以 <code>\\</code> 结尾换行，列以 <code>&amp;</code> 分隔。</p>
+<script type="math/tex; mode=display">
+\begin{array}{c|lcr}
+    \hline
+     No. & \text{左对齐} & \text{居中对齐} & \text{右对齐} \\
+    \hline
+     1 & \text{test one} & 121 & 100 \\
+     2 & \text{test two} & 12321 & 2 \\
+     3 & \text{test three} & 1 & 42 \\
+\end{array}</script><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$$</span><br><span class="line">\begin&#123;array&#125;&#123;c|lcr&#125;</span><br><span class="line"><span class="code">	\hline</span></span><br><span class="line"><span class="code">	 No. &amp; \text&#123;左对齐&#125; &amp; \text&#123;居中对齐&#125; &amp; \text&#123;右对齐&#125; \\</span></span><br><span class="line"><span class="code">    \hline</span></span><br><span class="line"><span class="code">	 1 &amp; \text&#123;test one&#125; &amp; 121 &amp; 100 \\</span></span><br><span class="line"><span class="code">	 2 &amp; \text&#123;test two&#125; &amp; 12321 &amp; 2 \\</span></span><br><span class="line"><span class="code">	 3 &amp; \text&#123;test three&#125; &amp; 1 &amp; 42 \\</span></span><br><span class="line"><span class="code">\end&#123;array&#125;</span></span><br><span class="line"><span class="code">$$</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>补充说明</strong><br>数组也可以用于展示条件表达式或者方程组，这可以参考上一章节【条件表达式】。<br>以数组展示表格，比“普通”的 Markdown 表格更灵活，可以实现嵌套和单元格合并效果。</p>
+</blockquote>
+<h2 id="交换图表"><a href="#交换图表" class="headerlink" title="交换图表"></a>交换图表</h2><p>开头使用 <code>\require&#123;AMScd&#125;</code> 来启用交换图表。</p>
+<blockquote>
+<p>部分 Markdown 编辑器不需要，但为了兼容性，建议加上。</p>
+</blockquote>
+<p>以 <code>\begin&#123;CD&#125;</code> 开头 <code>\end&#123;CD&#125;</code> 结束。</p>
+<p>每行以 <code>\\</code> 结尾换行，元素以 <code>&amp;</code> 分隔。</p>
+<p>连线箭头如下显示：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>符号</th>
+<th>说明</th>
+<th>符号</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>@&lt;&lt;&lt;</code></td>
+<td>左箭头</td>
+<td><code>@&gt;&gt;&gt;</code></td>
+<td>右箭头</td>
+</tr>
+<tr>
+<td><code>@AAA</code></td>
+<td>上箭头</td>
+<td><code>@VVV</code></td>
+<td>下箭头</td>
+</tr>
+<tr>
+<td><code>@=</code></td>
+<td>水平双实线</td>
+<td><code>&#64;&#124;</code></td>
+<td>垂直双实线</td>
+</tr>
+<tr>
+<td><code>@.</code></td>
+<td>无箭头（占位）</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>箭头符号可以添加注释文字。上表可以看到，代表箭头的符号都有 3 个相同的字符，在这些字符间插入的文字会作为箭头上的注释显示。注意，在第一、二个或第二、三个相同字符间插入文字，其显示的方位不同。</p>
+<script type="math/tex; mode=display">
+\require{AMScd}
+\begin{CD}
+    A @. B \\
+    @VbVV \# @VVcV \\
+    C @>>d> D \\
+\end{CD}</script><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$$</span><br><span class="line">\require&#123;AMScd&#125;</span><br><span class="line">\begin&#123;CD&#125;</span><br><span class="line"><span class="code">    A @. B \\</span></span><br><span class="line"><span class="code">    @VbVV \# @VVcV \\</span></span><br><span class="line"><span class="code">    C @&gt;&gt;d&gt; D \\</span></span><br><span class="line"><span class="code">\end&#123;CD&#125;</span></span><br><span class="line"><span class="code">$$</span></span><br></pre></td></tr></table></figure>
+<h1 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h1><h2 id="希腊字母"><a href="#希腊字母" class="headerlink" title="希腊字母"></a>希腊字母</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>显示</th>
+<th>命令</th>
+<th>显示</th>
+<th>命令</th>
+<th>显示</th>
+<th>命令</th>
+<th>显示</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>\alpha</code></td>
+<td>$\alpha$</td>
+<td>A</td>
+<td>$A$</td>
+<td><code>\beta</code></td>
+<td>$\beta$</td>
+<td>B</td>
+<td>$B$</td>
+</tr>
+<tr>
+<td><code>\gamma</code></td>
+<td>$\gamma$</td>
+<td><code>\Gamma</code></td>
+<td>$\Gamma$</td>
+<td><code>\delta</code></td>
+<td>$\delta$</td>
+<td><code>\Delta</code></td>
+<td>$\Delta$</td>
+</tr>
+<tr>
+<td><code>\epsilon</code></td>
+<td>$\epsilon$</td>
+<td>E</td>
+<td>$E$</td>
+<td><code>\zeta</code></td>
+<td>$\zeta$</td>
+<td>Z</td>
+<td>$Z$</td>
+</tr>
+<tr>
+<td><code>\eta</code></td>
+<td>$\eta$</td>
+<td>H</td>
+<td>$H$</td>
+<td><code>\theta</code></td>
+<td>$\theta$</td>
+<td><code>\Theta</code></td>
+<td>$\Theta$</td>
+</tr>
+<tr>
+<td><code>\iota</code></td>
+<td>$\iota$</td>
+<td>I</td>
+<td>$I$</td>
+<td><code>\kappa</code></td>
+<td>$\kappa$</td>
+<td>K</td>
+<td>$K$</td>
+</tr>
+<tr>
+<td><code>\lambda</code></td>
+<td>$\lambda$</td>
+<td><code>\Lambda</code></td>
+<td>$\Lambda$</td>
+<td><code>\mu</code></td>
+<td>$\mu$</td>
+<td>M</td>
+<td>$M$</td>
+</tr>
+<tr>
+<td><code>\nu</code></td>
+<td>$\nu$</td>
+<td>N</td>
+<td>$N$</td>
+<td><code>\xi</code></td>
+<td>$\xi$</td>
+<td><code>\Xi</code></td>
+<td>$\Xi$</td>
+</tr>
+<tr>
+<td>o</td>
+<td>$o$</td>
+<td>O</td>
+<td>$O$</td>
+<td><code>\pi</code></td>
+<td>$\pi$</td>
+<td><code>\Pi</code></td>
+<td>$\Pi$</td>
+</tr>
+<tr>
+<td><code>\rho</code></td>
+<td>$\rho$</td>
+<td>P</td>
+<td>$P$</td>
+<td><code>\sigma</code></td>
+<td>$\sigma$</td>
+<td><code>\Sigma</code></td>
+<td>$\Sigma$</td>
+</tr>
+<tr>
+<td><code>\tau</code></td>
+<td>$\tau$</td>
+<td>T</td>
+<td>$T$</td>
+<td><code>\upsilon</code></td>
+<td>$\upsilon$</td>
+<td><code>\Upsilon</code></td>
+<td>$\Upsilon$</td>
+</tr>
+<tr>
+<td><code>\phi</code></td>
+<td>$\phi$</td>
+<td><code>\Phi</code></td>
+<td>$\Phi$</td>
+<td><code>\chi</code></td>
+<td>$\chi$</td>
+<td>X</td>
+<td>$X$</td>
+</tr>
+<tr>
+<td><code>\psi</code></td>
+<td>$\psi$</td>
+<td><code>\Psi</code></td>
+<td>$\Psi$</td>
+<td><code>\omega</code></td>
+<td>$\omega$</td>
+<td><code>\Omega</code></td>
+<td>$\Omega$</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>部分字母加 <code>var</code> 前缀转变为变量专用形式：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>小写</th>
+<th>大写</th>
+<th>变量</th>
+<th>显示</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>\epsilon</code></td>
+<td><code>E</code></td>
+<td><code>\varepsilon</code></td>
+<td>$\epsilon \; E \; \varepsilon$</td>
+</tr>
+<tr>
+<td><code>\theta</code></td>
+<td><code>\Theta</code></td>
+<td><code>\vartheta</code></td>
+<td>$\theta \; \Theta \; \vartheta$</td>
+</tr>
+<tr>
+<td><code>\rho</code></td>
+<td><code>P</code></td>
+<td><code>\varrho</code></td>
+<td>$\rho \; P \; \varrho$</td>
+</tr>
+<tr>
+<td><code>\sigma</code></td>
+<td><code>\Sigma</code></td>
+<td><code>\varsigma</code></td>
+<td>$\sigma \; \Sigma \; \varsigma$</td>
+</tr>
+<tr>
+<td><code>\phi</code></td>
+<td><code>\Phi</code></td>
+<td><code>\varphi</code></td>
+<td>$\phi \; \Phi \; \varphi$</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="关系运算符"><a href="#关系运算符" class="headerlink" title="关系运算符"></a>关系运算符</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>显示</th>
+<th>命令</th>
+<th>显示</th>
+<th>命令</th>
+<th>显示</th>
+<th>命令</th>
+<th>显示</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>\pm</code></td>
+<td>$\pm$</td>
+<td><code>\times</code></td>
+<td>$\times$</td>
+<td><code>\div</code></td>
+<td>$\div$</td>
+<td><code>\mid</code></td>
+<td>$\mid$</td>
+</tr>
+<tr>
+<td><code>\cdot</code></td>
+<td>$\cdot$</td>
+<td><code>\ast</code></td>
+<td>$\ast$</td>
+<td><code>\oplus</code></td>
+<td>$\oplus$</td>
+<td><code>\leq</code></td>
+<td>$\leq$</td>
+</tr>
+<tr>
+<td><code>\geq</code></td>
+<td>$\geq$</td>
+<td><code>\neq</code></td>
+<td>$\neq$</td>
+<td><code>\approx</code></td>
+<td>$\approx$</td>
+<td><code>\equiv</code></td>
+<td>$\equiv$</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="集合运算符"><a href="#集合运算符" class="headerlink" title="集合运算符"></a>集合运算符</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>显示</th>
+<th>命令</th>
+<th>显示</th>
+<th>命令</th>
+<th>显示</th>
+<th>命令</th>
+<th>显示</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>\emptyset</code></td>
+<td>$\emptyset$</td>
+<td><code>\in</code></td>
+<td>$\in$</td>
+<td><code>\notin</code></td>
+<td>$\notin$</td>
+<td><code>\subset</code></td>
+<td>$\subset$</td>
+</tr>
+<tr>
+<td><code>\supset</code></td>
+<td>$\supset$</td>
+<td><code>\subseteq</code></td>
+<td>$\subseteq$</td>
+<td><code>\supseteq</code></td>
+<td>$\supseteq$</td>
+<td><code>\cap</code></td>
+<td>$\cap$</td>
+</tr>
+<tr>
+<td><code>\cup</code></td>
+<td>$\cup$</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="对数运算符"><a href="#对数运算符" class="headerlink" title="对数运算符"></a>对数运算符</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>显示</th>
+<th>命令</th>
+<th>显示</th>
+<th>命令</th>
+<th>显示</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>\log</code></td>
+<td>$\log$</td>
+<td><code>\lg</code></td>
+<td>$\lg$</td>
+<td><code>\ln</code></td>
+<td>$\ln$</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="三角运算符"><a href="#三角运算符" class="headerlink" title="三角运算符"></a>三角运算符</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>显示</th>
+<th>命令</th>
+<th>显示</th>
+<th>命令</th>
+<th>显示</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>\angle A</code></td>
+<td>$\angle A$</td>
+<td><code>\sin</code></td>
+<td>$\sin$</td>
+<td><code>\cos</code></td>
+<td>$\cos$</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>\tan</code></td>
+<td>$\tan$</td>
+<td><code>\cot</code></td>
+<td>$\cot$</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="逻辑运算符"><a href="#逻辑运算符" class="headerlink" title="逻辑运算符"></a>逻辑运算符</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>显示</th>
+<th>命令</th>
+<th>显示</th>
+<th>命令</th>
+<th>显示</th>
+<th>命令</th>
+<th>显示</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>\because</code></td>
+<td>$\because$</td>
+<td><code>\therefore</code></td>
+<td>$\therefore$</td>
+<td><code>\forall</code></td>
+<td>$\forall$</td>
+<td><code>\exists</code></td>
+<td>$\exists$</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="箭头符号"><a href="#箭头符号" class="headerlink" title="箭头符号"></a>箭头符号</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>显示</th>
+<th>命令</th>
+<th>显示</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>\to</code></td>
+<td>$\to$</td>
+<td><code>\implies</code></td>
+<td>$\implies$</td>
+</tr>
+<tr>
+<td><code>\iff</code></td>
+<td>$\iff$</td>
+<td><code>\impliedby</code></td>
+<td>$\impliedby$</td>
+</tr>
+<tr>
+<td><code>\uparrow</code></td>
+<td>$\uparrow$</td>
+<td><code>\Uparrow</code></td>
+<td>$\Uparrow$</td>
+</tr>
+<tr>
+<td><code>\downarrow</code></td>
+<td>$\downarrow$</td>
+<td><code>\Downarrow</code></td>
+<td>$\Downarrow$</td>
+</tr>
+<tr>
+<td><code>\leftarrow</code></td>
+<td>$\leftarrow$</td>
+<td><code>\Leftarrow</code></td>
+<td>$\Leftarrow$</td>
+</tr>
+<tr>
+<td><code>\rightarrow</code></td>
+<td>$\rightarrow$</td>
+<td><code>\Rightarrow</code></td>
+<td>$\Rightarrow$</td>
+</tr>
+<tr>
+<td><code>\leftrightarrow</code></td>
+<td>$\leftrightarrow$</td>
+<td><code>\Leftrightarrow</code></td>
+<td>$\Leftrightarrow$</td>
+</tr>
+<tr>
+<td><code>\longleftarrow</code></td>
+<td>$\longleftarrow$</td>
+<td><code>\Longleftarrow</code></td>
+<td>$\Longleftarrow$</td>
+</tr>
+<tr>
+<td><code>\longrightarrow</code></td>
+<td>$\longrightarrow$</td>
+<td><code>\Longrightarrow</code></td>
+<td>$\Longrightarrow$</td>
+</tr>
+<tr>
+<td><code>\longleftrightarrow</code></td>
+<td>$\longleftrightarrow$</td>
+<td><code>\Longleftrightarrow</code></td>
+<td>$\Longleftrightarrow$</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="括号-2"><a href="#括号-2" class="headerlink" title="括号"></a>括号</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>显示</th>
+<th>命令</th>
+<th>显示</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>\langle</code></td>
+<td>$\langle$</td>
+<td><code>\rangle</code></td>
+<td>$\rangle$</td>
+</tr>
+<tr>
+<td><code>\lceil</code></td>
+<td>$\lceil$</td>
+<td><code>\rceil</code></td>
+<td>$\rceil$</td>
+</tr>
+<tr>
+<td><code>\lfloor</code></td>
+<td>$\lfloor$</td>
+<td><code>\rfloor</code></td>
+<td>$\rfloor$</td>
+</tr>
+<tr>
+<td><code>\lbrace</code></td>
+<td>$\lbrace$</td>
+<td><code>\rbrace</code></td>
+<td>$\rbrace$</td>
+</tr>
+<tr>
+<td><code>\lvert</code></td>
+<td>$\lvert$</td>
+<td><code>\rvert</code></td>
+<td>$\rvert$</td>
+</tr>
+<tr>
+<td><code>\lVert</code></td>
+<td>$\lVert$</td>
+<td><code>\rVert</code></td>
+<td>$\rVert$</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="微积分运算符"><a href="#微积分运算符" class="headerlink" title="微积分运算符"></a>微积分运算符</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">命令</th>
+<th style="text-align:center">显示</th>
+<th style="text-align:center">命令</th>
+<th style="text-align:center">显示</th>
+<th style="text-align:center">命令</th>
+<th style="text-align:center">显示</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><code>\int</code></td>
+<td style="text-align:center">$\int$</td>
+<td style="text-align:center"><code>\iint</code></td>
+<td style="text-align:center">$\iint$</td>
+<td style="text-align:center"><code>\prime</code></td>
+<td style="text-align:center">$\prime$</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>\infty</code></td>
+<td style="text-align:center">$\infty$</td>
+<td style="text-align:center"><code>\nabla</code></td>
+<td style="text-align:center">$\nabla$</td>
+<td style="text-align:center"></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="环绕符号"><a href="#环绕符号" class="headerlink" title="环绕符号"></a>环绕符号</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>示例代码</th>
+<th>示例显示</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>\overleftarrow</code></td>
+<td><code>\overleftarrow&#123;a+b&#125;</code></td>
+<td>$\overleftarrow{a+b}$</td>
+</tr>
+<tr>
+<td><code>\overrightarrow</code></td>
+<td><code>\overrightarrow&#123;a+b&#125;</code></td>
+<td>$\overrightarrow{a+b}$</td>
+</tr>
+<tr>
+<td><code>\overleftrightarrow</code></td>
+<td><code>\overleftrightarrow&#123;a+b&#125;</code></td>
+<td>$\overleftrightarrow{a+b}$</td>
+</tr>
+<tr>
+<td><code>\underleftarrow</code></td>
+<td><code>\underleftarrow&#123;a+b&#125;</code></td>
+<td>$\underleftarrow{a+b}$</td>
+</tr>
+<tr>
+<td><code>\underrightarrow</code></td>
+<td><code>\underrightarrow&#123;a+b&#125;</code></td>
+<td>$\underrightarrow{a+b}$</td>
+</tr>
+<tr>
+<td><code>\underleftrightarrow</code></td>
+<td><code>\underleftrightarrow&#123;a+b&#125;</code></td>
+<td>$\underleftrightarrow{a+b}$</td>
+</tr>
+<tr>
+<td><code>\overline</code></td>
+<td><code>\overline&#123;a+b&#125;</code></td>
+<td>$\overline{a+b}$</td>
+</tr>
+<tr>
+<td><code>\underline</code></td>
+<td><code>\underline&#123;a+b&#125;</code></td>
+<td>$\underline{a+b}$</td>
+</tr>
+<tr>
+<td><code>\overbrace</code></td>
+<td><code>\overbrace&#123;a+b&#125;^&#123;sample&#125;</code></td>
+<td>$\overbrace{a+b}^{sample}$</td>
+</tr>
+<tr>
+<td><code>\underbrace</code></td>
+<td><code>\underbrace&#123;a+b&#125;_&#123;sample&#125;</code></td>
+<td>$\underbrace{a+b}_{sample}$</td>
+</tr>
+<tr>
+<td><code>\fbox</code></td>
+<td><code>\fbox&#123;a+b&#125;</code></td>
+<td>$\fbox{a+b}$</td>
+</tr>
+<tr>
+<td><code>\bar</code></td>
+<td><code>\bar&#123;a&#125;</code></td>
+<td>$\bar{a}$</td>
+</tr>
+<tr>
+<td><code>\acute</code></td>
+<td><code>\acute&#123;a&#125;</code></td>
+<td>$\acute{a}$</td>
+</tr>
+<tr>
+<td><code>\breve</code></td>
+<td><code>\breve&#123;a&#125;</code></td>
+<td>$\breve{a}$</td>
+</tr>
+<tr>
+<td><code>\check</code></td>
+<td><code>\check&#123;a&#125;</code></td>
+<td>$\check{a}$</td>
+</tr>
+<tr>
+<td><code>\grave</code></td>
+<td><code>\grave&#123;a&#125;</code></td>
+<td>$\grave{a}$</td>
+</tr>
+<tr>
+<td><code>\dot</code></td>
+<td><code>0.\dot&#123;9&#125;</code></td>
+<td>$0.\dot{9}$</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="字体转换"><a href="#字体转换" class="headerlink" title="字体转换"></a>字体转换</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">输入</th>
+<th style="text-align:center">说明</th>
+<th style="text-align:center">显示</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">\rm</td>
+<td style="text-align:center">罗马体</td>
+<td style="text-align:center">$\rm{SAMPLE}$</td>
+</tr>
+<tr>
+<td style="text-align:center">\it</td>
+<td style="text-align:center">意大利体</td>
+<td style="text-align:center">$\it{SAMPLE}$</td>
+</tr>
+<tr>
+<td style="text-align:center">\mit</td>
+<td style="text-align:center">数学斜体</td>
+<td style="text-align:center">$\mit{SAMPLE}$</td>
+</tr>
+<tr>
+<td style="text-align:center">\bf</td>
+<td style="text-align:center">粗体</td>
+<td style="text-align:center">$\bf{SAMPLE}$</td>
+</tr>
+<tr>
+<td style="text-align:center">\sf</td>
+<td style="text-align:center">等线体</td>
+<td style="text-align:center">$\sf{SAMPLE}$</td>
+</tr>
+<tr>
+<td style="text-align:center">\tt</td>
+<td style="text-align:center">打字机体</td>
+<td style="text-align:center">$\tt{SAMPLE}$</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="浏览器支持的颜色名"><a href="#浏览器支持的颜色名" class="headerlink" title="浏览器支持的颜色名"></a>浏览器支持的颜色名</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>颜色名</th>
+<th>显示</th>
+<th>颜色名</th>
+<th>显示</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>black</td>
+<td>$\color{black}{text}$</td>
+<td>grey</td>
+<td>$\color{grey}{text}$</td>
+</tr>
+<tr>
+<td>silver</td>
+<td>$\color{sliver}{text}$</td>
+<td>white</td>
+<td>$\color{white}{text}$</td>
+</tr>
+<tr>
+<td>maroon</td>
+<td>$\color{maroon}{text}$</td>
+<td>red</td>
+<td>$\color{red}{text}$</td>
+</tr>
+<tr>
+<td>yellow</td>
+<td>$\color{yellow}{text}$</td>
+<td>lime</td>
+<td>$\color{lime}{text}$</td>
+</tr>
+<tr>
+<td>olive</td>
+<td>$\color{olive}{text}$</td>
+<td>green</td>
+<td>$\color{green}{text}$</td>
+</tr>
+<tr>
+<td>teal</td>
+<td>$\color{teal}{text}$</td>
+<td>auqa</td>
+<td>$\color{auqa}{text}$</td>
+</tr>
+<tr>
+<td>blue</td>
+<td>$\color{blue}{text}$</td>
+<td>navy</td>
+<td>$\color{navy}{text}$</td>
+</tr>
+<tr>
+<td>purple</td>
+<td>$\color{purple}{text}$</td>
+<td>fuchsia</td>
+<td>$\color{fuchsia}{text}$</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="删除线-1"><a href="#删除线-1" class="headerlink" title="删除线"></a>删除线</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>示例代码</th>
+<th>示例显示</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>\cancel</code></td>
+<td><code>\cancel&#123;a+b&#125;</code></td>
+<td>$\cancel{a+b}$</td>
+</tr>
+<tr>
+<td><code>\bcancel</code></td>
+<td><code>\bcancel&#123;a+b&#125;</code></td>
+<td>$\bcancel{a+b}$</td>
+</tr>
+<tr>
+<td><code>\xcancel</code></td>
+<td><code>a+\xcancel&#123;b&#125;</code></td>
+<td>$a+\xcancel{b}$</td>
+</tr>
+<tr>
+<td><code>\cancelto</code></td>
+<td><code>a+\cancelto&#123;c&#125;&#123;b&#125;</code></td>
+<td>$a+\cancelto{c}{b}$</td>
+</tr>
+<tr>
+<td><code>\enclose&#123;horizontalstrike&#125;</code></td>
+<td><code>\enclose&#123;horizontalstrike&#125;&#123;a+b&#125;</code></td>
+<td>$\enclose{horizontalstrike}{a+b}$</td>
+</tr>
+<tr>
+<td><code>\enclose&#123;verticalstrike&#125;</code></td>
+<td><code>\enclose&#123;verticalstrike&#125;&#123;\frac ab&#125;</code></td>
+<td>$\enclose{verticalstrike}{\frac ab}$</td>
+</tr>
+<tr>
+<td><code>\enclose&#123;updiagonalstrike&#125;</code></td>
+<td><code>\enclose&#123;updiagonalstrike&#125;&#123;a+b&#125;</code></td>
+<td>$\enclose{updiagonalstrike}{a+b}$</td>
+</tr>
+<tr>
+<td><code>\enclose&#123;downdiagonalstrike&#125;</code></td>
+<td><code>\enclose&#123;downdiagonalstrike&#125;&#123;a+b&#125;</code></td>
+<td>$\enclose{downdiagonalstrike}{a+b}$</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>注意：对于 <code>\enclose</code> 命令，可以组合使用删除线，比如：<code>\enclose&#123;horizontalstrike,updiagonalstrike&#125;</code>。</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a target="_blank" rel="noopener" href="https://math.meta.stackexchange.com/questions/5020/mathjax-basic-tutorial-and-quick-reference">MathJax basic tutorial and quick reference</a>：基础教程（英文版），绝大部分命令都有介绍。</p>
+<p><a target="_blank" rel="noopener" href="https://en.wikibooks.org/wiki/LaTeX/Advanced_Mathematics#align_and_align*">LaTeX/Advanced Mathematics</a>：维基百科（英文版）关于 LaTex 高等数学公式的说明。</p>
+<p><a target="_blank" rel="noopener" href="http://detexify.kirelabs.org/classify.html">Detexify</a>：一个搜索查询 LaTeX 符号的在线工具。可以通过鼠标书写来检索符号（使用 AI 识别，当然也可以浏览所有符号）。</p>
+<p><a target="_blank" rel="noopener" href="https://mirror.its.dal.ca/ctan/info/symbols/comprehensive/symbols-a4.pdf">完整 LaTeX 可用符号列表</a>：超多，不便于查询。</p>
+<p><a target="_blank" rel="noopener" href="https://pic.plover.com/MISC/symbols.pdf">精简 LaTeX 可用符号列表</a>：大部分常用符号可查询。</p>
+<p><a target="_blank" rel="noopener" href="https://docs.mathjax.org/en/latest/input/tex/extensions/index.html">MathJax 文档·TeX/LaTeX扩展列表</a>：所有支持的命令列表。</p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Eric Zong
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://ericzonglu.gitee.io/posts/markdown-formula.html" title="Markdown笔记·公式篇">http://ericzonglu.gitee.io/posts/markdown-formula.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Markdown/" rel="tag"># Markdown</a>
+              <a href="/tags/%E5%85%AC%E5%BC%8F/" rel="tag"># 公式</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/math-split-plane.html" rel="prev" title="求解直线分割平面所得区域数量上限">
+      <i class="fa fa-chevron-left"></i> 求解直线分割平面所得区域数量上限
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/posts/math-cross-the-river.html" rel="next" title="带物过河问题">
+      带物过河问题 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8F%92%E5%85%A5%E5%85%AC%E5%BC%8F"><span class="nav-number">1.</span> <span class="nav-text">插入公式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%89%B9%E6%AE%8A%E7%AC%A6%E5%8F%B7"><span class="nav-number">2.</span> <span class="nav-text">特殊符号</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B3%A8%E9%87%8A"><span class="nav-number">2.1.</span> <span class="nav-text">注释</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8B%AC%E5%8F%B7"><span class="nav-number">2.2.</span> <span class="nav-text">括号</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A9%BA%E6%A0%BC"><span class="nav-number">2.3.</span> <span class="nav-text">空格</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9C%81%E7%95%A5%E5%8F%B7"><span class="nav-number">2.4.</span> <span class="nav-text">省略号</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BD%8D%E7%BD%AE%E7%9B%B8%E5%85%B3"><span class="nav-number">3.</span> <span class="nav-text">位置相关</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8A%E4%B8%8B%E6%A0%87"><span class="nav-number">3.1.</span> <span class="nav-text">上下标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A1%B6%E5%BA%95%E9%83%A8%E5%AD%97%E7%AC%A6"><span class="nav-number">3.2.</span> <span class="nav-text">顶底部字符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E6%95%B0"><span class="nav-number">3.3.</span> <span class="nav-text">分数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%80%E6%96%B9"><span class="nav-number">3.4.</span> <span class="nav-text">开方</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B4%AF%E5%8A%A0-%E4%B9%98"><span class="nav-number">3.5.</span> <span class="nav-text">累加&#x2F;乘</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9E%81%E9%99%90"><span class="nav-number">3.6.</span> <span class="nav-text">极限</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A7%AF%E5%88%86"><span class="nav-number">3.7.</span> <span class="nav-text">积分</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9F%A2%E9%87%8F"><span class="nav-number">3.8.</span> <span class="nav-text">矢量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%B9%E9%BD%90"><span class="nav-number">3.9.</span> <span class="nav-text">对齐</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%98%E6%8D%A2%E7%9B%B8%E5%85%B3"><span class="nav-number">4.</span> <span class="nav-text">变换相关</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%A7%E5%B0%8F"><span class="nav-number">4.1.</span> <span class="nav-text">大小</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%97%E4%BD%93"><span class="nav-number">4.2.</span> <span class="nav-text">字体</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%9C%E8%89%B2"><span class="nav-number">4.3.</span> <span class="nav-text">颜色</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%AB%98%E4%BA%AE"><span class="nav-number">4.4.</span> <span class="nav-text">高亮</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E7%BA%BF"><span class="nav-number">4.5.</span> <span class="nav-text">删除线</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8B%AC%E5%8F%B7-1"><span class="nav-number">4.6.</span> <span class="nav-text">括号</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A1%8C%E6%A0%87"><span class="nav-number">4.7.</span> <span class="nav-text">行标</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A4%8D%E6%9D%82%E5%85%AC%E5%BC%8F"><span class="nav-number">5.</span> <span class="nav-text">复杂公式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9F%A9%E9%98%B5"><span class="nav-number">5.1.</span> <span class="nav-text">矩阵</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9D%A1%E4%BB%B6%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="nav-number">5.2.</span> <span class="nav-text">条件表达式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E4%B8%8E%E8%A1%A8%E6%A0%BC"><span class="nav-number">5.3.</span> <span class="nav-text">数组与表格</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%A4%E6%8D%A2%E5%9B%BE%E8%A1%A8"><span class="nav-number">5.4.</span> <span class="nav-text">交换图表</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%99%84%E5%BD%95"><span class="nav-number">6.</span> <span class="nav-text">附录</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%8C%E8%85%8A%E5%AD%97%E6%AF%8D"><span class="nav-number">6.1.</span> <span class="nav-text">希腊字母</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E7%B3%BB%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">6.2.</span> <span class="nav-text">关系运算符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9B%86%E5%90%88%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">6.3.</span> <span class="nav-text">集合运算符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%B9%E6%95%B0%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">6.4.</span> <span class="nav-text">对数运算符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E8%A7%92%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">6.5.</span> <span class="nav-text">三角运算符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%BB%E8%BE%91%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">6.6.</span> <span class="nav-text">逻辑运算符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%AD%E5%A4%B4%E7%AC%A6%E5%8F%B7"><span class="nav-number">6.7.</span> <span class="nav-text">箭头符号</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8B%AC%E5%8F%B7-2"><span class="nav-number">6.8.</span> <span class="nav-text">括号</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BE%AE%E7%A7%AF%E5%88%86%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">6.9.</span> <span class="nav-text">微积分运算符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%8E%AF%E7%BB%95%E7%AC%A6%E5%8F%B7"><span class="nav-number">6.10.</span> <span class="nav-text">环绕符号</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%97%E4%BD%93%E8%BD%AC%E6%8D%A2"><span class="nav-number">6.11.</span> <span class="nav-text">字体转换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%8F%E8%A7%88%E5%99%A8%E6%94%AF%E6%8C%81%E7%9A%84%E9%A2%9C%E8%89%B2%E5%90%8D"><span class="nav-number">6.12.</span> <span class="nav-text">浏览器支持的颜色名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E7%BA%BF-1"><span class="nav-number">6.13.</span> <span class="nav-text">删除线</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-number">7.</span> <span class="nav-text">参考</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Eric Zong</p>
+  <div class="site-description" itemprop="description">这里有作为一个程序员想记录的一切。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">96</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Eric Zong</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>

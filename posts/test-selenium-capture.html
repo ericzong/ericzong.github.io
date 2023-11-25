@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"ericzonglu.gitee.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="介绍Selenium中截图的方法，主要讨论页面完整页面截图的解决方案。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Selenium专题：截图">
+<meta property="og:url" content="http://ericzonglu.gitee.io/posts/test-selenium-capture.html">
+<meta property="og:site_name" content="八白龙的博客">
+<meta property="og:description" content="介绍Selenium中截图的方法，主要讨论页面完整页面截图的解决方案。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-08-21T12:00:00.000Z">
+<meta property="article:modified_time" content="2022-09-11T15:18:55.005Z">
+<meta property="article:author" content="Eric Zong">
+<meta property="article:tag" content="Selenium">
+<meta property="article:tag" content="截图">
+<meta property="article:tag" content="CDP">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://ericzonglu.gitee.io/posts/test-selenium-capture.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Selenium专题：截图 | 八白龙的博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">八白龙的博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">程序员的杂货铺</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-references">
+
+    <a href="/references/" rel="section"><i class="bookmark fa-fw"></i>参考</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://ericzonglu.gitee.io/posts/test-selenium-capture.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Eric Zong">
+      <meta itemprop="description" content="这里有作为一个程序员想记录的一切。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="八白龙的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Selenium专题：截图
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-08-21 20:00:00" itemprop="dateCreated datePublished" datetime="2022-08-21T20:00:00+08:00">2022-08-21</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-09-11 23:18:55" itemprop="dateModified" datetime="2022-09-11T23:18:55+08:00">2022-09-11</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%B5%8B%E8%AF%95/" itemprop="url" rel="index"><span itemprop="name">测试</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="普通截图"><a href="#普通截图" class="headerlink" title="普通截图"></a>普通截图</h1><p>如果只是生成当前浏览器可视范围内的截图，则 Selenium 提供了统一的 API 实现——<code>TakeScreenshot.getScreenshotAs()</code>。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">File image = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>Driver 类型与强转</strong></p>
+<p>虽然所有 <code>WebDriver</code> 实现类也都实现了 <code>TakeScreenshot</code> 接口，但是如果是严格面向接口编程，则所有 Driver 都是通过 <code>WebDriver</code> 接口变量持有的。因此，通常需要强转。</p>
+</blockquote>
+<p>值得注意的是，生成的截图只包括浏览器可视范围，换句话说，如果存在滚动条，则截取的并非完整页面。</p>
+<h1 id="完整页面截图"><a href="#完整页面截图" class="headerlink" title="完整页面截图"></a>完整页面截图</h1><p>怎样截取完整页面截图呢？我们先分浏览器种类讨论。</p>
+<p>Firefox 最简单，<code>FirefoxDriver</code> 自带截图的方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">File image = ((FirefoxDriver)driver).getFullPageScreenshotAs(OutputType.FILE);</span><br></pre></td></tr></table></figure>
+<p><code>ChromeDrvier</code> 和 <code>ChromiumDriver</code> 都没有实现该方法。</p>
+<p>但是，熟悉 DevTools 的小伙伴应该知道，我们可以通过执行“Capture full size screenshot”命令截取完整页面截图。所以，只要通过 CDP 调用该命令即可。</p>
+<blockquote>
+<p>【扩展说明】</p>
+<p>DevTools 中使用快捷键 <code>Ctrl</code> + <code>Shift</code>  + <code>P</code> 执行命令。</p>
+</blockquote>
+<p>查看 Chrome DevTools Protocol 文档（详见<a target="_blank" rel="noopener" href="https://chromedevtools.github.io/devtools-protocol/tot/">这里</a>），可以看到只有一个 <code>Page.captureScreenshot</code> 命令——默认行为就是“普通截图”。</p>
+<p>不过，我们可以利用这个命令进行完整页面截图。下面说说找到的两种方案。</p>
+<p><strong>Chrome 完整页面截图方案一</strong></p>
+<p>具体思路是：先将设备屏幕大小设置为页面相同大小，就可以直接截取完整页面截图了。</p>
+<blockquote>
+<p>【扩展说明】</p>
+<p>据查看了 Chrome 源码的小伙伴说，“Capture full size screenshot”命令底层就是使用的这种方案。</p>
+</blockquote>
+<p>代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 执行 JS 代码获取完整页面高度</span></span><br><span class="line"><span class="keyword">var</span> height = ((JavascriptExecutor) chromeDriver)</span><br><span class="line">		.executeScript(<span class="string">&quot;return document.body.scrollHeight&quot;</span>);</span><br><span class="line"><span class="comment">// 通过 CDP 命令设置设备屏幕大小</span></span><br><span class="line"><span class="keyword">var</span> deviceParams = <span class="keyword">new</span> HashMap&lt;String, Object&gt;();</span><br><span class="line">deviceParams.put(<span class="string">&quot;mobile&quot;</span>, <span class="keyword">false</span>);</span><br><span class="line"><span class="comment">// 假设只有垂直滚动条，未修改屏幕宽度</span></span><br><span class="line">deviceParams.put(<span class="string">&quot;width&quot;</span>, <span class="number">0</span>);</span><br><span class="line">deviceParams.put(<span class="string">&quot;height&quot;</span>, height);</span><br><span class="line">deviceParams.put(<span class="string">&quot;deviceScaleFactor&quot;</span>, <span class="number">1</span>);</span><br><span class="line">chromeDriver.executeCdpCommand(<span class="string">&quot;Emulation.setDeviceMetricsOverride&quot;</span>, </span><br><span class="line">		deviceParams);</span><br><span class="line"><span class="comment">// 截图并写入文件</span></span><br><span class="line"><span class="keyword">var</span> resource = chromeDriver.executeCdpCommand(<span class="string">&quot;Page.captureScreenshot&quot;</span>,</span><br><span class="line">		<span class="keyword">new</span> HashMap&lt;&gt;());</span><br><span class="line">String data = (String) resource.get(<span class="string">&quot;data&quot;</span>);</span><br><span class="line"><span class="keyword">byte</span>[] bytes = Base64.getDecoder().decode(data);</span><br><span class="line">Files.write(Paths.get(<span class="string">&quot;E:/full.png&quot;</span>), bytes);</span><br><span class="line"><span class="comment">// 注意重置屏幕</span></span><br><span class="line">chromeDriver.executeCdpCommand(<span class="string">&quot;Emulation.clearDeviceMetricsOverride&quot;</span>, </span><br><span class="line">		<span class="keyword">new</span> HashMap&lt;&gt;());</span><br></pre></td></tr></table></figure>
+<p><strong>Chrome 完整页面截图方案二</strong></p>
+<p>思路：配置截图命令的实验属性，改变其默认行为，使其可以超出视窗截图。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 这里使用了 CDP 命令获取页面大小</span></span><br><span class="line">Map&lt;String, Object&gt; rect = (Map&lt;String, Object&gt;)</span><br><span class="line">        (driver.executeCdpCommand(<span class="string">&quot;Page.getLayoutMetrics&quot;</span>, </span><br><span class="line">                                  <span class="keyword">new</span> HashMap&lt;&gt;()))</span><br><span class="line">        .get(<span class="string">&quot;contentSize&quot;</span>);</span><br><span class="line"><span class="keyword">var</span> width = rect.get(<span class="string">&quot;width&quot;</span>);</span><br><span class="line"><span class="keyword">var</span> height = rect.get(<span class="string">&quot;height&quot;</span>);</span><br><span class="line"><span class="keyword">var</span> clipParams = <span class="keyword">new</span> HashMap&lt;String, Object&gt;();</span><br><span class="line">clipParams.put(<span class="string">&quot;width&quot;</span>, width);</span><br><span class="line">clipParams.put(<span class="string">&quot;height&quot;</span>, height);</span><br><span class="line">clipParams.put(<span class="string">&quot;x&quot;</span>, <span class="number">0</span>);</span><br><span class="line">clipParams.put(<span class="string">&quot;y&quot;</span>, <span class="number">0</span>);</span><br><span class="line">clipParams.put(<span class="string">&quot;scale&quot;</span>, <span class="number">1</span>);</span><br><span class="line"><span class="keyword">var</span> captureParams = <span class="keyword">new</span> HashMap&lt;String, Object&gt;();</span><br><span class="line"><span class="comment">// 核心配置属性是：clip 和 captureBeyondViewport</span></span><br><span class="line">captureParams.put(<span class="string">&quot;clip&quot;</span>, clipParams);</span><br><span class="line">captureParams.put(<span class="string">&quot;captureBeyondViewport&quot;</span>, <span class="keyword">true</span>);</span><br><span class="line">captureParams.put(<span class="string">&quot;fromSurface&quot;</span>, <span class="keyword">true</span>);</span><br><span class="line"><span class="keyword">var</span> resource = driver.executeCdpCommand(<span class="string">&quot;Page.captureScreenshot&quot;</span>, </span><br><span class="line">                                        captureParams);</span><br><span class="line"></span><br><span class="line">String data = (String) resource.get(<span class="string">&quot;data&quot;</span>);</span><br><span class="line"><span class="keyword">byte</span>[] bytes = Base64.getDecoder().decode(data);</span><br><span class="line">Files.write(Paths.get(<span class="string">&quot;E:/full.png&quot;</span>), bytes);</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>【对比】</p>
+<p>方案一有更好的兼容性（毕竟是浏览器底层实现思路），新旧版本 Chrome 上没有发现什么差异。</p>
+<p>方案二兼容性更差。因为使用了实验属性 <code>captureBeyondViewport</code>，老版本 Chrome（如笔者用的 80 版）可能不生效（100 版下是有效的）。</p>
+</blockquote>
+<p><strong>其他通用思路</strong></p>
+<p>有没有通用方案？答案是：可能算有。</p>
+<p>可以使用 Ashot 库进行完整页面截图，它的原理是滚动截图并拼接。</p>
+<p>从原理上说，任意浏览器都是通用的，但是默认情况下，它只适合处理比较简单的可以滚动截屏的页面。</p>
+<p>从效果来看，对一些比较复杂的场景处理起来并没有想像中那样完美，比如：</p>
+<ul>
+<li>最后页非整页滚动，拼接可能存在问题</li>
+<li>对于页眉页脚拼接可能会重复显示</li>
+<li>固定悬浮工具栏或菜单一类元素可能会重复显示</li>
+</ul>
+<p>可能通过一些自定义截取方式可以消除这些问题，但可能不会太简单，有兴趣可以自行尝试。</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a target="_blank" rel="noopener" href="https://chromedevtools.github.io/devtools-protocol/tot/">Chrome DevTools Protocol</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/pazone/ashot">GitHub - ashot</a></p>
+<p><a target="_blank" rel="noopener" href="https://javadoc.io/doc/ru.yandex.qatools.ashot/ashot/latest/index.html">ashot API doc</a></p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Eric Zong
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://ericzonglu.gitee.io/posts/test-selenium-capture.html" title="Selenium专题：截图">http://ericzonglu.gitee.io/posts/test-selenium-capture.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Selenium/" rel="tag"># Selenium</a>
+              <a href="/tags/%E6%88%AA%E5%9B%BE/" rel="tag"># 截图</a>
+              <a href="/tags/CDP/" rel="tag"># CDP</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/python-string-format.html" rel="prev" title="Python专题：字符串格式化">
+      <i class="fa fa-chevron-left"></i> Python专题：字符串格式化
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/posts/math-sum-of-divisor.html" rel="next" title="求解整数所有约数之和">
+      求解整数所有约数之和 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%99%AE%E9%80%9A%E6%88%AA%E5%9B%BE"><span class="nav-number">1.</span> <span class="nav-text">普通截图</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%8C%E6%95%B4%E9%A1%B5%E9%9D%A2%E6%88%AA%E5%9B%BE"><span class="nav-number">2.</span> <span class="nav-text">完整页面截图</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-number">3.</span> <span class="nav-text">参考</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Eric Zong</p>
+  <div class="site-description" itemprop="description">这里有作为一个程序员想记录的一切。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">96</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Eric Zong</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

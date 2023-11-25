@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"ericzonglu.gitee.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="Java入门的纲要。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java入门纲要">
+<meta property="og:url" content="http://ericzonglu.gitee.io/posts/java-get-start.html">
+<meta property="og:site_name" content="八白龙的博客">
+<meta property="og:description" content="Java入门的纲要。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-05-10T15:00:00.000Z">
+<meta property="article:modified_time" content="2021-05-10T15:14:37.887Z">
+<meta property="article:author" content="Eric Zong">
+<meta property="article:tag" content="Java基础">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://ericzonglu.gitee.io/posts/java-get-start.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Java入门纲要 | 八白龙的博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">八白龙的博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">程序员的杂货铺</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-references">
+
+    <a href="/references/" rel="section"><i class="bookmark fa-fw"></i>参考</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://ericzonglu.gitee.io/posts/java-get-start.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Eric Zong">
+      <meta itemprop="description" content="这里有作为一个程序员想记录的一切。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="八白龙的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Java入门纲要
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-05-10 23:00:00 / 修改时间：23:14:37" itemprop="dateCreated datePublished" datetime="2021-05-10T23:00:00+08:00">2021-05-10</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">基础教程</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>本文不是一篇面面俱到的入门教程，而仅是入门的纲要，通常只会列出笔者认为重要的知识点。 如阅读过程中遇到问题，可自行参考其他在线教程。</p>
+</blockquote>
+<h1 id="Java-是什么？"><a href="#Java-是什么？" class="headerlink" title="Java 是什么？"></a>Java 是什么？</h1><p>Java 是一种跨平台的高级解释型编程语言。</p>
+<p>Java 的源代码以文本形式编写，并保存为 .java 文本文件，并通过编译程序（javac）编译成以 .class 为后缀的字节码， 再通过执行程序（java）对字节码进行解释执行。</p>
+<p>要编译和执行 Java 程序，就需要安装 JDK。因此，通常我们说 Java 的时候也隐含包括了其开发与运行平台。</p>
+<p>对于平台，这里我们只讨论 Java SE，不涉及 Java EE 和 Java ME。</p>
+<p>如果仅仅是执行编译后的 Java 程序，安装 JRE 就可以了，但如果需要开发 Java 程序，就需要安装 JDK。</p>
+<p>JDK 包含 JRE，因此，安装了 JDK 就不需要安装 JRE 了。</p>
+<h1 id="JDK-JRE-下载安装"><a href="#JDK-JRE-下载安装" class="headerlink" title="JDK/JRE 下载安装"></a>JDK/JRE 下载安装</h1><p>推荐到 <a target="_blank" rel="noopener" href="https://jdk.java.net/">jdk.java.net</a> 下载 JDK。</p>
+<blockquote>
+<p>对于 Java 10 及之前版本的 JDK 或 JRE，也可以到 Oracle 官网下载。</p>
+<p>从 Java 11 开始，Oracle 将许可证更改为免费和商用混合许可，也就是说，如果用于生产环境可能会面临收费问题。</p>
+<p>因此，应从 java.net 下载 OpenJDK 版本。</p>
+</blockquote>
+<p>下载软件包后正常安装即可。新版的 JDK 通常并不需要设置 path 和 classpath 就可使用。这里就不赘述安装配置过程了。</p>
+<h1 id="HelloWorld"><a href="#HelloWorld" class="headerlink" title="HelloWorld"></a>HelloWorld</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 源文件：HelloWorld.java</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloWorld</span> </span>&#123;</span><br><span class="line">    <span class="comment">/* </span></span><br><span class="line"><span class="comment">     * Java入门程序</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Hello, World&quot;</span>); <span class="comment">// 打印 Hello World</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面是一段简单的 Java 入门程序，俗称“Hello, World”程序。</p>
+<blockquote>
+<p>“Hello, World”程序功能是简单输出“Hello, World”。</p>
+<p>大多数语言的入门第一个程序就是“Hello, World”——这源于 C 语言的教程。</p>
+<p>该种程序功能单一、结构简洁，并能展示语言的部分语法特性等，所以被广用于语言入门的首例。</p>
+</blockquote>
+<h2 id="展示了什么"><a href="#展示了什么" class="headerlink" title="展示了什么"></a>展示了什么</h2><p>上面的示例程序展示了 Java 的一些重要概念和语法：</p>
+<ul>
+<li>整个程序保存在一个以 .java 为后缀的文本文件中</li>
+<li>所有代码都包裹在类结构中</li>
+<li>类或方法的主体用一对花括号界定</li>
+<li>可以插入注释</li>
+<li>程序的入口是 main 方法</li>
+</ul>
+<p>下面我们一一进一步说明这些展示的概念与语法。</p>
+<p>首先，Java 的源文件都是以 .java 为后缀的文本文件，它们都是普通的文本文件。 最简单的创建方式是新建一个 .txt 文件并更名为 .java 文件。当然，开发工具中可以直接创建 .java 文件的。</p>
+<p>Java 是面向对象的语言，因此，所有的程序都是基于类的，代码不能脱离类而存在。 类使用 class 关键字定义，类体用一对花括号括起来。</p>
+<p>源代码中因插入注释，以进行必要的说明。示例中使用了单行注释（“<code>//</code>”及之后部分）及多行注释（“<code>/*</code>”和“<code>*/</code>”之间部分）。</p>
+<p>Java 程序的入口是 main 方法，其格式是特定的，虽然允许有部分变体写法，但一些条件是必需达成的：</p>
+<ul>
+<li>方法名必须是 main</li>
+<li>必须是 public 的，以确保该方法为公共可访问的</li>
+<li>必须是 static 的，以确保该方法从属于类而不需要依赖实例执行</li>
+<li>返回值类型必须为 void，即不返回任何内容</li>
+<li>参数必须为一个字符串数组</li>
+</ul>
+<h2 id="怎么执行"><a href="#怎么执行" class="headerlink" title="怎么执行"></a>怎么执行</h2><p>如何执行我们编写的“Hello, World”程序呢？仅需要编译、运行即可。</p>
+<p>首先，使用 <code>javac HelloWorld.java</code> 对源代码进行编译，这会在同个目录下生成一个 HelloWorld.class 字节码文件。</p>
+<p>然后，使用 <code>java HelloWorld</code>（注意没有 .class）执行字节码文件即可。</p>
+<p>运行完成，终端会输出“Hello, World”字符串。</p>
+<h1 id="真实的样子"><a href="#真实的样子" class="headerlink" title="真实的样子"></a>真实的样子</h1><p>上文已经引导读者编写、编译并运行了一个入门小程序，已经体验了 Java 语言的一小部分能力。 但真实的世界中，我们是以这种方式工作的吗？</p>
+<p>当然不是！</p>
+<p>首先，真实的情况下是以工程（甚至是多个工程组合）的形式组织管理程序的。 使用 Eclipse 或 IntelliJ IDEA 等等 IDE 工具可以快速地创建、编写、运行程序。</p>
+<p>其次，程序也不会输出为一堆字节码文件，而通常打包为 .jar、.war、.ear……</p>
+<p>另外，通常我们不会从最基础的部分开始编码，而是引用第三方提供的工具包，一般以 jar 包形式提供。 并且，目前也很少手动维护这些依赖，而是通过 Maven 或 Gradle 等工具完成。</p>
+<p>当然，根据实际目标的不同，可能还会涉及更多其他的工具。</p>
+<p>总之，除了语言本身的使用，Java 还有很多外延的知识技能需要掌握。</p>
+<h1 id="下一步"><a href="#下一步" class="headerlink" title="下一步"></a>下一步</h1><p>鉴于本系列是一个基础教程，后续将主要关注 Java 语言本身的知识点。</p>
+<p>在笔者看来，学习入门一门编程语言应该都是大同小异的：</p>
+<ol>
+<li>基本概念的学习。初步了解和把握语言。</li>
+<li>环境搭建部署。为实操作准备。</li>
+<li>语法学习。内容主要包括：关键字含义、标识符规则、修饰符的作用、数据类型、运算符种类、流程控制、异常处理……</li>
+<li>常用内置 API 学习。包括常用数据结构、基础功能类、工具类等等。</li>
+</ol>
+<p>当然，如果本身已经掌握了一门编程语言，那么，学习新语言应该会轻松不少。因为，可以通过对比的方式来进行差异化学习， 即只需重点关注语言间不同的部分，相同或类似的部分可以快速学习吸收。</p>
+<h1 id="相关资料"><a href="#相关资料" class="headerlink" title="相关资料"></a>相关资料</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://www.yiibai.com/java/what-is-java.html">易百教程-Java教程</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.w3cschool.cn/java/">W3Cschool-Java教程</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.runoob.com/java/java-tutorial.html">菜鸟教程-Java教程</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Eric Zong
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://ericzonglu.gitee.io/posts/java-get-start.html" title="Java入门纲要">http://ericzonglu.gitee.io/posts/java-get-start.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Java%E5%9F%BA%E7%A1%80/" rel="tag"># Java基础</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/java-topic-name.html" rel="prev" title="Java专题：名字">
+      <i class="fa fa-chevron-left"></i> Java专题：名字
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/posts/java-topic-style.html" rel="next" title="Java专题：编程风格漫谈">
+      Java专题：编程风格漫谈 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Java-%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-number">1.</span> <span class="nav-text">Java 是什么？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JDK-JRE-%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85"><span class="nav-number">2.</span> <span class="nav-text">JDK&#x2F;JRE 下载安装</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HelloWorld"><span class="nav-number">3.</span> <span class="nav-text">HelloWorld</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B1%95%E7%A4%BA%E4%BA%86%E4%BB%80%E4%B9%88"><span class="nav-number">3.1.</span> <span class="nav-text">展示了什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%8E%E4%B9%88%E6%89%A7%E8%A1%8C"><span class="nav-number">3.2.</span> <span class="nav-text">怎么执行</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%9C%9F%E5%AE%9E%E7%9A%84%E6%A0%B7%E5%AD%90"><span class="nav-number">4.</span> <span class="nav-text">真实的样子</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%8B%E4%B8%80%E6%AD%A5"><span class="nav-number">5.</span> <span class="nav-text">下一步</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%9B%B8%E5%85%B3%E8%B5%84%E6%96%99"><span class="nav-number">6.</span> <span class="nav-text">相关资料</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Eric Zong</p>
+  <div class="site-description" itemprop="description">这里有作为一个程序员想记录的一切。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">96</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Eric Zong</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

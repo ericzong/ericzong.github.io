@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"ericzonglu.gitee.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="比较各种类名获取方法的差异。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java专题：获取类名">
+<meta property="og:url" content="http://ericzonglu.gitee.io/posts/java-topic-get-classname.html">
+<meta property="og:site_name" content="八白龙的博客">
+<meta property="og:description" content="比较各种类名获取方法的差异。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2018-12-25T16:00:00.000Z">
+<meta property="article:modified_time" content="2020-10-03T03:35:45.126Z">
+<meta property="article:author" content="Eric Zong">
+<meta property="article:tag" content="Java基础">
+<meta property="article:tag" content="Java入门教程">
+<meta property="article:tag" content="Java对比">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://ericzonglu.gitee.io/posts/java-topic-get-classname.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Java专题：获取类名 | 八白龙的博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">八白龙的博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">程序员的杂货铺</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-references">
+
+    <a href="/references/" rel="section"><i class="bookmark fa-fw"></i>参考</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://ericzonglu.gitee.io/posts/java-topic-get-classname.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Eric Zong">
+      <meta itemprop="description" content="这里有作为一个程序员想记录的一切。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="八白龙的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Java专题：获取类名
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-12-26 00:00:00" itemprop="dateCreated datePublished" datetime="2018-12-26T00:00:00+08:00">2018-12-26</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-10-03 11:35:45" itemprop="dateModified" datetime="2020-10-03T11:35:45+08:00">2020-10-03</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/%E4%B8%93%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">专题</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="获取类名的方法"><a href="#获取类名的方法" class="headerlink" title="获取类名的方法"></a>获取类名的方法</h1><ul>
+<li><code>Class.getName()</code></li>
+<li><code>Class.getCanonicalName()</code></li>
+<li><code>Class.getSimpleName()</code></li>
+</ul>
+<h1 id="差异对比"><a href="#差异对比" class="headerlink" title="差异对比"></a>差异对比</h1><div class="table-container">
+<table>
+<thead>
+<tr>
+<th></th>
+<th><code>getName()</code></th>
+<th><code>getCanonicalName()</code></th>
+<th><code>getSimpleName()</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>普通类</td>
+<td>pkg.ClassName</td>
+<td>pkg.ClassName</td>
+<td>ClassName</td>
+</tr>
+<tr>
+<td>嵌套类</td>
+<td>pkg.EnclosingClass$NestedClass</td>
+<td>pkg.EnclosingClass.NestedClass</td>
+<td>NestedClass</td>
+</tr>
+<tr>
+<td>局部类</td>
+<td>pkg.EnclosingClass$nLocal</td>
+<td>null</td>
+<td>LocalClass</td>
+</tr>
+<tr>
+<td>匿名类</td>
+<td>pkg.EnclosingClass$n</td>
+<td>null</td>
+<td>空字符串</td>
+</tr>
+<tr>
+<td>普通数组</td>
+<td>[Lpkg.ClassName;</td>
+<td>pkg.ClassName[]</td>
+<td>ClassName[]</td>
+</tr>
+<tr>
+<td>嵌套数组</td>
+<td>[Lpkg.EnclosingClass$NestedClass;</td>
+<td>pkg.EnclosingClass.NestedClass[]</td>
+<td>NestedClass[]</td>
+</tr>
+<tr>
+<td>局部数组</td>
+<td>[Lpkg.EnclosingClass$nLocalClass;</td>
+<td>null</td>
+<td>LocalClass[]</td>
+</tr>
+<tr>
+<td>匿名数组</td>
+<td>[Lpkg.EnclosingClass$n</td>
+<td>null</td>
+<td>[]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>小结：</p>
+<ul>
+<li>对 <code>getName()</code> 而言，主要特殊之处在于：嵌套类使用“$”分隔外围类与嵌套类；数组使用 JNI 字段描述符形式</li>
+<li>对 <code>getCanonicalName()</code> 而言，主要特殊之处在于：局部类、匿名类和局部类数组的规范名为 <code>null</code></li>
+<li>对 <code>getSimpleName()</code> 而言，主要特殊之处在于：匿名类简单名为空（字符串）</li>
+</ul>
+<h1 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h1><h2 id="JNI字段描述符-JavaNative-Interface-FieldDescriptors"><a href="#JNI字段描述符-JavaNative-Interface-FieldDescriptors" class="headerlink" title="JNI字段描述符(JavaNative Interface FieldDescriptors)"></a>JNI字段描述符(JavaNative Interface FieldDescriptors)</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Java 类型</th>
+<th>JNI 字段描述符</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>boolean</code></td>
+<td>Z</td>
+</tr>
+<tr>
+<td><code>byte</code></td>
+<td>B</td>
+</tr>
+<tr>
+<td><code>char</code></td>
+<td>C</td>
+</tr>
+<tr>
+<td><code>short</code></td>
+<td>S</td>
+</tr>
+<tr>
+<td><code>int</code></td>
+<td>I</td>
+</tr>
+<tr>
+<td><code>long</code></td>
+<td>J</td>
+</tr>
+<tr>
+<td><code>float</code></td>
+<td>F</td>
+</tr>
+<tr>
+<td><code>double</code></td>
+<td>D</td>
+</tr>
+<tr>
+<td><code>void</code></td>
+<td>V</td>
+</tr>
+<tr>
+<td><code>class</code></td>
+<td>Lclassname;<br/>（以“L”开头，“;”结尾；路径分隔符“/”；嵌套类用“$”分隔；数组前缀“[”，个数代表深度）</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>注意：</p>
+<p><code>getName()</code> 返回的 JNI 字段描述符中，路径分隔符是“.”。</p>
+<h2 id="匿名类及其数组"><a href="#匿名类及其数组" class="headerlink" title="匿名类及其数组"></a>匿名类及其数组</h2><p>“获取类名”和“匿名类”从字面逻辑上来看就是相悖的，就像“获取匿名类的类名”这句话一样听起来很怪。</p>
+<p>但正如前文表格列出的一样，这是合法的。</p>
+<h3 id="匿名类的特殊性"><a href="#匿名类的特殊性" class="headerlink" title="匿名类的特殊性"></a>匿名类的特殊性</h3><p>在本文中，匿名类显得尤为特殊，因为本文在说明获取类名的方法，而匿名类理应是没有名字的。但匿名类的特殊性不仅如此，还包括：</p>
+<ol>
+<li>无构造器；</li>
+<li>声明的同时创建实例；</li>
+<li>其类型无法通过类型字面量引用；</li>
+<li>无法声明该类型的变量及数组变量；</li>
+<li>无法“常规”创建该类型数组。</li>
+</ol>
+<h3 id="匿名类实例唯一吗？"><a href="#匿名类实例唯一吗？" class="headerlink" title="匿名类实例唯一吗？"></a>匿名类实例唯一吗？</h3><p>先说答案：不一定。</p>
+<p>首先，由于匿名类实例是在匿名类声明的同时创建，而匿名类无法通过类型字面量访问，换句话说，不可能再 <code>new</code> 一个同类型实例。</p>
+<p>其次，匿名类没有构造器，因此，不可能通过反射调用其构造器实例化。</p>
+<p>但是，还有两种创建对象的方式：克隆和反序列化，但它们都是有相应限制的。</p>
+<p>如果匿名类的父类型是 <code>Cloneable</code> 的，那么就可以通过克隆创建另一个同类型实例。</p>
+<p>至于序列化，限制要更多一点，除了要求父类型是 <code>Serializable</code> 之外，还要求匿名类的外围类也是 <code>Serializable</code> 的。应注意到，匿名类是否可序列化取决于两方面：</p>
+<ol>
+<li>外围类是否可序列化；</li>
+<li>自身是否可序列化，亦即其父类型是否可序列化。</li>
+</ol>
+<p>总结来说，除非匿名类是 <code>Cloneable</code> 或其父类型及外围类均是 <code>Serializable</code> 的，否则该匿名类将仅有唯一实例。</p>
+<h3 id="不能“常规”创建数组"><a href="#不能“常规”创建数组" class="headerlink" title="不能“常规”创建数组"></a>不能“常规”创建数组</h3><p>由于不能通过类型字面量引用匿名类，意即不能以 <code>Xxx.class</code> 的方式访问其类类型，因此需要调用其实例对象的 <code>getClass()</code> 方法来访问。</p>
+<p>另一方面说明，我们不得不声明匿名类的父类型的变量来持有其实例，比如：<code>Object o = new Object() &#123;&#125;</code> 。进一步来说，如果创建了一个匿名类数组也只能赋值给其父类型的数组。</p>
+<p>那么，可以创建一个匿名类数组吗？</p>
+<p>也许，有人会想 <code>Object[] array = new Object[] &#123;&#125;</code> 就能创建匿名类数组，遗憾地是这仅仅是创建了一个 Object 数组。</p>
+<p>因此，目前来看，至少我们不能以“常规”的方式来创建匿名类数组。</p>
+<p>有没有其他方式来创建呢？答案是有的。通过 Array 类相关实例化方法就可以创建一个匿名类数组：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Data d = <span class="keyword">new</span> Data() &#123;&#125;;</span><br><span class="line">Data[] array = (Data[]) Array.newInstance(d.getClass(), <span class="number">10</span>);</span><br><span class="line"><span class="comment">// array.getName(): [Lcom.ericzong.java.sample.api.ClassNameTest$4;</span></span><br><span class="line"><span class="comment">// array.getCanonicalName(): null</span></span><br><span class="line"><span class="comment">// array.getSimpleName(): []</span></span><br></pre></td></tr></table></figure>
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>由于无名，所以导致匿名类在与名称相关的方面都比较特别。</p>
+<p>无名 →  无构造器 → 必需在声明时实例化；</p>
+<p>无名 → 无类型字面量 → 无法声明（数组）变量</p>
+<p>​                                    → 无法“常规”创建数组。</p>
+<p>最后，想要说的是，虽然可能创建多个同一匿名类的实例，也可以创建匿名类数组，但说实话，笔者并未想到其实际应用场景，也没有合理的理由让我们非得这样编码。</p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Eric Zong
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://ericzonglu.gitee.io/posts/java-topic-get-classname.html" title="Java专题：获取类名">http://ericzonglu.gitee.io/posts/java-topic-get-classname.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Java%E5%9F%BA%E7%A1%80/" rel="tag"># Java基础</a>
+              <a href="/tags/Java%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/" rel="tag"># Java入门教程</a>
+              <a href="/tags/Java%E5%AF%B9%E6%AF%94/" rel="tag"># Java对比</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/java-topic-why-final.html" rel="prev" title="Java专题：为什么内部类访问的外部局部变量必须是final的？">
+      <i class="fa fa-chevron-left"></i> Java专题：为什么内部类访问的外部局部变量必须是final的？
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/posts/java-kp-keyword-static.html" rel="next" title="Java知识点：static关键字">
+      Java知识点：static关键字 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96%E7%B1%BB%E5%90%8D%E7%9A%84%E6%96%B9%E6%B3%95"><span class="nav-number">1.</span> <span class="nav-text">获取类名的方法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B7%AE%E5%BC%82%E5%AF%B9%E6%AF%94"><span class="nav-number">2.</span> <span class="nav-text">差异对比</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%99%84%E5%BD%95"><span class="nav-number">3.</span> <span class="nav-text">附录</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#JNI%E5%AD%97%E6%AE%B5%E6%8F%8F%E8%BF%B0%E7%AC%A6-JavaNative-Interface-FieldDescriptors"><span class="nav-number">3.1.</span> <span class="nav-text">JNI字段描述符(JavaNative Interface FieldDescriptors)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8C%BF%E5%90%8D%E7%B1%BB%E5%8F%8A%E5%85%B6%E6%95%B0%E7%BB%84"><span class="nav-number">3.2.</span> <span class="nav-text">匿名类及其数组</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8C%BF%E5%90%8D%E7%B1%BB%E7%9A%84%E7%89%B9%E6%AE%8A%E6%80%A7"><span class="nav-number">3.2.1.</span> <span class="nav-text">匿名类的特殊性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8C%BF%E5%90%8D%E7%B1%BB%E5%AE%9E%E4%BE%8B%E5%94%AF%E4%B8%80%E5%90%97%EF%BC%9F"><span class="nav-number">3.2.2.</span> <span class="nav-text">匿名类实例唯一吗？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8D%E8%83%BD%E2%80%9C%E5%B8%B8%E8%A7%84%E2%80%9D%E5%88%9B%E5%BB%BA%E6%95%B0%E7%BB%84"><span class="nav-number">3.2.3.</span> <span class="nav-text">不能“常规”创建数组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%8F%E7%BB%93"><span class="nav-number">3.2.4.</span> <span class="nav-text">小结</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Eric Zong</p>
+  <div class="site-description" itemprop="description">这里有作为一个程序员想记录的一切。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">96</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Eric Zong</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

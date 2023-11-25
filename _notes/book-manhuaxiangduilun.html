@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"ericzonglu.gitee.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="奥卡姆剃刀原理：如无必要，勿增实体。它能剃掉两样东西：  理论中冗余的部分 不能被感知和检测的东西  佯谬，佯装是错误的，其实是正确的。 伽利略相对性原理：在任何惯性系中，力学规律保持不变。 波的传播速度1 &#x3D; 介质震动的频率 × 波长  1. 速度，相对于介质而言 &amp;#8617;  电磁波的传播速度只取决于传播介质；电磁波的波速与波源的运动速度无关；光速与光源的运动速度无关。 对于任何参考系来说">
+<meta property="og:type" content="website">
+<meta property="og:title" content="《漫画相对论》读书笔记">
+<meta property="og:url" content="http://ericzonglu.gitee.io/_notes/book-manhuaxiangduilun.html">
+<meta property="og:site_name" content="八白龙的博客">
+<meta property="og:description" content="奥卡姆剃刀原理：如无必要，勿增实体。它能剃掉两样东西：  理论中冗余的部分 不能被感知和检测的东西  佯谬，佯装是错误的，其实是正确的。 伽利略相对性原理：在任何惯性系中，力学规律保持不变。 波的传播速度1 &#x3D; 介质震动的频率 × 波长  1. 速度，相对于介质而言 &amp;#8617;  电磁波的传播速度只取决于传播介质；电磁波的波速与波源的运动速度无关；光速与光源的运动速度无关。 对于任何参考系来说">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-03-29T16:04:47.849Z">
+<meta property="article:modified_time" content="2021-03-30T16:37:34.617Z">
+<meta property="article:author" content="Eric Zong">
+<meta property="article:tag" content="科普">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://ericzonglu.gitee.io/_notes/book-manhuaxiangduilun.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : false,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>《漫画相对论》读书笔记 | 八白龙的博客
+</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">八白龙的博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">程序员的杂货铺</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-references">
+
+    <a href="/references/" rel="section"><i class="bookmark fa-fw"></i>参考</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+  
+  
+
+          <div class="content page posts-expand">
+            
+
+    
+    
+    
+    <div class="post-block" lang="zh-CN">
+      <header class="post-header">
+
+<h1 class="post-title" itemprop="name headline">《漫画相对论》读书笔记
+</h1>
+
+<div class="post-meta">
+  
+
+</div>
+
+</header>
+
+      
+      
+      
+      <div class="post-body">
+          <p>奥卡姆剃刀原理：如无必要，勿增实体。它能剃掉两样东西：</p>
+<ol>
+<li>理论中冗余的部分</li>
+<li>不能被感知和检测的东西</li>
+</ol>
+<p>佯谬，佯装是错误的，其实是正确的。</p>
+<p>伽利略相对性原理：在任何惯性系中，力学规律保持不变。</p>
+<p>波的传播速度<sup><a href="#fn_1" id="reffn_1">1</a></sup> = 介质震动的频率 × 波长</p>
+<blockquote id="fn_1">
+<sup>1</sup>. 速度，相对于介质而言<a href="#reffn_1" title="Jump back to footnote [1] in the text."> &#8617;</a>
+</blockquote>
+<p>电磁波的传播速度只取决于传播介质；<br>电磁波的波速与波源的运动速度无关；<br>光速与光源的运动速度无关。</p>
+<p>对于任何参考系来说在真空中光的传播速度都是 c。</p>
+<p>爱因斯坦得到的两个基本原理：</p>
+<ol>
+<li>在任何惯性系中，所有物理规律保持不变</li>
+<li>对于任何参考系来说，在真空中光的传播速度都是 c</li>
+</ol>
+<p>没有真正的同时，所谓同时性，只能是对在同一个惯性系中的人才成立。</p>
+<p>每一个参考系都有自己的特殊时间，如果不指明参考系，宣称一件事情同时发生是没有任何意义的。</p>
+<p>$ t’= \frac {1} {\sqrt {1 - \frac {v^2} {c^2}}} t $</p>
+<p>$ \gamma = \frac {1} {\sqrt {1 - \frac {v^2} {c^2}}} \quad \text {相对论因子/洛伦兹因子} $</p>
+<p>运动物体的收缩，不是任何机械的、化学的、材料的原因，跟任何外力无关。</p>
+<p>速度合成公式：$ w = \frac {u + v} {1 + \frac {uv} {c^2}} $</p>
+<p>《论运动物体的电动力学》：</p>
+<ol>
+<li>相对性原理：在任何惯性系中，所有物理规律保持不变</li>
+<li>光速不变原理：光在真空中的传播速度恒为 c</li>
+<li>同时性的相对性</li>
+<li>洛佩兹变换</li>
+<li>时间膨胀</li>
+<li>空间收缩</li>
+<li>新的速度合成公式</li>
+</ol>
+<p>$ m = \gamma m_0 \quad \text {(m 是运动质量，m~0~ 是相对静止质量)} $ </p>
+<p>没有能量和信息的传递速度能超过光速。</p>
+<script type="math/tex; mode=display">
+\left.
+\begin{array}{l}
+E = \frac 1 2 mv^2 \\
+m = \frac {m_0} {\sqrt {1 - \frac {v^2} {c^2}}}
+\end{array}
+\right \}
+\implies E = mc^2 \quad \text {(质能公式)}</script><p>篮球上的圆周率小于 π；马鞍面上的圆周率大于 π。</p>
+<p>越高地球引力越小，自转速度线越大（狭义）；<br>引力越大，时间越慢，速度越快，时间越慢（广义）；<br>广义相对论效应更显著，故山脚的钟比山顶的慢一点；<br>GPS 卫星上的时钟会相应调慢一点。</p>
+<p>飞机顺着大气环流方向飞，狭义 &gt; 广义，时间变慢；</p>
+<p>飞机逆着大气环流方向飞，广义 &gt; 狭义，时间变快。</p>
+<p>加速度不是相对的，可以不需要指明参考系。</p>
+<p>引力是广义相对论研究的核心问题。</p>
+<p>三维空间在所有的维度上都弯曲了。</p>
+<p>引力的实质是空间的弯曲。</p>
+<p>逃逸速度取决于天体的质量和半径。</p>
+<p>史瓦西半径，任何天体都存在一个临界值，如果小于这个半径，则形成黑洞。（视界）</p>
+<p>黑洞被观测到：</p>
+<ol>
+<li>黑洞产生的空间扭曲效应，会让周围的星光扭曲变形；</li>
+<li>黑洞会逐渐吞噬掉相遇的恒星；</li>
+<li>黑洞两极会喷发出巨大的 X 射线。</li>
+</ol>
+<p>白洞，以辐射方式不停地物质“吐”出来。</p>
+<p>任何物体在时空中的合成速度恒定为 c。</p>
+<p>光速是任何运动的速度极限。</p>
+<p>莫比乌斯环特性：</p>
+<ol>
+<li>沿中线剖开，得到一个大环；再剖，得到两个互相缠绕的两个环；</li>
+<li>在其上走一圈可互换左右手系。</li>
+</ol>
+<p>星际贸易两大基本定理：</p>
+<ol>
+<li>做贸易别忘了利率；</li>
+<li>随着贸易的往来，不同星球间的税率，最后一定会趋于一致。</li>
+</ol>
+<p>闵可夫斯基四维时空坐标的要点：</p>
+<ol>
+<li>所有坐标轴互相垂直；</li>
+<li>坐标轴单位统一；</li>
+<li>表示时间维度的轴只能朝一个方向运动。</li>
+</ol>
+<p>宇宙中的任何事件只能影响它的将来光锥内的物体；<br>凡是在事件的将来光锥外的物体不会受该事件的任何影响。</p>
+<p>一个事件的将来光锥决定了这个事件对时空的影响范围；<br>任何事件之间都不能超越光锥这个范围而互相影响；<br>一个事件的过去光锥，决定了什么样的时空范围可以影响到这个事件本身。</p>
+<p>双缝干涉实验，光子同时通过了左右两条狭缝；<br>没有什么真正的因果，只有“互补原理”。</p>
+<p>在物理学上，只要两个系统产生了纠缠、互动，则可认为是其中一个系统观察了另一个系统。</p>
+<p>所有宏观物体也有不确定性，与物体质量成反比，质量越大，不确定性越小；<br>常规物体的不确定性都可以忽略不计，人是根本不可能感受到的；<br>不确定性指的是两个物理量不能同时测得，与该物质是否存在是完全不同的概念。</p>
+<p>EPR 佯谬只是证明了定域和实在不可能同时正确，并没有证明有超光速信号的在在；<br>如果愿意放弃实在性，相对论依然是牢靠的；<br>量子纠缠态/超隐形传输，传输的只是量子态，并不是能量和物质。</p>
+<p>相对论和量子理论不相容。</p>
+<p>基本粒子 ← “橡皮筋圈” （以不同频率振动着）← 一段六维空间蜷缩在三维空间中</p>
+<p>弦理论，用一条一维的弦来模拟基本粒子，它们之间的核作用力就可以精确地用欧拉函数来描写；<br>超弦理论，每个基本粒子都必须有一个“超对称”伙伴；任何基本粒子都不是一个点，而是一根闭合的弦；不同的振动方式对应了自然界中的不同粒子。</p>
+<p>（完）2020-01-26</p>
+
+      </div>
+      
+      
+      
+    </div>
+    
+
+    
+    
+    
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Eric Zong</p>
+  <div class="site-description" itemprop="description">这里有作为一个程序员想记录的一切。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">96</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Eric Zong</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>

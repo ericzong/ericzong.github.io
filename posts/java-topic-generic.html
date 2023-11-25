@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"ericzonglu.gitee.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="介绍Java与泛型相关的知识。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java专题：泛型">
+<meta property="og:url" content="http://ericzonglu.gitee.io/posts/java-topic-generic.html">
+<meta property="og:site_name" content="八白龙的博客">
+<meta property="og:description" content="介绍Java与泛型相关的知识。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-06-07T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-06-07T16:32:09.926Z">
+<meta property="article:author" content="Eric Zong">
+<meta property="article:tag" content="Java基础">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://ericzonglu.gitee.io/posts/java-topic-generic.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Java专题：泛型 | 八白龙的博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">八白龙的博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">程序员的杂货铺</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-references">
+
+    <a href="/references/" rel="section"><i class="bookmark fa-fw"></i>参考</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://ericzonglu.gitee.io/posts/java-topic-generic.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Eric Zong">
+      <meta itemprop="description" content="这里有作为一个程序员想记录的一切。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="八白龙的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Java专题：泛型
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-06-08 00:00:00 / 修改时间：00:32:09" itemprop="dateCreated datePublished" datetime="2021-06-08T00:00:00+08:00">2021-06-08</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/%E4%B8%93%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">专题</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p>泛型是 Java 1.5 引入的类型机制，将类型参数化，是 1999 年制定的 JSR14 的实现。</p>
+<p>泛型主要动机是为了实现类型安全的集合类，以及创建处理抽象类型的新类型。</p>
+<p>与泛型相关的类型检查由编译器在编译时进行，具有更好的可读性和安全性，且不需要进行不必要的强制类型转换。</p>
+<blockquote>
+<p>Introduced in J2SE 5.0, this long-awaited enhancement to the type system allows a type or method to operate on objects of various types while providing compile-time type safety. It adds compile-time type safety to the Collections Framework and eliminates the drudgery of casting.</p>
+<p>——“The Java™ Tutorials”</p>
+</blockquote>
+<p>通俗意义上的泛型包括：泛型类型（术语称“<strong>参数化类型</strong>”）和泛型方法（术语称“<strong>泛化方法</strong>”）。</p>
+<p>泛型中的类型是以参数化的方式提供的，即泛型中必然存在“类型变量”，它们被用作参数代表类型，因此称“<strong>类型参数</strong>”或“<strong>形式类型参数</strong>”。如：<code>List&lt;T&gt;</code> 中的 <code>T</code>。</p>
+<p>使用泛型时实际传入的类型称为“<strong>实际类型</strong>”。如：<code>List&lt;String&gt;</code> 中的 <code>String</code>。</p>
+<p>指定了实际类型的泛型类型称为该泛型的“<strong>实例化形式</strong>”。如：<code>List&lt;String&gt;</code></p>
+<blockquote>
+<p>泛型有大量相关概念，但其中很多是等价的，比如（正式的术语排在前面）：</p>
+<ul>
+<li>参数化类型/泛型类型</li>
+<li>泛化方法/泛型方法</li>
+<li>类型参数/类型变量/形式类型参数</li>
+</ul>
+</blockquote>
+<h1 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h1><h2 id="泛型类型"><a href="#泛型类型" class="headerlink" title="泛型类型"></a>泛型类型</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GenericClass</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line">    <span class="comment">// private T field1;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">GenericClass&lt;String&gt; genericClass = <span class="keyword">new</span> GenericClass&lt;&gt;();</span><br></pre></td></tr></table></figure>
+<h2 id="泛型方法"><a href="#泛型方法" class="headerlink" title="泛型方法"></a>泛型方法</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> &lt;T&gt; <span class="function">T <span class="title">genericMethod</span><span class="params">(T arg)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Classname.&lt;T&gt;genericMethod(...);</span><br></pre></td></tr></table></figure>
+<p>通常，泛型方法调用时可以省略类型参数，Java 会进行类型推断。</p>
+<h2 id="边界"><a href="#边界" class="headerlink" title="边界"></a>边界</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;T, S extends Comparable &amp; Serializable&gt;</span><br></pre></td></tr></table></figure>
+<p>类型参数总是有一个边界，可以如上代码指定，缺省上界为 <code>Object</code>。没有下界，因为下界在实际中几乎没有作用。</p>
+<h2 id="通配符"><a href="#通配符" class="headerlink" title="通配符"></a>通配符</h2><p>类型参数除了可以指定为一般的引用类型外，还可以指定为通配符。</p>
+<p>通配符（wildcard）“?”的作用是表示一组类型的集合，可匹配特定范围内的类型。</p>
+<p>在使用通配符时可以指定其上界或下界，通过添加上界或下界可以限制通配符表示的具体类型的范围。</p>
+<p>编译器在内部使用通配符捕获（wildcard capture）类型的方式来表示通配符代表的类型。</p>
+<p>通配符捕获类型，是一种特殊的类型，可以表示通配符所代表的类型集合中的任意类型。</p>
+<p>通配符捕获类型与所有具体类型都不兼容，因为一个类型集合无法与单个具体类型兼容。</p>
+<h3 id="上界通配符"><a href="#上界通配符" class="headerlink" title="上界通配符"></a>上界通配符</h3><p>上界通配符（upper bound wildcard Generics），<code>&lt;? extends SuperClass&gt;</code>。</p>
+<p>只读，通配符匹配的类型只能作为返回值。</p>
+<p><code>? extends Object</code> 等价于无界通配符。</p>
+<h3 id="下界通配符"><a href="#下界通配符" class="headerlink" title="下界通配符"></a>下界通配符</h3><p>下界通配符（lower bound wildcard Generics），<code>&lt;? super SubClass&gt;</code>。</p>
+<p>只写，通配符匹配的类型可为方法提供参数。</p>
+<h3 id="无界通配符"><a href="#无界通配符" class="headerlink" title="无界通配符"></a>无界通配符</h3><p>只读。</p>
+<h2 id="擦除"><a href="#擦除" class="headerlink" title="擦除"></a>擦除</h2><p>泛型仅是编译期特性，Java 中使用类型擦除的方式来实现。</p>
+<p>在类型擦除过程中，类型参数会被最左边的上界所替代。</p>
+<h2 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h2><p>数组对象是由 JVM 根据元素类型创建出来的，重要特征是协变（covariant）。</p>
+<p>除了只包含无界通配符的泛型类型和原始类型外，其他泛型类型的实例化形式都不许创建数组，即只有可具体化类型才可创建数组。</p>
+<h2 id="关于类型"><a href="#关于类型" class="headerlink" title="关于类型"></a>关于类型</h2><p>在 Java 语言中，类型系统描述了不同类型之间的转换关系。</p>
+<p>泛型引入对类型系统产生了较大影响，因为泛型类型的实例化形式中包含了所使用的实际类型，它们之间也有父子关系， 相当于把类型系统的一维结构扩展为二维结构。</p>
+<p>使用无界通配符的泛型类型实例化形式是所有其他实例化形式的完全父类型。即 <code>List&lt;? extends Number&gt;</code> 是 <code>List&lt;?&gt;</code> 的子类型。</p>
+<p>一个泛型类型的所有实例化形式是其对应的原始类型的子类型，即 <code>List&lt;String&gt;</code> 是 <code>List</code> 的子类型。该设计的目的是为了兼容遗留代码。</p>
+<p>泛型类型不是协变的，即 <code>List&lt;String&gt;</code> 与 <code>List&lt;Object&gt;</code> 没有父子关系。但 <code>ArrayList&lt;String&gt;</code> 是 <code>List&lt;String&gt;</code> 的子类型。</p>
+<p>当一个类型继承自某个泛型类型时，在经过类型擦除后，可能造成所继承的方法签名发生改变。为了保证方法多态性， 编译器会生成桥接方法。在桥接方法的实现中，只是在进行必要的类型转换之后直接调用对应实际类型的方法。</p>
+<h2 id="覆盖与重载"><a href="#覆盖与重载" class="headerlink" title="覆盖与重载"></a>覆盖与重载</h2><p>覆盖的条件：</p>
+<ul>
+<li>两个方法 签名相同；</li>
+<li>父类型方法在类型擦除后的方法签名与子类型方法签名相同。</li>
+</ul>
+<p>子类型方法签名中存在类型参数，那么就不可能覆盖父类型的普通方法。</p>
+<p>子类型的任何方法都可能覆盖父类型中的泛型方法。</p>
+<p>与泛型相关的方法是否存在覆盖关系需要判断：实际类型是否兼容，是否会带来类型安全问题。</p>
+<p>类型自动推断方式：</p>
+<ol>
+<li>根据方法调用时实际参数的静态类型推断；</li>
+<li>当方法调用的结果被赋值给变量时，根据该变量静态类型推断。</li>
+</ol>
+<p>“参数推断”优先。</p>
+<h2 id="反射"><a href="#反射" class="headerlink" title="反射"></a>反射</h2><p>为了反射 API 的需要，在 Java 字节码中包含了与泛型类型相关的信息，但这些信息在字节代码执行时是不被使用的。</p>
+<p>桥接方法在运行时可见，反射 API 可查找并调用桥接方法。判断桥接方法：<code>Method.isBridge()</code>。</p>
+<h1 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h1><h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><ul>
+<li><p>泛型编程（generic programming）</p>
+<p>实际使用的类型在代码中只是以参数形式出现的占位符，在具体实例化时，用实际类型替代其中的类型占位符。</p>
+</li>
+<li><p>参数化类型（parameterized type）</p>
+<p>编译器可以自动定制作用于特定类型上的类。Java 中称为范型。</p>
+</li>
+<li><p>泛型类型（generic type）</p>
+<p>使用了形式类型参数的类型。</p>
+</li>
+<li><p>泛型方法</p>
+<p>包含形式类型参数的方法。</p>
+</li>
+<li><p>类型变量</p>
+<p>在类、接口、方法和构造器中用作类型的非限定标识符。</p>
+</li>
+<li><p>无界通配符（unbounded wildcard）</p>
+<p>不包含上界或下界的通配符。</p>
+</li>
+<li><p>原始类型（raw type）</p>
+<p>不指定泛型实际类型而直接使用类型声明所得到的类型。</p>
+</li>
+<li><p>桥接方法</p>
+<p>由编译器自动添加以确保类型擦除后代码实现的正确性的方法。</p>
+</li>
+<li><p>可具体化类型（reifiable type）</p>
+<p>在运行时可用的类型。</p>
+</li>
+</ul>
+<h2 id="规范化"><a href="#规范化" class="headerlink" title="规范化"></a>规范化</h2><p>类型变量最好使用有意义的单个大写字母，通常使用 <code>E</code> 表示集合的元素（Element）类型， <code>K</code>、<code>V</code> 分别代表关键字与值（Key-Value），<code>S</code>、<code>D</code> 代表原数据和目的数据。 <code>T</code> 表示任意类型（Type），也可以用临近的字母，如：<code>U</code> 和 <code>S</code> 等。</p>
+<h2 id="特别说明"><a href="#特别说明" class="headerlink" title="特别说明"></a>特别说明</h2><p>编译器把类型参数当成实际类型的占位符。</p>
+<h3 id="限制"><a href="#限制" class="headerlink" title="限制"></a>限制</h3><p>如果一个泛型方法的类型变量与其所在的泛型类型的类型变量同名，则将被隐藏。</p>
+<p>在泛型类型中定义的静态方法和域是被所有实例化形式的对象所共享的，并使用原始类型引用。</p>
+<p>同一泛型类型的所有实例化形式在运行时的表示形式是相同的，对应同一份字节码，JVM 不区分。</p>
+<p>一个类型不可成为同一泛型类型的两个不同实例化形式的子类型。</p>
+<p>不能使用实例化形式的类对象字面量，即不能使用“<code>List&lt;String&gt;.class</code>”。</p>
+<p>除了实际类型都是无界通配符的泛型类型实例化形式外，其他实例化形式，都不能用在 <code>instanceof</code> 操作符中， <code>instanceof</code> 操作符是根据对象的运行时类型来进行判断的，只对可具体化类型有意义，对于泛型类型来说， 只能比较类型擦除之后的类型。</p>
+<p>枚举类型、匿名内部类型和异常类型不能添加形式类型参数成为泛型类型。</p>
+<p>有界通配符不能同时有上界和下界。</p>
+<p>泛型类型声明中的类型参数不能出现在任何静态上下文中，包括：</p>
+<ul>
+<li>静态域的类型声明</li>
+<li>静态方法的声明和实现</li>
+<li>静态初始化代码</li>
+<li>静态嵌套类型</li>
+</ul>
+<h3 id="反常"><a href="#反常" class="headerlink" title="反常"></a>反常</h3><p>类型参数的边界可以是 <code>final</code> 类型。<code>final</code> 类不可继承，如 <code>String</code>，但是泛型类型参数的边界可以是 <code>final</code> 类， 如 <code>&lt;T extends String&gt;</code>，只是会有警告。</p>
+<p>编译器并没有禁止使用不可具体化类型作为长度可变参数的类型，只是给出警告。忽略警告可能产生运行时异常， 除非方法中只读参数内容。</p>
+<h3 id="不可具体化类型"><a href="#不可具体化类型" class="headerlink" title="不可具体化类型"></a>不可具体化类型</h3><p>除了实际类型都是无界通配符的泛型类型实例化形式外，其他实例化形式都不可具体化。</p>
+<p>虚拟机在执行字节码时只能使用运行时可用的可具体化类型，这使 Java 中与虚拟机相关的语法特性对于不可具体化的范型类型不可用。</p>
+<p>Java 代码运行时的异常捕获和处理是由虚拟机来完成的，因此异常类型必须是可具体化的，任何泛型类型都不能直接或间接继承自 <code>Throwable</code> 类。</p>
+<h2 id="疑难解答"><a href="#疑难解答" class="headerlink" title="疑难解答"></a>疑难解答</h2><h3 id="泛型方法类型参数采用前置语法"><a href="#泛型方法类型参数采用前置语法" class="headerlink" title="泛型方法类型参数采用前置语法"></a>泛型方法类型参数采用前置语法</h3><p>我们习惯于泛型类型的类型参数后置的语法，比如：<code>List&lt;T&gt;</code>，但是，泛型方法严格调用时类型参数却是使用的前置语法，如：<code>Classname.&lt;String&gt;genericMethod()</code>。</p>
+<p>这是为了避免歧义。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">f&lt;a,b&gt;(c); <span class="comment">// 看起来像是一个逗号运算符连接的 2 个逻辑表达式</span></span><br></pre></td></tr></table></figure>
+<h3 id="类型参数上界定义关键字是-extends-而不是-implements"><a href="#类型参数上界定义关键字是-extends-而不是-implements" class="headerlink" title="类型参数上界定义关键字是 extends 而不是 implements"></a>类型参数上界定义关键字是 extends 而不是 implements</h3><p><code>&lt;T extends Superclass&gt;</code> 表达式表示：<code>T subtypeOf Superclass</code>，但不希望引入一个新关键字。</p>
+<p><code>T</code> 即可以是类也可以是接口，从子类型的角度来说，<code>extends</code> 更接近要表达的意思。</p>
+<p>严格说来，使用 <code>extends</code> 只是一个约定。</p>
+<h3 id="泛型多边界分隔符是-amp"><a href="#泛型多边界分隔符是-amp" class="headerlink" title="泛型多边界分隔符是 &amp;"></a>泛型多边界分隔符是 &amp;</h3><p>分隔符是 <code>&amp;</code>，而不是逗号，因为逗号已作为多个类型变量的分隔符。如：<code>&lt;T, S extends Comparable &amp; Serializable&gt;</code>。</p>
+<h3 id="编译器禁止在任何静态上下文中使用类型参数"><a href="#编译器禁止在任何静态上下文中使用类型参数" class="headerlink" title="编译器禁止在任何静态上下文中使用类型参数"></a>编译器禁止在任何静态上下文中使用类型参数</h3><p>泛型类型的不同实例化形式在运行时对应的是同一个类型，在静态上下文中使用类型参数并没有意义，反而容易造成开发人员的误解。</p>
+<h3 id="不能创建泛型数组的原因"><a href="#不能创建泛型数组的原因" class="headerlink" title="不能创建泛型数组的原因"></a>不能创建泛型数组的原因</h3><p>数组元素类型信息在运行时是保留的，而泛型类型的类型信息因类型擦除机制而被去掉， 如果允许创建泛型数组，则无法在元素赋值时进行类型检查，因此强制不允许。</p>
+<p>注：可创建通配符类型数组，再进行强制类型转换。但类型不安全。</p>
+<h3 id="泛型数组引用合法"><a href="#泛型数组引用合法" class="headerlink" title="泛型数组引用合法"></a>泛型数组引用合法</h3><p>因为一个非泛型类型可以继承自某个泛型类型，而用它创建数组是合法的。由于数组是协变的， 所以将该数组上转型赋值给其父类型的泛型数组变量也因是合法的。因此，泛型数组引用必须是合法的。</p>
+<h2 id="惯用技巧"><a href="#惯用技巧" class="headerlink" title="惯用技巧"></a>惯用技巧</h2><h3 id="通配符捕获"><a href="#通配符捕获" class="headerlink" title="通配符捕获"></a>通配符捕获</h3><p>可使用 <code>Pair&lt;T&gt;</code> 来捕获 <code>Pair&lt;?&gt;</code> 中的类型。</p>
+<p>只允许捕获单个、确定的类型。<code>ArrayList&lt;Pair&lt;?&gt;&gt;</code> 是无法使用 <code>ArrayList&lt;Pair&lt;T&gt;&gt;</code> 捕获的。</p>
+<h3 id="实例化实际类型"><a href="#实例化实际类型" class="headerlink" title="实例化实际类型"></a>实例化实际类型</h3><p>由于不能用类型参数创建对象，即不能使用 <code>new T()</code> 或 <code>new T[]</code>。因此，如果需要在泛型方法中创建类型参数的对象， 就需要将类型参数对应的 <code>Class</code> 对象作为参数传入，再通过 <code>Class</code> 对象来创建对象。比如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> &lt;T&gt; <span class="function">T <span class="title">createGenericObject</span><span class="params">(Class&lt;T&gt; clazz)</span> <span class="keyword">throws</span> InstantiationException, IllegalAccessException </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> clazz.newInstance();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><h3 id="可具体化类型"><a href="#可具体化类型" class="headerlink" title="可具体化类型"></a>可具体化类型</h3><ul>
+<li>非泛型类型</li>
+<li>所有实际类型都是无界通配符的参数化类型</li>
+<li>原始类型</li>
+<li>基本类型</li>
+<li>元素类型为可具体化类型的数组类型</li>
+<li>外围类型和自身都是可具体化类型的嵌套类型</li>
+</ul>
+<h3 id="泛型转换的事实"><a href="#泛型转换的事实" class="headerlink" title="泛型转换的事实"></a>泛型转换的事实</h3><ul>
+<li>虚拟机中没有泛型，只有普通的类和方法。</li>
+<li>所有的类型参数都用它们的实际类型替换。</li>
+<li>桥接方法被合成来保持多态。</li>
+<li>为保持类型安全性，必要时插入强制类型转换。</li>
+</ul>
+<h2 id="对比"><a href="#对比" class="headerlink" title="对比"></a>对比</h2><h3 id="类型参数-vs-普通类型"><a href="#类型参数-vs-普通类型" class="headerlink" title="类型参数 vs. 普通类型"></a>类型参数 vs. 普通类型</h3><p>相同点（适用）：</p>
+<ul>
+<li>方法参数、返回值类型</li>
+<li>域和局部变量的类型声明</li>
+<li>强制类型转换及泛型类型和泛型方法的实际类型参数</li>
+</ul>
+<p>不同点（类型参数不适用）：</p>
+<ul>
+<li>创建对象和数组（<code>new T()</code>、<code>new T[]</code>）</li>
+<li>父类型（<code>class MyClass extends T</code>）</li>
+<li>使用在 <code>instanceof</code> 表达式中（<code>instanceof T</code>）</li>
+<li>类型字面量（<code>T.class</code>）</li>
+<li>异常处理中（<code>catch(T)</code>）</li>
+<li>静态上下文中（<code>static T</code>）</li>
+</ul>
+<h2 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h2><h3 id="方法重载错误"><a href="#方法重载错误" class="headerlink" title="方法重载错误"></a>方法重载错误</h3><p>编译错误信息为：Erasure of method xyz(…) is the same as another method in type Abc。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">proscess</span><span class="params">(List&lt;Employee&gt; employees)</span> </span>&#123;</span><br><span class="line">	...</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">proscess</span><span class="params">(List&lt;Manager&gt; managers)</span> </span>&#123;</span><br><span class="line">	...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面的两个方法，同名但参数列表不同，看起来像是重载。但是，这仅仅是源代码级别的表象，由于它们的参数包含泛型，编译后泛型将被擦除，结果是参数列表也相同。</p>
+<p>因此，存在两个签名相同的方法，这是不合法的。解决方案就是分别为它们声明不同的方法名，就不会导致这样的“伪重载”。</p>
+<h3 id="协变错误"><a href="#协变错误" class="headerlink" title="协变错误"></a>协变错误</h3><p>编译错误信息为：The method xyz(Foo) in the type Abc is not applicable for the arguments (Foo)。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">process</span><span class="params">(List&lt;Number&gt; list)</span> </span>&#123;</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br><span class="line">...</span><br><span class="line">List&lt;Integer&gt; list = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">process(list);</span><br></pre></td></tr></table></figure>
+<p>问题的关键在于泛型不是协变的。</p>
+<p>但也许有人会疑惑，擦除后类型将是一样的，那么编译器应该允许这种情况才对。事实上，编译器知道，这不是合适替代，如果允许编译会导致运行时问题。</p>
+<p>解决方案，一是分别声明两个不同的方法，或者使用泛型上界。</p>
+<h3 id="原始类型警告"><a href="#原始类型警告" class="headerlink" title="原始类型警告"></a>原始类型警告</h3><p>编译警告信息为：Foo is a raw type.References to generic type Foo should be parameterized。</p>
+<p>当将一个泛型类型的对象赋值给一个原始类型变量时，会出现这个警告。因为，这可能引发一些问题。</p>
+<p>假设有如下一个泛型类：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GenericType</span>&lt;<span class="title">T</span>&gt;</span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">  <span class="keyword">private</span> T obj;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="title">GenericType</span><span class="params">(T obj)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.obj = obj;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> T <span class="title">getObj</span><span class="params">()</span></span></span><br><span class="line"><span class="function">  </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> obj;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setObj</span><span class="params">(T obj)</span></span></span><br><span class="line"><span class="function">  </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.obj = obj;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>编译后，代码中的 <code>T</code> 都会被替换回 <code>Object</code>。</p>
+<p>再编写一个子类，如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SubGenericType</span> <span class="keyword">extends</span> <span class="title">GenericType</span>&lt;<span class="title">String</span>&gt; </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="title">SubGenericType</span><span class="params">(String obj)</span></span></span><br><span class="line"><span class="function">  </span>&#123;</span><br><span class="line">    <span class="keyword">super</span>(obj);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setObj</span><span class="params">(String obj)</span></span></span><br><span class="line"><span class="function">  </span>&#123;</span><br><span class="line">    <span class="keyword">super</span>.setObj(obj);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>注意，我们重写了 setObj() 方法，但事实并非如此。</p>
+<p>为了保留多态性，编译器会为子类生成 setObj() 桥接方法的重写版本。因此，子类实际看起来应该是这样：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="comment">// 编译器生成的桥接方法（不可见，除非出现问题）</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setObj</span><span class="params">(Object obj)</span> </span>&#123;</span><br><span class="line">  setObj((String)obj);</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setObj</span><span class="params">(String obj)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">super</span>.setObj(obj);</span><br><span class="line">&#125; ...</span><br></pre></td></tr></table></figure>
+<p>现在运行以下代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SubGenericType sgt = <span class="keyword">new</span> SubGenericType(<span class="string">&quot;test&quot;</span>);</span><br><span class="line">GenericType gt = sgt;</span><br><span class="line">gt.setObj(<span class="number">1</span>);</span><br></pre></td></tr></table></figure>
+<p>结果将得到一个类型转换异常： java.lang.ClassCastException: java.lang.Integer cannot be cast to java.lang.String</p>
+<p>这就是所谓的堆污染。</p>
+<p>使用泛型的最佳实践是：坚决不让泛型相关警告悄然存在。编译器会提示未正确使用泛型，应认真留意这些警告。</p>
+<h2 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 与泛型相关的方法覆盖</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> Eric Zong</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GenericOverride</span> </span>&#123;</span><br><span class="line">    <span class="comment">/* 1. 父子类型 - 非泛型类型 */</span></span><br><span class="line">    <span class="comment">/* 1.1 子类型非泛型方法覆盖父类型泛型方法 */</span></span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">SuperClass1</span> </span>&#123;</span><br><span class="line">        <span class="keyword">public</span> &lt;T&gt; <span class="function"><span class="keyword">void</span> <span class="title">method</span><span class="params">(T obj)</span> </span>&#123;&#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">SubClass1</span> <span class="keyword">extends</span> <span class="title">SuperClass1</span> </span>&#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method</span><span class="params">(Object obj)</span> </span>&#123;&#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* 1.2 子类型泛型方法覆盖父类型泛型方法 */</span></span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">SuperClass2</span> </span>&#123;</span><br><span class="line">        <span class="keyword">public</span> &lt;T&gt; <span class="function"><span class="keyword">void</span> <span class="title">method</span><span class="params">(T obj)</span> </span>&#123;&#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">SubClass2</span> <span class="keyword">extends</span> <span class="title">SuperClass2</span> </span>&#123;</span><br><span class="line">        <span class="keyword">public</span> &lt;S&gt; <span class="function"><span class="keyword">void</span> <span class="title">method</span><span class="params">(S obj)</span> </span>&#123;&#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* 2. 父类型 - 非泛型类型；子类型 - 泛型类型 */</span></span><br><span class="line">    <span class="comment">/* 在泛型类型的方法声明中使用形式类型参数造成无法覆盖 */</span></span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">SuperClass3</span> </span>&#123;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method</span><span class="params">(Object obj)</span> </span>&#123;&#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">GenericeSubClass</span>&lt;<span class="title">S</span>&gt; <span class="keyword">extends</span> <span class="title">SuperClass3</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 无法覆盖</span></span><br><span class="line">        <span class="comment">// public void method(S obj) &#123;</span></span><br><span class="line">        <span class="comment">// &#125;</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* 3. 父类型 - 泛型类型；子类型 - 非泛型类型 */</span></span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">GenericeSuperClass4</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method</span><span class="params">(T obj)</span> </span>&#123;&#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">SubClass4</span> <span class="keyword">extends</span> <span class="title">GenericeSuperClass4</span>&lt;<span class="title">Number</span>&gt; </span>&#123;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method</span><span class="params">(Number obj)</span> </span>&#123;&#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* 4. 父子类型 - 泛型类型 */</span></span><br><span class="line">    <span class="comment">/* 4.1 父子类型泛型方法均使用形式类型参数 */</span></span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">GenericeSuperClass5</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method</span><span class="params">(T Obj)</span> </span>&#123;&#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">GenericeSubClass5</span>&lt;<span class="title">S</span>&gt; <span class="keyword">extends</span> <span class="title">GenericeSuperClass5</span>&lt;<span class="title">S</span>&gt; </span>&#123;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method</span><span class="params">(S obj)</span> </span>&#123;&#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* 4.2 形式类型参数包含上界 */</span></span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">GenericeSuperClass6</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method</span><span class="params">(T obj)</span> </span>&#123;&#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">GenericeSubClass6</span>&lt;<span class="title">S</span> <span class="keyword">extends</span> <span class="title">Number</span>&gt; <span class="keyword">extends</span> <span class="title">GenericeSuperClass6</span>&lt;<span class="title">S</span>&gt; </span>&#123;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method</span><span class="params">(Number obj)</span> </span>&#123;&#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Eric Zong
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://ericzonglu.gitee.io/posts/java-topic-generic.html" title="Java专题：泛型">http://ericzonglu.gitee.io/posts/java-topic-generic.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Java%E5%9F%BA%E7%A1%80/" rel="tag"># Java基础</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/java-topic-nested-class.html" rel="prev" title="Java专题：嵌套类">
+      <i class="fa fa-chevron-left"></i> Java专题：嵌套类
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/posts/java-singleton-writing-methods-and-defects.html" rel="next" title="设计模式专题：单例模式写法缺陷讨论">
+      设计模式专题：单例模式写法缺陷讨论 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A6%82%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AF%B4%E6%98%8E"><span class="nav-number">2.</span> <span class="nav-text">说明</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B3%9B%E5%9E%8B%E7%B1%BB%E5%9E%8B"><span class="nav-number">2.1.</span> <span class="nav-text">泛型类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B3%9B%E5%9E%8B%E6%96%B9%E6%B3%95"><span class="nav-number">2.2.</span> <span class="nav-text">泛型方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BE%B9%E7%95%8C"><span class="nav-number">2.3.</span> <span class="nav-text">边界</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%9A%E9%85%8D%E7%AC%A6"><span class="nav-number">2.4.</span> <span class="nav-text">通配符</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8A%E7%95%8C%E9%80%9A%E9%85%8D%E7%AC%A6"><span class="nav-number">2.4.1.</span> <span class="nav-text">上界通配符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8B%E7%95%8C%E9%80%9A%E9%85%8D%E7%AC%A6"><span class="nav-number">2.4.2.</span> <span class="nav-text">下界通配符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%97%A0%E7%95%8C%E9%80%9A%E9%85%8D%E7%AC%A6"><span class="nav-number">2.4.3.</span> <span class="nav-text">无界通配符</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%93%A6%E9%99%A4"><span class="nav-number">2.5.</span> <span class="nav-text">擦除</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E7%BB%84"><span class="nav-number">2.6.</span> <span class="nav-text">数组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E%E7%B1%BB%E5%9E%8B"><span class="nav-number">2.7.</span> <span class="nav-text">关于类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A6%86%E7%9B%96%E4%B8%8E%E9%87%8D%E8%BD%BD"><span class="nav-number">2.8.</span> <span class="nav-text">覆盖与重载</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%8D%E5%B0%84"><span class="nav-number">2.9.</span> <span class="nav-text">反射</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%99%84%E5%BD%95"><span class="nav-number">3.</span> <span class="nav-text">附录</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89"><span class="nav-number">3.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%84%E8%8C%83%E5%8C%96"><span class="nav-number">3.2.</span> <span class="nav-text">规范化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%89%B9%E5%88%AB%E8%AF%B4%E6%98%8E"><span class="nav-number">3.3.</span> <span class="nav-text">特别说明</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%99%90%E5%88%B6"><span class="nav-number">3.3.1.</span> <span class="nav-text">限制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%8D%E5%B8%B8"><span class="nav-number">3.3.2.</span> <span class="nav-text">反常</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8D%E5%8F%AF%E5%85%B7%E4%BD%93%E5%8C%96%E7%B1%BB%E5%9E%8B"><span class="nav-number">3.3.3.</span> <span class="nav-text">不可具体化类型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%96%91%E9%9A%BE%E8%A7%A3%E7%AD%94"><span class="nav-number">3.4.</span> <span class="nav-text">疑难解答</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B3%9B%E5%9E%8B%E6%96%B9%E6%B3%95%E7%B1%BB%E5%9E%8B%E5%8F%82%E6%95%B0%E9%87%87%E7%94%A8%E5%89%8D%E7%BD%AE%E8%AF%AD%E6%B3%95"><span class="nav-number">3.4.1.</span> <span class="nav-text">泛型方法类型参数采用前置语法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B1%BB%E5%9E%8B%E5%8F%82%E6%95%B0%E4%B8%8A%E7%95%8C%E5%AE%9A%E4%B9%89%E5%85%B3%E9%94%AE%E5%AD%97%E6%98%AF-extends-%E8%80%8C%E4%B8%8D%E6%98%AF-implements"><span class="nav-number">3.4.2.</span> <span class="nav-text">类型参数上界定义关键字是 extends 而不是 implements</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B3%9B%E5%9E%8B%E5%A4%9A%E8%BE%B9%E7%95%8C%E5%88%86%E9%9A%94%E7%AC%A6%E6%98%AF-amp"><span class="nav-number">3.4.3.</span> <span class="nav-text">泛型多边界分隔符是 &amp;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%96%E8%AF%91%E5%99%A8%E7%A6%81%E6%AD%A2%E5%9C%A8%E4%BB%BB%E4%BD%95%E9%9D%99%E6%80%81%E4%B8%8A%E4%B8%8B%E6%96%87%E4%B8%AD%E4%BD%BF%E7%94%A8%E7%B1%BB%E5%9E%8B%E5%8F%82%E6%95%B0"><span class="nav-number">3.4.4.</span> <span class="nav-text">编译器禁止在任何静态上下文中使用类型参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8D%E8%83%BD%E5%88%9B%E5%BB%BA%E6%B3%9B%E5%9E%8B%E6%95%B0%E7%BB%84%E7%9A%84%E5%8E%9F%E5%9B%A0"><span class="nav-number">3.4.5.</span> <span class="nav-text">不能创建泛型数组的原因</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B3%9B%E5%9E%8B%E6%95%B0%E7%BB%84%E5%BC%95%E7%94%A8%E5%90%88%E6%B3%95"><span class="nav-number">3.4.6.</span> <span class="nav-text">泛型数组引用合法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%83%AF%E7%94%A8%E6%8A%80%E5%B7%A7"><span class="nav-number">3.5.</span> <span class="nav-text">惯用技巧</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%9A%E9%85%8D%E7%AC%A6%E6%8D%95%E8%8E%B7"><span class="nav-number">3.5.1.</span> <span class="nav-text">通配符捕获</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E4%BE%8B%E5%8C%96%E5%AE%9E%E9%99%85%E7%B1%BB%E5%9E%8B"><span class="nav-number">3.5.2.</span> <span class="nav-text">实例化实际类型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-number">3.6.</span> <span class="nav-text">参考</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%AF%E5%85%B7%E4%BD%93%E5%8C%96%E7%B1%BB%E5%9E%8B"><span class="nav-number">3.6.1.</span> <span class="nav-text">可具体化类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B3%9B%E5%9E%8B%E8%BD%AC%E6%8D%A2%E7%9A%84%E4%BA%8B%E5%AE%9E"><span class="nav-number">3.6.2.</span> <span class="nav-text">泛型转换的事实</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%B9%E6%AF%94"><span class="nav-number">3.7.</span> <span class="nav-text">对比</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B1%BB%E5%9E%8B%E5%8F%82%E6%95%B0-vs-%E6%99%AE%E9%80%9A%E7%B1%BB%E5%9E%8B"><span class="nav-number">3.7.1.</span> <span class="nav-text">类型参数 vs. 普通类型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98"><span class="nav-number">3.8.</span> <span class="nav-text">常见问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E9%87%8D%E8%BD%BD%E9%94%99%E8%AF%AF"><span class="nav-number">3.8.1.</span> <span class="nav-text">方法重载错误</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%8F%E5%8F%98%E9%94%99%E8%AF%AF"><span class="nav-number">3.8.2.</span> <span class="nav-text">协变错误</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8E%9F%E5%A7%8B%E7%B1%BB%E5%9E%8B%E8%AD%A6%E5%91%8A"><span class="nav-number">3.8.3.</span> <span class="nav-text">原始类型警告</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B%E4%BB%A3%E7%A0%81"><span class="nav-number">3.9.</span> <span class="nav-text">示例代码</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Eric Zong</p>
+  <div class="site-description" itemprop="description">这里有作为一个程序员想记录的一切。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">96</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Eric Zong</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

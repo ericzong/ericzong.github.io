@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"ericzonglu.gitee.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="讨论Java编程的各种风格及其优缺点。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java专题：编程风格漫谈">
+<meta property="og:url" content="http://ericzonglu.gitee.io/posts/java-topic-style.html">
+<meta property="og:site_name" content="八白龙的博客">
+<meta property="og:description" content="讨论Java编程的各种风格及其优缺点。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-05-10T15:20:00.000Z">
+<meta property="article:modified_time" content="2021-05-10T15:29:20.600Z">
+<meta property="article:author" content="Eric Zong">
+<meta property="article:tag" content="Java对比">
+<meta property="article:tag" content="笔记">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://ericzonglu.gitee.io/posts/java-topic-style.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Java专题：编程风格漫谈 | 八白龙的博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">八白龙的博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">程序员的杂货铺</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-references">
+
+    <a href="/references/" rel="section"><i class="bookmark fa-fw"></i>参考</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://ericzonglu.gitee.io/posts/java-topic-style.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Eric Zong">
+      <meta itemprop="description" content="这里有作为一个程序员想记录的一切。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="八白龙的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Java专题：编程风格漫谈
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-05-10 23:20:00 / 修改时间：23:29:20" itemprop="dateCreated datePublished" datetime="2021-05-10T23:20:00+08:00">2021-05-10</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/%E4%B8%93%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">专题</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>《哪种编码风格是你的“菜”》（英文原文：<a target="_blank" rel="noopener" href="http://hiltmon.com/blog/2013/01/07/reprogramming-my-brace-style-mind/">《Reprogramming My Brace Style Mind》</a>） 中从历史的角度讲述了编码风格的演进。</p>
+<p>文中讲述了 3 个年代的编码风格：1980/1990年代的紧凑风格、2000年的宽松风格以及 2010年的典型风格。</p>
+<h1 id="各年代风格"><a href="#各年代风格" class="headerlink" title="各年代风格"></a>各年代风格</h1><h2 id="1980-1990年代的紧凑风格"><a href="#1980-1990年代的紧凑风格" class="headerlink" title="1980/1990年代的紧凑风格"></a>1980/1990年代的紧凑风格</h2><p>紧凑风格的规则有：使用 Tab 缩进、代码限制在 80 列、大括号放在同一行、代码行间不加空行……</p>
+<p>这些规则的制定，通常是为了有效规避当时的一些编程环境的“劣势”，其中比较突出的是，从现在的角度看来，小得可怜的硬盘和内存，以及狭窄的屏幕。</p>
+<p>因此，使用 Tab 缩进将使源代码文件更小，80 列、大括号同行、不加空行等将使一屏上显示更多的代码。</p>
+<p>C代码：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span> </span>&#123;  </span><br><span class="line">       <span class="keyword">int</span> a = rand() % <span class="number">100</span>;  </span><br><span class="line">       <span class="keyword">if</span> (a &gt; <span class="number">25</span>) &#123;  </span><br><span class="line">               call_a_function();  </span><br><span class="line">               call_another_function();  </span><br><span class="line">       &#125; <span class="keyword">else</span> &#123;  </span><br><span class="line">               call_b_function();  </span><br><span class="line">       &#125; <span class="comment">// end if  </span></span><br><span class="line">&#125; <span class="comment">// end main  </span></span><br></pre></td></tr></table></figure>
+<h2 id="2000年的宽松风格"><a href="#2000年的宽松风格" class="headerlink" title="2000年的宽松风格"></a>2000年的宽松风格</h2><p>宽松风格基本使用微软的 C/C# 约定，使用 4 个空格缩进、不限制代码行长度、大括号单独一行。</p>
+<p>规则变得“宽松”是因为编程环境的改善，存储和显示不再是稀缺资源，因而不用再过度节省。</p>
+<p>C代码：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span>  </span></span><br><span class="line"><span class="function"></span>&#123;  </span><br><span class="line">   <span class="keyword">int</span> a = rand() % <span class="number">100</span>;  </span><br><span class="line">   </span><br><span class="line">   <span class="keyword">if</span> (a &gt; <span class="number">25</span>)  </span><br><span class="line">   &#123;  </span><br><span class="line">       call_a_function();  </span><br><span class="line">       call_another_function();  </span><br><span class="line">   &#125;  </span><br><span class="line">   <span class="keyword">else</span>  </span><br><span class="line">   &#123;  </span><br><span class="line">       call_b_function();  </span><br><span class="line">   &#125;  </span><br><span class="line">&#125;  </span><br></pre></td></tr></table></figure>
+<h2 id="2010年的典型风格"><a href="#2010年的典型风格" class="headerlink" title="2010年的典型风格"></a>2010年的典型风格</h2><p>典型风格称为“Kernighan &amp; Ritchie 风格”，是 C 衍生语言设计者所遵循的风格，其规则为：</p>
+<blockquote>
+<p>当秉承 K＆R 时，每一个函数左括号都应在下一行中，并与开头行有相同的缩进。括号中的语句应该缩进，右括号应该与函数开头有相同的缩进，并单独一行。 对于代码块内的控制语句，左括号应与控制语句在同一行中，右括号单独一行（除非有 <code>else</code> 或 <code>while</code> 关键字）。</p>
+</blockquote>
+<p>C代码：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span>  </span></span><br><span class="line"><span class="function"></span>&#123;  </span><br><span class="line">   <span class="keyword">int</span> a = rand() % <span class="number">100</span>;  </span><br><span class="line">       </span><br><span class="line">   <span class="keyword">if</span> (a &gt; <span class="number">25</span>) &#123;  </span><br><span class="line">       call_a_function();  </span><br><span class="line">       call_another_function();  </span><br><span class="line">   &#125; <span class="keyword">else</span> &#123;  </span><br><span class="line">       call_b_function();  </span><br><span class="line">   &#125;  </span><br><span class="line">&#125;  </span><br></pre></td></tr></table></figure>
+<h1 id="优缺点"><a href="#优缺点" class="headerlink" title="优缺点"></a>优缺点</h1><p>各年代风格在它产生的时候，无疑是利大于弊的，否则就不会有这么多程序员遵守，但是，从今天的眼光看，它们其中一些就有点“过时”了， 至少，将不再像当时那般重要了。</p>
+<p>下面，我们以今天的眼光来审视一下这些规则当下的价值如何。</p>
+<h2 id="Tab-空格缩进？"><a href="#Tab-空格缩进？" class="headerlink" title="Tab/空格缩进？"></a>Tab/空格缩进？</h2><p>使用 Tab 还是使用空格缩进代码呢？这是一个永恒的争议话题。 事实上，无论是使用 Tab 还是空格缩进都没有太大的问题，唯一的差异可能是，使用空格缩进的代码在不同编辑器的显示上通常是一致的。 但是，使用 Tab 缩进的代码在不同编辑器里显示可能是不一致的，这取决于编辑器把一个 Tab 替换为多少个字符宽度的缩进。不过， 目前主流的编辑器通常支持用户自定义 Tab 的缩进宽度，这也就不是什么问题了，除非你总是在不同的编程环境中工作，并且总是替换编辑器。</p>
+<h2 id="80-列"><a href="#80-列" class="headerlink" title="80 列"></a>80 列</h2><p>80 列的宽度限制目前仍然是有益，它迫使程序员写更少而精简的函数名或代码，这本身是一件好事；但同时，如果程序员的能力不够或不在意， 使用了短而不当的名称，那么将使代码难以阅读和维护。但这不应归罪于规则。</p>
+<p>80 列还限制了代码不应有过多的缩进层次。过多缩进层次的代码往往说明其中包含了过多不同层次的业务逻辑，应该将不同业务层级的代码抽取为更小的函数。 小的函数更易于阅读和维护，并使代码逻辑更有层次感更清晰。</p>
+<p>值得思考的问题是，“80 列”这一限制是在 80、90年代提出的，当时提出的依据多半是显示器的大小，在目前大显示器已经普及的情况下， 坚持“80 列”的限制是否有过于保守的嫌疑？因此，将限制放宽到“120 列”也是普遍接受的。</p>
+<p>总之，不论是“80 列”还是“120 列”，有限制总是好的，限制的目的是使每行代码宽度适当，以避免出现水平滚动条。 水平滚动条的出现，将使得阅读代码需要不停左右拖动，影响效率。</p>
+<blockquote>
+<p>也许有人主观认为阅读代码的时间很少，以至于突破宽度的限制对效率的影响也是有限的。这种主观感受是错误的，统计表明，阅读代码的时间比我们想像的多， 甚至比我们实际编码的时间多得多。</p>
+</blockquote>
+<h2 id="左大括号"><a href="#左大括号" class="headerlink" title="左大括号"></a>左大括号</h2><p>紧凑风格时代左大括号在同一行，是为了一屏能显示更多代码。</p>
+<p>大屏时代，这已不那么必要了。目前的编程风格都倾向于把左大括号放在单独一行中，这使得代码块更加明显，开始和结束点通常很直观。</p>
+<p>如果我们坚持小函数的原则，那么在代码块内也将左大括号放在单独一行中，代码块也会很直观而优美，且一屏就可以显示了。 K &amp; R 风格也许并没必要使得函数内部如此的紧凑。</p>
+<h2 id="空行"><a href="#空行" class="headerlink" title="空行"></a>空行</h2><p>紧凑风格时代不使用空行分隔代码块，是为了一屏能显示更多代码。</p>
+<p>但是，使用空行可以使代码更易于阅读。类似功能或者同一子逻辑的代码我们总是倾向于放在一起，组成一个代码块，并与其它代码块区分开的， 而使用空行是最简单而直观的方法。</p>
+<h1 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h1><h2 id="紧凑风格后遗症"><a href="#紧凑风格后遗症" class="headerlink" title="紧凑风格后遗症"></a>紧凑风格后遗症</h2><p>紧凑风格的代码行之间往往不会添加空白行，这使得很难找到代码块的开始和结束标记。因此，产生了一种“怪异”的注释，它用以标记某个代码块的结束。 （可参考第一段代码示例）</p>
+<p>但是，可以想像，这种注释的作用没有程序员希望的那样强大。比如，当代码块过长，超过一屏时，注释的效果就会大打折扣了；又比如， 当代码层级过多，有很多类似注释时，很难分清哪个注释是哪个块的结束标记。</p>
+<p>事实上，如果函数编写得适当的小，结构将足够清晰，以至于不用使用这种注释的方式标记代码块的结束。</p>
+<p>总之，这是一种“过时”的注释方式，是应该摒弃的。</p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Eric Zong
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://ericzonglu.gitee.io/posts/java-topic-style.html" title="Java专题：编程风格漫谈">http://ericzonglu.gitee.io/posts/java-topic-style.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Java%E5%AF%B9%E6%AF%94/" rel="tag"># Java对比</a>
+              <a href="/tags/%E7%AC%94%E8%AE%B0/" rel="tag"># 笔记</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/java-get-start.html" rel="prev" title="Java入门纲要">
+      <i class="fa fa-chevron-left"></i> Java入门纲要
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/posts/java-topic-reflection.html" rel="next" title="Java专题：反射">
+      Java专题：反射 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%90%84%E5%B9%B4%E4%BB%A3%E9%A3%8E%E6%A0%BC"><span class="nav-number">2.</span> <span class="nav-text">各年代风格</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1980-1990%E5%B9%B4%E4%BB%A3%E7%9A%84%E7%B4%A7%E5%87%91%E9%A3%8E%E6%A0%BC"><span class="nav-number">2.1.</span> <span class="nav-text">1980&#x2F;1990年代的紧凑风格</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2000%E5%B9%B4%E7%9A%84%E5%AE%BD%E6%9D%BE%E9%A3%8E%E6%A0%BC"><span class="nav-number">2.2.</span> <span class="nav-text">2000年的宽松风格</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2010%E5%B9%B4%E7%9A%84%E5%85%B8%E5%9E%8B%E9%A3%8E%E6%A0%BC"><span class="nav-number">2.3.</span> <span class="nav-text">2010年的典型风格</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BC%98%E7%BC%BA%E7%82%B9"><span class="nav-number">3.</span> <span class="nav-text">优缺点</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Tab-%E7%A9%BA%E6%A0%BC%E7%BC%A9%E8%BF%9B%EF%BC%9F"><span class="nav-number">3.1.</span> <span class="nav-text">Tab&#x2F;空格缩进？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#80-%E5%88%97"><span class="nav-number">3.2.</span> <span class="nav-text">80 列</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B7%A6%E5%A4%A7%E6%8B%AC%E5%8F%B7"><span class="nav-number">3.3.</span> <span class="nav-text">左大括号</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A9%BA%E8%A1%8C"><span class="nav-number">3.4.</span> <span class="nav-text">空行</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%99%84%E5%BD%95"><span class="nav-number">4.</span> <span class="nav-text">附录</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B4%A7%E5%87%91%E9%A3%8E%E6%A0%BC%E5%90%8E%E9%81%97%E7%97%87"><span class="nav-number">4.1.</span> <span class="nav-text">紧凑风格后遗症</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Eric Zong</p>
+  <div class="site-description" itemprop="description">这里有作为一个程序员想记录的一切。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">96</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Eric Zong</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

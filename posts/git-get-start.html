@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"ericzonglu.gitee.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="介绍Git日常使用。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Git入门">
+<meta property="og:url" content="http://ericzonglu.gitee.io/posts/git-get-start.html">
+<meta property="og:site_name" content="八白龙的博客">
+<meta property="og:description" content="介绍Git日常使用。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-06-20T16:00:00.000Z">
+<meta property="article:modified_time" content="2020-10-06T16:26:23.703Z">
+<meta property="article:author" content="Eric Zong">
+<meta property="article:tag" content="入门教程">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://ericzonglu.gitee.io/posts/git-get-start.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Git入门 | 八白龙的博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">八白龙的博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">程序员的杂货铺</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-references">
+
+    <a href="/references/" rel="section"><i class="bookmark fa-fw"></i>参考</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://ericzonglu.gitee.io/posts/git-get-start.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Eric Zong">
+      <meta itemprop="description" content="这里有作为一个程序员想记录的一切。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="八白龙的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Git入门
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-06-21 00:00:00" itemprop="dateCreated datePublished" datetime="2019-06-21T00:00:00+08:00">2019-06-21</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-10-07 00:26:23" itemprop="dateModified" datetime="2020-10-07T00:26:23+08:00">2020-10-07</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Git/" itemprop="url" rel="index"><span itemprop="name">Git</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Git/%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index"><span itemprop="name">基础</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h1><blockquote>
+<p>在使用 Git 管理工程前，应该事进行一些配置工作，这可能是全局的或工程相关的。</p>
+</blockquote>
+<h2 id="信息配置"><a href="#信息配置" class="headerlink" title="信息配置"></a>信息配置</h2><p>用户名和邮件地址的配置很重要，因为提交历史中会记录操作者的这两项信息。因此，很有必要事先配置好。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name &lt;USERNAME&gt;</span><br><span class="line">git config --global user.email &lt;EMAIL&gt;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>说明：<code>--global</code> 选项指明该配置是全局的，但如果仅仅想当前工程使用该配置，则不需要指定该选项。</p>
+</blockquote>
+<p>Git 的配置项都是以“键-值对”的形式指定的，如果值输入错误了，再执行一次正确的命令即可；如果是键输入错误了，最好删除它，可以用命令删除，也可以直接编辑配置文件：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git config --global --unset &lt;KEY&gt;</span><br><span class="line"><span class="meta">#</span><span class="bash"> 直接编辑配置文件</span></span><br><span class="line">git config --global --edit</span><br></pre></td></tr></table></figure>
+<h2 id="别名"><a href="#别名" class="headerlink" title="别名"></a>别名</h2><p>Git 命令行原生不具有命令补齐功能——当然，可以安装 posh-git 一类的扩展为其增加该功能——一个方便命令快速输入的技巧是为常用命令设置别名。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 配置别名</span></span><br><span class="line">git config --global alias.&lt;NAME&gt; &lt;COMMAND&gt;</span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看已配置的别名</span></span><br><span class="line">git config --global --get-regexp alias</span><br><span class="line"><span class="meta">#</span><span class="bash"> 删除别名</span></span><br><span class="line">git config --global --unset alias.&lt;NAME&gt;</span><br></pre></td></tr></table></figure>
+<p>别名不仅仅是命令的缩写，还可以包含命令选项，比如我常用的别名有以下这些：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">* &gt; git config --global --get-regexp alias</span><br><span class="line">alias.unstage reset HEAD --</span><br><span class="line">alias.last log -1 HEAD</span><br><span class="line">alias.ss status -s</span><br><span class="line">alias.aa add .</span><br><span class="line">alias.cm commit -m</span><br><span class="line">alias.ps push</span><br><span class="line">alias.co checkout</span><br><span class="line">alias.bc branch</span><br><span class="line">alias.acm commit -a -m</span><br><span class="line">alias.cg config --global</span><br><span class="line">alias.bl branch -a</span><br></pre></td></tr></table></figure>
+<p>而且，不仅可以为 Git 子命令设置别名，也可以调用外部命令，其形式为 <code>!command</code>。</p>
+<h2 id="忽略文件"><a href="#忽略文件" class="headerlink" title="忽略文件"></a>忽略文件</h2><p>工程中总有一些文件是不需要版本控制的，我们希望 Git 能自动忽略掉它们。这需要编写配置文件 <code>.gitignore</code>，该文件通常放置于工程根目录下，当然也可以放置在其他子目录，并且可以有多个，但它只对其所在的目录及子目录有效。</p>
+<p><code>.gitignore</code> 文件遵循以下格式规范：</p>
+<ul>
+<li>使用 <code>#</code> 进行注释</li>
+<li>使用标准 glob 模式表示忽略文件</li>
+<li>以 <code>/</code> 开头防止递归</li>
+<li>以 <code>/</code> 结尾指定目录</li>
+<li>用 <code>!</code> 否定模式</li>
+</ul>
+<p>glob 模式，是 shell 所使用的简化了的正则表达式。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>符号</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>?</td>
+<td>匹配一个任意字符</td>
+</tr>
+<tr>
+<td>*</td>
+<td>匹配 0 或多个任意字符</td>
+</tr>
+<tr>
+<td>[]</td>
+<td>匹配任何一个方括号中的字符，比如：<code>[abc] [0-9]</code></td>
+</tr>
+<tr>
+<td>**</td>
+<td>匹配任意中间目录，a/**/z</td>
+</tr>
+<tr>
+<td>!</td>
+<td>取反</td>
+</tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<p>GitHub 发布了各种常见工程的忽略配置文件，可以从 <a target="_blank" rel="noopener" href="https://github.com/github/gitignore">这里</a> 获取。</p>
+</blockquote>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 编辑器</span></span><br><span class="line">git config --global core.editor=vim</span><br></pre></td></tr></table></figure>
+<h1 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h1><h2 id="创建库"><a href="#创建库" class="headerlink" title="创建库"></a>创建库</h2><p>通常有两种方式，但无论如何，总需要事先创建一个远程仓库。</p>
+<p>方法一：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone &lt;URL&gt;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>说明：</p>
+<p>该方法适用于全新开始建库，结果是将克隆一个“空”的库；或者克隆一个已经存在的库继续工作。</p>
+<p><code>clone</code> 一个仓库时，会自动将其添加为远程仓库，默认简写“origin”。</p>
+<p><code>clone</code> 会自动设置默认分支（通常是 master 分支）跟踪。</p>
+</blockquote>
+<p>方法二：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 在工程根目录执行</span></span><br><span class="line">git init</span><br><span class="line">git add .</span><br><span class="line">git commit -m &quot;comment&quot;</span><br><span class="line">git remote add origin &lt;URL&gt;</span><br><span class="line"><span class="meta">#</span><span class="bash"> 场景1：远程仓库不为空</span></span><br><span class="line">git pull --rebase origin master</span><br><span class="line"><span class="meta">#</span><span class="bash"> 场景2：远程仓库为空</span></span><br><span class="line">git push -u origin master</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>说明：该方法适用于中途建库。基本思路是，首先创建本地仓库，然后指定远程仓库，最后将本地内容推送到远程仓库。其中可能出现两种场景，一种是远程仓库为空，另一种是不为空。前者很简单，直接推送即可；后者由于远程仓库已有内容，所以需要先拉取并变基，然后才能推送。</p>
+</blockquote>
+<h2 id="暂存区操作"><a href="#暂存区操作" class="headerlink" title="暂存区操作"></a>暂存区操作</h2><h3 id="添加、移除"><a href="#添加、移除" class="headerlink" title="添加、移除"></a>添加、移除</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git add &lt;.|FILES&gt;</span><br><span class="line">git reset HEAD [FILES]</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>说明：</p>
+<p><code>git add .</code> 将把当前工作目录中所有改变加入暂存区。注意，它的影响是递归的。</p>
+<p>对于 SVN 而言，新建的文件（未跟踪）才可以添加到索引；而对于 Git 而言，可添加到暂存区的文件不仅包括新建的未跟踪文件，还包括已修改的跟踪文件。</p>
+<p><code>git reset HEAD</code> 不指定文件则清空暂存区。</p>
+</blockquote>
+<h3 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git rm [--force|-f] --cached &lt;FILES&gt;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>说明：</p>
+<p>简而言之，该命令的效果就是清除暂存文件，并使工作副本文件不再被跟踪。</p>
+<p>换句话说，如果文件没有暂存，执行该命令是无效的。</p>
+<p>文件可用 glob 模式指定，如：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git rm log/\*.log</span><br><span class="line">git rm \*~</span><br></pre></td></tr></table></figure>
+<p>注意，其中的 <code>*</code> 使用了 <code>\</code> 进行转义，这是因为 Git 自己处理模式，而不需要 shell 帮忙展开。</p>
+<p>根据文件状态讨论下该命令的效果。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>当前状态</th>
+<th>结果状态</th>
+<th>必须 -f ？</th>
+<th>文件版本</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>??</td>
+<td>N</td>
+<td>工作副本</td>
+</tr>
+<tr>
+<td>AM</td>
+<td>??</td>
+<td>Y</td>
+<td>工作副本</td>
+</tr>
+<tr>
+<td>M</td>
+<td>D</td>
+<td>N</td>
+<td>工作副本</td>
+</tr>
+<tr>
+<td>MM</td>
+<td>D</td>
+<td>Y</td>
+<td>工作副本</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>总结：</p>
+<ol>
+<li>不影响工作副本文件；</li>
+<li>对于新增文件，将还原为未跟踪状态；而修改的文件，将标记为删除。</li>
+<li>当暂存后又进行了修改，则需要加 <code>-f</code> 强制删除。因为此时，暂存的文件跟原文件和工作副本都不相同，删除可能存在内容丢失。</li>
+<li>命令执行后，仍可以使用 <code>add</code> 命令将文件重新加入暂存区。需要注意的是，已跟踪的文件重新加入暂存区后，状态是 M（右），因为它仍和原文件不同，是修改过的。</li>
+</ol>
+</blockquote>
+<h3 id="移动-重命名"><a href="#移动-重命名" class="headerlink" title="移动/重命名"></a>移动/重命名</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git mv &lt;FILE_FROM&gt; &lt;FILE_TO&gt;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>说明：</p>
+<p>移动或重命名不能操作未跟踪的文件，等价于如下操作：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash">mv &lt;FILE_FROM&gt; &lt;FILE_TO&gt;</span></span><br><span class="line">git rm &lt;FILE_FROM&gt;</span><br><span class="line"><span class="meta">&gt;</span><span class="bash">git add &lt;FILE_TO&gt;</span></span><br></pre></td></tr></table></figure>
+</blockquote>
+<h3 id="提交"><a href="#提交" class="headerlink" title="提交"></a>提交</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git commit -m &lt;COMMENT&gt;</span><br><span class="line"><span class="meta">#</span><span class="bash"> 修改上一次提交</span></span><br><span class="line">git commit --amend</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>说明：命令执行后 Git 会打开编辑器用以修改上次提交的注释。如果命令执行前暂存区为空，则仅仅修改了上一次的提交注释；但是如果暂存区有文件，则会合并入上一次提交的历史记录中。</p>
+</blockquote>
+<h2 id="工作区还原"><a href="#工作区还原" class="headerlink" title="工作区还原"></a>工作区还原</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout &lt;FILES&gt;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>注意：这是一个危险操作，工作副本将被覆盖。</strong></p>
+</blockquote>
+<h2 id="已提交未推送查询"><a href="#已提交未推送查询" class="headerlink" title="已提交未推送查询"></a>已提交未推送查询</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 次数</span></span><br><span class="line">git status </span><br><span class="line"><span class="meta">#</span><span class="bash"> 描述</span></span><br><span class="line">git cherry -v</span><br><span class="line"><span class="meta">#</span><span class="bash"> 详细信息</span></span><br><span class="line">git log master ^origin/master</span><br></pre></td></tr></table></figure>
+<h2 id="远程仓库操作"><a href="#远程仓库操作" class="headerlink" title="远程仓库操作"></a>远程仓库操作</h2><h3 id="查看"><a href="#查看" class="headerlink" title="查看"></a>查看</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 查看所有远程服务器简写、地址</span></span><br><span class="line">git remote [-v | --verbose]</span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看某远程仓库信息</span></span><br><span class="line">git remote show [REMOTE_NAME]</span><br></pre></td></tr></table></figure>
+<h3 id="添加、移除和重命名"><a href="#添加、移除和重命名" class="headerlink" title="添加、移除和重命名"></a>添加、移除和重命名</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 添加远程仓库</span></span><br><span class="line">git remote add &lt;SHORT_NAME&gt; &lt;URL&gt;</span><br><span class="line"><span class="meta">#</span><span class="bash"> 重命名</span></span><br><span class="line">git remote rename &lt;OLD_SHORT_NAME&gt; &lt;NEW_SHORT_NAME&gt;</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 移除</span></span></span><br><span class="line">git remote rm &lt;MISS_NAME&gt;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注意：远程仓库简写名只是本地仓库简化远程仓库地址的一种方式，它不存在于远程仓库中，对于多个本地仓库而言，重命名只会修改自身信息，不会影响其他本地仓库。</p>
+</blockquote>
+<h3 id="获取-抓取、拉取"><a href="#获取-抓取、拉取" class="headerlink" title="获取/抓取、拉取"></a>获取/抓取、拉取</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git fetch [REMOTE_NAME]</span><br><span class="line">git pull</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>说明：</p>
+<p><code>git fetch</code> 将数据获取到本地仓库，并不会自动合并或修改工作副本。</p>
+<p><code>git pull</code> 效果相当于在 <code>fetch</code> 的基础上，合并到当前分支。</p>
+</blockquote>
+<h3 id="推送"><a href="#推送" class="headerlink" title="推送"></a>推送</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 示例：git push origin master</span></span><br><span class="line">git push [REMOTE_NAME] [BRANCH_NAME]</span><br></pre></td></tr></table></figure>
+<h2 id="标签"><a href="#标签" class="headerlink" title="标签"></a>标签</h2><blockquote>
+<p>分类：轻量标签（lightweight）、附注标签（annotated）。</p>
+<p>轻量标签：特定提交的引用。像一个不会改变的分支。</p>
+<p>附注标签：存储在Git数据库中的一个完整对象。可校验，有附加信息。</p>
+<p>建议创建附注标签，因为即可拥有附加信息等，轻量标签通常作为临时标签。</p>
+</blockquote>
+<h3 id="查看-1"><a href="#查看-1" class="headerlink" title="查看"></a>查看</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 查看标签列表，示例：git tag -l <span class="string">&#x27;v1.0*&#x27;</span></span></span><br><span class="line">git tag [-l &lt;PATTERN&gt;]</span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看标签信息及对应的提交信息</span></span><br><span class="line">git show &lt;TAG&gt;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>说明：<code>git show</code> 命令查看附注标签和轻量标签反馈信息区别在于，附注标签会显示额外的标签信息，而轻量标签没有。</p>
+</blockquote>
+<h3 id="添加、删除"><a href="#添加、删除" class="headerlink" title="添加、删除"></a>添加、删除</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 附注标签</span></span><br><span class="line">git tag -a &lt;ANNOTATE&gt; -m &lt;MESSAGE&gt;</span><br><span class="line"><span class="meta">#</span><span class="bash"> 轻量标签</span></span><br><span class="line">git tag &lt;TAG&gt;</span><br><span class="line"><span class="meta">#</span><span class="bash"> 补打标签，示例：git tag v0.0.1 e6d105</span></span><br><span class="line">git log --pretty=oneline</span><br><span class="line">git tag -a &lt;TAG&gt; &lt;CHECK_SUM&gt;</span><br><span class="line"><span class="meta">#</span><span class="bash"> 删除本地标签</span></span><br><span class="line">git tag -d &lt;TAG&gt;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>说明：标签本质上来说是对某次提交的引用，因此，补打标签则需要指定某次提交即可。而提交需使用其校验和来指定，故提供校验和（或部分校验和）即可。</p>
+</blockquote>
+<h3 id="共享、移除"><a href="#共享、移除" class="headerlink" title="共享、移除"></a>共享、移除</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 推送单个标签</span></span><br><span class="line">git push origin [TAG]</span><br><span class="line"><span class="meta">#</span><span class="bash"> 推送多个标签</span></span><br><span class="line">git push origin --tags</span><br><span class="line"><span class="meta">#</span><span class="bash"> 移除</span></span><br><span class="line">git push origin --delete [tag] &lt;TAG&gt;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>说明：<br>默认，<code>git push</code> 不会推送标签到远程仓库。要推送必须显式指定。<br>对于 GitHub 等公共的 Git 服务而言，标签一般被用来标注发布点，因此，当一个标签被推送到其上时，会压缩生成一个Release以供下载。</p>
+</blockquote>
+<h3 id="检出"><a href="#检出" class="headerlink" title="检出"></a>检出</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout -b [BRANCH_NAME] [TAG]</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>说明：由于标签仅仅是对提交的引用，因此，并不能检出一个标签。如果想在某个标签状态下工作，只能将该标签检出为一个新分支。</p>
+</blockquote>
+<h2 id="查看状态"><a href="#查看状态" class="headerlink" title="查看状态"></a>查看状态</h2><blockquote>
+<p>当需要进行 Git 操作时，通常都会先查看各文件的状态，以确定哪些文件会被处理，怎样处理。</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 默认是详细模式</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 当使用 --short 选项或其缩写 -s 时显示简览</span></span><br><span class="line">git status [-s|--short]</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>说明：详细模式下会分状态列出各文件，并列出可进行的命令提示。简览模式下会每行列出一个文件，并在行首用标记标明其状态。</p>
+</blockquote>
+<p>简览模式标记：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">标记</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">??</td>
+<td>未跟踪</td>
+</tr>
+<tr>
+<td style="text-align:left">A</td>
+<td>新添加到暂存区</td>
+</tr>
+<tr>
+<td style="text-align:left">M（左）</td>
+<td>被修改并放入暂存区</td>
+</tr>
+<tr>
+<td style="text-align:left">M（右）</td>
+<td>被修改未放入暂存区</td>
+</tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<p>说明：</p>
+<p>状态标记占2个字符的位置。从 M 标记有左右之分也可以看出来。</p>
+<p>如果使用的是可着色的命令行，可以看出，已加入暂存区的标记是绿色的，如：A 和 M（左）；否则是红色的，如：?? 和 M（右）。</p>
+<p>MM 标记是可能的，即 M（左）和 M（右）标记不是互斥的。因此，对于 Git 而言，暂存操作不是仅仅标记文件，而是把暂存操作时的文件副本保存到了暂存区。可以想像这样的情况，某个文件被加入暂存区后，又被修改了，此时，对于这个文件而言，它的第 1 个版本被暂存了，但当前版本没有被暂存。所以其标记为 MM，即表示暂存后又被修改过。类似的 AM 也是可能的。</p>
+<p>注意一点，有的命令选项是可以缩写的，但是完整选项是以“—”（双短线）为前缀的，而缩写是以“-”（单短线）为前缀的。</p>
+</blockquote>
+<h2 id="比较差异"><a href="#比较差异" class="headerlink" title="比较差异"></a>比较差异</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git diff [--cached] [&lt;PATH&gt;...]</span><br></pre></td></tr></table></figure>
+<h2 id="查看日志"><a href="#查看日志" class="headerlink" title="查看日志"></a>查看日志</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git log [-p] [-n] [--stat] [--pretty=oneline|short|full|fuller] --graph</span><br></pre></td></tr></table></figure>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a target="_blank" rel="noopener" href="https://github.com/github/gitignore">GitHub - gitignore</a> </p>
+<h1 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h1><h2 id="文件存储"><a href="#文件存储" class="headerlink" title="文件存储"></a>文件存储</h2><p>直接记录快照，而非差异比较。</p>
+<p>Git 对待数据更像是一个 快照流。每次提交更新，或在 Git 中保存项目状态时，它主要对当时的全部文件制作一个快照并保存这个快照的索引。为了高效，如果文件没有修改，Git 不再重新存储该文件，而是只保留一个链接指向之前存储的文件。</p>
+<h2 id="三种状态"><a href="#三种状态" class="headerlink" title="三种状态"></a>三种状态</h2><ul>
+<li><p>已提交（committed）：数据已经安全的保存在本地数据库中。</p>
+</li>
+<li><p>已修改（modified）：修改了文件，但还没保存到数据库中。</p>
+</li>
+<li><p>已暂存（staged）：对一个已修改文件的当前版本做了标记，使之包含在下次提交的快照中。</p>
+</li>
+</ul>
+<h2 id="三个工作区域"><a href="#三个工作区域" class="headerlink" title="三个工作区域"></a>三个工作区域</h2><ul>
+<li><p>Git仓库（Repository，.git directory）：Git 用来保存项目的元数据和对象数据库的地方。从其它计算机克隆仓库时，拷贝的就是这里的数据。</p>
+</li>
+<li><p>工作目录（Working Directory）：对项目的某个版本独立提取出来的内容。 </p>
+</li>
+<li><p>暂存区域（Staging Area）：一个文件，保存了下次将提交的文件列表信息，一般在 Git 仓库目录中。也称“索引”。</p>
+</li>
+</ul>
+<blockquote>
+<p>Git 的管理方式与 SVN 相比有类似的方面也有不小的差异：</p>
+<ul>
+<li>远程仓库。对于远程仓库而言，概念上，所有的版本控制工具都是类似的，通常只是文件管理方式不同。</li>
+<li>本地仓库。对于 Git 而言，本地存储有整个远程仓库的镜像（即 .git 目录）。SVN 没有对应的概念。</li>
+<li>工作目录。简单来说就是工作副本，SVN 和 Git 大致类似。</li>
+<li>暂存区域。放入其中的内容（新增/修改）才会被提交。SVN 中的索引有所区别，只有新增的内容可以加入索引。</li>
+</ul>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Eric Zong
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://ericzonglu.gitee.io/posts/git-get-start.html" title="Git入门">http://ericzonglu.gitee.io/posts/git-get-start.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/" rel="tag"># 入门教程</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/jekyll-get-start.html" rel="prev" title="Jekyll入门">
+      <i class="fa fa-chevron-left"></i> Jekyll入门
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/posts/git-branch.html" rel="next" title="Git入门：分支的使用">
+      Git入门：分支的使用 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE"><span class="nav-number">1.</span> <span class="nav-text">配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BF%A1%E6%81%AF%E9%85%8D%E7%BD%AE"><span class="nav-number">1.1.</span> <span class="nav-text">信息配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%AB%E5%90%8D"><span class="nav-number">1.2.</span> <span class="nav-text">别名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BF%BD%E7%95%A5%E6%96%87%E4%BB%B6"><span class="nav-number">1.3.</span> <span class="nav-text">忽略文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B6%E4%BB%96"><span class="nav-number">1.4.</span> <span class="nav-text">其他</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8"><span class="nav-number">2.</span> <span class="nav-text">基本使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E5%BA%93"><span class="nav-number">2.1.</span> <span class="nav-text">创建库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9A%82%E5%AD%98%E5%8C%BA%E6%93%8D%E4%BD%9C"><span class="nav-number">2.2.</span> <span class="nav-text">暂存区操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E3%80%81%E7%A7%BB%E9%99%A4"><span class="nav-number">2.2.1.</span> <span class="nav-text">添加、移除</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A0%E9%99%A4"><span class="nav-number">2.2.2.</span> <span class="nav-text">删除</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A7%BB%E5%8A%A8-%E9%87%8D%E5%91%BD%E5%90%8D"><span class="nav-number">2.2.3.</span> <span class="nav-text">移动&#x2F;重命名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8F%90%E4%BA%A4"><span class="nav-number">2.2.4.</span> <span class="nav-text">提交</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B7%A5%E4%BD%9C%E5%8C%BA%E8%BF%98%E5%8E%9F"><span class="nav-number">2.3.</span> <span class="nav-text">工作区还原</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B7%B2%E6%8F%90%E4%BA%A4%E6%9C%AA%E6%8E%A8%E9%80%81%E6%9F%A5%E8%AF%A2"><span class="nav-number">2.4.</span> <span class="nav-text">已提交未推送查询</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93%E6%93%8D%E4%BD%9C"><span class="nav-number">2.5.</span> <span class="nav-text">远程仓库操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B"><span class="nav-number">2.5.1.</span> <span class="nav-text">查看</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E3%80%81%E7%A7%BB%E9%99%A4%E5%92%8C%E9%87%8D%E5%91%BD%E5%90%8D"><span class="nav-number">2.5.2.</span> <span class="nav-text">添加、移除和重命名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96-%E6%8A%93%E5%8F%96%E3%80%81%E6%8B%89%E5%8F%96"><span class="nav-number">2.5.3.</span> <span class="nav-text">获取&#x2F;抓取、拉取</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%A8%E9%80%81"><span class="nav-number">2.5.4.</span> <span class="nav-text">推送</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%87%E7%AD%BE"><span class="nav-number">2.6.</span> <span class="nav-text">标签</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B-1"><span class="nav-number">2.6.1.</span> <span class="nav-text">查看</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E3%80%81%E5%88%A0%E9%99%A4"><span class="nav-number">2.6.2.</span> <span class="nav-text">添加、删除</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B1%E4%BA%AB%E3%80%81%E7%A7%BB%E9%99%A4"><span class="nav-number">2.6.3.</span> <span class="nav-text">共享、移除</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A3%80%E5%87%BA"><span class="nav-number">2.6.4.</span> <span class="nav-text">检出</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E7%8A%B6%E6%80%81"><span class="nav-number">2.7.</span> <span class="nav-text">查看状态</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%AF%94%E8%BE%83%E5%B7%AE%E5%BC%82"><span class="nav-number">2.8.</span> <span class="nav-text">比较差异</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E6%97%A5%E5%BF%97"><span class="nav-number">2.9.</span> <span class="nav-text">查看日志</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-number">3.</span> <span class="nav-text">参考</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%99%84%E5%BD%95"><span class="nav-number">4.</span> <span class="nav-text">附录</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E5%AD%98%E5%82%A8"><span class="nav-number">4.1.</span> <span class="nav-text">文件存储</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E7%A7%8D%E7%8A%B6%E6%80%81"><span class="nav-number">4.2.</span> <span class="nav-text">三种状态</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E4%B8%AA%E5%B7%A5%E4%BD%9C%E5%8C%BA%E5%9F%9F"><span class="nav-number">4.3.</span> <span class="nav-text">三个工作区域</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Eric Zong</p>
+  <div class="site-description" itemprop="description">这里有作为一个程序员想记录的一切。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">96</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Eric Zong</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"ericzonglu.gitee.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="注解                   @BeforeSuite@AfterSuite@BeforeTest@AfterTest@BeforeGroups@AfterGroups@BeforeClass@AfterClass@BeforeMethod@AfterMethod      Configuration information for a TestNG class:  @BeforeSu">
+<meta property="og:type" content="website">
+<meta property="og:title" content="TestNG参考">
+<meta property="og:url" content="http://ericzonglu.gitee.io/_references/java-testng.html">
+<meta property="og:site_name" content="八白龙的博客">
+<meta property="og:description" content="注解                   @BeforeSuite@AfterSuite@BeforeTest@AfterTest@BeforeGroups@AfterGroups@BeforeClass@AfterClass@BeforeMethod@AfterMethod      Configuration information for a TestNG class:  @BeforeSu">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-12-31T16:00:00.000Z">
+<meta property="article:modified_time" content="2023-11-25T16:59:59.081Z">
+<meta property="article:author" content="Eric Zong">
+<meta property="article:tag" content="TestNG">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://ericzonglu.gitee.io/_references/java-testng.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : false,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>TestNG参考 | 八白龙的博客
+</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">八白龙的博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">程序员的杂货铺</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-references">
+
+    <a href="/references/" rel="section"><i class="bookmark fa-fw"></i>参考</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+  
+  
+
+          <div class="content page posts-expand">
+            
+
+    
+    
+    
+    <div class="post-block" lang="zh-CN">
+      <header class="post-header">
+
+<h1 class="post-title" itemprop="name headline">TestNG参考
+</h1>
+
+<div class="post-meta">
+  
+
+</div>
+
+</header>
+
+      
+      
+      
+      <div class="post-body">
+          <h1 id="注解"><a href="#注解" class="headerlink" title="注解"></a>注解</h1>  <table> 
+   <tbody>
+    <tr> 
+     <td colspan="2"><b><tt>@BeforeSuite<br />@AfterSuite<br />@BeforeTest<br />@AfterTest<br />@BeforeGroups<br />@AfterGroups<br />@BeforeClass<br />@AfterClass<br />@BeforeMethod<br />@AfterMethod</tt></b></td>
+     <td><b>Configuration information for a TestNG class:</b> <br /> <br /><b>@BeforeSuite: </b>The annotated method will be run before all tests in this suite have run. <br /><b>@AfterSuite: </b> The annotated method will be run after all tests in this suite have run. <br /><b>@BeforeTest</b>: The annotated method will be run before any test method belonging to the classes inside the &lt;test&gt; tag is run. <br /><b>@AfterTest</b>: The annotated method will be run after all the test methods belonging to the classes inside the &lt;test&gt; tag have run. <br /><b>@BeforeGroups</b>: The list of groups that this configuration method will run before. This method is guaranteed to run shortly before the first test method that belongs to any of these groups is invoked. <br /><b>@AfterGroups</b>: The list of groups that this configuration method will run after. This method is guaranteed to run shortly after the last test method that belongs to any of these groups is invoked. <br /><b>@BeforeClass</b>: The annotated method will be run before the first test method in the current class is invoked. <br /><b>@AfterClass</b>: The annotated method will be run after all the test methods in the current class have been run. <br /><b>@BeforeMethod</b>: The annotated method will be run before each test method. <br /><b>@AfterMethod</b>: The annotated method will be run after each test method. <p> <b>Behaviour of annotations in superclass of a TestNG class</b> </p> <p> The annotations above will also be honored (inherited) when placed on a superclass of a TestNG class. This is useful for example to centralize test setup for multiple test classes in a common superclass. </p> <p> In that case, TestNG guarantees that the &quot;@Before&quot; methods are executed in inheritance order (highest superclass first, then going down the inheritance chain), and the &quot;@After&quot; methods in reverse order (going up the inheritance chain). </p> </td> 
+    </tr> 
+    <tr> 
+     <td> </td> 
+     <td> <tt>alwaysRun</tt> </td> 
+     <td> For before methods (beforeSuite, beforeTest, beforeTestClass and beforeTestMethod, but not beforeGroups): If set to true, this configuration method will be run regardless of what groups it belongs to. <br /> For after methods (afterSuite, afterClass, ...): If set to true, this configuration method will be run even if one or more methods invoked previously failed or was skipped. </td> 
+    </tr> 
+    <tr> 
+     <td> </td> 
+     <td> <tt>dependsOnGroups</tt> </td> 
+     <td> The list of groups this method depends on. </td> 
+    </tr> 
+    <tr> 
+     <td> </td> 
+     <td> <tt>dependsOnMethods</tt> </td> 
+     <td> The list of methods this method depends on. </td> 
+    </tr> 
+    <tr> 
+     <td> </td> 
+     <td> <tt>enabled</tt> </td> 
+     <td> Whether methods on this class/method are enabled. </td> 
+    </tr> 
+    <tr> 
+     <td> </td> 
+     <td> <tt>groups</tt> </td> 
+     <td> The list of groups this class/method belongs to. </td> 
+    </tr> 
+    <tr> 
+     <td> </td> 
+     <td> <tt>inheritGroups</tt> </td> 
+     <td> If true, this method will belong to groups specified in the @Test annotation at the class level. </td> 
+    </tr> 
+    <tr> 
+     <td> </td> 
+     <td> <tt>onlyForGroups</tt> </td> 
+     <td> Only for @BeforeMethod and @AfterMethod. If specified, then this setup/teardown method will only be invoked if the corresponding test method belongs to one of the listed groups. </td> 
+    </tr> 
+    <tr class="separator"> 
+     <td colspan="3">&nbsp;</td> 
+    </tr> 
+    <tr> 
+     <td colspan="2"><tt><b>@DataProvider</b></tt></td>
+     <td><b>Marks a method as supplying data for a test method. The annotated method must return an Object[][] where each Object[] can be assigned the parameter list of the test method. The @Test method that wants to receive data from this DataProvider needs to use a dataProvider name equals to the name of this annotation.</b></td>
+    </tr>
+    <tr> 
+     <td> </td> 
+     <td> <tt>name</tt> </td> 
+     <td> The name of this data provider. If it's not supplied, the name of this data provider will automatically be set to the name of the method. </td> 
+    </tr> 
+    <tr> 
+     <td> </td> 
+     <td> <tt>parallel</tt> </td> 
+     <td> If set to true, tests generated using this data provider are run in parallel. Default value is false. </td> 
+    </tr> 
+    <tr> 
+     <td colspan="3">&nbsp;</td> 
+    </tr> 
+    <tr> 
+     <td colspan="2"><b><tt>@Factory</tt></b></td>
+     <td><b> Marks a method as a factory that returns objects that will be used by TestNG as Test classes. The method must return Object[].</b></td>
+    </tr>
+    <tr> 
+     <td colspan="3">&nbsp;</td> 
+    </tr> 
+    <tr> 
+     <td colspan="2"><b><tt>@Listeners</tt></b></td>
+     <td><b>Defines listeners on a test class.</b></td>
+    </tr> 
+    <tr> 
+     <td></td> 
+     <td> <tt>value</tt> </td> 
+     <td> An array of classes that extend <tt>org.testng.ITestNGListener</tt>. </td> 
+    </tr> 
+    <tr> 
+     <td colspan="3">&nbsp;</td> 
+    </tr> 
+    <tr>
+     <td colspan="2"><b><tt>@Parameters</tt></b></td>
+     <td><b>Describes how to pass parameters to a @Test method.</b></td>
+    </tr>
+    <tr> 
+     <td> </td> 
+     <td> <tt>value</tt> </td> 
+     <td> The list of variables used to fill the parameters of this method. </td> 
+    </tr> 
+    <tr> 
+     <td colspan="3">&nbsp;</td> 
+    </tr> 
+    <tr> 
+     <td colspan="2"><b>@Test</b></td>
+     <td><b>Marks a class or a method as part of the test.</b></td>
+    </tr>
+    <tr> 
+     <td> </td> 
+     <td> <tt>alwaysRun</tt> </td> 
+     <td> If set to true, this test method will always be run even if it depends on a method that failed. </td> 
+    </tr> 
+    <tr> 
+     <td> </td> 
+     <td> <tt>dataProvider</tt> </td> 
+     <td> The name of the data provider for this test method. </td> 
+    </tr> 
+    <tr> 
+     <td> </td> 
+     <td> <tt>dataProviderClass</tt> </td> 
+     <td> The class where to look for the data provider. If not specified, the data provider will be looked on the class of the current test method or one of its base classes. If this attribute is specified, the data provider method needs to be static on the specified class. </td> 
+    </tr> 
+    <tr> 
+     <td> </td> 
+     <td> <tt>dependsOnGroups</tt> </td> 
+     <td> The list of groups this method depends on. </td> 
+    </tr> 
+    <tr> 
+     <td> </td> 
+     <td> <tt>dependsOnMethods</tt> </td> 
+     <td> The list of methods this method depends on. </td> 
+    </tr> 
+    <tr> 
+     <td> </td> 
+     <td> <tt>description</tt> </td> 
+     <td> The description for this method. </td> 
+    </tr> 
+    <tr> 
+     <td> </td> 
+     <td> <tt>enabled</tt> </td> 
+     <td> Whether methods on this class/method are enabled. </td> 
+    </tr> 
+    <tr> 
+     <td> </td> 
+     <td> <tt>expectedExceptions</tt> </td> 
+     <td> The list of exceptions that a test method is expected to throw. If no exception or a different than one on this list is thrown, this test will be marked a failure. </td> 
+    </tr> 
+    <tr> 
+     <td> </td> 
+     <td> <tt>groups</tt> </td> 
+     <td> The list of groups this class/method belongs to. </td> 
+    </tr> 
+    <tr> 
+     <td> </td> 
+     <td> <tt>invocationCount</tt> </td> 
+     <td> The number of times this method should be invoked. </td> 
+    </tr> 
+    <tr> 
+     <td> </td> 
+     <td> <tt>invocationTimeOut</tt> </td> 
+     <td> The maximum number of milliseconds this test should take for the cumulated time of all the invocationcounts. This attribute will be ignored if invocationCount is not specified. </td> 
+    </tr> 
+    <tr> 
+     <td> </td> 
+     <td> <tt>priority</tt> </td> 
+     <td> The priority for this test method. Lower priorities will be scheduled first. </td> 
+    </tr> 
+    <tr> 
+     <td> </td> 
+     <td> <tt>successPercentage</tt> </td> 
+     <td> The percentage of success expected from this method </td> 
+    </tr> 
+    <tr> 
+     <td> </td> 
+     <td> <tt>singleThreaded</tt> </td> 
+     <td> If set to true, all the methods on this test class are guaranteed to run in the same thread, even if the tests are currently being run with parallel=&quot;methods&quot;. This attribute can only be used at the class level and it will be ignored if used at the method level. Note: this attribute used to be called <tt>sequential</tt> (now deprecated). </td> 
+    </tr> 
+    <tr> 
+     <td> </td> 
+     <td> <tt>timeOut</tt> </td> 
+     <td> The maximum number of milliseconds this test should take. </td> 
+    </tr> 
+    <tr> 
+     <td> </td> 
+     <td> <tt>threadPoolSize</tt> </td> 
+     <td> The size of the thread pool for this method. The method will be invoked from multiple threads as specified by invocationCount. <br />Note: this attribute is ignored if invocationCount is not specified </td> 
+    </tr> 
+   </tbody>
+  </table>
+
+<h1 id="命令行参数"><a href="#命令行参数" class="headerlink" title="命令行参数"></a>命令行参数</h1>  <table id="command-line"> 
+   <caption>
+    Command Line Parameters
+   </caption>
+   <colgroup class="option"> 
+   </colgroup>
+   <colgroup class="argument"> 
+   </colgroup>
+   <colgroup class="documentation"> 
+   </colgroup>
+   <thead> 
+    <tr> 
+     <th>Option</th> 
+     <th>Argument</th> 
+     <th>Documentation</th> 
+    </tr> 
+   </thead> 
+   <tbody> 
+    <tr> 
+     <td>-configfailurepolicy</td> 
+     <td><tt>skip</tt>|<tt>continue</tt></td> 
+     <td>Whether TestNG should <tt>continue</tt> to execute the remaining tests in the suite or <tt>skip</tt> them if an @Before* method fails. Default behavior is <tt>skip</tt>.</td> 
+    </tr> 
+    <tr> 
+     <td>-d</td> 
+     <td>A directory</td> 
+     <td>The directory where the reports will be generated (defaults to <tt>test-output</tt>).</td> 
+    </tr> 
+    <tr> 
+     <td>-dataproviderthreadcount</td> 
+     <td>The default number of threads to use for data providers when running tests in parallel.</td> 
+     <td>This sets the default maximum number of threads to use for data providers when running tests in parallel. It will only take effect if the parallel mode has been selected (for example, with the -parallel option). This can be overridden in the suite definition.</td> 
+    </tr> 
+    <tr> 
+     <td>-excludegroups</td> 
+     <td>A comma-separated list of groups.</td>
+     <td>The list of groups you want to be excluded from this run.</td> 
+    </tr> 
+    <tr> 
+     <td>-groups</td> 
+     <td>A comma-separated list of groups.</td> 
+     <td>The list of groups you want to run (e.g. <tt>&quot;windows,linux,regression&quot;</tt>).</td> 
+    </tr> 
+    <tr> 
+     <td>-listener</td> 
+     <td>A comma-separated list of Java classes that can be found on your classpath.</td> 
+     <td>Lets you specify your own test listeners. The classes need to implement <a target="_blank" rel="noopener" href="https://jitpack.io/com/github/cbeust/testng/master/javadoc/org/testng/ITestListener.html"> <tt>org.testng.ITestListener</tt></a></td> 
+    </tr> 
+    <tr> 
+     <td>-usedefaultlisteners</td> 
+     <td><tt>true</tt>|<tt>false</tt></td> 
+     <td>Whether to use the default listeners</td> 
+    </tr> 
+    <tr> 
+     <td>-methods</td> 
+     <td>A comma separated list of fully qualified class name and method. For example <tt>com.example.Foo.f1,com.example.Bar.f2</tt>.</td> 
+     <td>Lets you specify individual methods to run.</td> 
+    </tr> 
+    <tr> 
+     <td>-methodselectors</td> 
+     <td>A comma-separated list of Java classes and method priorities that define method selectors.</td> 
+     <td>Lets you specify method selectors on the command line. For example: <tt>com.example.Selector1:3,com.example.Selector2:2</tt></td> 
+    </tr> 
+    <tr> 
+     <td>-parallel</td> 
+     <td>methods|tests|classes</td> 
+     <td>If specified, sets the default mechanism used to determine how to use parallel threads when running tests. If not set, default mechanism is not to use parallel threads at all. This can be overridden in the suite definition.</td> 
+    </tr> 
+    <tr> 
+     <td>-reporter</td> 
+     <td>The extended configuration for a custom report listener.</td> 
+     <td>Similar to the <tt>-listener</tt> option, except that it allows the configuration of JavaBeans-style properties on the reporter instance. <br /> Example: <tt>-reporter com.test.MyReporter:methodFilter=*insert*,enableFiltering=true</tt> <br /> You can have as many occurrences of this option, one for each reporter that needs to be added.</td> 
+    </tr> 
+    <tr> 
+     <td>-sourcedir</td> 
+     <td>A semi-colon separated list of directories.</td> 
+     <td>The directories where your javadoc annotated test sources are. This option is only necessary if you are using javadoc type annotations. (e.g. <tt>&quot;src/test&quot;</tt> or <tt>&quot;src/test/org/testng/eclipse-plugin;src/test/org/testng/testng&quot;</tt>).</td> 
+    </tr> 
+    <tr> 
+     <td>-suitename</td> 
+     <td>The default name to use for a test suite.</td> 
+     <td>This specifies the suite name for a test suite defined on the command line. This option is ignored if the suite.xml file or the source code specifies a different suite name. It is possible to create a suite name with spaces in it if you surround it with double-quotes &quot;like this&quot;.</td> 
+    </tr> 
+    <tr> 
+     <td>-testclass</td> 
+     <td>A comma-separated list of classes that can be found in your classpath.</td>
+     <td>A list of class files separated by commas (e.g. <tt>&quot;org.foo.Test1,org.foo.test2&quot;</tt>).</td> 
+    </tr> 
+    <tr> 
+     <td>-testjar</td> 
+     <td>A jar file.</td> 
+     <td>Specifies a jar file that contains test classes. If a <tt>testng.xml</tt> file is found at the root of that jar file, it will be used, otherwise, all the test classes found in this jar file will be considered test classes.</td> 
+    </tr> 
+    <tr> 
+     <td>-testname</td> 
+     <td>The default name to use for a test.</td> 
+     <td>This specifies the name for a test defined on the command line. This option is ignored if the suite.xml file or the source code specifies a different test name. It is possible to create a test name with spaces in it if you surround it with double-quotes &quot;like this&quot;.</td> 
+    </tr> 
+    <tr> 
+     <td>-testnames</td> 
+     <td>A comma separated list of test names.</td> 
+     <td>Only tests defined in a &lt;test&gt; tag matching one of these names will be run.</td> 
+    </tr> 
+    <tr> 
+     <td>-testrunfactory</td> 
+     <td>A Java classes that can be found on your classpath.</td> 
+     <td>Lets you specify your own test runners. The class needs to implement <a target="_blank" rel="noopener" href="https://jitpack.io/com/github/cbeust/testng/master/javadoc/org/testng/ITestRunnerFactory.html"> <tt>org.testng.ITestRunnerFactory</tt></a>.</td> 
+    </tr> 
+    <tr> 
+     <td>-threadcount</td> 
+     <td>The default number of threads to use when running tests in parallel.</td> 
+     <td>This sets the default maximum number of threads to use for running tests in parallel. It will only take effect if the parallel mode has been selected (for example, with the -parallel option). This can be overridden in the suite definition.</td> 
+    </tr> 
+    <tr> 
+     <td>-xmlpathinjar</td> 
+     <td>The path of the XML file inside the jar file.</td> 
+     <td>This attribute should contain the path to a valid XML file inside the test jar (e.g. <tt>&quot;resources/testng.xml&quot;</tt>). The default is <tt>&quot;testng.xml&quot;</tt>, which means a file called &quot;<tt>testng.xml</tt>&quot; at the root of the jar file. This option will be ignored unless <tt>-testjar</tt> is specified.</td> 
+    </tr> 
+   </tbody> 
+  </table>
+      </div>
+      
+      
+      
+    </div>
+    
+
+    
+    
+    
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B3%A8%E8%A7%A3"><span class="nav-number">1.</span> <span class="nav-text">注解</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%8F%82%E6%95%B0"><span class="nav-number">2.</span> <span class="nav-text">命令行参数</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Eric Zong</p>
+  <div class="site-description" itemprop="description">这里有作为一个程序员想记录的一切。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">96</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Eric Zong</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

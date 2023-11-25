@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"ericzonglu.gitee.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="A case for using void in modern JavaScriptThe void operator has historically had a few use cases:  Used with &lt;a href&#x3D;&quot;javascript:void(0)&quot;&gt; to implement dynamic buttons, but this is a">
+<meta property="og:type" content="website">
+<meta property="og:title" content="八白龙的博客">
+<meta property="og:url" content="http://ericzonglu.gitee.io/_favorites/js-a-case-for-using-void-in-modern-javascript.html">
+<meta property="og:site_name" content="八白龙的博客">
+<meta property="og:description" content="A case for using void in modern JavaScriptThe void operator has historically had a few use cases:  Used with &lt;a href&#x3D;&quot;javascript:void(0)&quot;&gt; to implement dynamic buttons, but this is a">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-03-29T16:04:47.848Z">
+<meta property="article:modified_time" content="2021-03-14T08:43:12.202Z">
+<meta property="article:author" content="Eric Zong">
+<meta property="article:tag" content="程序员 Programmer">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://ericzonglu.gitee.io/_favorites/js-a-case-for-using-void-in-modern-javascript.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : false,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title> | 八白龙的博客
+</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">八白龙的博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">程序员的杂货铺</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-references">
+
+    <a href="/references/" rel="section"><i class="bookmark fa-fw"></i>参考</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+  
+  
+
+          <div class="content page posts-expand">
+            
+
+    
+    
+    
+    <div class="post-block" lang="zh-CN">
+      <header class="post-header">
+
+<h1 class="post-title" itemprop="name headline">
+</h1>
+
+<div class="post-meta">
+  
+
+</div>
+
+</header>
+
+      
+      
+      
+      <div class="post-body">
+          <p align=center><a href=https://nelabs.dev><img src=https://nelabs.dev/logo.svg width=450 alt=nelabs.dev></a></p>
+
+<h1 id="A-case-for-using-void-in-modern-JavaScript"><a href="#A-case-for-using-void-in-modern-JavaScript" class="headerlink" title="A case for using void in modern JavaScript"></a>A case for using <code>void</code> in modern JavaScript</h1><p>The <a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/void"><code>void</code> operator</a> has historically had a few use cases:</p>
+<ul>
+<li>Used with <code>&lt;a href=&quot;javascript:void(0)&quot;&gt;</code> to implement dynamic buttons, but this is a poor and dated practice </li>
+<li>Used to access the primitive <code>undefined</code> value in the bad old days prior to ES5 when it was possible to overwrite the identifier <code>undefined</code></li>
+<li>Used to save a few characters and shorten <code>undefined</code> to just <code>void 0</code>; this is still used by minifiers</li>
+</ul>
+<p>None of these use cases are particularly relevant to modern JavaScript, except for a new case that’s been introduced with arrow functions in ES6:</p>
+<h2 id="Using-void-to-explicate-non-value-returning-void-arrow-functions"><a href="#Using-void-to-explicate-non-value-returning-void-arrow-functions" class="headerlink" title="Using void to explicate non-value-returning (void) arrow functions"></a>Using <code>void</code> to explicate non-value-returning (void) arrow functions</h2><p>ES6 arrow function expressions allow omitting the braces from the function body to make code more terse, but it creates an ambiguity about when the return value is or isn’t intended to be used, because the function might be intended just for side effects:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// omitting braces</span></span><br><span class="line"><span class="keyword">const</span> id = <span class="function"><span class="params">x</span> =&gt;</span> x;</span><br><span class="line"></span><br><span class="line"><span class="comment">// function called just for side effects</span></span><br><span class="line"><span class="keyword">const</span> log = <span class="function"><span class="params">x</span> =&gt;</span> <span class="built_in">console</span>.log(x);</span><br></pre></td></tr></table></figure><br>The Console API is widely familiar, so this particular example isn’t ambiguous, but it illustrates the principle.</p>
+<p>Intentional void arrow functions can be made explicit by adding braces, but this makes them less terse:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> log = <span class="function"><span class="params">x</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(x);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>The function could still be formatted in a single line, but automatic formatting tools like Prettier will usually add line breaks, and the intention to not return a value is not as clear as when using the <code>void</code> operator:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> log = <span class="function"><span class="params">x</span> =&gt;</span> <span class="keyword">void</span> <span class="built_in">console</span>.log(x);</span><br></pre></td></tr></table></figure><br>The most noticeable benefit of using <code>void</code> like this is <em>reducing the line count</em>; especially in programming styles like CPS that rely on void callbacks often.</p>
+<h3 id="Type-systems-and-void-type"><a href="#Type-systems-and-void-type" class="headerlink" title="Type systems and void type"></a>Type systems and <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Void_type">void type</a></h3><p>Many type systems, including TypeScript’s, have the concept of a void type, which makes the use of the <code>void</code> operator for non-value-returning functions complementary and more recognizable.</p>
+<h3 id="React-useEffect-hook"><a href="#React-useEffect-hook" class="headerlink" title="React useEffect hook"></a>React <a target="_blank" rel="noopener" href="https://reactjs.org/docs/hooks-effect.html"><code>useEffect</code></a> hook</h3><p>A common practical use case for <code>void</code> is with the <code>useEffect</code> hook in React:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">useEffect(<span class="function">() =&gt;</span> <span class="keyword">void</span> (<span class="built_in">document</span>.title = <span class="string">&#x27;example&#x27;</span>));</span><br></pre></td></tr></table></figure><br>It’s a particularly salient example because the <code>useEffect</code> hook can use its callback’s return value for cleaning up the effect, so accidentally returning a function could be a runtime bug.</p>
+<h2 id="Using-void-with-async-IIFES"><a href="#Using-void-with-async-IIFES" class="headerlink" title="Using void with async IIFES"></a>Using <code>void</code> with async IIFES</h2><p>There’s an additional but less important use case for the <code>void</code> operator with async immediately-invoked function expressions (IIFES). Traditionally IIFES were used to implement modular scopes, since JS didn’t have block scope or actual modules, but modern JS has both, so IIFES are largely not relevant except for one case: using the<code>await</code> or <code>for-await-of</code> syntax at <a target="_blank" rel="noopener" href="https://2ality.com/2019/12/top-level-await.html">the top level of modules</a>:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> (<span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">  <span class="keyword">await</span> fetch(something);</span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure><br>This is a popular enough use case that there exists a stage 3 proposal for it. Parenthesis are still required around the function expression due to precedence rules, but using <code>void</code> solves the problem that leading parenthesis don’t work with ASI (more specifically, it breaks without explicit semicolon line terminators).</p>
+<h2 id="Style-guides-and-no-void"><a href="#Style-guides-and-no-void" class="headerlink" title="Style guides and no-void"></a>Style guides and <a target="_blank" rel="noopener" href="https://eslint.org/docs/rules/no-void"><code>no-void</code></a></h2><p>Popular style guides like Airbnb’s and Standard JS use the <code>no-void</code> ESLint rule to prohibit using  the <code>void</code> operator, but it’s arguably an oversight and should be overridden by users.</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/airbnb/javascript/issues/2145">Airbnb issue about removing <code>no-void</code></a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/standard/standard/issues/1464">Standard JS issue about removing <code>no-void</code></a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/eslint/eslint/issues/12688">ESLint <code>no-void</code> rule change request</a></li>
+</ul>
+
+      </div>
+      
+      
+      
+    </div>
+    
+
+    
+    
+    
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#A-case-for-using-void-in-modern-JavaScript"><span class="nav-number">1.</span> <span class="nav-text">A case for using void in modern JavaScript</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Using-void-to-explicate-non-value-returning-void-arrow-functions"><span class="nav-number">1.1.</span> <span class="nav-text">Using void to explicate non-value-returning (void) arrow functions</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Type-systems-and-void-type"><span class="nav-number">1.1.1.</span> <span class="nav-text">Type systems and void type</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#React-useEffect-hook"><span class="nav-number">1.1.2.</span> <span class="nav-text">React useEffect hook</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Using-void-with-async-IIFES"><span class="nav-number">1.2.</span> <span class="nav-text">Using void with async IIFES</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Style-guides-and-no-void"><span class="nav-number">1.3.</span> <span class="nav-text">Style guides and no-void</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Eric Zong</p>
+  <div class="site-description" itemprop="description">这里有作为一个程序员想记录的一切。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">96</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Eric Zong</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

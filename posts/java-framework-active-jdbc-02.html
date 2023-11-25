@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"ericzonglu.gitee.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="ActiveJDBC基本使用说明。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ActiveJDBC笔记：2 基本使用">
+<meta property="og:url" content="http://ericzonglu.gitee.io/posts/java-framework-active-jdbc-02.html">
+<meta property="og:site_name" content="八白龙的博客">
+<meta property="og:description" content="ActiveJDBC基本使用说明。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2018-12-26T16:00:00.000Z">
+<meta property="article:modified_time" content="2020-10-03T16:32:52.792Z">
+<meta property="article:author" content="Eric Zong">
+<meta property="article:tag" content="JDBC">
+<meta property="article:tag" content="ORM">
+<meta property="article:tag" content="《ActiveJDBC笔记系列》">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://ericzonglu.gitee.io/posts/java-framework-active-jdbc-02.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>ActiveJDBC笔记：2 基本使用 | 八白龙的博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">八白龙的博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">程序员的杂货铺</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-references">
+
+    <a href="/references/" rel="section"><i class="bookmark fa-fw"></i>参考</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://ericzonglu.gitee.io/posts/java-framework-active-jdbc-02.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Eric Zong">
+      <meta itemprop="description" content="这里有作为一个程序员想记录的一切。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="八白龙的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          ActiveJDBC笔记：2 基本使用
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-12-27 00:00:00" itemprop="dateCreated datePublished" datetime="2018-12-27T00:00:00+08:00">2018-12-27</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-10-04 00:32:52" itemprop="dateModified" datetime="2020-10-04T00:32:52+08:00">2020-10-04</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/%E6%A1%86%E6%9E%B6/" itemprop="url" rel="index"><span itemprop="name">框架</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="编写模型"><a href="#编写模型" class="headerlink" title="编写模型"></a>编写模型</h1><p>ActiveJDBC 的模型类必须派生自 org.javalite.activejdbc.Model。</p>
+<h2 id="模型与表的映射"><a href="#模型与表的映射" class="headerlink" title="模型与表的映射"></a>模型与表的映射</h2><h3 id="映射推断"><a href="#映射推断" class="headerlink" title="映射推断"></a>映射推断</h3><p>模型类可以不指定映射的表，ActiveJDBC 会根据英文单复数的变形来推断映射关系。</p>
+<p>简单说来就是，单数形式的模型名映射到对应复数形式的表，比如：Computer =&gt; computers。</p>
+<p>但这种变形并不仅限于在单数形式后加“s”转变为复数形式的情况，也包括一些特殊的变形方式。详细可参考官方对于 <a target="_blank" rel="noopener" href="http://javalite.io/english_inflections">English inflections</a> 的说明。</p>
+<h3 id="覆盖映射"><a href="#覆盖映射" class="headerlink" title="覆盖映射"></a>覆盖映射</h3><p>自动的映射推断很方便，但限制了表与模型的命名，某些情况下，这可能不是我们想要的。</p>
+<p>针对这种情况，ActiveJDBC 提供了 @Table 注解来覆盖指定模型映射的表。</p>
+<h2 id="模型与数据库关联"><a href="#模型与数据库关联" class="headerlink" title="模型与数据库关联"></a>模型与数据库关联</h2><p>默认情况下，模型与“default”数据库关联，但可使用 @DbName 注释覆盖。</p>
+<h2 id="缓存"><a href="#缓存" class="headerlink" title="缓存"></a>缓存</h2><p>使用 @Cached 注解指定缓存模型。</p>
+<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><p>放置于 classpath 根目录：</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#inside file: activejdbc.properties</span></span><br><span class="line"><span class="comment">#or EHCache:</span></span><br><span class="line"><span class="meta">cache.manager</span>=<span class="string">org.javalite.activejdbc.cache.EHCacheManager</span></span><br><span class="line"><span class="comment">#cache.manager=org.javalite.activejdbc.cache.OSCacheManager</span></span><br></pre></td></tr></table></figure>
+<p>详细缓存提供器配置参考：<a target="_blank" rel="noopener" href="http://javalite.io/caching">http://javalite.io/caching</a></p>
+<h3 id="清除"><a href="#清除" class="headerlink" title="清除"></a>清除</h3><p>破坏性操作（插入、更新、删除）后系统将清除与此表相关（本表及关联表）的缓存。</p>
+<p>但是，如果不想清除关联表缓存，可以在本模型上注解 @UnrelatedTo(RelatedModel.class)。</p>
+<p>也可以手动清除缓存，可以基于表或 Model 进行：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">org.javalite.activejdbc.cache.QueryCache.instance().purgeTableCache(<span class="string">&quot;table&quot;</span>);</span><br><span class="line">Model.purgeCache();</span><br></pre></td></tr></table></figure>
+<h3 id="缓存暴露"><a href="#缓存暴露" class="headerlink" title="缓存暴露"></a>缓存暴露</h3><p>检索缓存模型实例时，对于同一查询后续调用返回完全相同的实例。换句话说，对于两次相同查询，如果第一次查询后修改了模型实例，即使未保存，第二次查询返回的仍是这个被修改的实例。</p>
+<h3 id="乐观锁"><a href="#乐观锁" class="headerlink" title="乐观锁"></a>乐观锁</h3><p>默认版本列为 version_record，可使用 @VersionColumn 覆盖。</p>
+<h2 id="setter-getter"><a href="#setter-getter" class="headerlink" title="setter/getter"></a>setter/getter</h2><p>ActiveJDBC 不通过属性映射表字段，因此，也不需要编写 setter/getter 方法，而是使用 Model.get(fieldName) 和 Model.set(fieldName, value) 替代它们，并且 Model 还提供了许多重载或是绑定不同数据类型的便捷方法。</p>
+<blockquote>
+<p>关于 Clob</p>
+<p>set() 方法可以将字符串写入 Clob 字段中。<br>get() 方法可以从 Clob 字段中读取数据为字符串或强转为 Clob 类型进行处理，而 getString() 方法可将 Clob 字段读取为字符串。</p>
+<p>对于缓存的模型而言，Clob 字段将被事先读取入字符串中，即使连接断开，事后亦可访问。但可能会有较大的内存占用。</p>
+</blockquote>
+<p>get() 方法甚至会将 CLOB 字段自动转换为字符串。</p>
+<h2 id="主键"><a href="#主键" class="headerlink" title="主键"></a>主键</h2><h3 id="复合键"><a href="#复合键" class="headerlink" title="复合键"></a>复合键</h3><p>使用 @CompositePK 注解复合键，并使用 Model.findByCompositeKeys() 查询（确保参数顺序与注解一致）。</p>
+<h3 id="覆盖主键"><a href="#覆盖主键" class="headerlink" title="覆盖主键"></a>覆盖主键</h3><p>使用 @IdName 注解覆盖主键。</p>
+<h3 id="主键生成器"><a href="#主键生成器" class="headerlink" title="主键生成器"></a>主键生成器</h3><p>使用 @IdGenerator 注解主键生成器。</p>
+<h2 id="关系"><a href="#关系" class="headerlink" title="关系"></a>关系</h2><h3 id="一对多"><a href="#一对多" class="headerlink" title="一对多"></a>一对多</h3><p>一对多关系默认通过表名和关系字段（可能是外键字段，也可能并未定义外键约束）自动推断，关系字段形式通常是：单数表名_id。</p>
+<p>如果关系字段命名不符合约定，可使用 @BelongsTo 注解覆盖：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@BelongsTo(parent = Parent.class, foreignKeyName = &quot;parent_id&quot;)</span></span><br></pre></td></tr></table></figure>
+<p>从属多个父模型如下配置：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">@BelongsToParents(&#123;</span><br><span class="line">	@BelongsTo(parent=Parent1.class, foreignKeyName=&quot;parent1_id&quot;),</span><br><span class="line">	@BelongsTo(parent=Parent2.class, foreignKeyName=&quot;parent2_id&quot;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h3 id="多对多"><a href="#多对多" class="headerlink" title="多对多"></a>多对多</h3><p>多对多关系与一对多类似，只是多了一个中间关系表，默认情况下，关系通过两个有关系的表与中间关系表关系字段（可能是外键字段，也可能并未定义外键约束）自动进行推断。</p>
+<p>如果命名不符合约定，可使用 @Many2Many 注解覆盖：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Many2Many(sourceFKName = This.class, </span></span><br><span class="line"><span class="meta">	other = Other.class, targetFKName = &quot;other_id&quot;,</span></span><br><span class="line"><span class="meta">	join = &quot;中间表名&quot;)</span></span><br></pre></td></tr></table></figure>
+<p>注意：@Many2Many 是单侧的，即其提供了足够信息给框架，不需要在另一端再添加。</p>
+<h3 id="多态关联"><a href="#多态关联" class="headerlink" title="多态关联"></a>多态关联</h3><p>多态关联，简单来说是一种特殊的一对多关系，特殊之处在于，多个父类型关联的子类型结构相似，因此，这些子类型被存储在同一表中，该表不仅有父表 ID，还有父类型字段。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@BelongsToPolymorphic(parents = &#123;Parent1.class, Parent2.class&#125;)</span></span><br></pre></td></tr></table></figure>
+<p>默认情况下，父类型字段保存的是父模型的全限定名，不过，可以使用覆盖：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@BelongsToPolymorphic(</span></span><br><span class="line"><span class="meta">parents     = &#123; Parent1.class, Parent2.class&#125;, </span></span><br><span class="line"><span class="meta">typeLabels  = &#123;&quot;Parent1&quot;,     &quot;Parent2&quot;&#125; )</span></span><br></pre></td></tr></table></figure>
+<h2 id="管理时间"><a href="#管理时间" class="headerlink" title="管理时间"></a>管理时间</h2><p>如果表中存在 created_at 和 updated_at 列，并且其类型对应 java.sql.Timestamp，那么，框架将自动管理这些时间列。除非使用 model.manageTime(false); 禁用。</p>
+<h2 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h2><h3 id="验证方法"><a href="#验证方法" class="headerlink" title="验证方法"></a>验证方法</h3><p>通常，我们在静态初始化块中进行属性存在验证，使用 Model.validatePresenceOf() 方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">XXX</span> <span class="keyword">extends</span> <span class="title">Model</span> </span>&#123;</span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">    	validatePresenceOf(<span class="string">&quot;xxx&quot;</span>, <span class="string">&quot;yyy&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>当然，Model 中还包含其他一些 validate 方法。甚至，你可以自定义一个验证器（Validator/ValidatorAdapter）。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CustomValidator</span> <span class="keyword">extends</span> <span class="title">ValidatorAdapter</span> </span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">void</span> <span class="title">validate</span><span class="params">(Model m)</span></span>&#123;</span><br><span class="line">       <span class="keyword">boolean</span> valid = <span class="keyword">true</span>;</span><br><span class="line">      <span class="comment">// perform whatever validation logic, then add errors to model if validation did not pass:</span></span><br><span class="line">      <span class="keyword">if</span>(!valid)</span><br><span class="line">         m.addValidator(<span class="keyword">this</span>, <span class="string">&quot;custom_error&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>验证方法一般均是静态方法，因此，你也可以在模型类外部调用。</p>
+<h3 id="附加验证"><a href="#附加验证" class="headerlink" title="附加验证"></a>附加验证</h3><p>Model 中的验证方法可能会返回 ValidationBuilder 子类对象，其上声明了一些附加验证方法。</p>
+<h3 id="触发验证"><a href="#触发验证" class="headerlink" title="触发验证"></a>触发验证</h3><p>以下操作会触发验证：</p>
+<ul>
+<li>model.validate()</li>
+<li>model.save()</li>
+<li>model.saveIt()</li>
+<li>Model.createIt()</li>
+</ul>
+<h3 id="获取验证消息"><a href="#获取验证消息" class="headerlink" title="获取验证消息"></a>获取验证消息</h3><p>执行验证后，可通过如下方法获取错误消息：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Map&lt;String, String&gt; errors = model.errors();</span><br><span class="line">String xxxError = errors.get(<span class="string">&quot;xxx&quot;</span>);</span><br></pre></td></tr></table></figure>
+<h3 id="客制化消息"><a href="#客制化消息" class="headerlink" title="客制化消息"></a>客制化消息</h3><p>Model 中的验证方法会返回一个 ValidationBuilder 对象，其 message() 方法可定制验证失败时的消息。</p>
+<p>上文已知验证方法可以在模型类外进行调用，因此，客制化消息也可以在外部添加。</p>
+<p><strong>静态参数</strong></p>
+<p>message() 方法不仅可以直接传入消息文本，还可以传入 activejdbc_messages 资源绑定（resource bundle）中的键值。在资源文件中可以使用占位符 {0}、{1} ……它们顺序引用验证器中除第一个属性参数外的第 2、3……参数。</p>
+<p>如官网例子中，activejdbc_messages.properties 条目如下：</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">temperature.outside.limits</span> = <span class="string">Temperature is outside acceptable limits, while it needs to be between &#123;0&#125; and &#123;1&#125;</span></span><br></pre></td></tr></table></figure>
+<p>则如下验证：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">validateRange(<span class="string">&quot;temp&quot;</span>, <span class="number">10</span>, <span class="number">2000</span>).message(<span class="string">&quot;temperature.outside.limits&quot;</span>);</span><br></pre></td></tr></table></figure>
+<p>获取到的失败消息会是：Temperature is outside acceptable limits, while it needs to be between 10 and 2000。</p>
+<p><strong>动态参数</strong></p>
+<p>当然，占位符可以超出验证器参数数量，超出的占位符需要在获取消息时提供值，条目如下：</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">temperature.outside.limits</span> = <span class="string">Temperature is outside acceptable limits, while it needs to be between &#123;0&#125; and &#123;1&#125; for user: &#123;2&#125;</span></span><br></pre></td></tr></table></figure>
+<p>使用如上相同的验证，则显然缺少 {2} 的值，因此，需要在获取消息时提供，如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">String message = temp.errors().get(<span class="string">&quot;temp&quot;</span>, user.getName());</span><br></pre></td></tr></table></figure>
+<p><strong>国际化</strong></p>
+<p>由于可以使用资源文件，所以很容易进行国际化，如需要给 errors() 传入一个 Locale 对象即可获取国际化消息：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">String message = temp.errors(<span class="keyword">new</span> Locale(<span class="string">&quot;de&quot;</span>, <span class="string">&quot;DE&quot;</span>)).get(temp);</span><br></pre></td></tr></table></figure>
+<h2 id="转换器"><a href="#转换器" class="headerlink" title="转换器"></a>转换器</h2><p>转换器跟验证器用法类似，通常也放置于模型类的静态初始化块中，常用的有如下一些：</p>
+<p>dateFormat()、timestampFormat()、blankToNull()、zeroToNull()……</p>
+<p>注意，如果设置的类型错误，将得到一个数据库底层的异常。</p>
+<h1 id="数据库管理"><a href="#数据库管理" class="headerlink" title="数据库管理"></a>数据库管理</h1><p>数据库连接通过 Base 和 DB 类附加到一个本地线程 Map 变量中，Base 总是操作名为“default”的数据库连接。</p>
+<p>DB 可以使用 TWR 自动关闭。</p>
+<p>不能直接使用连接池，只能通过 DB 打开一个数据源来使用。</p>
+<h2 id="属性文件配置"><a href="#属性文件配置" class="headerlink" title="属性文件配置"></a>属性文件配置</h2><p>属性文件名为 database.properties，放置于 classpath 根目录。</p>
+<h2 id="环境变量"><a href="#环境变量" class="headerlink" title="环境变量"></a>环境变量</h2><p>配置属性前缀用于 ACTIVE_ENV 环境变量中，以指定无参数时，open() 方法所使用的数据库参数。如果该环境变量未配置，默认值为 development。</p>
+<h2 id="环境变量覆盖"><a href="#环境变量覆盖" class="headerlink" title="环境变量覆盖"></a>环境变量覆盖</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">ACTIVEJDBC.URL</span><br><span class="line">ACTIVEJDBC.USER</span><br><span class="line">ACTIVEJDBC.PASSWORD</span><br><span class="line">ACTIVEJDBC.DRIVER</span><br><span class="line"></span><br><span class="line">ACTIVEJDBC.JNDI</span><br></pre></td></tr></table></figure>
+<p>注：覆盖属性文件配置。</p>
+<h2 id="系统变量覆盖"><a href="#系统变量覆盖" class="headerlink" title="系统变量覆盖"></a>系统变量覆盖</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">activejdbc.url</span><br><span class="line">activejdbc.user</span><br><span class="line">activejdbc.password</span><br><span class="line">activejdbc.driver</span><br><span class="line"></span><br><span class="line">activejdbc.jndi</span><br></pre></td></tr></table></figure>
+<p>注：覆盖属性文件和环境变量配置。</p>
+<h2 id="指定-schema"><a href="#指定-schema" class="headerlink" title="指定 schema"></a>指定 schema</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-Dactivejdbc.default.schema=myschema</span><br></pre></td></tr></table></figure>
+<h1 id="模型常用-API"><a href="#模型常用-API" class="headerlink" title="模型常用 API"></a>模型常用 API</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">model.set(name, value)</span><br><span class="line">model.saveIt();</span><br><span class="line">model.findFirst(where, params);</span><br><span class="line">model.where(where, params);</span><br><span class="line">model.delete();</span><br><span class="line">Model.deleteAll();</span><br><span class="line">Model.findAll();</span><br><span class="line">Model.count();</span><br><span class="line">Model.count(query, params);</span><br><span class="line">Model.findBySQL(query, params);</span><br></pre></td></tr></table></figure>
+<h2 id="创建保存"><a href="#创建保存" class="headerlink" title="创建保存"></a>创建保存</h2><h3 id="save-vs-saveIt"><a href="#save-vs-saveIt" class="headerlink" title="save() vs. saveIt()"></a>save() vs. saveIt()</h3><p>save() 和 saveIt() 在保存之前都会进行校验，区别在于校验失败时，后者抛出异常，而前者不会抛出异常，而校验失败的信息可通过 errors() 方法获取。</p>
+<h3 id="create-vs-createIt"><a href="#create-vs-createIt" class="headerlink" title="create() vs. createIt()"></a>create() vs. createIt()</h3><p>跟 save() 和 saveIt() 类似。</p>
+<h2 id="查询"><a href="#查询" class="headerlink" title="查询"></a>查询</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Model.where(<span class="string">&quot;columnName = &#x27;value&#x27;&quot;</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="参数化"><a href="#参数化" class="headerlink" title="参数化"></a>参数化</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Model.where(<span class="string">&quot;columnName = ?&quot;</span>, <span class="string">&quot;value&quot;</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="处理大结果集"><a href="#处理大结果集" class="headerlink" title="处理大结果集"></a>处理大结果集</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Model.findWith(<span class="keyword">final</span> ModelListener listener, String query, Object ... params)</span><br></pre></td></tr></table></figure>
+<h3 id="Dump"><a href="#Dump" class="headerlink" title="Dump"></a>Dump</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Model.findAll().dump();</span><br></pre></td></tr></table></figure>
+<h3 id="限制和排序"><a href="#限制和排序" class="headerlink" title="限制和排序"></a>限制和排序</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lazyList.limit(limit).offset(offset).orderBy(orderBy);</span><br></pre></td></tr></table></figure>
+<h3 id="分页"><a href="#分页" class="headerlink" title="分页"></a>分页</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> Paginator(modelClass, pageSize, query, params).orderBy(orderBy);</span><br><span class="line">paginator.getPage(pageNumber);</span><br><span class="line">paginator.getCurrentPage();</span><br><span class="line">paginator.pageCount();</span><br></pre></td></tr></table></figure>
+<h3 id="延迟加载"><a href="#延迟加载" class="headerlink" title="延迟加载"></a>延迟加载</h3><p>默认 ActiveJDBC 查询是延迟加载的。</p>
+<p>可急切加载一对多、多对一、多对多的上下级关系：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">lazyList.include(ParentOrChildClass);</span><br><span class="line">lazyList.toMaps();</span><br></pre></td></tr></table></figure>
+<h2 id="级联删除"><a href="#级联删除" class="headerlink" title="级联删除"></a>级联删除</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">// 深层删除</span><br><span class="line">model.deleteCascade();</span><br><span class="line"></span><br><span class="line">// 跳过指定关联</span><br><span class="line">associations = Model.getMetaModel().getAssociationForTarget(&quot;xxx&quot;);</span><br><span class="line">model.deleteCascadeExcept(associations);</span><br><span class="line"></span><br><span class="line">// 浅层删除</span><br><span class="line">// 一对多、多态关联，删除当前记录和直接子记录</span><br><span class="line">// 多对多，删除当前记录和关系表记录</span><br><span class="line">model.deleteCascadeShallow();</span><br></pre></td></tr></table></figure>
+<h2 id="批处理"><a href="#批处理" class="headerlink" title="批处理"></a>批处理</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Model.updateAll(<span class="string">&quot;columnName = ?&quot;</span>, params);</span><br><span class="line">Model.update(<span class="string">&quot;columnName = ?&quot;</span>, <span class="string">&quot;columnName2 = &#x27;value&#x27;&quot;</span>, params);</span><br><span class="line">Model.deleteAll();</span><br><span class="line">Model.delete(query, params);</span><br><span class="line"></span><br><span class="line">PreparedStatement ps = Base.startBatch(stm);</span><br><span class="line">Base.addBatch(ps, params);</span><br><span class="line">...</span><br><span class="line">Base.executeBatch(ps);</span><br><span class="line">ps.close();</span><br></pre></td></tr></table></figure>
+<h2 id="生命周期"><a href="#生命周期" class="headerlink" title="生命周期"></a>生命周期</h2><h3 id="注册外部监听"><a href="#注册外部监听" class="headerlink" title="注册外部监听"></a>注册外部监听</h3><p>需要实现 CallbackListener 接口或继承 CallbackAdapter，并注册其对象：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Model.callbackWith(callback);</span><br></pre></td></tr></table></figure>
+<h3 id="重写-Model-回调"><a href="#重写-Model-回调" class="headerlink" title="重写 Model 回调"></a>重写 Model 回调</h3><p>Model 继承自抽象类 CallbackSupport，与 CallbackAdapter 类似，重写需要的回调方法即可。</p>
+<p>从源代码上看，Model 本身的回调是先于外部回调触发的。</p>
+<h2 id="事务管理"><a href="#事务管理" class="headerlink" title="事务管理"></a>事务管理</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Base.openTransaction();</span><br><span class="line">Base.commitTransaction();</span><br><span class="line">Base.rollbackTransaction();</span><br><span class="line"></span><br><span class="line">Base.connection().setAutocommit(<span class="keyword">false</span>);</span><br></pre></td></tr></table></figure>
+<h2 id="转换成其他文本格式"><a href="#转换成其他文本格式" class="headerlink" title="转换成其他文本格式"></a>转换成其他文本格式</h2><h3 id="XML"><a href="#XML" class="headerlink" title="XML"></a>XML</h3><p>model.toXml(pretty, declaration, attributeNames)</p>
+<p>当然，调用 include() 方法后，还可以生成依赖对象节点。lazyList 也可以生成 XML 文档。</p>
+<h3 id="JSON"><a href="#JSON" class="headerlink" title="JSON"></a>JSON</h3><p>model.toJson(pretty, attributeNames)</p>
+<p>类似 XML 转换。</p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Eric Zong
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://ericzonglu.gitee.io/posts/java-framework-active-jdbc-02.html" title="ActiveJDBC笔记：2 基本使用">http://ericzonglu.gitee.io/posts/java-framework-active-jdbc-02.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/JDBC/" rel="tag"># JDBC</a>
+              <a href="/tags/ORM/" rel="tag"># ORM</a>
+              <a href="/tags/%E3%80%8AActiveJDBC%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97%E3%80%8B/" rel="tag"># 《ActiveJDBC笔记系列》</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/java-framework-active-jdbc-01.html" rel="prev" title="ActiveJDBC笔记：1 入门">
+      <i class="fa fa-chevron-left"></i> ActiveJDBC笔记：1 入门
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/posts/java-framework-testng.html" rel="next" title="TestNG学习笔记">
+      TestNG学习笔记 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BC%96%E5%86%99%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.</span> <span class="nav-text">编写模型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A8%A1%E5%9E%8B%E4%B8%8E%E8%A1%A8%E7%9A%84%E6%98%A0%E5%B0%84"><span class="nav-number">1.1.</span> <span class="nav-text">模型与表的映射</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%98%A0%E5%B0%84%E6%8E%A8%E6%96%AD"><span class="nav-number">1.1.1.</span> <span class="nav-text">映射推断</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A6%86%E7%9B%96%E6%98%A0%E5%B0%84"><span class="nav-number">1.1.2.</span> <span class="nav-text">覆盖映射</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A8%A1%E5%9E%8B%E4%B8%8E%E6%95%B0%E6%8D%AE%E5%BA%93%E5%85%B3%E8%81%94"><span class="nav-number">1.2.</span> <span class="nav-text">模型与数据库关联</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%93%E5%AD%98"><span class="nav-number">1.3.</span> <span class="nav-text">缓存</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE"><span class="nav-number">1.3.1.</span> <span class="nav-text">配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B8%85%E9%99%A4"><span class="nav-number">1.3.2.</span> <span class="nav-text">清除</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%93%E5%AD%98%E6%9A%B4%E9%9C%B2"><span class="nav-number">1.3.3.</span> <span class="nav-text">缓存暴露</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B9%90%E8%A7%82%E9%94%81"><span class="nav-number">1.3.4.</span> <span class="nav-text">乐观锁</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#setter-getter"><span class="nav-number">1.4.</span> <span class="nav-text">setter&#x2F;getter</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BB%E9%94%AE"><span class="nav-number">1.5.</span> <span class="nav-text">主键</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%8D%E5%90%88%E9%94%AE"><span class="nav-number">1.5.1.</span> <span class="nav-text">复合键</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A6%86%E7%9B%96%E4%B8%BB%E9%94%AE"><span class="nav-number">1.5.2.</span> <span class="nav-text">覆盖主键</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BB%E9%94%AE%E7%94%9F%E6%88%90%E5%99%A8"><span class="nav-number">1.5.3.</span> <span class="nav-text">主键生成器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E7%B3%BB"><span class="nav-number">1.6.</span> <span class="nav-text">关系</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E5%AF%B9%E5%A4%9A"><span class="nav-number">1.6.1.</span> <span class="nav-text">一对多</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%9A%E5%AF%B9%E5%A4%9A"><span class="nav-number">1.6.2.</span> <span class="nav-text">多对多</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%9A%E6%80%81%E5%85%B3%E8%81%94"><span class="nav-number">1.6.3.</span> <span class="nav-text">多态关联</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%A1%E7%90%86%E6%97%B6%E9%97%B4"><span class="nav-number">1.7.</span> <span class="nav-text">管理时间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%AA%8C%E8%AF%81"><span class="nav-number">1.8.</span> <span class="nav-text">验证</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%AA%8C%E8%AF%81%E6%96%B9%E6%B3%95"><span class="nav-number">1.8.1.</span> <span class="nav-text">验证方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%99%84%E5%8A%A0%E9%AA%8C%E8%AF%81"><span class="nav-number">1.8.2.</span> <span class="nav-text">附加验证</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A6%E5%8F%91%E9%AA%8C%E8%AF%81"><span class="nav-number">1.8.3.</span> <span class="nav-text">触发验证</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96%E9%AA%8C%E8%AF%81%E6%B6%88%E6%81%AF"><span class="nav-number">1.8.4.</span> <span class="nav-text">获取验证消息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%A2%E5%88%B6%E5%8C%96%E6%B6%88%E6%81%AF"><span class="nav-number">1.8.5.</span> <span class="nav-text">客制化消息</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BD%AC%E6%8D%A2%E5%99%A8"><span class="nav-number">1.9.</span> <span class="nav-text">转换器</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AE%A1%E7%90%86"><span class="nav-number">2.</span> <span class="nav-text">数据库管理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B1%9E%E6%80%A7%E6%96%87%E4%BB%B6%E9%85%8D%E7%BD%AE"><span class="nav-number">2.1.</span> <span class="nav-text">属性文件配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="nav-number">2.2.</span> <span class="nav-text">环境变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E8%A6%86%E7%9B%96"><span class="nav-number">2.3.</span> <span class="nav-text">环境变量覆盖</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E5%8F%98%E9%87%8F%E8%A6%86%E7%9B%96"><span class="nav-number">2.4.</span> <span class="nav-text">系统变量覆盖</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8C%87%E5%AE%9A-schema"><span class="nav-number">2.5.</span> <span class="nav-text">指定 schema</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A8%A1%E5%9E%8B%E5%B8%B8%E7%94%A8-API"><span class="nav-number">3.</span> <span class="nav-text">模型常用 API</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E4%BF%9D%E5%AD%98"><span class="nav-number">3.1.</span> <span class="nav-text">创建保存</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#save-vs-saveIt"><span class="nav-number">3.1.1.</span> <span class="nav-text">save() vs. saveIt()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#create-vs-createIt"><span class="nav-number">3.1.2.</span> <span class="nav-text">create() vs. createIt()</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2"><span class="nav-number">3.2.</span> <span class="nav-text">查询</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%82%E6%95%B0%E5%8C%96"><span class="nav-number">3.2.1.</span> <span class="nav-text">参数化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%84%E7%90%86%E5%A4%A7%E7%BB%93%E6%9E%9C%E9%9B%86"><span class="nav-number">3.2.2.</span> <span class="nav-text">处理大结果集</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Dump"><span class="nav-number">3.2.3.</span> <span class="nav-text">Dump</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%99%90%E5%88%B6%E5%92%8C%E6%8E%92%E5%BA%8F"><span class="nav-number">3.2.4.</span> <span class="nav-text">限制和排序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%86%E9%A1%B5"><span class="nav-number">3.2.5.</span> <span class="nav-text">分页</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BB%B6%E8%BF%9F%E5%8A%A0%E8%BD%BD"><span class="nav-number">3.2.6.</span> <span class="nav-text">延迟加载</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BA%A7%E8%81%94%E5%88%A0%E9%99%A4"><span class="nav-number">3.3.</span> <span class="nav-text">级联删除</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%B9%E5%A4%84%E7%90%86"><span class="nav-number">3.4.</span> <span class="nav-text">批处理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="nav-number">3.5.</span> <span class="nav-text">生命周期</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B3%A8%E5%86%8C%E5%A4%96%E9%83%A8%E7%9B%91%E5%90%AC"><span class="nav-number">3.5.1.</span> <span class="nav-text">注册外部监听</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%87%8D%E5%86%99-Model-%E5%9B%9E%E8%B0%83"><span class="nav-number">3.5.2.</span> <span class="nav-text">重写 Model 回调</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8B%E5%8A%A1%E7%AE%A1%E7%90%86"><span class="nav-number">3.6.</span> <span class="nav-text">事务管理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BD%AC%E6%8D%A2%E6%88%90%E5%85%B6%E4%BB%96%E6%96%87%E6%9C%AC%E6%A0%BC%E5%BC%8F"><span class="nav-number">3.7.</span> <span class="nav-text">转换成其他文本格式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#XML"><span class="nav-number">3.7.1.</span> <span class="nav-text">XML</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JSON"><span class="nav-number">3.7.2.</span> <span class="nav-text">JSON</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Eric Zong</p>
+  <div class="site-description" itemprop="description">这里有作为一个程序员想记录的一切。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">96</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Eric Zong</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

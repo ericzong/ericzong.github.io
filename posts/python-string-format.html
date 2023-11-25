@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"ericzonglu.gitee.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="介绍Python中字符串格式化的4种方法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python专题：字符串格式化">
+<meta property="og:url" content="http://ericzonglu.gitee.io/posts/python-string-format.html">
+<meta property="og:site_name" content="八白龙的博客">
+<meta property="og:description" content="介绍Python中字符串格式化的4种方法">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-08-10T15:00:00.000Z">
+<meta property="article:modified_time" content="2023-11-25T16:59:59.046Z">
+<meta property="article:author" content="Eric Zong">
+<meta property="article:tag" content="Python专题">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://ericzonglu.gitee.io/posts/python-string-format.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Python专题：字符串格式化 | 八白龙的博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">八白龙的博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">程序员的杂货铺</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-references">
+
+    <a href="/references/" rel="section"><i class="bookmark fa-fw"></i>参考</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://ericzonglu.gitee.io/posts/python-string-format.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Eric Zong">
+      <meta itemprop="description" content="这里有作为一个程序员想记录的一切。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="八白龙的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Python专题：字符串格式化
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-08-10 23:00:00" itemprop="dateCreated datePublished" datetime="2022-08-10T23:00:00+08:00">2022-08-10</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-11-26 00:59:59" itemprop="dateModified" datetime="2023-11-26T00:59:59+08:00">2023-11-26</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>Python 有多种字符串格式化方法，主要包括：</p>
+<ul>
+<li>字符串格式设置运算符（%）</li>
+<li>模板字符串（Template）</li>
+<li><code>str.format()</code> 方法</li>
+<li>f-string</li>
+</ul>
+<h1 id="formatting"><a href="#formatting" class="headerlink" title="%-formatting"></a>%-formatting</h1><p>% 称为“字符串格式设置运算符”。</p>
+<p>% 运算符行为类似于 C 语言的 <code>printf</code> 函数（Java 中同样保留了该函数）。</p>
+<blockquote>
+<p>在 Python 3.6 之后，官方推荐使用 f-string 或 str.format() 来代替 % 格式化。</p>
+</blockquote>
+<ul>
+<li>左侧操作数，是一个“<strong>格式字符串</strong>”，指定目标字符串的格式。</li>
+<li>右侧操作数，为格式字符串提示填充值。它可以是单值（如：字符串、数字等）、元组、字典。</li>
+</ul>
+<p><strong>格式字符串</strong>的完整定义形式是：<code>%[( name )][ flags ][ width ].[ precision ] typecode</code>。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>必需？</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>name</td>
+<td>可选</td>
+<td>数据值以字典类型提供时，指定字典的 key</td>
+</tr>
+<tr>
+<td>flags</td>
+<td>可选</td>
+<td>见附录 flags 说明</td>
+</tr>
+<tr>
+<td>width</td>
+<td>可选</td>
+<td>目标字符串占用宽度</td>
+</tr>
+<tr>
+<td>precision</td>
+<td>可选</td>
+<td>数值型数据保留的小数位数</td>
+</tr>
+<tr>
+<td>typecode</td>
+<td>必需</td>
+<td>数据值类型</td>
+</tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<p>【特殊说明】</p>
+<p><strong>1 flags</strong></p>
+<p>默认行为是：右对齐、正数不显示符号、用空格填充“空位”、八/十六进制不显示进制前缀。</p>
+<p><strong>2 precision</strong></p>
+<p><strong>2.1 整数精度</strong></p>
+<p>精度作用于整数时，控制整数位数，不够补 0。（见【示例1-4】）<br>并且精度补的 0，不会被指定的空格前缀替换。（见【示例1-5】）</p>
+<p><strong>2.2 浮点数精度</strong></p>
+<p>对于浮点数而言，当不指定精度时，是否省略 <code>.</code> 的行为并不相同。<br>不省略时，相当于指定精度为 0。（见【示例1-6】）<br>省略时，相当于指定最高精度 6。（见【示例1-7】）</p>
+<p><strong>3 转义 %</strong></p>
+<p><code>%</code> 字符是<strong>转换说明符</strong>的前缀，要原样输出，需要连写两次， 即 <code>%%</code>。</p>
+<p><strong>4 限制</strong></p>
+<p>只支持 int/str/double 类型的格式化。</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 示例1-1：单值，字符串</span></span><br><span class="line"><span class="built_in">format</span> = <span class="string">&quot;Hello, %s.&quot;</span></span><br><span class="line"><span class="built_in">format</span> % <span class="string">&quot;world&quot;</span></span><br><span class="line"><span class="comment"># 结果：&#x27;Hello, world.&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 示例1-2：数字/元组</span></span><br><span class="line"><span class="built_in">format</span> = <span class="string">&quot;Hi, %s %d...&quot;</span></span><br><span class="line"><span class="built_in">format</span> % (<span class="string">&quot;EZ&quot;</span>, <span class="number">666</span>)</span><br><span class="line"><span class="comment"># 结果：&#x27;Hi, EZ 666...&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 示例1-3：字典</span></span><br><span class="line"><span class="built_in">format</span> = <span class="string">&#x27;%(who)s is %(age)d&#x27;</span></span><br><span class="line">values = &#123;<span class="string">&#x27;who&#x27;</span>: <span class="string">&#x27;EZ&#x27;</span>, <span class="string">&#x27;age&#x27;</span>: <span class="number">18</span>&#125;</span><br><span class="line"><span class="built_in">format</span> % values</span><br><span class="line"><span class="comment"># 结果：&#x27;EZ is 18&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 示例1-4：整数精度，补 0</span></span><br><span class="line"><span class="string">&#x27;%.4d&#x27;</span> % <span class="number">12</span></span><br><span class="line"><span class="comment"># 结果：&#x27;0012&#x27;</span></span><br><span class="line"><span class="comment"># 等价于 &#x27;%04d&#x27; % 12</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 示例1-5：整数精度，空格前缀不会替换精度补的 0。</span></span><br><span class="line"><span class="comment"># 注意，宽度 10 前有空格。</span></span><br><span class="line"><span class="string">&#x27;% 10.4d&#x27;</span> % <span class="number">12</span></span><br><span class="line"><span class="comment"># 结果：&#x27; 0012&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 示例1-6：浮点精度，不省略 .</span></span><br><span class="line"><span class="string">&#x27;%.f&#x27;</span> % <span class="number">1.23456789</span></span><br><span class="line"><span class="comment"># 结果：&#x27;1&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 示例1-7：浮点精度，省略 .</span></span><br><span class="line"><span class="string">&#x27;%f&#x27;</span> % <span class="number">1.23456789</span></span><br><span class="line"><span class="comment"># 结果：&#x27;1.234568&#x27;</span></span><br></pre></td></tr></table></figure>
+<h1 id="str-format"><a href="#str-format" class="headerlink" title="str.format()"></a>str.format()</h1><p><code>str.format()</code> 与 <code>Formateter</code> 类共享相同格式字符串语法，与下文的 f-string 相似，但更简单，关键是不支持任意表达式。</p>
+<p>格式化字符串包含的关键部分就是以花括号括起来的<strong>替换字段</strong>（replacement field），语法形式如下：</p>
+<p><code>&quot;&#123;&quot; [field_name] [&quot;!&quot; conversion] [&quot;:&quot; format_spec] &quot;&#125;&quot;</code></p>
+<p>主要包括 3 部分：</p>
+<ul>
+<li>字段名（field name）</li>
+<li>转换标志（conversion）</li>
+<li>格式规格（format spec）</li>
+</ul>
+<p><strong>字段名</strong></p>
+<p>字段名不仅仅是个名称，可以是：</p>
+<ul>
+<li>索引序号</li>
+<li>关键字参数 Key</li>
+<li>属性访问/方法调用</li>
+<li>列表元素访问</li>
+</ul>
+<p>字段名的值源自 <code>format()</code> 方法传入参数，传入参数可分为<strong>位置参数</strong>和<strong>关键字参数</strong>，分别对应<strong>未命名字段</strong>和<strong>命名字段</strong>。</p>
+<p>如果均传入位置参数，则<strong>未命名字段</strong>内容为参数传入的位置索引。由于格式字符串编号是显式指定的，也称“<strong>手动编号</strong>”。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;&#123;0&#125; &#123;1&#125; &#123;2&#125; &#123;3&#125; &#123;0&#125; &#123;1&#125;&quot;</span>.<span class="built_in">format</span>(<span class="string">&quot;to&quot;</span>, <span class="string">&quot;be&quot;</span>, <span class="string">&quot;or&quot;</span>, <span class="string">&quot;not&quot;</span>)</span><br><span class="line"><span class="comment"># &#x27;to be or not to be&#x27;</span></span><br></pre></td></tr></table></figure>
+<p>特殊地，如果未命名字段是按索引序使用的，则可以省略。没有显式指定编号，也称“<strong>自动编号</strong>”。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;&#123;&#125;, &#123;&#125;!&quot;</span>.<span class="built_in">format</span>(<span class="string">&quot;Hello&quot;</span>, <span class="string">&quot;world&quot;</span>)</span><br><span class="line"><span class="comment"># &#x27;Hello, world!&#x27;</span></span><br></pre></td></tr></table></figure>
+<p>如果以关键字参数传入，则<strong>命名字段</strong>内容为关键字参数的 Key。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;&#123;hi&#125;, &#123;who&#125;!&quot;</span>.<span class="built_in">format</span>(hi=<span class="string">&quot;hello&quot;</span>, who=<span class="string">&quot;world&quot;</span>)</span><br><span class="line"><span class="comment"># &#x27;hello, world!&#x27;</span></span><br></pre></td></tr></table></figure>
+<p>未命名字段与命名字段是可以混用的，但是作为未命名字段不能混用自动编号与手动编号——换句话说，只能全部使用自动编号或手动编号。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 自动编号字段与关键字字段共用</span></span><br><span class="line"><span class="string">&quot;&#123;foo&#125; &#123;&#125; &#123;bar&#125; &#123;&#125;&quot;</span>.<span class="built_in">format</span>(<span class="number">2</span>, <span class="number">4</span>, bar=<span class="number">3</span>, foo=<span class="number">1</span>)</span><br><span class="line"><span class="comment"># 手动编号字段与关键字字段共用</span></span><br><span class="line"><span class="string">&quot;&#123;foo&#125; &#123;1&#125; &#123;bar&#125; &#123;0&#125;&quot;</span>.<span class="built_in">format</span>(<span class="number">4</span>, <span class="number">2</span>, bar=<span class="number">3</span>, foo=<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+<p><strong>转换标志</strong></p>
+<p>转换标志，用于在格式化前将值转换为一个字符串。共有三种，<code>!s</code>、<code>!r</code>、<code>!a</code> 分别调用 <code>str()</code>、<code>repr()</code>、<code>ascii()</code> 转换。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;&#123;pi!s&#125; &#123;pi!r&#125; &#123;pi!a&#125;&quot;</span>.<span class="built_in">format</span>(pi=<span class="string">&quot;π&quot;</span>)</span><br><span class="line">结果：<span class="string">&quot;π &#x27;π&#x27; &#x27;\\u03c0&#x27;&quot;</span></span><br></pre></td></tr></table></figure>
+<p><strong>格式规格</strong></p>
+<p>描述值的字段宽度、对齐方式、填充符号、小数精度等呈现细节。它由一种“格式规格迷你语言”编写。其语法形式为：</p>
+<p><code>[[fill]align][sign][#][0][width][grouping_option][.precision][type]</code></p>
+<p>一共分为八个部分：</p>
+<ul>
+<li><code>fill</code>：填充字符，任意字符。默认为空格。需要后跟<strong>有效</strong>的 <code>align</code>。</li>
+<li><p><code>align</code>：对齐方式。候选值包括：<code>&lt;</code> <code>&gt;</code> <code>=</code> <code>^</code>。（详见“附录”）</p>
+</li>
+<li><p><code>sign</code>：符号位。候选值包括：<code>+</code> <code>-</code> “ “（空格）。（详见“附录”）</p>
+</li>
+<li><code>#</code>：<strong>替代形式</strong>转换。仅适用于数值型（整数、浮点数、复数），不同类型。（详见“附录”）</li>
+<li><code>0</code>：<code>0</code> 填充。即 <code>fill</code> 和 <code>align</code> 未指定时，将在符号与数字点填充 <code>0</code>。等价于 <code>fill</code> 为 0、<code>align</code> 为 <code>=</code>。</li>
+<li><code>width</code>：最小字段宽度。</li>
+<li><code>grouping_option</code>：分组分隔符。候选值包括：<code>_</code> <code>,</code>。（详见“附录”）</li>
+<li><code>precision</code>：精度。</li>
+<li><code>type</code>：数据类型。</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 格式说明符</span></span><br><span class="line"><span class="keyword">from</span> math <span class="keyword">import</span> pi</span><br><span class="line"><span class="string">&quot;π = &#123;name:*^+#020_.2f&#125;&quot;</span>.<span class="built_in">format</span>(name=pi)</span><br><span class="line"><span class="comment"># 结果：&#x27;π = *******+3.14********&#x27;</span></span><br></pre></td></tr></table></figure>
+<h1 id="f-string"><a href="#f-string" class="headerlink" title="f-string"></a>f-string</h1><p>f-string 是 Python 3.6 新引入的<strong>字符串字面值</strong>，是一种<strong>格式化字符串字面值</strong>，PEP 术语也称为“<strong>字符串插值</strong>”（Literal String Interpolation）。</p>
+<p>它以 f 或 F 为前缀——代表“formatted string”——需运行时计算的表达式置于一对花括号中。形式如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">f <span class="string">&#x27; &lt;text&gt; &#123; &lt;expression&gt; &lt;optional !s, !r, or !a&gt; &lt;optional : format specifier&gt; &#125; &lt;text&gt; ... &#x27;</span></span><br></pre></td></tr></table></figure>
+<p>由于不存在显式传入参数，所以表达式不可能使用位置索引，只能使用当前作用域中的变量——f 字符串原理上就是转换为 <code>format()</code>，因此理论上两者的格式字符串大部分是互通的——即使如此，f-string 的语法也比 <code>format()</code> 的格式字符串语法复杂。</p>
+<blockquote>
+<p>【特殊说明】</p>
+<p><strong>1 转义花括号</strong></p>
+<p>由于花括号是定界符，所以需要转义——使用双花括号 <code>&#123;&#123;</code>  或  <code>&#125;&#125;</code>。</p>
+<p><strong>2 格式表达式不允许的字符</strong></p>
+<p><code>#</code> 及 <code>\</code> 会导致 SyntaxError。要使用包含这些字符的值，可以创建临时变量来存储。如：<code>newline = &#39;\n&#39;</code> 则可用 <code>f&#39;newline: &#123;ord(newline)&#125;&#39;</code>。</p>
+<p><strong>3 不能用作文档字符串</strong></p>
+<p>即使不包含表达式 f 字符串也不能用作文档字符串。</p>
+<p><strong>4 调试模式</strong></p>
+<p>表达式后加等号，会输出表达式文本、<code>=</code>、求值结果，这通常用于调试打印内容。（见【示例4-3】）</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 示例4-1：</span></span><br><span class="line">name = <span class="string">&quot;EZ&quot;</span></span><br><span class="line"><span class="string">f&quot;My name is <span class="subst">&#123;name!r&#125;</span>.&quot;</span></span><br><span class="line"><span class="string">f&quot;My name is <span class="subst">&#123;<span class="built_in">repr</span>(name)&#125;</span>.&quot;</span>  <span class="comment"># repr() &lt;=&gt; !r</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 示例4-2：数字格式化</span></span><br><span class="line"><span class="keyword">import</span> decimal</span><br><span class="line">price = decimal.Decimal(<span class="string">&#x27;42.123456&#x27;</span>)</span><br><span class="line">width = <span class="number">6</span></span><br><span class="line">precision = <span class="number">4</span></span><br><span class="line"><span class="string">f&quot;result: <span class="subst">&#123;price:&#123;width&#125;</span>.<span class="subst">&#123;precision&#125;</span>&#125;&quot;</span>  <span class="comment"># 嵌套字段</span></span><br><span class="line"><span class="comment"># 结果：&#x27;result:  42.12&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 示例4-3:日期格式化</span></span><br><span class="line"><span class="keyword">from</span> datetime <span class="keyword">import</span> datetime</span><br><span class="line">today = datetime(year=<span class="number">2022</span>, month=<span class="number">8</span>, day=<span class="number">12</span>)</span><br><span class="line"><span class="string">f&quot;<span class="subst">&#123;today:%B %d, %Y&#125;</span>&quot;</span></span><br><span class="line"><span class="comment"># 结果：&#x27;August 12, 2022&#x27;</span></span><br><span class="line"><span class="string">f&quot;<span class="subst">&#123;today=:%B %d, %Y&#125;</span>&quot;</span>  <span class="comment"># debug</span></span><br><span class="line"><span class="comment"># 结果：&#x27;today=August 12, 2022&#x27;</span></span><br></pre></td></tr></table></figure>
+<h1 id="模板字符串"><a href="#模板字符串" class="headerlink" title="模板字符串"></a>模板字符串</h1><p>模板字符串使用类 UNIX shell 语法。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> string <span class="keyword">import</span> Template</span><br><span class="line">tmpl = Template(<span class="string">&quot;Hello, $who!&quot;</span>)</span><br><span class="line">tmpl.substitute(who=<span class="string">&quot;World&quot;</span>)</span><br><span class="line"><span class="comment"># &#x27;Hello, World!&#x27;</span></span><br></pre></td></tr></table></figure>
+<p>模板字符串旨在简化基本的格式设置机制，因此，它的用法相对而言更简单。（详见“<a target="_blank" rel="noopener" href="https://docs.python.org/zh-cn/3/library/string.html?highlight=template#template-strings-1">模板字符串</a>”章节）</p>
+<p>模板字符串支持基于 <code>$</code> 的替换，<strong>替换占位符</strong>格式为 <code>$identifier</code>——因此命名应符合标识符规则——注意，不区分大小写。</p>
+<blockquote>
+<p>【特殊说明】</p>
+<p><strong>1 另一种形式</strong></p>
+<p>默认情况下， 替换占位符会从 <code>$</code> 一直延续到第一个非标识符字符终结。因此如果其后紧跟合法标识符字符，则需要使用 <code>$&#123;identifier&#125;</code> 形式。</p>
+<p><strong>2 转义 <code>$</code></strong></p>
+<p><code>$</code> 是替换占位符的前缀，要原样输出。应使用 <code>$$</code> 转义。</p>
+<p><strong>3 限制</strong></p>
+<p>无法控制指定对象到字符串的转化。</p>
+</blockquote>
+<p><code>Template</code> 类提供了两个方法将模板字符串替换为目标字符串：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">substitute(mapping=&#123;&#125;, /, **kwds)</span><br><span class="line">safe_substitute(mapping=&#123;&#125;, /, **kwds)</span><br></pre></td></tr></table></figure>
+<p>可以使用字典或一组关键字参数传入“替换键值对”，如果同时使用，则以关键字参数组优先。</p>
+<blockquote>
+<p><strong>substitute vs. safe_substitute</strong></p>
+<p>当存在未传入的替换占位符时，<code>substitute</code> 方法会抛出 <code>KeyError</code>；非法位置出现 <code>$</code>，<code>substitute</code> 方法会抛出 <code>ValueError</code>，而 <code>safe_substitute</code> 方法静默地原样输出。</p>
+<p>【扩展说明】 </p>
+<p>如果你熟悉 PowerShell 的相关语法，模板字符串将很容易理解。</p>
+</blockquote>
+<h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h1><p>从代码角度来说，除 f-string 外三个方法的一个缺点是：插入的值来源于“下文”而非“上文”。换句话说，当读到<strong>格式字符串</strong>时，我们并不能马上知道格式化后的字符串到底是什么内容，还需要继续阅读代码。f-string 则没有这个问题，其插值在模板出现之前就已经给出了。另外，f-string 速度更快。</p>
+<ul>
+<li><p>% 格式字符串语法</p>
+<p><code>%[( name )][ flags ][ width ].[ precision ] typecode</code></p>
+</li>
+<li><p>format() 替换字段语法</p>
+<p><code>&quot;&#123;&quot; [field_name] [&quot;!&quot; conversion] [&quot;:&quot; format_spec] &quot;&#125;&quot;</code></p>
+</li>
+<li><p>format() 格式规格语法</p>
+<p><code>[[fill]align][sign][#][0][width][grouping_option][.precision][type]</code></p>
+</li>
+<li><p>f-string 语法</p>
+<p><code>f &#39; &lt;text&gt; &#123; &lt;expression&gt; &lt;optional !s, !r, or !a&gt; &lt;optional : format specifier&gt; &#125; &lt;text&gt; ... &#39;</code></p>
+</li>
+</ul>
+<h1 id="扩展示例"><a href="#扩展示例" class="headerlink" title="扩展示例"></a>扩展示例</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 示例1：% 防御性编程</span></span><br><span class="line">msg = (<span class="string">&#x27;World&#x27;</span>, <span class="number">42</span>)</span><br><span class="line"><span class="string">&#x27;Hello, %s&#x27;</span> % msg</span><br><span class="line"><span class="comment"># 执行异常，错误信息如下：</span></span><br><span class="line"><span class="comment"># TypeError: not all arguments converted during string formatting</span></span><br><span class="line"><span class="comment"># 为防止参数类型错误，可以如下编写代码</span></span><br><span class="line"><span class="comment"># 注意参数的类型转换，这里元组参数会先字符串化</span></span><br><span class="line"><span class="string">&#x27;Hello, %s&#x27;</span> % (msg, )</span><br><span class="line"><span class="comment"># 结果：&#x27;Hello, (&#x27;World&#x27;, 42)&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 示例2:str.format 表达式与 f-string 的区别</span></span><br><span class="line">d = &#123;<span class="string">&#x27;a&#x27;</span>: <span class="number">10</span>, <span class="string">&#x27;b&#x27;</span>: <span class="number">20</span>&#125;</span><br><span class="line"><span class="string">&#x27;a=&#123;d[a]&#125;&#x27;</span>.<span class="built_in">format</span>(d=d)  <span class="comment"># 字典 key 不要引号</span></span><br><span class="line"><span class="string">f&#x27;a=<span class="subst">&#123;d[<span class="string">&quot;a&quot;</span>]&#125;</span>&#x27;</span>  <span class="comment"># 字典 key 需要引号</span></span><br><span class="line"><span class="comment"># 结果：&#x27;a=10&#x27;</span></span><br><span class="line">a = <span class="string">&#x27;b&#x27;</span></span><br><span class="line"><span class="string">f&#x27;a=<span class="subst">&#123;d[a]&#125;</span>&#x27;</span></span><br><span class="line"><span class="comment"># 结果：&#x27;a=20&#x27;</span></span><br><span class="line"><span class="comment"># key 不必是合法的 Python 表达式</span></span><br><span class="line"><span class="string">&#x27;&#123;i[+-*/]&#125;&#x27;</span>.<span class="built_in">format</span>(i=&#123;<span class="string">&#x27;+-*/&#x27;</span>:<span class="number">42</span>&#125;)</span><br><span class="line"><span class="comment"># 结果：&#x27;42&#x27;</span></span><br></pre></td></tr></table></figure>
+<h1 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h1><h2 id="运算符"><a href="#运算符" class="headerlink" title="% 运算符"></a><code>%</code> 运算符</h2><h3 id="flags-符号"><a href="#flags-符号" class="headerlink" title="flags 符号"></a>flags 符号</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>符号</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-</code></td>
+<td>左对齐</td>
+</tr>
+<tr>
+<td><code>+</code></td>
+<td>正数前缀显示加号（<code>+</code>）</td>
+</tr>
+<tr>
+<td>空格</td>
+<td>正数前缀显示空格（代表符号位）</td>
+</tr>
+<tr>
+<td><code>#</code></td>
+<td>八进制前缀显示 <code>0o</code><br />十六进制前缀显示 <code>0x</code>/<code>0X</code></td>
+</tr>
+<tr>
+<td><code>0</code></td>
+<td>右对齐时，“空位”填充 <code>0</code>（而非空格，左对齐无效果）</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="typecode-符号"><a href="#typecode-符号" class="headerlink" title="typecode 符号"></a>typecode 符号</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>符号</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>s</code></td>
+<td>字符串</td>
+</tr>
+<tr>
+<td><code>d</code></td>
+<td>整数</td>
+</tr>
+<tr>
+<td><code>f</code></td>
+<td>浮点数（可指定小数位数）</td>
+</tr>
+<tr>
+<td><code>e</code></td>
+<td>浮点数科学计数法</td>
+</tr>
+<tr>
+<td><code>E</code></td>
+<td>作用同 %e（大写 E）</td>
+</tr>
+<tr>
+<td><code>g</code></td>
+<td>%f 和 %e 的简写</td>
+</tr>
+<tr>
+<td><code>G</code></td>
+<td>%f 和 %E 的简写</td>
+</tr>
+<tr>
+<td><code>u</code></td>
+<td>无符号整型</td>
+</tr>
+<tr>
+<td><code>c</code></td>
+<td>字符及其 ASCII 码</td>
+</tr>
+<tr>
+<td><code>o</code></td>
+<td>无符号八进制数</td>
+</tr>
+<tr>
+<td><code>x</code></td>
+<td>无符号十六进制数</td>
+</tr>
+<tr>
+<td><code>X</code></td>
+<td>无符号十六进制数（大写 X）</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="转换标志"><a href="#转换标志" class="headerlink" title="转换标志"></a>转换标志</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>转换符</th>
+<th>调用方法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>!s</code></td>
+<td><code>str()</code></td>
+</tr>
+<tr>
+<td><code>!r</code></td>
+<td><code>repr()</code></td>
+</tr>
+<tr>
+<td><code>!a</code></td>
+<td><code>ascii()</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>注：f-string 和 <code>str.format()</code> 都支持。</p>
+<h2 id="格式规格迷你语言"><a href="#格式规格迷你语言" class="headerlink" title="格式规格迷你语言"></a>格式规格迷你语言</h2><h3 id="对齐选项（align）"><a href="#对齐选项（align）" class="headerlink" title="对齐选项（align）"></a>对齐选项（align）</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>含意</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&lt;</code></td>
+<td>左对齐（大多数对象的默认值）</td>
+</tr>
+<tr>
+<td><code>&gt;</code></td>
+<td>右对齐（数字的默认值）</td>
+</tr>
+<tr>
+<td><code>=</code></td>
+<td>在符号与数字间填充（<code>0</code> 在字段宽度前的默认值）</td>
+</tr>
+<tr>
+<td><code>^</code></td>
+<td>居中对齐</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>注：只有最小字段宽度大于字段宽度时，填充与对齐才有意义。</p>
+<h3 id="符号位（sign）"><a href="#符号位（sign）" class="headerlink" title="符号位（sign）"></a>符号位（sign）</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>含意</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>+</code></td>
+<td>正数显示前缀 <code>+</code>，负数显示前缀 <code>-</code></td>
+</tr>
+<tr>
+<td><code>-</code></td>
+<td>仅负数显示前缀 <code>-</code>（默认行为）</td>
+</tr>
+<tr>
+<td><code>space</code></td>
+<td>正数显示前缀空格，负数显示前缀 <code>-</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>注：仅对数字类型有效。</p>
+<h3 id="替代形式（-）"><a href="#替代形式（-）" class="headerlink" title="替代形式（#）"></a>替代形式（#）</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>含意</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>二进制整数</td>
+<td>添加前缀 <code>0b</code></td>
+</tr>
+<tr>
+<td>八进制整数</td>
+<td>添加前缀 <code>0o</code></td>
+</tr>
+<tr>
+<td>十六进制整数</td>
+<td>添加前缀 <code>0x</code> 或 <code>0X</code></td>
+</tr>
+<tr>
+<td>浮点/复数</td>
+<td>总包含小数点</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="分隔符（grouping-option）"><a href="#分隔符（grouping-option）" class="headerlink" title="分隔符（grouping option）"></a>分隔符（grouping option）</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>适用类型</th>
+<th>版本</th>
+<th>含意</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>,</code></td>
+<td>十进制整数、浮点数、复数</td>
+<td>3.1+</td>
+<td>千位分隔符。需要随区域改变，类型应使用 <code>n</code>。</td>
+</tr>
+<tr>
+<td><code>_</code></td>
+<td>十进制整数、浮点数，二进制、八进制、十六进制整数</td>
+<td>3.6+</td>
+<td>十进制整数、浮点数时用作千位分隔符，二进制、八进制、十六进制整数时每四位插入一个分隔符。</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="精度（precision）"><a href="#精度（precision）" class="headerlink" title="精度（precision）"></a>精度（precision）</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>作用类型</th>
+<th>含意</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>f</code> <code>F</code></td>
+<td>小数点后显示的数位</td>
+</tr>
+<tr>
+<td><code>g</code> <code>G</code></td>
+<td>小数点前后总共显示的数位</td>
+</tr>
+<tr>
+<td><code>s</code></td>
+<td>最大字段宽度</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="类型符号"><a href="#类型符号" class="headerlink" title="类型符号"></a>类型符号</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>符号</th>
+<th>值类型</th>
+<th>含意</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>s</code></td>
+<td>字符串</td>
+<td>字符串，字符串默认</td>
+</tr>
+<tr>
+<td><code>b</code></td>
+<td>整数</td>
+<td>二进制整数</td>
+</tr>
+<tr>
+<td><code>c</code></td>
+<td>整数</td>
+<td>字符，整数将转换为 unicode 字符</td>
+</tr>
+<tr>
+<td><code>d</code></td>
+<td>整数</td>
+<td>十进制整数</td>
+</tr>
+<tr>
+<td><code>o</code></td>
+<td>整数</td>
+<td>八进制整数</td>
+</tr>
+<tr>
+<td><code>x</code></td>
+<td>整数</td>
+<td>十六进制整数</td>
+</tr>
+<tr>
+<td><code>X</code></td>
+<td>整数</td>
+<td>十六进制整数，前缀大写 x，字母数码大写</td>
+</tr>
+<tr>
+<td><code>n</code></td>
+<td>integer/float/Decimal</td>
+<td>同 <code>d</code> / <code>g</code>，分隔字符随当前区域不同</td>
+</tr>
+<tr>
+<td><code>e</code></td>
+<td>float/Decimal</td>
+<td>科学计数法</td>
+</tr>
+<tr>
+<td><code>E</code></td>
+<td>float/Decimal</td>
+<td>类似 <code>e</code>，大写 E 分隔字符</td>
+</tr>
+<tr>
+<td><code>f</code></td>
+<td>float/Decimal</td>
+<td>定点表示法</td>
+</tr>
+<tr>
+<td><code>F</code></td>
+<td>float/Decimal</td>
+<td>类似 <code>f</code>，<code>nan</code> =&gt; <code>NAN</code>，<code>inf</code> =&gt; <code>INF</code></td>
+</tr>
+<tr>
+<td><code>g</code></td>
+<td>float/Decimal</td>
+<td>常规格式</td>
+</tr>
+<tr>
+<td><code>G</code></td>
+<td>float/Decimal</td>
+<td>类似 <code>g</code>，<code>e</code> 分隔字符、<code>nan</code>、<code>inf</code> 等大写</td>
+</tr>
+<tr>
+<td><code>%</code></td>
+<td>float/Decimal</td>
+<td>百分比，数值乘以 100 按 <code>f</code> 格式显示并加百分号</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="https://docs.python.org/zh-cn/3.10/library/functions.html#format">Python doc - 内置函数 format</a></p>
+<p><a target="_blank" rel="noopener" href="https://docs.python.org/zh-cn/3.10/library/string.html">Python doc - 常见字符串操作</a>：格式字符串语法、模板字符串等说明。</p>
+<p><a target="_blank" rel="noopener" href="https://docs.python.org/zh-cn/3.10/reference/lexical_analysis.html#formatted-string-literals">Python doc - 格式字符串字面值</a>：提供了 f 字符串的语法定义。</p>
+<p><a target="_blank" rel="noopener" href="https://peps.python.org/pep-0498/">PEP 498 – Literal String Interpolation</a>：f 字符串提案。讨论部分介绍了 f-string 与 str.format 表达式的区别、表达式中的 lambda等问题。</p>
+<p><a target="_blank" rel="noopener" href="https://docs.python.org/zh-cn/3/library/datetime.html#strftime-and-strptime-behavior">Python doc - datetime</a>：提供了日期时间格式化代码。</p>
+<h1 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h1><p>本来只是想归纳下字符串格式化的各种方法，一一列举后发现常用的也就只有 4 种，便满心欢喜的以为只需要写一篇短文就可以搞定了。</p>
+<p>以为自己大部分知识点都已清楚了，但是，稍一深入就感觉有点不对了，没想到盲点还不少。在 flomo 回顾笔记的时候才发现，这就是被称为“<strong>解释性深度错觉</strong>”的心理偏误——人们以为自己知道的往往是不知道的。正应了那句话：要想知道自己有多无知，就选一个话题一直说下去。</p>
+<p>因此，也深深体会到写技术文章的好处，它可以让你知道什么东西自己不知道，而借此正好去知道。</p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Eric Zong
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://ericzonglu.gitee.io/posts/python-string-format.html" title="Python专题：字符串格式化">http://ericzonglu.gitee.io/posts/python-string-format.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Python%E4%B8%93%E9%A2%98/" rel="tag"># Python专题</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/java-topic-code-style-value-init.html" rel="prev" title="【Java小记】Java中带默认值的属性初始化写法的对比">
+      <i class="fa fa-chevron-left"></i> 【Java小记】Java中带默认值的属性初始化写法的对比
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/posts/test-selenium-capture.html" rel="next" title="Selenium专题：截图">
+      Selenium专题：截图 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#formatting"><span class="nav-number">1.</span> <span class="nav-text">%-formatting</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#str-format"><span class="nav-number">2.</span> <span class="nav-text">str.format()</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#f-string"><span class="nav-number">3.</span> <span class="nav-text">f-string</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A8%A1%E6%9D%BF%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="nav-number">4.</span> <span class="nav-text">模板字符串</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B0%8F%E7%BB%93"><span class="nav-number">5.</span> <span class="nav-text">小结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%89%A9%E5%B1%95%E7%A4%BA%E4%BE%8B"><span class="nav-number">6.</span> <span class="nav-text">扩展示例</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%99%84%E5%BD%95"><span class="nav-number">7.</span> <span class="nav-text">附录</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">7.1.</span> <span class="nav-text">% 运算符</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#flags-%E7%AC%A6%E5%8F%B7"><span class="nav-number">7.1.1.</span> <span class="nav-text">flags 符号</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#typecode-%E7%AC%A6%E5%8F%B7"><span class="nav-number">7.1.2.</span> <span class="nav-text">typecode 符号</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BD%AC%E6%8D%A2%E6%A0%87%E5%BF%97"><span class="nav-number">7.2.</span> <span class="nav-text">转换标志</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%BC%E5%BC%8F%E8%A7%84%E6%A0%BC%E8%BF%B7%E4%BD%A0%E8%AF%AD%E8%A8%80"><span class="nav-number">7.3.</span> <span class="nav-text">格式规格迷你语言</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%B9%E9%BD%90%E9%80%89%E9%A1%B9%EF%BC%88align%EF%BC%89"><span class="nav-number">7.3.1.</span> <span class="nav-text">对齐选项（align）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%A6%E5%8F%B7%E4%BD%8D%EF%BC%88sign%EF%BC%89"><span class="nav-number">7.3.2.</span> <span class="nav-text">符号位（sign）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9B%BF%E4%BB%A3%E5%BD%A2%E5%BC%8F%EF%BC%88-%EF%BC%89"><span class="nav-number">7.3.3.</span> <span class="nav-text">替代形式（#）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%86%E9%9A%94%E7%AC%A6%EF%BC%88grouping-option%EF%BC%89"><span class="nav-number">7.3.4.</span> <span class="nav-text">分隔符（grouping option）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B2%BE%E5%BA%A6%EF%BC%88precision%EF%BC%89"><span class="nav-number">7.3.5.</span> <span class="nav-text">精度（precision）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B1%BB%E5%9E%8B%E7%AC%A6%E5%8F%B7"><span class="nav-number">7.3.6.</span> <span class="nav-text">类型符号</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-number">7.4.</span> <span class="nav-text">参考</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%90%8E%E8%AE%B0"><span class="nav-number">8.</span> <span class="nav-text">后记</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Eric Zong</p>
+  <div class="site-description" itemprop="description">这里有作为一个程序员想记录的一切。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">96</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Eric Zong</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

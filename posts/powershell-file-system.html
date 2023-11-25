@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"ericzonglu.gitee.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="PowerShell入门教程，介绍文件相关操作。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PowerShell入门：文件系统操作">
+<meta property="og:url" content="http://ericzonglu.gitee.io/posts/powershell-file-system.html">
+<meta property="og:site_name" content="八白龙的博客">
+<meta property="og:description" content="PowerShell入门教程，介绍文件相关操作。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-05-19T16:00:00.000Z">
+<meta property="article:modified_time" content="2020-10-04T14:09:31.063Z">
+<meta property="article:author" content="Eric Zong">
+<meta property="article:tag" content="入门教程">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://ericzonglu.gitee.io/posts/powershell-file-system.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>PowerShell入门：文件系统操作 | 八白龙的博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">八白龙的博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">程序员的杂货铺</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-references">
+
+    <a href="/references/" rel="section"><i class="bookmark fa-fw"></i>参考</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://ericzonglu.gitee.io/posts/powershell-file-system.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Eric Zong">
+      <meta itemprop="description" content="这里有作为一个程序员想记录的一切。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="八白龙的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          PowerShell入门：文件系统操作
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-05-20 00:00:00" itemprop="dateCreated datePublished" datetime="2019-05-20T00:00:00+08:00">2019-05-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-10-04 22:09:31" itemprop="dateModified" datetime="2020-10-04T22:09:31+08:00">2020-10-04</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/PowerShell/" itemprop="url" rel="index"><span itemprop="name">PowerShell</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p>脚本与系统交互过程中，最为频繁的是与文件系统的交互。作为一个管理工具，PowerShell 提供了很多命令来完成这些操作。</p>
+<h1 id="创建"><a href="#创建" class="headerlink" title="创建"></a>创建</h1><h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir <span class="string">&quot;dir-path-or-name&quot;</span></span><br><span class="line"><span class="built_in">New-Item</span> <span class="string">&quot;dir-name&quot;</span> <span class="literal">-type</span> Directory</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>PowerShell 的命令名称通常是比较冗长的，为了兼容常用的操作命令，PowerShell 内置了很多别名。比如，创建目录我们更常用的是别名 <code>md</code>。</p>
+</blockquote>
+<h2 id="文件"><a href="#文件" class="headerlink" title="文件"></a>文件</h2><p>PowerShell 中创建空白文件不需要借助重定向等，有专门的命令（虽然有点长）：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">New-Item</span> <span class="string">&quot;filename&quot;</span> <span class="literal">-type</span> File</span><br></pre></td></tr></table></figure>
+<h2 id="驱动器"><a href="#驱动器" class="headerlink" title="驱动器"></a>驱动器</h2><p>PowerShell 支持将普通目录虚拟为驱动器：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 为“桌面”创建驱动器</span></span><br><span class="line"><span class="built_in">New-PSDrive</span> desktop FileSystem `</span><br><span class="line">([<span class="type">Environment</span>]::GetFolderPath(<span class="string">&quot;Desktop&quot;</span>)) | <span class="built_in">out-null</span></span><br><span class="line"><span class="built_in">cd</span> desktop:</span><br><span class="line"><span class="comment"># 为“我的文档”创建驱动器</span></span><br><span class="line"><span class="built_in">New-PSDrive</span> docs FileSystem `</span><br><span class="line">([<span class="type">Environment</span>]::GetFolderPath(<span class="string">&quot;MyDocuments&quot;</span>)) | <span class="built_in">out-null</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注意，创建的驱动器只是临时的，重启会话就会丢失，除非写入启动脚本中。</p>
+</blockquote>
+<h1 id="读与写"><a href="#读与写" class="headerlink" title="读与写"></a>读与写</h1><h2 id="文本文件"><a href="#文本文件" class="headerlink" title="文本文件"></a>文本文件</h2><p>下面 2 种方式可以一次性将文本文件的全部内容读取：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Get-Content</span> <span class="variable">$file</span></span><br><span class="line"><span class="comment"># 变量符号快捷方式，其中不能包含变量</span></span><br><span class="line"><span class="variable">$</span>&#123;absolute<span class="operator">-file</span><span class="literal">-path</span>&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>变量符号快捷方式读入字符集跟控制台编码有关，可能存在问题，不建议使用。而使用 <code>Get-Content</code> 命令时应指定 <code>-encoding</code>。</p>
+<p>另外，尽量使用 <code>Get-Content</code> 自带的过滤器，不应通过管道来过滤。</p>
+<p>请仔细阅读 <code>Get-Content</code> 的帮助文档。</p>
+</blockquote>
+<p>要将内容输出到新文件有以下 3 种方式：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">dir</span> &gt; redirect<span class="operator">-file</span>.txt</span><br><span class="line"><span class="built_in">dir</span> | <span class="built_in">Out-File</span> <span class="built_in">out-file</span>.txt</span><br><span class="line"><span class="built_in">dir</span> | <span class="built_in">Set-Content</span> <span class="built_in">set-content</span><span class="operator">-file</span>.txt</span><br></pre></td></tr></table></figure>
+<p>需要注意它们输出的差异，重定向与 <code>Out-File</code> 命令输出是一致的，但是 <code>Set-Content</code> 命令不自动转换对象为文本，而是抽取一个标准属性，因此，输出可能不同与前两者。</p>
+<p>追加内容到文件有 2 种方式：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Add-Content</span> append.txt <span class="string">&quot;Second line&quot;</span> <span class="literal">-encoding</span> UTF8</span><br><span class="line"><span class="string">&quot;Third line&quot;</span> &gt;&gt; append.txt</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>重定向命令输出字符集跟控制台编码有关，可能存在问题，不建议使用。应使用其他命令并指定 <code>-encoding</code>。</p>
+</blockquote>
+<h2 id="CSV"><a href="#CSV" class="headerlink" title="CSV"></a>CSV</h2><p>PowerShell 对 CSV 格式的文件提供直接的命令支持，导出和导入命令分别为 <code>Export-CSV</code> 和 <code>Import-CSV</code>。</p>
+<blockquote>
+<p>请仔细阅读相关帮助文档。</p>
+</blockquote>
+<h1 id="修改和删除"><a href="#修改和删除" class="headerlink" title="修改和删除"></a>修改和删除</h1><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Copy-Item</span> <span class="string">&quot;from&quot;</span> <span class="string">&quot;to&quot;</span> [-<span class="type">recurse</span>]</span><br><span class="line"><span class="built_in">Move-Item</span> <span class="string">&quot;from&quot;</span> <span class="string">&quot;to&quot;</span> [-<span class="type">recurse</span>]</span><br><span class="line"><span class="built_in">Rename-Item</span> <span class="string">&quot;from&quot;</span> <span class="string">&quot;to&quot;</span> </span><br><span class="line"><span class="built_in">Remove-Item</span> <span class="string">&quot;fileOrDir&quot;</span> [-<span class="type">force</span>] [-<span class="type">confirm</span>] [-<span class="type">recurse</span>]</span><br><span class="line"><span class="built_in">Remove-PSDrive</span> desktop</span><br></pre></td></tr></table></figure>
+<h1 id="其他常见操作"><a href="#其他常见操作" class="headerlink" title="其他常见操作"></a>其他常见操作</h1><h2 id="导航"><a href="#导航" class="headerlink" title="导航"></a>导航</h2><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 当前工作目录</span></span><br><span class="line"><span class="built_in">Get-Location</span></span><br><span class="line"><span class="built_in">cd</span> folder<span class="literal">-path</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 将当前路径保存到目录栈，并导航到指定路径</span></span><br><span class="line"><span class="built_in">Push-Location</span> path</span><br><span class="line"><span class="comment"># 从目录栈取得路径，并导航到该路径</span></span><br><span class="line"><span class="built_in">Pop-Location</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><code>cd</code> 是命令 <code>Set-Location</code> 的别名。</p>
+<p>频繁在目录间切换的任务而言， <code>Push-Location</code> 和 <code>Pop-Location</code> 很有用。</p>
+</blockquote>
+<h2 id="例举目录内容"><a href="#例举目录内容" class="headerlink" title="例举目录内容"></a>例举目录内容</h2><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">dir</span> folder<span class="literal">-path</span></span><br><span class="line"><span class="built_in">ls</span> folder<span class="literal">-path</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><code>dir</code> 和 <code>ls</code> 都是命令 <code>Get-ChildItem</code> 的别名，只是一个是 Windows 风格，一个是 Linux 风格。</p>
+<p>注意该命令自带有递归和过滤参数。详细请查看帮助文档。</p>
+</blockquote>
+<h2 id="路径处理"><a href="#路径处理" class="headerlink" title="路径处理"></a>路径处理</h2><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 相对路径转绝对路径</span></span><br><span class="line"><span class="built_in">Resolve-Path</span> <span class="variable">$relativePath</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 路径拼接</span></span><br><span class="line"><span class="comment"># 仅能拼接2个路径，否则需要适当嵌套</span></span><br><span class="line"><span class="built_in">Join-Path</span> <span class="variable">$path</span> <span class="variable">$subPath</span></span><br><span class="line"><span class="comment"># 可拼接多个路径</span></span><br><span class="line">[<span class="type">Io.Path</span>]::combine(string[])</span><br></pre></td></tr></table></figure>
+<h2 id="路径检测判断"><a href="#路径检测判断" class="headerlink" title="路径检测判断"></a>路径检测判断</h2><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 路径存在检测</span></span><br><span class="line"><span class="built_in">Test-Path</span> <span class="variable">$path</span> [-<span class="type">PathType</span> &lt;<span class="type">Container</span> | <span class="type">Leaf</span>&gt;]</span><br><span class="line">[<span class="type">System.Io.Directory</span>]::exists(<span class="variable">$dir</span>)</span><br><span class="line">[<span class="type">System.Io.File</span>]::exists(<span class="variable">$file</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 区分文件与文件夹</span></span><br><span class="line"><span class="comment"># -is 判断对象类型</span></span><br><span class="line">(<span class="variable">$path</span>) <span class="operator">-is</span> [<span class="type">Io.DirectoryInfo</span> | <span class="type">Io.FileInfo</span>]</span><br><span class="line"><span class="comment"># 文件 - System.Io.FileInfo</span></span><br><span class="line"><span class="comment"># 目录 - System.Io.DirectoryInfo</span></span><br><span class="line">(<span class="variable">$path</span>).GetType().FullName</span><br></pre></td></tr></table></figure>
+<h1 id="杂项"><a href="#杂项" class="headerlink" title="杂项"></a>杂项</h1><p>路径中特殊符号需转义，如：<code>`[</code> 和 <code>`]</code></p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><h2 id="system-IO-Path-方法"><a href="#system-IO-Path-方法" class="headerlink" title="[system.IO.Path] 方法"></a><code>[system.IO.Path]</code> 方法</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>描述</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ChangeExtension()</td>
+<td>更改文件的扩展名</td>
+<td>ChangeExtension(“test.txt”, “ps1”)</td>
+</tr>
+<tr>
+<td>Combine()</td>
+<td>拼接路径字符串; 对应Join-Path</td>
+<td>Combine(“C:\test”, “test.txt”)</td>
+</tr>
+<tr>
+<td>GetDirectoryName()</td>
+<td>返回目录对象：对应Split-Path -parent</td>
+<td>GetDirectoryName(“c:\test\file.txt”)</td>
+</tr>
+<tr>
+<td>GetExtension()</td>
+<td>返回文件扩展名</td>
+<td>GetExtension(“c:\test\file.txt”)</td>
+</tr>
+<tr>
+<td>GetFileName()</td>
+<td>返回文件名：对应Split-Path -leaf</td>
+<td>GetFileName(“c:\test\file.txt”)</td>
+</tr>
+<tr>
+<td>GetFileNameWithoutExtension()</td>
+<td>返回不带扩展名的文件名</td>
+<td>GetFileNameWithoutExtension(“c:\test\file.txt”)</td>
+</tr>
+<tr>
+<td>GetFullPath()</td>
+<td>返回绝对路径</td>
+<td>GetFullPath(“.\test.txt”)</td>
+</tr>
+<tr>
+<td>GetInvalidFileNameChars()</td>
+<td>返回所有不允许出现在文件名中字符</td>
+<td>GetInvalidFileNameChars()</td>
+</tr>
+<tr>
+<td>GetInvalidPathChars()</td>
+<td>返回所有不允许出现在路径中的字符</td>
+<td>GetInvalidPathChars()</td>
+</tr>
+<tr>
+<td>GetPathRoot()</td>
+<td>返回根目录：对应Split-Path -qualifier</td>
+<td>GetPathRoot(“c:\test\file.txt”)</td>
+</tr>
+<tr>
+<td>GetRandomFileName()</td>
+<td>返回一个随机的文件名</td>
+<td>GetRandomFileName()</td>
+</tr>
+<tr>
+<td>GetTempFileName()</td>
+<td>在临时目录中返回一个临时文件名</td>
+<td>GetTempFileName()</td>
+</tr>
+<tr>
+<td>GetTempPath()</td>
+<td>返回临时文件目录</td>
+<td>GetTempPath()</td>
+</tr>
+<tr>
+<td>HasExtension()</td>
+<td>如果路径中包含了扩展名，则返回True</td>
+<td>HasExtension(“c:\test\file.txt”)</td>
+</tr>
+<tr>
+<td>IsPathRooted()</td>
+<td>如果是绝对路径，返回为True; Split-Path -isAbsolute</td>
+<td>IsPathRooted(“c:\test\file.txt”)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h2><p><a target="_blank" rel="noopener" href="https://www.pstips.net/accessing-files-and-directories.html">PowerShell文件系统（二）访问文件和目录</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.pstips.net/navigating-the-file-system.html">PowerShell文件系统（三）导航文件系统</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.pstips.net/working-with-files-and-directories.html">PowerShell文件系统（四）使用目录和文件工作</a></p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Eric Zong
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://ericzonglu.gitee.io/posts/powershell-file-system.html" title="PowerShell入门：文件系统操作">http://ericzonglu.gitee.io/posts/powershell-file-system.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/" rel="tag"># 入门教程</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/powershell-var.html" rel="prev" title="PowerShell入门：变量">
+      <i class="fa fa-chevron-left"></i> PowerShell入门：变量
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/posts/powershell-script-block.html" rel="next" title="PowerShell专题：脚本块">
+      PowerShell专题：脚本块 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A6%82%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA"><span class="nav-number">2.</span> <span class="nav-text">创建</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%AE%E5%BD%95"><span class="nav-number">2.1.</span> <span class="nav-text">目录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E4%BB%B6"><span class="nav-number">2.2.</span> <span class="nav-text">文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A9%B1%E5%8A%A8%E5%99%A8"><span class="nav-number">2.3.</span> <span class="nav-text">驱动器</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AF%BB%E4%B8%8E%E5%86%99"><span class="nav-number">3.</span> <span class="nav-text">读与写</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E6%9C%AC%E6%96%87%E4%BB%B6"><span class="nav-number">3.1.</span> <span class="nav-text">文本文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CSV"><span class="nav-number">3.2.</span> <span class="nav-text">CSV</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E5%92%8C%E5%88%A0%E9%99%A4"><span class="nav-number">4.</span> <span class="nav-text">修改和删除</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E5%B8%B8%E8%A7%81%E6%93%8D%E4%BD%9C"><span class="nav-number">5.</span> <span class="nav-text">其他常见操作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%BC%E8%88%AA"><span class="nav-number">5.1.</span> <span class="nav-text">导航</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BE%8B%E4%B8%BE%E7%9B%AE%E5%BD%95%E5%86%85%E5%AE%B9"><span class="nav-number">5.2.</span> <span class="nav-text">例举目录内容</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B7%AF%E5%BE%84%E5%A4%84%E7%90%86"><span class="nav-number">5.3.</span> <span class="nav-text">路径处理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B7%AF%E5%BE%84%E6%A3%80%E6%B5%8B%E5%88%A4%E6%96%AD"><span class="nav-number">5.4.</span> <span class="nav-text">路径检测判断</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9D%82%E9%A1%B9"><span class="nav-number">6.</span> <span class="nav-text">杂项</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-number">7.</span> <span class="nav-text">参考</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#system-IO-Path-%E6%96%B9%E6%B3%95"><span class="nav-number">7.1.</span> <span class="nav-text">[system.IO.Path] 方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%93%BE%E6%8E%A5"><span class="nav-number">7.2.</span> <span class="nav-text">链接</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Eric Zong</p>
+  <div class="site-description" itemprop="description">这里有作为一个程序员想记录的一切。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">96</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Eric Zong</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

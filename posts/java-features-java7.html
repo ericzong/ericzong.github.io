@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"ericzonglu.gitee.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="探讨Java 7新增特性，以及对代码编写的影响。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java语言新特性漫谈：Java 7篇">
+<meta property="og:url" content="http://ericzonglu.gitee.io/posts/java-features-java7.html">
+<meta property="og:site_name" content="八白龙的博客">
+<meta property="og:description" content="探讨Java 7新增特性，以及对代码编写的影响。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-09-21T14:55:06.000Z">
+<meta property="article:modified_time" content="2020-11-03T14:53:00.000Z">
+<meta property="article:author" content="Eric Zong">
+<meta property="article:tag" content="《Java版本新特性漫谈》系列">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://ericzonglu.gitee.io/posts/java-features-java7.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Java语言新特性漫谈：Java 7篇 | 八白龙的博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">八白龙的博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">程序员的杂货铺</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-references">
+
+    <a href="/references/" rel="section"><i class="bookmark fa-fw"></i>参考</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://ericzonglu.gitee.io/posts/java-features-java7.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Eric Zong">
+      <meta itemprop="description" content="这里有作为一个程序员想记录的一切。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="八白龙的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Java语言新特性漫谈：Java 7篇
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-09-21 22:55:06" itemprop="dateCreated datePublished" datetime="2020-09-21T22:55:06+08:00">2020-09-21</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-11-03 22:53:00" itemprop="dateModified" datetime="2020-11-03T22:53:00+08:00">2020-11-03</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>本文是《Java语言新特性漫谈》系列文章中的一篇，该系列文章主要探讨各 Java 版本的语言特性方面的增强更新。</p>
+</blockquote>
+<h1 id="都有哪些语言新特性？"><a href="#都有哪些语言新特性？" class="headerlink" title="都有哪些语言新特性？"></a>都有哪些语言新特性？</h1><p>Java 7 版本是 Java 的一个里程碑，它包含了大量的更新，相比之下语言类特性反而不算多。</p>
+<blockquote>
+<p>文末的“参考”章节列出了 Java 7 版本发布说明链接，该说明列出了所有 Java 7 更新。</p>
+</blockquote>
+<p>Java 7 的新增的语言特性有以下这些：</p>
+<ul>
+<li>二进制字面量</li>
+<li>在数值字面量中使用下划线</li>
+<li><code>switch</code> 语句支持字符串</li>
+<li>TWR 语句</li>
+<li>多重异常捕获及重抛异常类型检查的改进</li>
+<li>用于创建泛型实例的类型推断</li>
+<li>可变参数相关的编译警告改进</li>
+</ul>
+<h1 id="二进制字面量"><a href="#二进制字面量" class="headerlink" title="二进制字面量"></a>二进制字面量</h1><p>在 Java 7 之前，只支持八进制、十进制以及十六进制的数值字面量，而 Java 7 增加了二进制字面量。</p>
+<p>二进制字面量可以表示 <code>byte</code>、<code>short</code>、<code>int</code>、<code>long</code> 等各种整型值。其表示形式是前缀 <code>0b</code> 或 <code>0B</code>：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">byte</span> aByte = (<span class="keyword">byte</span>)<span class="number">0b00100001</span>;</span><br><span class="line"><span class="keyword">short</span> aShort = (<span class="keyword">short</span>)<span class="number">0b1010000101000101</span>;</span><br><span class="line"><span class="keyword">int</span> anInt1 = <span class="number">0b10100001010001011010000101000101</span>;</span><br><span class="line"><span class="keyword">long</span> aLong = <span class="number">0b1010000101000101101000010100010110100001010001011010000101000101L</span>;</span><br></pre></td></tr></table></figure>
+<p>与其他进制的字面量类似，其默认类型是 <code>int</code>，所以表示 <code>byte</code> 和 <code>short</code> 型时需要强转，而表示 <code>long</code> 型时需要后缀 <code>L</code>。</p>
+<p>某些场景下，使用二进制表示数值会更直观，可读性更强。</p>
+<h1 id="在数值字面量中使用下划线"><a href="#在数值字面量中使用下划线" class="headerlink" title="在数值字面量中使用下划线"></a>在数值字面量中使用下划线</h1><p>在数值字面量中，任何数字间都可以插入一个甚至是多个下划线，用以分组提高可读性。</p>
+<h2 id="错误位置"><a href="#错误位置" class="headerlink" title="错误位置"></a>错误位置</h2><p>换句说，插入其他位置则可能引发错误，<a target="_blank" rel="noopener" href="https://docs.oracle.com/javase/7/docs/technotes/guides/language/underscores-literals.html">Oracle 文档</a> 列了 4 种错误插入位置：</p>
+<ul>
+<li>在一个数的开头或结尾</li>
+<li>比邻一个浮点数的小数点</li>
+<li>在 <code>F</code> 或 <code>L</code> 后缀前（实际还应包括 <code>D</code> 后缀）</li>
+<li>在需要一串数字的位置（In positions where a string of digits is expected）</li>
+</ul>
+<p>首先，我们应该了解数值字面量到底有哪些表示形式，常用的数值字面量大致有以下一些：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> x0 = <span class="number">123456</span>; <span class="comment">// 纯数字整型</span></span><br><span class="line"><span class="keyword">double</span> x1 = <span class="number">3.6E3</span>; <span class="comment">// 指数计数法</span></span><br><span class="line"><span class="keyword">long</span> x2 = <span class="number">2468013579L</span>; <span class="comment">// 长整型</span></span><br><span class="line"><span class="keyword">double</span> x3 = <span class="number">3.1415926</span>; <span class="comment">// 双精度</span></span><br><span class="line"><span class="keyword">double</span> x4 = <span class="number">3.1415926D</span>; <span class="comment">// 双精度</span></span><br><span class="line"><span class="keyword">float</span> x5 = <span class="number">3.1415926F</span>; <span class="comment">// 单精度</span></span><br><span class="line"><span class="keyword">int</span> x6 = <span class="number">0b0101</span>; <span class="comment">// 二进制</span></span><br><span class="line"><span class="keyword">int</span> x7 = <span class="number">0520</span>; <span class="comment">// 八进制</span></span><br><span class="line"><span class="keyword">int</span> x8 = <span class="number">0x5A2B</span>; <span class="comment">// 十六进制</span></span><br></pre></td></tr></table></figure>
+<p>要注意的是，前缀下划线的数值可能被错误地解析为变量名（虽然通常不太可能这样命名），因而不会被视为下划线使用错误，比如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> _314 = <span class="number">520</span>; <span class="comment">// _314 是一个合法的标识符，可作为变量名</span></span><br><span class="line"><span class="keyword">int</span> i = _314; <span class="comment">// _314 被解析为变量名，因此，编译正确，i = 520</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>如果未声明变量 <code>_314</code> 也不会被认为是一个下划线使用错误，而应是一个“找不到符号”错误，即表示尝试引用一个未声明的变量。</p>
+</blockquote>
+<p>另外，官方文档中未提及的错误插入位置还有两种：</p>
+<ul>
+<li>指数计数法的 <code>E</code> 前后</li>
+<li>二进制前缀 <code>b</code> 及十六进制前缀 <code>x</code> 前后</li>
+</ul>
+<p>注意，在数值字面量中，“数字”这个概念的范围并不限于十进制，它还包括十六进制的 A~F。</p>
+<blockquote>
+<p>也许你会困惑，最后那条“在需要一串数字的位置（In positions where a string of digits is expected）”指的是什么？<br>Oracle 文档中这条规则是“孤立”的，上下文没有相关阐述以及示例，其他对该特性的说明文档或博客中也未提及该点。<br>Stack Overflow 中有人提了该问题，但是置顶的回答并没有清楚解答。反而是后续回答中，有一个比较合理的推测。<br>这可能在说，用于解析的字符串“数值字面量”不应使用下划线。比如，<code>Integer.parseInt(&quot;123_456&quot;);</code> 会导致运行时解析错误。</p>
+</blockquote>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>小结一下，以上我们列出了几乎所有的错误插入位置，它们包括：</p>
+<ul>
+<li>在一个数的开头或结尾</li>
+<li>比邻一个浮点数的小数点</li>
+<li>在 <code>F</code>/ <code>L</code>/<code>D</code> 后缀前</li>
+<li>指数计数法 <code>E</code> 前后</li>
+<li>二进制前缀 <code>b</code>/<code>B</code> 及十六进制前缀 <code>x</code>/<code>X</code> 前后</li>
+<li>在需要一串数字的位置（In positions where a string of digits is expected）</li>
+</ul>
+<p>就原理而言，该特性只是编译器级别的修改，编译器会在编译时去掉下划线，只保留原始数字。</p>
+<p>还有一个问题值得探究：为什么使用下划线作为分隔符？为什么不使用逗号或连字符（-）？因为，这可能引发歧义。</p>
+<h1 id="switch-语句支持字符串"><a href="#switch-语句支持字符串" class="headerlink" title="switch 语句支持字符串"></a><code>switch</code> 语句支持字符串</h1><p><code>switch</code> 语句不支持最常用的字符串类型，一直都受人诟病，Java 7 总算是支持了。</p>
+<p>从效率上说，<code>switch</code> 语句生成的字节码，比使用 <code>if-else</code> 语句比较字符串更高效。</p>
+<h1 id="TWR-语句"><a href="#TWR-语句" class="headerlink" title="TWR 语句"></a>TWR 语句</h1><p>TWR 是 <strong>try-with-resources</strong> 的首字母缩写。它用于：</p>
+<ul>
+<li>自动关闭资源</li>
+<li>改善错误跟踪能力</li>
+</ul>
+<p>Java 程序中所使用的各种资源是需要关闭的，Java 7 之前通常需要手动关闭，但是，百分百正确手动关闭资源很困难。TWR 特性则是为了自动关闭资源而做的改进。</p>
+<blockquote>
+<p>手动关闭资源代码很繁复，极易出错，曾经 Sun 的官方操作指南都是错的，可见一斑。<br>通常，手动关闭资源的代码会伴有嵌套的异常捕获，结构很深；并且 <code>catch</code> 块中通常不做处理，否则异常处理代码还要处理异常情况；<code>finally</code> 块中关闭资源的代码也可能出现异常，同样需要处理异常……<br>这简直是“墨菲定律”的经典演示代码！</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> String <span class="title">readFirstLineFromFile</span><span class="params">(String path)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">  <span class="keyword">try</span> (BufferedReader br = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> FileReader(path))) &#123;</span><br><span class="line">    <span class="keyword">return</span> br.readLine();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>该特性依靠一个新定义的接口 <code>java.lang.AutoCloseable</code> 实现，<code>try</code> 从句中出现的资源类都必须实现该接口。</p>
+<blockquote>
+<p>注意：<code>java.lang.AutoCloseable</code> 是新增的一个顶级接口，而 <code>java.io.Closeable</code> 反而是它的子接口。<br>因此，前者的 <code>close()</code> 方法抛出的是更宽泛的 <code>Exception</code>，后者抛出的是更具体的 <code>IOException</code>。<br>考虑一个问题：继承关系为什么不是反过来的呢？反过来不是更符合演化的逻辑么？——先有父接口再有子接口。<br>这样做的有一个好处是，不需要太多的修改。所有的资源类不需要修改以增加实现 <code>AutoCloseable</code> 接口，因为它们都已经实现了 <code>Closeable</code> 接口。</p>
+</blockquote>
+<p>要确保 TWR 生效，正确的用法是为各个资源声明独立变量。否则，在某些特定场景下，资源可能无法关闭。典型例子是充满包装模式的 IO 类，包装类创建失败，可能导致被包装类无法正确关闭。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> ( ObjectInputStream in = <span class="keyword">new</span> ObjectInputStream(<span class="keyword">new</span> FileInputStream(<span class="string">&quot;oneFile&quot;</span>)) ) &#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>当文件并非 <code>ObjectInput</code> 类型文件时，<code>ObjectInputStream</code> 创建失败，这将导致内层的 <code>FileInputStream</code> 无法关闭。</p>
+<p>TWR 的另一项好处是改善了错误跟踪能力，能够更准确地跟踪堆栈中的异常。</p>
+<p>使用 <code>try-catch-finally</code> 语句关闭资源时，<code>try</code> 块中的异常可能被 <code>catch</code> 或 <code>finally</code> 中的异常覆盖而丢失，这称为“<strong>异常被抑制</strong>”。</p>
+<p>而使用 TWR 时，被抑制的异常仍然可能被提取，不会丢失。这得益于 <code>Throwable</code> 类新增的方法 <code>getSuppressed()</code> 可返回被抑制的异常：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">synchronized</span> Throwable[] getSuppressed() &#123;&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注意：<code>Throwable</code> 构造器有参数可以控制抑制的使能的。</p>
+</blockquote>
+<h1 id="多重异常捕获及重抛异常类型检查的改进"><a href="#多重异常捕获及重抛异常类型检查的改进" class="headerlink" title="多重异常捕获及重抛异常类型检查的改进"></a>多重异常捕获及重抛异常类型检查的改进</h1><p>这包括两项改进：</p>
+<ul>
+<li>多重异常捕获（multicatch）</li>
+<li>重抛类型检查</li>
+</ul>
+<blockquote>
+<p>对应的英文原名是：</p>
+<ul>
+<li>Handling More Than One Type of Exception</li>
+<li>Rethrowing Exceptions with More Inclusive Type Checking</li>
+</ul>
+</blockquote>
+<h2 id="多重异常捕获"><a href="#多重异常捕获" class="headerlink" title="多重异常捕获"></a>多重异常捕获</h2><p>Java 7 之前，由于一个<code>catch</code> 语句只能捕获一种异常，如果一段代码会抛出多种异常，那么就会有一长串的 <code>catch</code> 语句，使得代码复杂度上升，可读性较差。</p>
+<p>并且通常异常处理代码也是相同，这导致代码重复。为了避免重复，这会诱导程序员捕获一个更宽泛的异常。</p>
+<blockquote>
+<p>从生成的字节码而言，多重异常捕获比多个仅捕获一个异常的 <code>catch</code> 块生成的字节码更小，因为，它没有重复的异常处理程序。</p>
+</blockquote>
+<p>Java 7 中，一个 <code>catch</code> 语句可以捕获多种异常，但注意，捕获的异常只要多于一个，<code>catch</code> 语句的异常变量就是隐式 <code>final</code> （implicitly final）的。</p>
+<h2 id="重抛类型检查"><a href="#重抛类型检查" class="headerlink" title="重抛类型检查"></a>重抛类型检查</h2><p>Java 7 之前的版本，编译器对重抛的异常类型推断并不精确，重抛的异常类型根据 <code>catch</code>  的异常类型确定。引用官方示例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">FirstException</span> <span class="keyword">extends</span> <span class="title">Exception</span> </span>&#123; &#125;</span><br><span class="line"><span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">SecondException</span> <span class="keyword">extends</span> <span class="title">Exception</span> </span>&#123; &#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">rethrowException</span><span class="params">(String exceptionName)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (exceptionName.equals(<span class="string">&quot;First&quot;</span>)) &#123;</span><br><span class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> FirstException();</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> SecondException();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">    <span class="keyword">throw</span> e;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>示例中，显然重抛的异常类型只可能是 <code>FirstException</code> 或 <code>SecondException</code> 两者之一，但是由于捕获的是更宽泛的 <code>Exception</code>  类型的异常，因此，Java 7 之前的编译器要求方法声明抛出的异常必需是 <code>Exception</code>  类型。</p>
+<p>针对这种情况，Java 7 增强了编译器对异常类型的精确分析能力。从而，编译器通过分析明确知道重抛的异常类型只可能是两种之一。因此，方法声明抛出的异常类型可以是精确的类型，而不必是捕获的宽泛类型。需要注意的是，该精确分析能力仅在 <code>catch</code> 异常参数没有重新赋值的情况下有效，一旦重新赋值将不能进行精确分析。</p>
+<p>另，编译器校验重抛异常类型应满足以下条件：</p>
+<ul>
+<li><code>try</code> 块能抛出它</li>
+<li>没有其他的先导 <code>catch</code> 块处理它</li>
+<li>是 <code>catch</code> 子句的异常参数之一的子类型或超类型</li>
+</ul>
+<h1 id="用于创建泛型实例的类型推断"><a href="#用于创建泛型实例的类型推断" class="headerlink" title="用于创建泛型实例的类型推断"></a>用于创建泛型实例的类型推断</h1><p>创建泛型实例常见于使用集合类时，比如官方示例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Map&lt;String, List&lt;String&gt;&gt; myMap = <span class="keyword">new</span> HashMap&lt;String, List&lt;String&gt;&gt;();</span><br></pre></td></tr></table></figure>
+<p>可以看到，泛型的形式类型参数（formal type parameter） <code>&lt;String, List&lt;String&gt;&gt;</code> 重复指定了两次，该信息是冗余的，显然可以通过消除此种重复来提高编程效率。</p>
+<p>Java 7 的改进方案是：省略泛型构造器中的形式类型参数的指定，改由编译器根据上下文进行推断。因此，上面的代码可简化为：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Map&lt;String, List&lt;String&gt;&gt; myMap = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br></pre></td></tr></table></figure>
+<p>由于 <code>&lt;&gt;</code> 的外形，这被称为“<strong>菱形语法</strong>”或“<strong>钻石语法</strong>”（英文为 <strong>diamond</strong>）。</p>
+<blockquote>
+<p>为此，编译器采用了新的类型推断形式。要注意，这不是简单替换成定义完整类型的文本。</p>
+</blockquote>
+<p>显然，<code>&lt;&gt;</code> 是不可省略的，否则实际使用的是原始类型。</p>
+<p>对于 Java 7 而言，类型推断是受限的。这意味着，它只能应用于构造器的形式类型参数，并且通常需要在赋值语句中——编译器需要通过被赋值的变量类型来推断省略的构造器形式类型参数。</p>
+<p>也许你希望在方法参数中进行类型推断，或许你会失望——至少 Java 7 是这样。比如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt; list = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">list.addAll(<span class="keyword">new</span> ArrayList&lt;&gt;()); <span class="comment">// Java 7 下编译错误</span></span><br></pre></td></tr></table></figure>
+<p>看起来通过上下文，能推断第 2 行应为 <code>new ArrayList&lt;String&gt;()</code> 。但“受限”也在该场景体现出来了，对于 Java 7 编译器来说，它仅能推断为 <code>new ArrayList&lt;Object&gt;()</code>，因此编译错误。</p>
+<blockquote>
+<p>Java 8 推断能力有所增强，这种场景是可以正确推断的。</p>
+</blockquote>
+<h1 id="可变参数相关的编译警告改进"><a href="#可变参数相关的编译警告改进" class="headerlink" title="可变参数相关的编译警告改进"></a>可变参数相关的编译警告改进</h1><p>这是一个关于编译警告的改进，该警告仅在方法签名中同时出现变参和泛型时才出现，其中涉及<strong>堆污染</strong>和<strong>可变参数</strong>两个概念。</p>
+<h2 id="堆污染"><a href="#堆污染" class="headerlink" title="堆污染"></a>堆污染</h2><p>我们先通过一个示例来了解<strong>堆污染</strong>：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">List list = <span class="keyword">new</span> ArrayList&lt;Number&gt;();</span><br><span class="line">List&lt;String&gt; strings = list; <span class="comment">// Unchecked assignment: &#x27;java.util.List&#x27; to &#x27;java.util.List&lt;java.lang.String&gt;&#x27;</span></span><br><span class="line">list.add(<span class="number">0</span>, <span class="number">42</span>); <span class="comment">// Unchecked call to &#x27;add(int, E)&#x27; as a member of raw type &#x27;java.util.List&#x27;</span></span><br><span class="line">String s = strings.get(<span class="number">0</span>);</span><br></pre></td></tr></table></figure>
+<p>前两行代码通过一原始类型的 <code>List</code> 变量作为桥梁，进行了不兼容的赋值。这是合法的——因为编译器会进行类型擦除。这就是<strong>堆污染</strong>，即当参数化类型的变量引用的对象不是该参数化类型的对象时，就会发生堆污染。</p>
+<p>注意，堆污染不是错误，仅仅预示着可能存在风险——上例中直到最后获取元素时才会在运行时抛出类型转换错误——而编译器不会对此风险无动于衷，它会产生警告。</p>
+<h2 id="可变参数"><a href="#可变参数" class="headerlink" title="可变参数"></a>可变参数</h2><p>了解了堆污染，我们考虑下下面的例子：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> &lt;T&gt; <span class="function"><span class="keyword">void</span> <span class="title">join</span><span class="params">(T... items)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(T t : items) &#123;</span><br><span class="line">        System.out.println(t);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>显然，该方法具有可变参数，但是，其可变参数的类型是泛型的参数化类型 <code>T</code>。可变参数最终会被编译器转换为数组，理论上，将得到一个 <code>T[]</code> 类型数组。但是，Java 不允许创建参数化类型的数组，即这里的 <code>T[]</code> 类型数组。而又由于<strong>类型擦除</strong>的原因，实际上最终得到的是一个 <code>Object[]</code> 类型数组。继而，对于上例，我们可以传入任意类型的参数。</p>
+<p>是不是感觉似曾相识？回想下堆污染的定义——这其实也是堆污染。</p>
+<h2 id="改进了什么？"><a href="#改进了什么？" class="headerlink" title="改进了什么？"></a>改进了什么？</h2><p>那本项改进到底改进了什么呢？</p>
+<p>Java 7 之前，该警告是在方法调用时触发的，但是，对于调用 API 的程序员而言，除了忽略或抑制该警告别无选择。因此，Java 7 将该警告改由 API 触发了。这样做的意义在于，将该种风险的控制由调用者转移到了 API 提供者。</p>
+<h2 id="抑制警告"><a href="#抑制警告" class="headerlink" title="抑制警告"></a>抑制警告</h2><p>在确保提供的方法不会进行相关不当操作时，应该抑制该警告，Java 7 提供了三种方法：</p>
+<ul>
+<li><code>@SafeVarargs</code> 注解</li>
+<li><code>@SuppressWarnings(&#123;&quot;unchecked&quot;, &quot;varargs&quot;&#125;)</code> 注解</li>
+<li>编译器选项 <code>-Xlint:varargs</code></li>
+</ul>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
+<li><p><a target="_blank" rel="noopener" href="https://www.oracle.com/java/technologies/javase/jdk7-relnotes.html">Java 7 特性和增强</a>：Java 7 版本说明，例举了版本更新点</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://docs.oracle.com/javase/7/docs/technotes/guides/language/enhancements.html">Java 编程语言增强</a>：  Java 1.4 ~ 7 版本的语言增强特性索引</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://jcp.org/en/jsr/detail?id=334">JSR 334</a>：Java 7 相关语言特性的规范文档，提供相关文档下载</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://docs.oracle.com/javase/7/docs/technotes/guides/language/binary-literals.html">二进制字面量</a>：Oracle 文档</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://docs.oracle.com/javase/7/docs/technotes/guides/language/underscores-literals.html">在数值字面量中使用下划线</a>：Oracle 文档</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/6212558/java-7-underscore-in-numeric-literals">stack overflow - Java 7 underscore in numeric literals</a>：讨论 Oracle 文档中列出的“下划线”错误插入位置的第 4 种情况具体为何</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://docs.oracle.com/javase/tutorial/java/nutsandbolts/datatypes.html">The Java Tutorials - Primitive Data Types</a>：Oracle 教程，讲解基本数据类型</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://docs.oracle.com/javase/7/docs/technotes/guides/language/catch-multiple.html">Catching Multiple Exception Types and Rethrowing Exceptions with Improved Type Checking</a>：Oracle 文档</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://docs.oracle.com/javase/7/docs/technotes/guides/language/non-reifiable-varargs.html">Improved Compiler Warnings and Errors When Using Non-Reifiable Formal Parameters with Varargs Methods</a>：Oracle 文档</p>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Eric Zong
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://ericzonglu.gitee.io/posts/java-features-java7.html" title="Java语言新特性漫谈：Java 7篇">http://ericzonglu.gitee.io/posts/java-features-java7.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E3%80%8AJava%E7%89%88%E6%9C%AC%E6%96%B0%E7%89%B9%E6%80%A7%E6%BC%AB%E8%B0%88%E3%80%8B%E7%B3%BB%E5%88%97/" rel="tag"># 《Java版本新特性漫谈》系列</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/hexo-get-start.html" rel="prev" title="Hexo入门">
+      <i class="fa fa-chevron-left"></i> Hexo入门
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/posts/poi-create-workbook-bug.html" rel="next" title="一个POI创建Workbook的Bug？">
+      一个POI创建Workbook的Bug？ <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%83%BD%E6%9C%89%E5%93%AA%E4%BA%9B%E8%AF%AD%E8%A8%80%E6%96%B0%E7%89%B9%E6%80%A7%EF%BC%9F"><span class="nav-number">1.</span> <span class="nav-text">都有哪些语言新特性？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%AD%97%E9%9D%A2%E9%87%8F"><span class="nav-number">2.</span> <span class="nav-text">二进制字面量</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9C%A8%E6%95%B0%E5%80%BC%E5%AD%97%E9%9D%A2%E9%87%8F%E4%B8%AD%E4%BD%BF%E7%94%A8%E4%B8%8B%E5%88%92%E7%BA%BF"><span class="nav-number">3.</span> <span class="nav-text">在数值字面量中使用下划线</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%94%99%E8%AF%AF%E4%BD%8D%E7%BD%AE"><span class="nav-number">3.1.</span> <span class="nav-text">错误位置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%8F%E7%BB%93"><span class="nav-number">3.2.</span> <span class="nav-text">小结</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#switch-%E8%AF%AD%E5%8F%A5%E6%94%AF%E6%8C%81%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="nav-number">4.</span> <span class="nav-text">switch 语句支持字符串</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#TWR-%E8%AF%AD%E5%8F%A5"><span class="nav-number">5.</span> <span class="nav-text">TWR 语句</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A4%9A%E9%87%8D%E5%BC%82%E5%B8%B8%E6%8D%95%E8%8E%B7%E5%8F%8A%E9%87%8D%E6%8A%9B%E5%BC%82%E5%B8%B8%E7%B1%BB%E5%9E%8B%E6%A3%80%E6%9F%A5%E7%9A%84%E6%94%B9%E8%BF%9B"><span class="nav-number">6.</span> <span class="nav-text">多重异常捕获及重抛异常类型检查的改进</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%9A%E9%87%8D%E5%BC%82%E5%B8%B8%E6%8D%95%E8%8E%B7"><span class="nav-number">6.1.</span> <span class="nav-text">多重异常捕获</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%87%8D%E6%8A%9B%E7%B1%BB%E5%9E%8B%E6%A3%80%E6%9F%A5"><span class="nav-number">6.2.</span> <span class="nav-text">重抛类型检查</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%94%A8%E4%BA%8E%E5%88%9B%E5%BB%BA%E6%B3%9B%E5%9E%8B%E5%AE%9E%E4%BE%8B%E7%9A%84%E7%B1%BB%E5%9E%8B%E6%8E%A8%E6%96%AD"><span class="nav-number">7.</span> <span class="nav-text">用于创建泛型实例的类型推断</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%AF%E5%8F%98%E5%8F%82%E6%95%B0%E7%9B%B8%E5%85%B3%E7%9A%84%E7%BC%96%E8%AF%91%E8%AD%A6%E5%91%8A%E6%94%B9%E8%BF%9B"><span class="nav-number">8.</span> <span class="nav-text">可变参数相关的编译警告改进</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A0%86%E6%B1%A1%E6%9F%93"><span class="nav-number">8.1.</span> <span class="nav-text">堆污染</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%AF%E5%8F%98%E5%8F%82%E6%95%B0"><span class="nav-number">8.2.</span> <span class="nav-text">可变参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%94%B9%E8%BF%9B%E4%BA%86%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-number">8.3.</span> <span class="nav-text">改进了什么？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8A%91%E5%88%B6%E8%AD%A6%E5%91%8A"><span class="nav-number">8.4.</span> <span class="nav-text">抑制警告</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-number">9.</span> <span class="nav-text">参考</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Eric Zong</p>
+  <div class="site-description" itemprop="description">这里有作为一个程序员想记录的一切。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">96</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Eric Zong</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

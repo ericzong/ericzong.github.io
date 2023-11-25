@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"ericzonglu.gitee.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="介绍图像的基本概念及Photoshop的基本使用。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PS笔记：基础篇">
+<meta property="og:url" content="http://ericzonglu.gitee.io/posts/tool-ps-get-start.html">
+<meta property="og:site_name" content="八白龙的博客">
+<meta property="og:description" content="介绍图像的基本概念及Photoshop的基本使用。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://ericzonglu.gitee.io/image/post_ps-get-start/PS.png">
+<meta property="article:published_time" content="2020-01-30T16:00:00.000Z">
+<meta property="article:modified_time" content="2020-10-08T19:13:33.641Z">
+<meta property="article:author" content="Eric Zong">
+<meta property="article:tag" content="Photoshop">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://ericzonglu.gitee.io/image/post_ps-get-start/PS.png">
+
+<link rel="canonical" href="http://ericzonglu.gitee.io/posts/tool-ps-get-start.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>PS笔记：基础篇 | 八白龙的博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">八白龙的博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">程序员的杂货铺</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-references">
+
+    <a href="/references/" rel="section"><i class="bookmark fa-fw"></i>参考</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://ericzonglu.gitee.io/posts/tool-ps-get-start.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Eric Zong">
+      <meta itemprop="description" content="这里有作为一个程序员想记录的一切。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="八白龙的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          PS笔记：基础篇
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-01-31 00:00:00" itemprop="dateCreated datePublished" datetime="2020-01-31T00:00:00+08:00">2020-01-31</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-10-09 03:13:33" itemprop="dateModified" datetime="2020-10-09T03:13:33+08:00">2020-10-09</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">工具</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="图像基本"><a href="#图像基本" class="headerlink" title="图像基本"></a>图像基本</h1><p><strong>数字图像</strong>，使用电脑处理的图像。主要分为矢量图形和位图。</p>
+<p><strong>矢量图形/向量图形/对象图形</strong>，简称图形，由电脑指令描述和记录。可分解成若干个由点、线、面等构成的子图。可被任意缩小或放大，不会影响图形的清晰度或遗漏细节。</p>
+<p><strong>位图</strong>，由像素网或点风格组成的图像。其质量与分辨率有关，分辨率越大，图像质量越好，文件所占的存储空间越大。因为图像的像素数量是一定的，所以，当放大图像时，图像的质量会下降。</p>
+<p>电脑显示器通过网格来显示图像，所以，矢量数据和位图数据在屏幕上均以像素显示。</p>
+<p>Pixel（像素）= Picture（图像）+ Element（元素）</p>
+<p><strong>像素</strong>，位图的彩色点，是构成位图的最小成分。</p>
+<p><strong>（图像）分辨率</strong>，在水平或垂直方向上，单位长度内一条线由多少个像素描述。所用的像素越多，图像分辨率就越高。单位，Pixels Per Inch（像素/英寸），缩写为 PPI。</p>
+<p><strong>颜色模式</strong>，用于定义组成图像的颜色的数量和类别的系统。</p>
+<blockquote>
+<p><strong>灰度模式</strong>，仅使用亮度定义颜色。亮度值表示，0（黑色）~255（白色）；黑色油墨覆盖百分比表示（印刷图像），0%（白色）~100%（黑色）。</p>
+<p><strong>位图模式</strong>，黑白图像，仅使用黑白两种颜色值中的一种来表示像素。一般情况下，位图的位深度为 1，分辨率较低。<strong>位深度/像素深度/颜色深度</strong>，用于试题在图像中使用多少颜色信息来显示或打印像素。（1 位深度的像素有 2（2 的 1 次方）种颜色信息，即黑和白。</p>
+<p><strong>双色调模式</strong>，PS 包含几种不同的色调模式，用户可以选择 1~4 种色彩创建单色调、双色调、三色调或四色调的彩色图像。</p>
+<p><strong>索引颜色模式</strong>，系统会自动为图像建立一个索引色彩表，用来存储索引图像中的颜色。若原图像的颜色超出色彩表的范围，系统自动在色彩表中选择与之最接近的颜色来模拟。伪彩色，最多 256 种颜色。可减小文件大小，同时保持视觉上不降低图像品质。多用于 Web 图像或多媒体动画。</p>
+<p><strong>RGB 颜色模式</strong>，使用红色（R）、绿色（G）、蓝色（B）来定义颜色，值为 0~255。为加色模型，使用透色光来显示颜色。值均为 255 时为白色，均为 0 时为黑色。</p>
+<p><strong>CMYK 颜色模式</strong>，使用青色（C）、口红（M）、黄色（Y）、黑色（K）来定义颜色，值为 0%~100%。为减色模型，使用反射光来显示颜色。值均为 100 时为黑色，均为 0 时为白色。CMYK 颜色模式/CMYK 色空间，是印刷中使用的标准颜色模式。</p>
+<p><strong>Lab 颜色模式</strong>，使用 L、a、b 来定义颜色。其中，L（光亮度分量）控制亮度，0~100；a（色度分量）控制从绿到红的色度，+120~-120；b（色度分量）控制从蓝到黄的色度，+120~-120。Lab 颜色模式在色彩表达式范围上远超 RGB 模式和 CMYK 模式。可处理 Photo CD（照片光盘）图像，单独编辑图像的亮度及颜色。是 PS 在不同颜色模式之间转换的中间颜色模式。</p>
+<p><strong>多通道模式</strong>，在每个通道中使用 256 个灰度级，通常用于特殊打印。</p>
+</blockquote>
+<h1 id="文件格式"><a href="#文件格式" class="headerlink" title="文件格式"></a>文件格式</h1><p>PSD/PDD，PS 专用格式，可保存图像的图层、通道、蒙版等信息，便于设计图像效果，存储空间较大。</p>
+<p>EPS（Encapsulated PostScript），应用非常广泛，可用于绘图或排版。可在排版软件中以低分辨率预览，而打印或出胶片时以高分辨率输出。支持 PS 所有颜色模式，但不支持 Alpha 通道，位图模式下支持透明。</p>
+<p>TIFF（Tagged Image File Format，标记图像文件格式），便于应用程序之间和电脑之间进行图像数据交换。</p>
+<p>GIF，压缩格式，只支持 8 位的图像文件。</p>
+<p>BMP，MS-Windows 标准的位图文件格式。</p>
+<p>JPEG（Joint Photographic Experts Group，联合摄影专家组），高倍率压缩，目前压缩率最高。以失真最小的方式丢掉数据。</p>
+<h1 id="PS-界面"><a href="#PS-界面" class="headerlink" title="PS 界面"></a>PS 界面</h1><p><img src="../image/post_ps-get-start/PS.png" alt="PS"></p>
+<h1 id="工具箱操作"><a href="#工具箱操作" class="headerlink" title="工具箱操作"></a>工具箱操作</h1><p>工具箱中有很多工具按钮，单击选择并激活相应工具。</p>
+<p>工具箱中的工具按钮可不止显示的这些，可以看到大多数工具按钮右下角都有一个小三角标志，表示该按钮隐藏着一个展开工具栏，其中还有若干个工具按钮。有 4 种方法可以选择隐藏在展开工具栏中的工具：</p>
+<ol>
+<li><p>在有三角形标志的工具按钮上按住鼠标左键片刻，会弹出展开工具栏供选择；</p>
+</li>
+<li><p>在有三角形标志的工具按钮上右击，会弹出展开工具栏供选择；</p>
+</li>
+<li><p>按住 <code>Alt</code> 键，连续单击有三角形标志的工具按钮，其展开工具栏中的工具会轮流被选中；</p>
+</li>
+<li><p>按钮 <code>Shift</code> 键，连接按下有三角形标志的工具按钮的快捷键<sup><a href="#fn_1" id="reffn_1">1</a></sup>，其展开工具栏中的工具会轮流被选中。</p>
+</li>
+</ol>
+<blockquote id="fn_1">
+<sup>1</sup>. 工具按钮的快捷键在其展开工具栏中可以看到。<a href="#reffn_1" title="Jump back to footnote [1] in the text."> &#8617;</a>
+</blockquote>
+<h1 id="快捷键"><a href="#快捷键" class="headerlink" title="快捷键"></a>快捷键</h1><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>键</th>
+<th>作用域</th>
+<th>说明</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Tab</code></td>
+<td></td>
+<td>显示/隐藏所有打开的面板、选项组和工具箱</td>
+<td></td>
+</tr>
+<tr>
+<td><code>Shift</code> + <code>Tab</code></td>
+<td></td>
+<td>显示/隐藏所有打开的面板</td>
+<td></td>
+</tr>
+<tr>
+<td><code>Alt</code>/<code>Ctrl</code></td>
+<td>抓手</td>
+<td>缩小/放大</td>
+<td></td>
+</tr>
+<tr>
+<td><code>Alt</code></td>
+<td>缩放</td>
+<td>缩小</td>
+<td>默认缩放是放大</td>
+</tr>
+<tr>
+<td><code>Ctrl</code></td>
+<td>缩放</td>
+<td>移动</td>
+<td></td>
+</tr>
+<tr>
+<td><code>Alt</code> + <code>上滚</code>/<code>下滚</code></td>
+<td></td>
+<td>放大/缩小</td>
+<td></td>
+</tr>
+<tr>
+<td><code>Space</code></td>
+<td></td>
+<td>抓手</td>
+<td></td>
+</tr>
+<tr>
+<td><code>F12</code></td>
+<td></td>
+<td>恢复图像到上一次保存时的状态</td>
+<td></td>
+</tr>
+<tr>
+<td>双击左键</td>
+<td>PS 桌面</td>
+<td>“打开”对话框</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Eric Zong
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://ericzonglu.gitee.io/posts/tool-ps-get-start.html" title="PS笔记：基础篇">http://ericzonglu.gitee.io/posts/tool-ps-get-start.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Photoshop/" rel="tag"># Photoshop</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/markdown-get-start.html" rel="prev" title="Markdown入门">
+      <i class="fa fa-chevron-left"></i> Markdown入门
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/posts/tool-mind-maps.html" rel="next" title="脑图工具介绍">
+      脑图工具介绍 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9B%BE%E5%83%8F%E5%9F%BA%E6%9C%AC"><span class="nav-number">1.</span> <span class="nav-text">图像基本</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F"><span class="nav-number">2.</span> <span class="nav-text">文件格式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#PS-%E7%95%8C%E9%9D%A2"><span class="nav-number">3.</span> <span class="nav-text">PS 界面</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B7%A5%E5%85%B7%E7%AE%B1%E6%93%8D%E4%BD%9C"><span class="nav-number">4.</span> <span class="nav-text">工具箱操作</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BF%AB%E6%8D%B7%E9%94%AE"><span class="nav-number">5.</span> <span class="nav-text">快捷键</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Eric Zong</p>
+  <div class="site-description" itemprop="description">这里有作为一个程序员想记录的一切。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">96</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Eric Zong</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

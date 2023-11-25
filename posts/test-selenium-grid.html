@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"ericzonglu.gitee.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="介绍Selenium4中Grid的使用。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Selenium4学习笔记：Grid篇">
+<meta property="og:url" content="http://ericzonglu.gitee.io/posts/test-selenium-grid.html">
+<meta property="og:site_name" content="八白龙的博客">
+<meta property="og:description" content="介绍Selenium4中Grid的使用。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-06-21T12:00:00.000Z">
+<meta property="article:modified_time" content="2022-08-10T14:45:44.673Z">
+<meta property="article:author" content="Eric Zong">
+<meta property="article:tag" content="Selenium">
+<meta property="article:tag" content="Grid">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://ericzonglu.gitee.io/posts/test-selenium-grid.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Selenium4学习笔记：Grid篇 | 八白龙的博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">八白龙的博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">程序员的杂货铺</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-references">
+
+    <a href="/references/" rel="section"><i class="bookmark fa-fw"></i>参考</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://ericzonglu.gitee.io/posts/test-selenium-grid.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Eric Zong">
+      <meta itemprop="description" content="这里有作为一个程序员想记录的一切。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="八白龙的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Selenium4学习笔记：Grid篇
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-06-21 20:00:00" itemprop="dateCreated datePublished" datetime="2022-06-21T20:00:00+08:00">2022-06-21</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-08-10 22:45:44" itemprop="dateModified" datetime="2022-08-10T22:45:44+08:00">2022-08-10</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%B5%8B%E8%AF%95/" itemprop="url" rel="index"><span itemprop="name">测试</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="Grid"><a href="#Grid" class="headerlink" title="Grid"></a>Grid</h1><p>Grid 允许我们在多台远程计算机上进行跨平台、跨浏览器、并行测试。</p>
+<h1 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h1><p>Grid 以 jar 包的形式提供，可以在 Selenium <a target="_blank" rel="noopener" href="https://www.selenium.dev/downloads/">下载页</a>下载最新版本。</p>
+<p>下载将得到一个名为 <code>selenium-server-x.x.x.jar</code> 的 jar 包。</p>
+<h1 id="按角色运行"><a href="#按角色运行" class="headerlink" title="按角色运行"></a>按角色运行</h1><p>Grid 包括很多组件：</p>
+<ul>
+<li>Router（路由）</li>
+<li>Session Queue（会话队列）</li>
+<li>Session Map（会话表）</li>
+<li>Distributor（分发器）</li>
+<li>Event Bus（事件总线）</li>
+<li>Nodes（节点）</li>
+</ul>
+<p>我们可以独立启动任一组件，但是通常会启动一组组件，使 Grid 工作在相应模式下。</p>
+<h1 id="Standalone"><a href="#Standalone" class="headerlink" title="Standalone"></a>Standalone</h1><p>独立模式，Grid 最简单的模式，会启动所有组件，使当前主机成为一台可独立执行测试的远程计算机。</p>
+<p>命令行直接执行 Java 命令即可启动：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java <span class="literal">-jar</span> selenium<span class="literal">-server</span>-&lt;version&gt;.jar standalone</span><br></pre></td></tr></table></figure>
+<p>当看到输出信息“Started Selenium Standalone…”即说明启动成功。</p>
+<p>默认情况下，将监听 <code>4444</code> 端口，通过该端口即可远程调用。</p>
+<blockquote>
+<p>【关于驱动探测】</p>
+<p>启动时可能会看到“No drivers have been configured or have been found on PATH”错误。</p>
+<p>这是因为 Selenium 必须通过驱动才可操作浏览器，所以驱动需要事先配置。</p>
+<p>按错误提示，驱动放在 <code>PATH</code> 下可自动探测到。另试验可知，放在 <code>selenium-server-x.x.x.jar</code> 同一文件夹下也可被探测到。</p>
+<p>【关于浏览器】</p>
+<p>探测到驱动程序后，就会自动添加驱动对应的浏览器。</p>
+<p>如果只有 chromedriver，通常添加 Chrome 的同时，也会添加 MicrosoftEdge。但是，尝试用 chromedriver 驱动 MicrosoftEdge 通常会失败。所以，应严格根据浏览器版本配置驱动。</p>
+</blockquote>
+<p>远程调用脚本如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">driver_options = webdriver.ChromeOptions()</span><br><span class="line">driver_options.set_capability(<span class="string">&quot;browserName&quot;</span>, <span class="string">&quot;chrome&quot;</span>)</span><br><span class="line">driver_options.set_capability(<span class="string">&quot;browserVersion&quot;</span>, <span class="string">&quot;100&quot;</span>)</span><br><span class="line">driver = webdriver.Remote(<span class="string">&#x27;http://localhost:4444&#x27;</span>,</span><br><span class="line">                                  options=driver_options)</span><br></pre></td></tr></table></figure>
+<p>Selenium Server 根据设置的 <code>browserName</code> 及 <code>browserVersion</code> 能力属性启动对应的浏览器，<code>browserName</code> 是必须的，<code>browserVersion</code> 可选。如果没有能力匹配的浏览器，则会报错。</p>
+<blockquote>
+<p>【关于能力属性】</p>
+<p>对于 Standalone 模式服务而言，指定 <code>browserName</code> 一般就足够了——通常一台服务器上某种浏览器只有一个版本。</p>
+<p>而且，通常也不需要通过 <code>options.set_capability()</code> 来设置，创建不同类型的 <code>Options</code> 时，会“内置”对应的 <code>browserName</code>。</p>
+</blockquote>
+<h1 id="Hub-amp-Nodes"><a href="#Hub-amp-Nodes" class="headerlink" title="Hub &amp; Nodes"></a>Hub &amp; Nodes</h1><p>经典的“集线器 + 节点”模式。可以在不同远程主机上分别部署集线器和多个节点。适合中小型规模测试。</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 启动集线器</span></span><br><span class="line">java <span class="literal">-jar</span> selenium<span class="literal">-server</span>-&lt;version&gt;.jar  hub</span><br><span class="line"><span class="comment"># 启动节点</span></span><br><span class="line">java <span class="literal">-jar</span> selenium<span class="literal">-server</span>-&lt;version&gt;.jar  node -<span class="literal">-hub</span> http://host:<span class="number">4444</span></span><br></pre></td></tr></table></figure>
+<p>hub 角色会启动除 Nodes 外所有组件，而相反，node 角色只启动 Nodes 组件。</p>
+<p><code>RemoteDriver</code> 连接集线器服务即可。</p>
+<h1 id="分布式"><a href="#分布式" class="headerlink" title="分布式"></a>分布式</h1><p>大型分布式部署，各个组件分别单独启动，适合大型测试。</p>
+<p>由于组件之间的依赖关系，需要按一定的顺序启动各组件。</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 启动 Event Bus（事件总线）</span></span><br><span class="line">java <span class="literal">-jar</span> selenium<span class="literal">-server</span>-&lt;version&gt;.jar  event<span class="literal">-bus</span></span><br><span class="line"><span class="comment"># 启动 Session Map（会话表）</span></span><br><span class="line">java <span class="literal">-jar</span> selenium<span class="literal">-server</span>-&lt;version&gt;.jar sessions</span><br><span class="line"><span class="comment"># 启动 Session Queue（会话队列）</span></span><br><span class="line">java <span class="literal">-jar</span> selenium<span class="literal">-server</span>-&lt;version&gt;.jar sessionqueue</span><br><span class="line"><span class="comment"># 启动 Distributor（分发器）</span></span><br><span class="line">java <span class="literal">-jar</span> selenium<span class="literal">-server</span>-&lt;version&gt;.jar distributor -<span class="literal">-sessions</span> http://localhost:<span class="number">5556</span> -<span class="literal">-sessionqueue</span> http://localhost:<span class="number">5559</span> -<span class="literal">-bind</span><span class="literal">-bus</span> false</span><br><span class="line"><span class="comment"># 启动 Router（路由）</span></span><br><span class="line">java <span class="literal">-jar</span> selenium<span class="literal">-server</span>-&lt;version&gt;.jar router -<span class="literal">-sessions</span> http://localhost:<span class="number">5556</span> -<span class="literal">-distributor</span> http://localhost:<span class="number">5553</span> -<span class="literal">-sessionqueue</span> http://localhost:<span class="number">5559</span></span><br><span class="line"><span class="comment"># 启动节点</span></span><br><span class="line">java <span class="literal">-jar</span> selenium<span class="literal">-server</span>-&lt;version&gt;.jar node</span><br></pre></td></tr></table></figure>
+<p>注意，<code>RemoteDriver</code> 连接的是路由服务。</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a target="_blank" rel="noopener" href="https://www.selenium.dev/zh-cn/documentation/grid/components/">Selenium 文档 - 服务网格的组件</a>：介绍各种 Selenium Server 组件的概念</p>
+<p><a target="_blank" rel="noopener" href="https://www.selenium.dev/zh-cn/documentation/grid/getting_started/#distributed">Selenium 文档 - 分布式部署</a>：介绍 Selenium Server 分布部署步骤</p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Eric Zong
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://ericzonglu.gitee.io/posts/test-selenium-grid.html" title="Selenium4学习笔记：Grid篇">http://ericzonglu.gitee.io/posts/test-selenium-grid.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Selenium/" rel="tag"># Selenium</a>
+              <a href="/tags/Grid/" rel="tag"># Grid</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/test-selenium-settings.html" rel="prev" title="Selenium4学习笔记：配置篇">
+      <i class="fa fa-chevron-left"></i> Selenium4学习笔记：配置篇
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/posts/test-selenium-resources.html" rel="next" title="Selenium资源汇总">
+      Selenium资源汇总 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Grid"><span class="nav-number">1.</span> <span class="nav-text">Grid</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%87%86%E5%A4%87"><span class="nav-number">2.</span> <span class="nav-text">准备</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8C%89%E8%A7%92%E8%89%B2%E8%BF%90%E8%A1%8C"><span class="nav-number">3.</span> <span class="nav-text">按角色运行</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Standalone"><span class="nav-number">4.</span> <span class="nav-text">Standalone</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Hub-amp-Nodes"><span class="nav-number">5.</span> <span class="nav-text">Hub &amp; Nodes</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%86%E5%B8%83%E5%BC%8F"><span class="nav-number">6.</span> <span class="nav-text">分布式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-number">7.</span> <span class="nav-text">参考</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Eric Zong</p>
+  <div class="site-description" itemprop="description">这里有作为一个程序员想记录的一切。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">96</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Eric Zong</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

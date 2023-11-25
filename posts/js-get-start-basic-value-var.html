@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"ericzonglu.gitee.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="JS入门教程，值、变量与类型相关基础知识讲解。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JS入门：值、变量与类型">
+<meta property="og:url" content="http://ericzonglu.gitee.io/posts/js-get-start-basic-value-var.html">
+<meta property="og:site_name" content="八白龙的博客">
+<meta property="og:description" content="JS入门教程，值、变量与类型相关基础知识讲解。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-08-21T16:00:00.000Z">
+<meta property="article:modified_time" content="2020-10-07T18:36:58.487Z">
+<meta property="article:author" content="Eric Zong">
+<meta property="article:tag" content="入门教程">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://ericzonglu.gitee.io/posts/js-get-start-basic-value-var.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>JS入门：值、变量与类型 | 八白龙的博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">八白龙的博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">程序员的杂货铺</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-references">
+
+    <a href="/references/" rel="section"><i class="bookmark fa-fw"></i>参考</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://ericzonglu.gitee.io/posts/js-get-start-basic-value-var.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Eric Zong">
+      <meta itemprop="description" content="这里有作为一个程序员想记录的一切。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="八白龙的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          JS入门：值、变量与类型
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-08-22 00:00:00" itemprop="dateCreated datePublished" datetime="2019-08-22T00:00:00+08:00">2019-08-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-10-08 02:36:58" itemprop="dateModified" datetime="2020-10-08T02:36:58+08:00">2020-10-08</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JS/" itemprop="url" rel="index"><span itemprop="name">JS</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JS/%E7%9F%A5%E8%AF%86%E7%82%B9/" itemprop="url" rel="index"><span itemprop="name">知识点</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="值与类型"><a href="#值与类型" class="headerlink" title="值与类型"></a>值与类型</h1><p>跟其他语言一样，JavaScript 用各种值来表示数据。类型，在编程术语中，是指对值的不同表示方法。因此，任何值都具有类型。</p>
+<p>JavaScript 目前有 8 种内置类型：<code>undefined</code>, <code>null</code>, <code>boolean</code>, <code>number</code>, <code>string</code>,  <code>symbol</code>(ES6), <code>bigint</code>(ES10), <code>object</code>。</p>
+<p>由于 JavaScript 的数据类型借鉴自 Java，所以，与 Java 类似，除 <code>object</code> 属于引用类型外，其他几种类型统称原始类型，或基本类型。</p>
+<p>与值相关的一个概念是“字面量”或“字面值”，它指的是直接包含在源码中的值。比如 <code>42</code> 就是一个 <code>number</code> 类型的字面量。</p>
+<h2 id="undefined"><a href="#undefined" class="headerlink" title="undefined"></a>undefined</h2><p><code>undefined</code> 类型意味着缺失。它的唯一字面量是 <code>undefined</code>。</p>
+<blockquote>
+<p><code>undefined</code> 值出现在以下场景中：</p>
+<ul>
+<li>未初始化的变量</li>
+<li>未提供的函数参数</li>
+<li>对象缺少的属性的默认值</li>
+<li>无返回值的函数的默认返回值</li>
+<li><code>void</code> 运算符运算结果</li>
+</ul>
+<p>注意，<code>undefined</code> 是合法标识符，即可将其声明为局部变量以及为其赋值（严格模式不可以），但通常这很可能会引发问题。最佳实践：永远不要重新定义 <code>undefined</code> 以及为其赋值。详细讨论参考 <a href="/posts/js-undefined-identifier.html">这里</a>。</p>
+</blockquote>
+<h2 id="null"><a href="#null" class="headerlink" title="null"></a>null</h2><p><code>null</code> 类型表示空值。与 <code>undefined</code> 不同，它明确表示没有值，即空值，而非缺省。<code>null</code> 是其唯一字面量。</p>
+<blockquote>
+<p><code>null</code> 值的类型也为 <code>null</code>，而不是 <code>object</code>。但 <code>typeof</code> 误判 <code>null</code> 为 <code>object</code> 类型，是因为数据在底层都是以二进制形式存储，当二进制前三位为 0，则会被 <code>typeof</code> 判定为 <code>object</code> 类型，而 <code>null</code> 的二进制位都是 0。</p>
+</blockquote>
+<h2 id="boolean"><a href="#boolean" class="headerlink" title="boolean"></a>boolean</h2><p><code>boolean</code> 是逻辑类型值，包含 2 个字面量：<code>true</code> 和 <code>false</code>。</p>
+<blockquote>
+<p>当其他类型的值被（显式或隐式）转换为 boolean 类型时，可能被转换为 <code>true</code> 或 <code>false</code>，以此引出了 Truthy 类型值和 Falsy 类型值的概念。</p>
+<p>Falsy 类型值，在类型转换时会被转换为 <code>false</code> 的值，与之相对的是“Truthy 类型值”。</p>
+<p>Falsy 类型值包括：””（空字符串）、<code>0</code>（<code>+0</code>/<code>-0</code>）、<code>null</code>、<code>undefined</code>、<code>NaN</code>、<code>false</code>。其他均为 Truthy 类型值。这里要特别注意，由于 Boolean 封装类型对象是引用类型，所以它总转换为 <code>true</code>，即使封装的原始值是 <code>false</code>。</p>
+</blockquote>
+<h2 id="number"><a href="#number" class="headerlink" title="number"></a>number</h2><p><code>Number</code> 是基于 IEEE 754 标准的双精度 64 位二进制格式的值（-(2^63^ -1) 到 2^63^ -1）。</p>
+<p>它可以表示整数与小数。</p>
+<h2 id="bigint"><a href="#bigint" class="headerlink" title="bigint"></a>bigint</h2><p><code>bigint</code> 可以用任意精度表示整数。它的字面量使用后缀 <code>n</code> 表示，比如：<code>42n</code>。</p>
+<blockquote>
+<p>注意，<code>bigint</code> 不能与 <code>number</code> 进行混合运算。</p>
+</blockquote>
+<h2 id="String"><a href="#String" class="headerlink" title="String"></a>String</h2><p>JavaScript 的字符串是不可变的，这与 Java 类似。</p>
+<blockquote>
+<p>即使是在字符串字面量上也可以调用方法，这是因为 JavaScript 隐式地将字面量转换成一个临时字符串对象，并调用方法，然后丢弃掉该临时对象。</p>
+<p>JavaScript 没有字符类型，只能使用包含单个字符的字符串代替。</p>
+<p>另一方面，字符串可看作具有字符数组结构，因此，可以在字符串上进行某些数组操作。</p>
+</blockquote>
+<h2 id="Symbol"><a href="#Symbol" class="headerlink" title="Symbol"></a>Symbol</h2><p>ES6 新增类型。</p>
+<p>它代表某种意义上的唯一值。</p>
+<p>相关使用可参考 <a href="/references/js-es6-symbol">这里</a>。</p>
+<h2 id="Object"><a href="#Object" class="headerlink" title="Object"></a>Object</h2><p>JavaScript 的对象以“键-值对”的形式表示，与 <code>Map</code> 结构极为相似。</p>
+<h1 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h1><p>在程序中，变量用以保存程序要使用的值，它仅仅是一个符号容器。使用“变量”这个名字是因为这个容器中的值是可以变化的。</p>
+<p>变量的主要用途：管理程序状态。状态跟踪了值随着程序运行的变化。</p>
+<p>与 Java 等静态语言不同，JavaScript 是动态类型语言，或者说是弱类型，即它允许一个变量在任意时刻存放任意类型的值。</p>
+<blockquote>
+<p>在 JavaScript 中，只有值有类型；变量只是这些值的容器。</p>
+</blockquote>
+<p>变量赋值通常分为两个阶段：1. 编译器，声明变量；2. 运行时引擎，赋值。</p>
+<p>变量在使用时需要进行变量查询，变量查询分为 LHS 和 RHS，其区别在于查询目的和失败行为：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th></th>
+<th>LHS</th>
+<th>RHS</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>变量查询目的</td>
+<td>赋值</td>
+<td>获取值</td>
+</tr>
+<tr>
+<td>查询失败行为</td>
+<td>非严格模式：自动隐式创建； 严格模式：ReferenceError</td>
+<td>ReferenceError</td>
+</tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<p>注意：严格模式禁止自动或隐式地创建全局变量。</p>
+</blockquote>
+<h1 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h1><h2 id="Unicode相关概念"><a href="#Unicode相关概念" class="headerlink" title="Unicode相关概念"></a>Unicode相关概念</h2><p>Unicode 码点转义（code point escaping），如：<code>\u&#123;1D11E&#125;</code>。</p>
+<p>Unicode 规范化（Unicode normalization），<code>String.normalize(..)</code>。</p>
+<p>组合音标符号（Combining Diacritical Mark），会修改其前面相邻的字符的码点。</p>
+<p>字素（grapheme），视觉上看到的渲染出来的单个字符。并不总是与程序处理意义上的单个“字符”严格对应。</p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Eric Zong
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://ericzonglu.gitee.io/posts/js-get-start-basic-value-var.html" title="JS入门：值、变量与类型">http://ericzonglu.gitee.io/posts/js-get-start-basic-value-var.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/" rel="tag"># 入门教程</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/js-get-start-overview.html" rel="prev" title="JS入门：概述">
+      <i class="fa fa-chevron-left"></i> JS入门：概述
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/posts/js-get-start-basic-function.html" rel="next" title="JS入门：函数">
+      JS入门：函数 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%80%BC%E4%B8%8E%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.</span> <span class="nav-text">值与类型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">1.1.</span> <span class="nav-text">undefined</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#null"><span class="nav-number">1.2.</span> <span class="nav-text">null</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#boolean"><span class="nav-number">1.3.</span> <span class="nav-text">boolean</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#number"><span class="nav-number">1.4.</span> <span class="nav-text">number</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#bigint"><span class="nav-number">1.5.</span> <span class="nav-text">bigint</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#String"><span class="nav-number">1.6.</span> <span class="nav-text">String</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Symbol"><span class="nav-number">1.7.</span> <span class="nav-text">Symbol</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Object"><span class="nav-number">1.8.</span> <span class="nav-text">Object</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%98%E9%87%8F"><span class="nav-number">2.</span> <span class="nav-text">变量</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%99%84%E5%BD%95"><span class="nav-number">3.</span> <span class="nav-text">附录</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Unicode%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5"><span class="nav-number">3.1.</span> <span class="nav-text">Unicode相关概念</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Eric Zong</p>
+  <div class="site-description" itemprop="description">这里有作为一个程序员想记录的一切。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">96</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Eric Zong</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

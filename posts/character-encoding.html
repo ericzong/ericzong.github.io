@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"ericzonglu.gitee.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="介绍字符编码和解码以及乱码的形成。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="字符编码概论">
+<meta property="og:url" content="http://ericzonglu.gitee.io/posts/character-encoding.html">
+<meta property="og:site_name" content="八白龙的博客">
+<meta property="og:description" content="介绍字符编码和解码以及乱码的形成。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-05-27T16:00:00.000Z">
+<meta property="article:modified_time" content="2020-10-04T16:38:12.018Z">
+<meta property="article:author" content="Eric Zong">
+<meta property="article:tag" content="字符编码">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://ericzonglu.gitee.io/posts/character-encoding.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>字符编码概论 | 八白龙的博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">八白龙的博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">程序员的杂货铺</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-references">
+
+    <a href="/references/" rel="section"><i class="bookmark fa-fw"></i>参考</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://ericzonglu.gitee.io/posts/character-encoding.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Eric Zong">
+      <meta itemprop="description" content="这里有作为一个程序员想记录的一切。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="八白龙的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          字符编码概论
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-05-28 00:00:00" itemprop="dateCreated datePublished" datetime="2019-05-28T00:00:00+08:00">2019-05-28</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-10-05 00:38:12" itemprop="dateModified" datetime="2020-10-05T00:38:12+08:00">2020-10-05</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E7%BB%BC%E5%90%88/" itemprop="url" rel="index"><span itemprop="name">编程综合</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><h2 id="编码和解码"><a href="#编码和解码" class="headerlink" title="编码和解码"></a>编码和解码</h2><p>计算机工作在“比特位（bytes）”下，因此，如果想要表示人类语言中的各个字符就需要利用比特位序列来代表。</p>
+<p>所以，我们需要制定一个规则来将字符转换为计算机可存储的比特序列，这便是“编码”。</p>
+<p>反过来，将存储的比特序列转换回对应字符进行显示的过程就是“解码”。</p>
+<p>编码是为计算机服务的，而解码是为人类服务的，编解码实际上就是为计算机与人类沟通服务的。</p>
+<h2 id="乱码的产生"><a href="#乱码的产生" class="headerlink" title="乱码的产生"></a>乱码的产生</h2><p>一方面，通过编码和解码，可将字符和比特序列相互转换。</p>
+<p>另一方面，人类语言多种多样，相应的字符符号也是多种多样，而开始的时候大家都各自制定自己的编码和解码规则，所以出现了多套规则。</p>
+<p>因此，我们可以预测，转换错误会以三种方式出现：编码错误、解码错误和编解码冲突。</p>
+<p>编码错误：由于字符数量庞大，所以一种编码规则几乎不可能囊括所有字符，因此，当一种编码规则试图编码一个不在其中的字符时，会出现问题。比如，使用 ISO-8859-1 编码中文会得到“?”。这通常是一种单向特殊转换，换句话说，无论使用哪种方式解码都不能得到原字符。因此，保存时应选择合适的编码。</p>
+<p>解码错误：解码显示依赖字体库，如果缺失对应的字体库，将不能正常显示字符。比如，在英文系统中中文显示为方框。此时，需要安装相应的字体库。</p>
+<p>编解码冲突：由于编码和解码规则多种多样，如果我们错误地使用一种解码规则来解码另一种编码方式编码的比特序列，那么，通常会（除非兼容）得到不可预测的结果。</p>
+<p>由于以上错误，最终显示的字符串通常是不可读的，因此称为“乱码”。</p>
+<h1 id="相关定义"><a href="#相关定义" class="headerlink" title="相关定义"></a>相关定义</h1><h2 id="抽象定义"><a href="#抽象定义" class="headerlink" title="抽象定义"></a>抽象定义</h2><p>字符集合（Character set）：各种字符的总称。</p>
+<p>编码：将字符转换为比特序列的过程。</p>
+<p>解码：将比特序列转换为字符的过程。</p>
+<h2 id="术语"><a href="#术语" class="headerlink" title="术语"></a>术语</h2><p>字符集（Charset）：规则集合的名字。字符集=字库表+编码字符集+字符编码。</p>
+<p>字库表（Character repertoire）：可读或可显示字符的数据库，决定了整个字符集能表示的所有字符的范围。</p>
+<p>编码字符集（Coded character set）：字符集中字符对应的编码集合，即代码点集合。</p>
+<p>代码点（Code Point）：一个数字，代表某个字符在字库表中的位置，即在编码字符集中的序号。比如：ASCII 字符集中，字符 A 的代码点是 65。</p>
+<p>字符编码（Character Encoding）：一个映射关系，代码点和二进制存储格式之间的转换关系。比如：ASCII 编码中，65 被存储为 01000001（8 位）。</p>
+<h1 id="解析"><a href="#解析" class="headerlink" title="解析"></a>解析</h1><p>字符集定义了如何将字符转换为二进制格式的规则。其中，字库表定义了其包括的字符范围，并用代码点将相应字符集合表示为编码字符集，最后通过字符编码将代码点转换为二进制格式存储或传输。</p>
+<p>简而言之，字符集定义了有哪些字符，如何将这些字符转化为数值表示，如何存储这些数值。</p>
+<p>回看这些术语，字符集、编码字符集和字符编码可能是比较容易混淆的，其中字符集和字符编码的混淆尤为普遍。</p>
+<p>字符集和编码字符集应该比较好分辨，字符集是一整套规则，而编码字符集通俗点说就是一堆代表字符的数值而已。</p>
+<p>字符集与字符编码常被混用，从上面的定义就可知它们是不同的概念。字符集包含字符编码，可以说字符集是从字符到二进制的转换规则，而字符编码是从代码点到二进制的转换规则。</p>
+<p>而且一种字符集并非只能包含一种字符编码，比如 Unicode 字符集就包含 UTF-8、UFT-16 等字符编码。简单来说，我们知道，代码点只是一个数值，存储该数值时使用 8 位、16 位还是其他多少位是可选的。因此，可以有多种字符编码。</p>
+<h1 id="常见字符集与编码"><a href="#常见字符集与编码" class="headerlink" title="常见字符集与编码"></a>常见字符集与编码</h1><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>字符集</th>
+<th>字符编码</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ASCII</td>
+<td>ASCII</td>
+<td>单字节，用低 7 位表示，128 个字符。可表示部分西欧语言。</td>
+</tr>
+<tr>
+<td>ISO-8859-X</td>
+<td>ISO-8859-1~ISO8859-15</td>
+<td>单字节，256 个字符。涵盖大多数西欧语言字符和希腊语。不能对中日韩等语言编码。</td>
+</tr>
+<tr>
+<td>GBXXX</td>
+<td>GB2312</td>
+<td>《信息交换用汉字编码字符集 基本集》 。双字节。可处理大部分中文常用字。</td>
+</tr>
+<tr>
+<td></td>
+<td>GBK</td>
+<td>《汉字内码扩展规范》 。双字节。 完全兼容 GB2312-80 标准，支持国际标准 ISO/IEC10646-1 和国家标准 GB13000-1 中的全部中日韩汉字，并包含了 BIG5 编码中的所有汉字。</td>
+</tr>
+<tr>
+<td></td>
+<td>GB18030</td>
+<td>GB18030-2005 《信息技术中文编码字符集》 。变长：单字节、双字节和四字节。 以汉字为主并包含多种我国少数民族文字（如藏、蒙古、傣、彝、朝鲜、维吾尔文等）的超大型中文编码字符集强制性标准。</td>
+</tr>
+<tr>
+<td>Big5</td>
+<td>Big5</td>
+<td>双字节。 适用于台湾、香港地区的一个繁体字编码方案。</td>
+</tr>
+<tr>
+<td>Unicode</td>
+<td>UTF-8</td>
+<td>变长字节。节省空间，适合传输和通信。</td>
+</tr>
+<tr>
+<td></td>
+<td>UTF-16</td>
+<td>变长字节，大部分双字节。不兼容 ASCII。</td>
+</tr>
+<tr>
+<td></td>
+<td>UTF-32</td>
+<td>Unicode 代码点 4 字节，其他 Unicode 编码方式不定长度。</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h1><ul>
+<li>字符集是由 3 部分组成的，且它在概念上是包括字符编码的。</li>
+</ul>
+<script type="math/tex; mode=display">
+字符集/Charset
+\begin{cases}
+字库表/Character Repertoire \\
+编码字符集/Coded Character Set \Leftrightarrow {代码点/Code Point}^{数字} 集合 \\
+字符编码/Character Encoding
+\end{cases}</script><ul>
+<li>字库表将字符对应的代码点集合为编码字符集，再由字符编码转换为二进制存储格式。</li>
+</ul>
+<script type="math/tex; mode=display">
+\begin{CD}
+字库表 @>{\text{代码点}}>> 编码字符集 @>{\text{字符编码}}>> 二进制
+\end{CD}</script><ul>
+<li>一个字符集可以包含多个字符编码。</li>
+</ul>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/java/analysis-and-summary-of-common-random-code-problems/index.html?cm_mmc=dwchina-_-homepage-_-social-_-qq">常见乱码问题分析和总结</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/java/j-lo-chinesecoding/index.html">深入分析 Java 中的中文编码问题</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/smstong/article/details/51279810">让VIM彻底告别乱码</a></p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Eric Zong
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://ericzonglu.gitee.io/posts/character-encoding.html" title="字符编码概论">http://ericzonglu.gitee.io/posts/character-encoding.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81/" rel="tag"># 字符编码</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/powershell-array.html" rel="prev" title="PowerShell专题：数组">
+      <i class="fa fa-chevron-left"></i> PowerShell专题：数组
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/posts/tool-aria2-get-start.html" rel="next" title="aria2使用入门">
+      aria2使用入门 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A6%82%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%96%E7%A0%81%E5%92%8C%E8%A7%A3%E7%A0%81"><span class="nav-number">1.1.</span> <span class="nav-text">编码和解码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B9%B1%E7%A0%81%E7%9A%84%E4%BA%A7%E7%94%9F"><span class="nav-number">1.2.</span> <span class="nav-text">乱码的产生</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%9B%B8%E5%85%B3%E5%AE%9A%E4%B9%89"><span class="nav-number">2.</span> <span class="nav-text">相关定义</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8A%BD%E8%B1%A1%E5%AE%9A%E4%B9%89"><span class="nav-number">2.1.</span> <span class="nav-text">抽象定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%AF%E8%AF%AD"><span class="nav-number">2.2.</span> <span class="nav-text">术语</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%A7%A3%E6%9E%90"><span class="nav-number">3.</span> <span class="nav-text">解析</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E5%AD%97%E7%AC%A6%E9%9B%86%E4%B8%8E%E7%BC%96%E7%A0%81"><span class="nav-number">4.</span> <span class="nav-text">常见字符集与编码</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B0%8F%E7%BB%93"><span class="nav-number">5.</span> <span class="nav-text">小结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-number">6.</span> <span class="nav-text">参考</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Eric Zong</p>
+  <div class="site-description" itemprop="description">这里有作为一个程序员想记录的一切。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">96</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Eric Zong</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>

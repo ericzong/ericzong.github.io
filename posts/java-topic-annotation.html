@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"ericzonglu.gitee.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="介绍Java注解相关知识。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java专题：注解">
+<meta property="og:url" content="http://ericzonglu.gitee.io/posts/java-topic-annotation.html">
+<meta property="og:site_name" content="八白龙的博客">
+<meta property="og:description" content="介绍Java注解相关知识。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-05-19T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-05-19T16:25:44.850Z">
+<meta property="article:author" content="Eric Zong">
+<meta property="article:tag" content="Java基础">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://ericzonglu.gitee.io/posts/java-topic-annotation.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Java专题：注解 | 八白龙的博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">八白龙的博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">程序员的杂货铺</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-references">
+
+    <a href="/references/" rel="section"><i class="bookmark fa-fw"></i>参考</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://ericzonglu.gitee.io/posts/java-topic-annotation.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Eric Zong">
+      <meta itemprop="description" content="这里有作为一个程序员想记录的一切。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="八白龙的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Java专题：注解
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-05-20 00:00:00 / 修改时间：00:25:44" itemprop="dateCreated datePublished" datetime="2021-05-20T00:00:00+08:00">2021-05-20</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/%E4%B8%93%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">专题</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>本文基于 Java 8。</p>
+</blockquote>
+<h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p>注解类型（annotation type）是一种标记，将信息与程序结构关联起来，但在运行时不会产生任何影响。注解表示的是注解类型的具体调用，并通常会为该类型的元素提供值。</p>
+<p>注解类型是一种特殊接口类型，是元数据（metadata）的一种形式。</p>
+<p>注解类型可应用于声明或任何类型使用时（Java 8 新增），使用的标准形式如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// “@”暗示编译器其后跟着的是注解类型的名称</span></span><br><span class="line"><span class="meta">@AnnotationName(element1=value1, element2=value2)</span></span><br></pre></td></tr></table></figure>
+<p>使用示例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 普通注解的使用</span></span><br><span class="line"><span class="meta">@Author(name=&quot;Eric Zong&quot;  date=&quot;2016/4/24&quot;)</span></span><br><span class="line"><span class="comment">// 如果注解只有一个 value 元素，可省略名称</span></span><br><span class="line"><span class="meta">@SuppressWarnings(&quot;unchecked&quot;)</span></span><br><span class="line"><span class="comment">// 如果注解没有元素，则括号也可以省略</span></span><br><span class="line"><span class="meta">@Override</span></span><br></pre></td></tr></table></figure>
+<h1 id="功能"><a href="#功能" class="headerlink" title="功能"></a>功能</h1><p>注解的功能主要包括：</p>
+<ul>
+<li>为编译器提供信息——编译器可以用其来探测错误或抑制警告；</li>
+<li>编译时和部署时处理——软件工具可以处理注解用以生成代码，XML 文件等；</li>
+<li>运行时处理——运行时检查某些注解。</li>
+</ul>
+<p>简单说来，注解常用于：创建文档、跟踪代码的依赖性、执行编译时格式检查、代替已有的配置文件。</p>
+<h1 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h1><p>注解类型可以按不同的依据划分为不同的类型，主要的分类方式有以下一些。</p>
+<p>按元素多少可分为：完整（普通）注解、单元素注解、标记注解。</p>
+<p>按注解保留的生命周期可分为：源代码注解、编译时注解、运行时注解。</p>
+<p>按来源可为分为：预定义注解、第三方注解、自定义注解。</p>
+<h2 id="预定义注解"><a href="#预定义注解" class="headerlink" title="预定义注解"></a>预定义注解</h2><p>Java 本身内置了一些注解类型供我们使用，称为“预定义注解”。</p>
+<p>预定义注解在 <code>java.lang</code> 或 <code>java.lang.annotation</code> 包中。</p>
+<p>其中有一部分是应用于注解类型的注解类型，称为“<strong>元注解</strong>”，这将在后续相应章节讲解。</p>
+<p>下面列举说明的是除元注解外主要的预定义注解，它们大都是为编译器提供信息的。</p>
+<h3 id="Deprecated"><a href="#Deprecated" class="headerlink" title="@Deprecated"></a>@Deprecated</h3><p><code>@Deprecated</code> 暗示被标注的元素已过时并不应再使用。</p>
+<p>当程序使用一个被该注解标记的类型、方法、域或构造器的声明时，编译器将产生一个警告。 “使用”包括：名字覆盖、调用、引用。</p>
+<p>唯一可以引发过时警告的隐式声明的结构就是容器注解，但不鼓励这样的标注。</p>
+<p>过时的元素的 Javadoc 注释中也应该使用 @deprecated 标记。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Javadoc comment follows</span></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@deprecated</span></span></span><br><span class="line"><span class="comment"> * explanation of why it was deprecated</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Deprecated</span></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">deprecatedMethod</span><span class="params">()</span> </span>&#123; &#125;  </span><br></pre></td></tr></table></figure>
+<h3 id="Override"><a href="#Override" class="headerlink" title="@Override"></a>@Override</h3><p><code>@Override</code> 表示被标注的方法覆盖了超类型的方法。</p>
+<p>如果被标注的方法并非覆盖，则编译器将产生一个错误。</p>
+<h3 id="SuppressWarnings"><a href="#SuppressWarnings" class="headerlink" title="@SuppressWarnings"></a>@SuppressWarnings</h3><p><code>@SuppressWarnings</code> 告知编译器抑制指定的警告。</p>
+<p>我们必须指定一种或几种要抑制的警告，抑制多种警告语法像这样：<code>@SuppressWarnings(&#123;&quot;unchecked&quot;, &quot;deprecation&quot;&#125;)</code></p>
+<h3 id="SafeVarargs"><a href="#SafeVarargs" class="headerlink" title="@SafeVarargs"></a>@SafeVarargs</h3><p><code>@SafeVarargs</code> 明确其代码不存在潜在的安全风险，抑制相关警告。</p>
+<p>具有不可具化元素类型的可变参数可能会引发堆污染，并产生编译时非受检警告。 如果可变参数方法体相对于可变参数是行为得当的，那么应当抑制这种警告。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span>&lt;T&gt; Boolean <span class="title">addAll</span><span class="params">(Collection&lt;? <span class="keyword">super</span> T&gt; c, T... elements)</span></span></span><br></pre></td></tr></table></figure>
+<p>只能应用于 <code>static</code> 方法、<code>final</code> 实例方法，以及构造器，所以不能在会发生方法覆盖的地方使用。</p>
+<p>Java 7 新增注解。</p>
+<h3 id="FunctionalInterface"><a href="#FunctionalInterface" class="headerlink" title="@FunctionalInterface"></a>@FunctionalInterface</h3><p><code>@FunctionalInterface</code> 暗示类型声明是一个函数接口（functional interface）。</p>
+<p>Java 8 新增注解。</p>
+<h2 id="元注解"><a href="#元注解" class="headerlink" title="元注解"></a>元注解</h2><p>应用于其它注解类型声明上的注解类型称为元注解（meta-annotations），主要定义在 <code>java.lang.annotation</code> 包中。</p>
+<h3 id="Retention"><a href="#Retention" class="headerlink" title="@Retention"></a>@Retention</h3><p><code>@Retention</code> 指定注解如何保留。</p>
+<p>有 3 种策略：<code>SOURCE</code>、<code>CLASS</code>（缺省）、<code>RUNTIME</code>，它们由 <code>RetentionPolicy</code> 枚举提供。详见附录。</p>
+<h3 id="Target"><a href="#Target" class="headerlink" title="@Target"></a>@Target</h3><p><code>@Target</code> 指定注解类型可应用的上下文，包括声明上下文和类型上下文。</p>
+<p>缺省 <code>@Target</code>，注解类型可应用于除类型参数声明之外的所有声明上下文中，但不能应用于任何类型上下文中。</p>
+<p>必须指定一个或多个目标元素，使用 <code>ElementType</code> 枚举指定，且不能重复。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Target</span> <span class="comment">// 不指定目标类型是非法的</span></span><br><span class="line"><span class="meta">@Target(&#123;&#125;)</span> <span class="comment">// 指定空的目标类型数组也是非法的</span></span><br><span class="line"><span class="meta">@Target(&#123;ElementType.FIELD, ElementType.FIELD&#125;)</span> <span class="comment">// 目标类型重复出现也是非法的</span></span><br></pre></td></tr></table></figure>
+<h3 id="Inherited"><a href="#Inherited" class="headerlink" title="@Inherited"></a>@Inherited</h3><p><code>@Inherited</code> 表明注解类型可以从超类继承，默认不是继承的。</p>
+<p>仅能应用于类声明，否则无效。仅促成从超类继承，对实现的接口无效。</p>
+<p>派生类上查询不到的可继承注解，应在超类上查询。</p>
+<h3 id="Documented"><a href="#Documented" class="headerlink" title="@Documented"></a>@Documented</h3><p><code>@Documented</code> 表明使用 Javadoc 工具时，注解应该文档化。（默认注解不包括在 Javadoc 中）</p>
+<h3 id="Repeatable"><a href="#Repeatable" class="headerlink" title="@Repeatable"></a>@Repeatable</h3><p><code>@Repeatable</code> 在可重复注解类型声明上表示其容器注解类型。</p>
+<p>Java 8 新增。</p>
+<h1 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h1><h2 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">AnnotationTypeBody:</span><br><span class="line">  &#123; &#123;AnnotationTypeMemberDeclaration&#125; &#125;</span><br><span class="line">AnnotationTypeMemberDeclaration:</span><br><span class="line">  AnnotationTypeElementDeclaration</span><br><span class="line">  ConstantDeclaration</span><br><span class="line">  ClassDeclaration</span><br><span class="line">  InterfaceDeclaration</span><br><span class="line">  ;</span><br><span class="line"></span><br><span class="line">AnnotationTypeElementDeclaration:</span><br><span class="line">  &#123;AnnotationTypeElementModifier&#125; <span class="function">UnannType <span class="title">Identifier</span> <span class="params">()</span> [Dims]</span></span><br><span class="line"><span class="function">[DefaultValue]</span>;</span><br><span class="line"></span><br><span class="line">AnnotationTypeElementModifier: one of</span><br><span class="line">  Annotation <span class="keyword">public</span></span><br><span class="line">  <span class="keyword">abstract</span> </span><br><span class="line">  </span><br><span class="line">DefaultValue:</span><br><span class="line">  Default ElementValue</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>按照 <code>AnnotationTypeElementDeclaration</code> 产生式，在注解类型声明中的方法声明不能够有任何形式参数、类型参数或 throws 子句。</p>
+<p>按照 <code>AnnotationTypeElementModifier</code> 产生式，在注解类型声明中的方法声明不能是 <code>default</code> 或 <code>static</code> 的。</p>
+<p>按照惯例，注解是唯一可以出现在注解类型元素上的 <code>AnnotationTypeElementModifier</code>。</p>
+</blockquote>
+<p>示例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Target(&#123;ElementType.METHOD, ElementType.TYPE&#125;)</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@Inherited</span></span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> Description</span><br><span class="line">&#123;</span><br><span class="line">  <span class="function">String <span class="title">desc</span><span class="params">()</span></span>;</span><br><span class="line">  <span class="function"><span class="keyword">int</span> <span class="title">age</span><span class="params">()</span> <span class="keyword">default</span> 18</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>注解类型，是接口的一种特殊表现形式，所以与接口定义类似，只是在关键字 <code>interface</code> 前加“<code>@</code>”区分普通接口。</p>
+<p>注解类型的直接超接口是 <code>java.lang.annotation.Annotation</code>。</p>
+<h2 id="注解类型元素"><a href="#注解类型元素" class="headerlink" title="注解类型元素"></a>注解类型元素</h2><p>注解类型声明 <code>T</code> 不能直接或间接地包含 <code>T</code> 类型的元素。</p>
+<p>注解类型的任何元素都是使用在该类型中显式声明的方法定义的，并且以无参无异常的方式声明。</p>
+<p>元素的返回值类型是受限的，只能是基本数据类型、<code>String</code>、<code>Class</code> 或 <code>Class</code> 的调用、<code>Annotation</code>、<code>Enumeration</code> 及它们的数组。</p>
+<p>元素方法签名不能跟 <code>Object</code> 类或 <code>Annotation</code> 接口中声明的任何 <code>public</code> 或 <code>protected</code> 方法签名是覆盖等价的。</p>
+<p>可以用 <code>default</code> 为元素指定默认值。</p>
+<h1 id="查询获取"><a href="#查询获取" class="headerlink" title="查询获取"></a>查询获取</h1><p>通过反射获取类、方法或成员上的运行时注解信息，从而实现动态控制程序运行的逻辑。</p>
+<p><code>AnnotatedElement</code> 接口提供了获取注解信息的相关方法，<code>Class</code>、<code>Method</code>、<code>Field</code> 等都实现了该接口，所以可以获取到其上的注解信息。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">isAnnotationPresent</span><span class="params">(Class&lt;? extends Annotation&gt; annotationClass)</span></span></span><br><span class="line"><span class="function">&lt;T extends Annotation&gt; T <span class="title">getAnnotation</span><span class="params">(Class&lt;T&gt; annotationClass)</span></span></span><br><span class="line"><span class="function">Annotation[] <span class="title">getAnnotations</span><span class="params">()</span></span>;</span><br><span class="line">&lt;T extends Annotation&gt; T[] getAnnotationsByType(Class&lt;T&gt; annotationClass) </span><br><span class="line">&lt;T extends Annotation&gt; <span class="function">T <span class="title">getDeclaredAnnotation</span><span class="params">(Class&lt;T&gt; annotationClass)</span> </span></span><br><span class="line"><span class="function">&lt;T extends Annotation&gt; T[] <span class="title">getDeclaredAnnotationsByType</span><span class="params">(Class&lt;T&gt; annotationClass)</span></span></span><br><span class="line"><span class="function">Annotation[] <span class="title">getDeclaredAnnotations</span><span class="params">()</span></span>;</span><br></pre></td></tr></table></figure>
+<h1 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h1><p>局部变量声明上的注解永远不会在二进制表示中保留。*</p>
+<p>因为语法限制，注解类型声明不能是泛化的。</p>
+<p><code>java.lang.annotation.Annotation</code> 是注解类型的超接口，但它本身不是注解类型。</p>
+<p>注解类型元素的缺省值并没有编译到注解中，而是在注解被读取时动态地应用的。因此，改变缺省值会影响注解。</p>
+<p>注释类型可作为注解出现在自身类型声明上。注解关系传递闭包中可以存在环。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 以下 2 个注解类型循环注解对方，甚至自注解都是合法的</span></span><br><span class="line"><span class="meta">@MyAnnotation</span></span><br><span class="line"><span class="meta">@MyAnnotation2</span></span><br><span class="line"><span class="meta">@interface</span> MyAnnotation </span><br><span class="line">&#123;</span><br><span class="line">    <span class="meta">@MyAnnotation</span></span><br><span class="line">    <span class="meta">@MyAnnotation2</span></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">value</span><span class="params">()</span> <span class="keyword">default</span> 0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@MyAnnotation</span></span><br><span class="line"><span class="meta">@MyAnnotation2</span></span><br><span class="line"><span class="meta">@interface</span> MyAnnotation2</span><br><span class="line">&#123;</span><br><span class="line">    <span class="meta">@MyAnnotation</span></span><br><span class="line">    <span class="meta">@MyAnnotation2</span></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">value</span><span class="params">()</span> <span class="keyword">default</span> 2</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>注解类型声明 <code>T</code> 不能直接或间接地包含 <code>T</code> 类型的元素。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 元素类型是自身类型是不允许的</span></span><br><span class="line"><span class="meta">@interface</span> MyAnnotation </span><br><span class="line">&#123;</span><br><span class="line">    <span class="function">MyAnnotation <span class="title">value</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 元素类型形成循环引用也是不允许的</span></span><br><span class="line"><span class="meta">@interface</span> MyAnnotation </span><br><span class="line">&#123;</span><br><span class="line">    <span class="function">MyAnnotation2 <span class="title">value</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@interface</span> MyAnnotation2</span><br><span class="line">&#123;</span><br><span class="line">    <span class="function">MyAnnotation <span class="title">value</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="新特性"><a href="#新特性" class="headerlink" title="新特性"></a>新特性</h1><p>说明 Java 7 和 Java 8 所加入的与注解相关的新特性。</p>
+<h2 id="新增注解类型"><a href="#新增注解类型" class="headerlink" title="新增注解类型"></a>新增注解类型</h2><p>Java 7 新增 <code>@SafeVarargs</code> 注解类型；Java 8 新增 <code>@FunctionalInterface</code> 注解类型。相关说明见上文。</p>
+<h2 id="类型注解"><a href="#类型注解" class="headerlink" title="类型注解"></a>类型注解</h2><p>Java8 之前，注解类型只能应用于声明，之后可应用于任何类型使用时，即在任何使用一个类型的地方， 比如：类实例化表达式（<code>new</code>）、类型转换、<code>implements</code> 子句、<code>throws</code> 子句。这称为<strong>类型注解</strong>（type annotation）。</p>
+<p>应用于类型使用的注解类型，称为<strong>类型注解</strong>（type annotation）。</p>
+<p>类型注解增强了类型检查，不过 Java 8 没有提供检查框架，但是可以自定义或下载一个。</p>
+<p>示例：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">类实例创建表达式： new @Interned MyObject();</span><br><span class="line">类型转换： myString = (@NonNull String)str;</span><br><span class="line">实现子句： class UnmodifiableList&lt;T&gt; implements @Readonly List&lt;@Readonly T&gt; &#123; ... &#125;</span><br><span class="line">异常抛出声明： void monitorTemperature() throws @Critical TemperatureException &#123; ... &#125;</span><br></pre></td></tr></table></figure>
+<h2 id="可重复注解"><a href="#可重复注解" class="headerlink" title="可重复注解"></a>可重复注解</h2><p>Java 8 之前，同一个注解类型只能应用一次，之后如果可以同时应用多次，则称为“<strong>可重复注解</strong>（repeating annotation）”。</p>
+<p>定义可重复注解类型跟普通注解类型定义相似，不同仅在于需要使用 <code>@Repeatable</code> 元注解标记。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Repeatable(MyContainingType.class)</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> MyRepeatableAnnotation</span><br><span class="line">&#123;</span><br><span class="line">  <span class="comment">//……</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们可以注意到 <code>@Repeatable</code> 元注解需要指定一个 <code>Class</code> 类型的元素，该类型称为可重复注解类型的“容器注解类型（containing annotation type）”。</p>
+<p>定义容器注解类型也有点特别，它必须定义一个 value 元素，其类型为上面定义的可重复注解类型的数组。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">public @interface MyContainingType</span><br><span class="line">&#123;</span><br><span class="line">  MyRepeatableAnnotation[] value();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>定义可重复注解还有以下一些需要注意的事项：</p>
+<ol>
+<li>容器注解类型声明的任何除 <code>value()</code> 外的方法都应有缺省值。</li>
+<li>容器注解类型存留时间至少与其对应的可重复注解类型一样长。存留期由 <code>@Retention</code> 注解表示。</li>
+<li>可重复注解类型可应用的程序元素种类至少与其对应的容器注解类型相同。</li>
+<li>可重复注解类型有 <code>@Documented</code>/<code>@Inherited</code>（元）注解，则容器注解类型也有。</li>
+<li>容器注解类型自身可以是可重复的注解类型。</li>
+</ol>
+<h1 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h1><h2 id="定义一览"><a href="#定义一览" class="headerlink" title="定义一览"></a>定义一览</h2><ul>
+<li><p>预定义注解</p>
+<p>Java 内置的注解。</p>
+</li>
+<li><p>元注解</p>
+<p>应用于其它注解的注解。</p>
+</li>
+<li><p>标记注解</p>
+<p>没有任何元素的注解类型。</p>
+</li>
+<li><p>单元素注解类型</p>
+<p>只有一个元素的注解类型。</p>
+</li>
+<li><p>类型注解</p>
+<p>应用于类型使用的注解。</p>
+</li>
+<li><p>可重复注解</p>
+<p>可以重复应用多次的注解。</p>
+</li>
+</ul>
+<h2 id="相关规范"><a href="#相关规范" class="headerlink" title="相关规范"></a>相关规范</h2><p>注解应用于声明上时，通常每个注解单独一行。</p>
+<p><code>@</code> 和 <code>interface</code> 是 2 个不同的标记。技术上可以用空白字符分隔开，但不推荐。</p>
+<p>单元素注解类型唯一的元素应取名为 value，以便在使用时可以忽略元素名和赋值号（<code>=</code>）。</p>
+<p>注解中的元素-值对出现的顺序应该与注解类型声明中对应元素出现顺序相同。</p>
+<h2 id="预定义注解参考"><a href="#预定义注解参考" class="headerlink" title="预定义注解参考"></a>预定义注解参考</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>描述</th>
+<th>保留</th>
+<th>目标</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>@Deprecated</td>
+<td>过时、已弃用</td>
+<td>RUNTIME</td>
+<td>CONSTRUCTOR, FIELD, LOCAL_VARIABLE, METHOD, PACKAGE, PARAMETER, TYPE</td>
+</tr>
+<tr>
+<td>@Override</td>
+<td>覆盖超类型方法</td>
+<td>SOURCE</td>
+<td>METHOD</td>
+</tr>
+<tr>
+<td>@SuppressWarnings</td>
+<td>抑制警告</td>
+<td>SOURCE</td>
+<td>TYPE, FIELD, METHOD, PARAMETER, CONSTRUCTOR, LOCAL_VARIABLE</td>
+</tr>
+<tr>
+<td>@SafeVarargs</td>
+<td>消除泛型可变参数警告</td>
+<td>RUNTIME</td>
+<td>CONSTRUCTOR, METHOD</td>
+</tr>
+<tr>
+<td>@FunctionalInterface</td>
+<td>函数接口</td>
+<td>RUNTIME</td>
+<td>TYPE</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="SuppressWarnings-抑制警告的关键字参考"><a href="#SuppressWarnings-抑制警告的关键字参考" class="headerlink" title="@SuppressWarnings 抑制警告的关键字参考"></a>@SuppressWarnings 抑制警告的关键字参考</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>关键字</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>all</td>
+<td>to suppress all warnings （抑制所有警告）</td>
+</tr>
+<tr>
+<td>boxing</td>
+<td>to suppress warnings relative to boxing/unboxing operations（抑制装箱、拆箱操作时候的警告）</td>
+</tr>
+<tr>
+<td>cast</td>
+<td>to suppress warnings relative to cast operations （抑制类型转换操作相关的警告）</td>
+</tr>
+<tr>
+<td>dep-ann</td>
+<td>to suppress warnings relative to deprecated annotation（抑制启用注释的警告）</td>
+</tr>
+<tr>
+<td>deprecation</td>
+<td>to suppress warnings relative to deprecation（抑制过时方法警告）</td>
+</tr>
+<tr>
+<td>fallthrough</td>
+<td>to suppress warnings relative to missing breaks in switch statements（抑制 switch 语句中缺失 breaks 的警告）</td>
+</tr>
+<tr>
+<td>finally</td>
+<td>to suppress warnings relative to finally block that don’t return （抑制 finally 模块没有返回的警告）</td>
+</tr>
+<tr>
+<td>hiding</td>
+<td>to suppress warnings relative to locals that hide variable</td>
+</tr>
+<tr>
+<td>incomplete-switch</td>
+<td>to suppress warnings relative to missing entries in a switch statement (enum case)（忽略不完整的 switch 语句）</td>
+</tr>
+<tr>
+<td>nls</td>
+<td>to suppress warnings relative to non-nls string literals（忽略非 nls 格式的字符）</td>
+</tr>
+<tr>
+<td>null</td>
+<td>to suppress warnings relative to null analysis（忽略对 null 的操作）</td>
+</tr>
+<tr>
+<td>rawtypes</td>
+<td>to suppress warnings relative to un-specific types when using generics on class params（使用 generics 时忽略没有指定相应的类型）</td>
+</tr>
+<tr>
+<td>restriction</td>
+<td>to suppress warnings relative to usage of discouraged or forbidden references</td>
+</tr>
+<tr>
+<td>serial</td>
+<td>to suppress warnings relative to missing serialVersionUID field for a serializable class（忽略在 serializable 类中没有声明 serialVersionUID 变量）</td>
+</tr>
+<tr>
+<td>static-access</td>
+<td>to suppress warnings relative to incorrect static access（抑制不正确的静态访问方式警告）</td>
+</tr>
+<tr>
+<td>synthetic-access</td>
+<td>to suppress warnings relative to unoptimized access from inner classes（抑制子类没有按最优方法访问内部类的警告）</td>
+</tr>
+<tr>
+<td>unchecked</td>
+<td>to suppress warnings relative to unchecked operations（抑制没有进行类型检查操作的警告）</td>
+</tr>
+<tr>
+<td>unqualified-field-access</td>
+<td>to suppress warnings relative to field access unqualified （抑制没有权限访问的域的警告）</td>
+</tr>
+<tr>
+<td>unused</td>
+<td>to suppress warnings relative to unused code （抑制没被使用过的代码的警告）</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="元注解参考"><a href="#元注解参考" class="headerlink" title="元注解参考"></a>元注解参考</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>@Retention</td>
+<td>保留级别</td>
+</tr>
+<tr>
+<td>@Target</td>
+<td>可应用上下文</td>
+</tr>
+<tr>
+<td>@Inherited</td>
+<td>可继承性</td>
+</tr>
+<tr>
+<td>@Documented</td>
+<td>文档化</td>
+</tr>
+<tr>
+<td>@Repeatable</td>
+<td>可重复注解</td>
+</tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<p>注：元注解都将保留到运行时，当然，仅能应用于注解类型。</p>
+</blockquote>
+<h2 id="注解的保留策略参考"><a href="#注解的保留策略参考" class="headerlink" title="注解的保留策略参考"></a>注解的保留策略参考</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>枚举值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RetentionPolicy.SOURCE</td>
+<td>源代码级保留，编译器将忽略</td>
+</tr>
+<tr>
+<td>RetentionPolicy.CLASS</td>
+<td>（默认）在编译时被编译器保留，但是 JVM 将忽略</td>
+</tr>
+<tr>
+<td>RetentionPolicy.RUNTIME</td>
+<td>被 JVM 保留，运行时可用</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="注解应用目标参考"><a href="#注解应用目标参考" class="headerlink" title="注解应用目标参考"></a>注解应用目标参考</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>枚举值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ElementType.ANNOTATION_TYPE</td>
+<td>注解类型</td>
+</tr>
+<tr>
+<td>ElementType.CONSTRUCTOR</td>
+<td>构造器</td>
+</tr>
+<tr>
+<td>ElementType.FIELD</td>
+<td>域</td>
+</tr>
+<tr>
+<td>ElementType.LOCAL_VARIABLE</td>
+<td>局部变量</td>
+</tr>
+<tr>
+<td>ElementType.METHOD</td>
+<td>方法</td>
+</tr>
+<tr>
+<td>ElementType.PACKAGE</td>
+<td>包</td>
+</tr>
+<tr>
+<td>ElementType.PARAMETER</td>
+<td>方法参数</td>
+</tr>
+<tr>
+<td>ElementType.TYPE</td>
+<td>任何类元素，包括类、接口、枚举</td>
+</tr>
+<tr>
+<td>ElementType.TYPE_PARAMETER</td>
+<td>泛化类、接口、方法和构造器的类型参数声明</td>
+</tr>
+<tr>
+<td>ElementType.TYPE_USE</td>
+<td>16 种类型上下文</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h2><p>Oracle官方文档《The Java™ Tutorials》</p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Eric Zong
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://ericzonglu.gitee.io/posts/java-topic-annotation.html" title="Java专题：注解">http://ericzonglu.gitee.io/posts/java-topic-annotation.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Java%E5%9F%BA%E7%A1%80/" rel="tag"># Java基础</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/java-topic-serialization.html" rel="prev" title="Java专题：序列化">
+      <i class="fa fa-chevron-left"></i> Java专题：序列化
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/posts/java-topic-nested-class.html" rel="next" title="Java专题：嵌套类">
+      Java专题：嵌套类 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A6%82%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8A%9F%E8%83%BD"><span class="nav-number">2.</span> <span class="nav-text">功能</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%86%E7%B1%BB"><span class="nav-number">3.</span> <span class="nav-text">分类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%84%E5%AE%9A%E4%B9%89%E6%B3%A8%E8%A7%A3"><span class="nav-number">3.1.</span> <span class="nav-text">预定义注解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Deprecated"><span class="nav-number">3.1.1.</span> <span class="nav-text">@Deprecated</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Override"><span class="nav-number">3.1.2.</span> <span class="nav-text">@Override</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SuppressWarnings"><span class="nav-number">3.1.3.</span> <span class="nav-text">@SuppressWarnings</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SafeVarargs"><span class="nav-number">3.1.4.</span> <span class="nav-text">@SafeVarargs</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#FunctionalInterface"><span class="nav-number">3.1.5.</span> <span class="nav-text">@FunctionalInterface</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%83%E6%B3%A8%E8%A7%A3"><span class="nav-number">3.2.</span> <span class="nav-text">元注解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Retention"><span class="nav-number">3.2.1.</span> <span class="nav-text">@Retention</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Target"><span class="nav-number">3.2.2.</span> <span class="nav-text">@Target</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Inherited"><span class="nav-number">3.2.3.</span> <span class="nav-text">@Inherited</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Documented"><span class="nav-number">3.2.4.</span> <span class="nav-text">@Documented</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Repeatable"><span class="nav-number">3.2.5.</span> <span class="nav-text">@Repeatable</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89"><span class="nav-number">4.</span> <span class="nav-text">定义</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%AD%E6%B3%95"><span class="nav-number">4.1.</span> <span class="nav-text">语法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B3%A8%E8%A7%A3%E7%B1%BB%E5%9E%8B%E5%85%83%E7%B4%A0"><span class="nav-number">4.2.</span> <span class="nav-text">注解类型元素</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2%E8%8E%B7%E5%8F%96"><span class="nav-number">5.</span> <span class="nav-text">查询获取</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="nav-number">6.</span> <span class="nav-text">注意事项</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%96%B0%E7%89%B9%E6%80%A7"><span class="nav-number">7.</span> <span class="nav-text">新特性</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%B0%E5%A2%9E%E6%B3%A8%E8%A7%A3%E7%B1%BB%E5%9E%8B"><span class="nav-number">7.1.</span> <span class="nav-text">新增注解类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B1%BB%E5%9E%8B%E6%B3%A8%E8%A7%A3"><span class="nav-number">7.2.</span> <span class="nav-text">类型注解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%AF%E9%87%8D%E5%A4%8D%E6%B3%A8%E8%A7%A3"><span class="nav-number">7.3.</span> <span class="nav-text">可重复注解</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%99%84%E5%BD%95"><span class="nav-number">8.</span> <span class="nav-text">附录</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89%E4%B8%80%E8%A7%88"><span class="nav-number">8.1.</span> <span class="nav-text">定义一览</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%B8%E5%85%B3%E8%A7%84%E8%8C%83"><span class="nav-number">8.2.</span> <span class="nav-text">相关规范</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%84%E5%AE%9A%E4%B9%89%E6%B3%A8%E8%A7%A3%E5%8F%82%E8%80%83"><span class="nav-number">8.3.</span> <span class="nav-text">预定义注解参考</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SuppressWarnings-%E6%8A%91%E5%88%B6%E8%AD%A6%E5%91%8A%E7%9A%84%E5%85%B3%E9%94%AE%E5%AD%97%E5%8F%82%E8%80%83"><span class="nav-number">8.4.</span> <span class="nav-text">@SuppressWarnings 抑制警告的关键字参考</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%83%E6%B3%A8%E8%A7%A3%E5%8F%82%E8%80%83"><span class="nav-number">8.5.</span> <span class="nav-text">元注解参考</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B3%A8%E8%A7%A3%E7%9A%84%E4%BF%9D%E7%95%99%E7%AD%96%E7%95%A5%E5%8F%82%E8%80%83"><span class="nav-number">8.6.</span> <span class="nav-text">注解的保留策略参考</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B3%A8%E8%A7%A3%E5%BA%94%E7%94%A8%E7%9B%AE%E6%A0%87%E5%8F%82%E8%80%83"><span class="nav-number">8.7.</span> <span class="nav-text">注解应用目标参考</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E6%A1%A3"><span class="nav-number">8.8.</span> <span class="nav-text">参考文档</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Eric Zong</p>
+  <div class="site-description" itemprop="description">这里有作为一个程序员想记录的一切。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">96</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Eric Zong</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"ericzonglu.gitee.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="PowerShell数组专题。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PowerShell专题：数组">
+<meta property="og:url" content="http://ericzonglu.gitee.io/posts/powershell-array.html">
+<meta property="og:site_name" content="八白龙的博客">
+<meta property="og:description" content="PowerShell数组专题。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-05-27T16:00:00.000Z">
+<meta property="article:modified_time" content="2020-10-04T16:45:14.213Z">
+<meta property="article:author" content="Eric Zong">
+<meta property="article:tag" content="PowerShell专题">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://ericzonglu.gitee.io/posts/powershell-array.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>PowerShell专题：数组 | 八白龙的博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">八白龙的博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">程序员的杂货铺</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-references">
+
+    <a href="/references/" rel="section"><i class="bookmark fa-fw"></i>参考</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://ericzonglu.gitee.io/posts/powershell-array.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Eric Zong">
+      <meta itemprop="description" content="这里有作为一个程序员想记录的一切。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="八白龙的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          PowerShell专题：数组
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-05-28 00:00:00" itemprop="dateCreated datePublished" datetime="2019-05-28T00:00:00+08:00">2019-05-28</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-10-05 00:45:14" itemprop="dateModified" datetime="2020-10-05T00:45:14+08:00">2020-10-05</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/PowerShell/" itemprop="url" rel="index"><span itemprop="name">PowerShell</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/PowerShell/%E4%B8%93%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">专题</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p>数组是最常用的数据结构，而 PowerShell 的数组很灵活，要达到相同的目标通常可以采用多种方式。</p>
+<h1 id="创建"><a href="#创建" class="headerlink" title="创建"></a>创建</h1><p>PowerShell 有多种方式来创建一个数组。最常见的是用“字面形式”一一列出元素，元素间用“,”分隔：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$listArray</span> = <span class="number">1</span>, <span class="number">3</span>, <span class="number">5</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>允许在“,”前后添加空格。</p>
+</blockquote>
+<p>如果数组仅有一个元素，开头需要有一个逗号，否则不会被认为是数组：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$oneArray</span> = , <span class="number">42</span></span><br></pre></td></tr></table></figure>
+<p>如果数组元素是连续的整数，那么可以使用<strong>范围操作符（range operator）</strong>表示：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$rangeArray</span> = <span class="number">5</span>..<span class="number">10</span></span><br></pre></td></tr></table></figure>
+<p>还可以使用<strong>子表达式操作符（sub-expression operator）</strong>，即使是创建空数组或只有一个元素的数组都是很优雅的：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$emptyArray</span> = <span class="selector-tag">@</span>()</span><br><span class="line"><span class="variable">$oneArray</span> = <span class="selector-tag">@</span>(<span class="number">42</span>)</span><br></pre></td></tr></table></figure>
+<p>读者或许已经注意到了，以上创建方式都同时指定了数组元素，如果仅仅是想初始化一个数组待用呢？仅用 PowerShell 没有办法达到这个要求，需要借助 .Net Framework。</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="built_in">int</span>[]]<span class="variable">$numbers</span> = [<span class="built_in">int</span>[]]::new(<span class="number">10</span>)</span><br></pre></td></tr></table></figure>
+<p>另外，PowerShell 的数组是一维的，即使嵌套，本质上还是一维的。同样，除非借助 .Net Framework，否则不能创建多维数组。</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[<span class="built_in">int</span>[,]]<span class="variable">$rank</span> = [<span class="built_in">int</span>[,]]::new(<span class="number">5</span>,<span class="number">5</span>)</span><br><span class="line"><span class="variable">$rank</span>.rank <span class="comment"># 2</span></span><br></pre></td></tr></table></figure>
+<h1 id="访问元素"><a href="#访问元素" class="headerlink" title="访问元素"></a>访问元素</h1><p>不仅可以通过正整数索引正序访问数组元素，也可以通过负整数索引逆序访问数组元素。比如 <code>$array[-1]</code> 访问最后一个元素。</p>
+<p>甚至可以指定一组索引提取多个元素组成新数组：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 逗号分隔的索引序列</span></span><br><span class="line"><span class="variable">$array</span>[<span class="number">0</span>, <span class="number">2</span>, <span class="number">4</span>]</span><br><span class="line"><span class="comment"># 范围</span></span><br><span class="line"><span class="variable">$array</span>[<span class="number">4</span><span class="type">..7</span>]</span><br></pre></td></tr></table></figure>
+<p>当索引使用范围指定时，需要注意截取顺序，比如：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$array</span>=<span class="number">1</span>..<span class="number">10</span></span><br><span class="line"><span class="variable">$array</span>[<span class="number">1</span><span class="type">..3</span>] <span class="comment"># 2, 3, 4</span></span><br><span class="line"><span class="variable">$array</span>[<span class="number">3</span><span class="type">..1</span>] <span class="comment"># 4, 3, 2</span></span><br><span class="line"><span class="variable">$array</span>[-<span class="number">3</span><span class="type">..</span>-<span class="number">1</span>] <span class="comment"># 8, 9, 10</span></span><br><span class="line"><span class="variable">$array</span>[-<span class="number">1</span><span class="type">..</span>-<span class="number">3</span>] <span class="comment"># 10, 9, 8</span></span><br><span class="line"><span class="variable">$array</span>[<span class="number">1</span><span class="type">..</span>-<span class="number">3</span>] <span class="comment"># 2, 1, 10, 9, 8</span></span><br><span class="line"><span class="variable">$array</span>[-<span class="number">1</span><span class="type">..3</span>] <span class="comment"># 10, 1, 2, 3, 4 </span></span><br></pre></td></tr></table></figure>
+<p>可见，当起始索引号小于结束索引号时，是正向截取的，相反是反向截取的。其中，最易被误解的是 <code>$array[1..-3]</code>，很可能被认为是从索引 1 正向截取到索引 -3，而误以为结果是 2~8。</p>
+<p>另外注意，反向截取时，是允许越过数组边界的。</p>
+<p>更为强大的是，可以使用“+”合并多组索引：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 可以“混合”合并，单个、序列和范围形式的索引</span></span><br><span class="line"><span class="variable">$array</span>[<span class="number">0</span>,<span class="number">2</span>+<span class="number">4</span><span class="type">..6</span>+<span class="number">8</span>]</span><br></pre></td></tr></table></figure>
+<h1 id="属性、方法及操作"><a href="#属性、方法及操作" class="headerlink" title="属性、方法及操作"></a>属性、方法及操作</h1><p><code>Length</code> 属性表示数组长度，而 <code>Count</code> 是其别名，<code>Longlength</code> 用以表示元素个数超过 2,147,483,647 时的长度。</p>
+<p><code>Rank</code> 表示数组维度，当使用多维数组时会用到。</p>
+<p><code>Clear</code> 方法会将所有元素重置为默认值。这跟声明数组时是否指定类型有关，如果指定了类型，比如：<code>[int[]]$numbers</code>，则所有元素将被设为 0；如果没有指定类型，将被视为 Object 类型，设为 <code>$null</code>。注意，该方法不会重置数组大小。</p>
+<p><code>$array.setValue(value, index)</code> 可设置元素值，等价于 <code>$array[index] = value</code>。</p>
+<p>可以使用“+”向数组添加元素：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$array</span> = <span class="selector-tag">@</span>(<span class="number">1</span>..<span class="number">5</span>)</span><br><span class="line"><span class="variable">$array</span> = <span class="variable">$array</span> + <span class="number">6</span></span><br><span class="line"><span class="variable">$array</span> += <span class="number">7</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注意，数组大小是固定的，因此任何会改变数组大小的操作都会生成一个新数组。</p>
+</blockquote>
+<p>但是当“+”的两个操作符都是数组时，会合并这两个数组。</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$a</span> = <span class="number">1</span>, <span class="number">3</span></span><br><span class="line"><span class="variable">$b</span> = <span class="number">2</span>, <span class="number">4</span></span><br><span class="line"><span class="variable">$c</span> = <span class="variable">$a</span> + <span class="variable">$b</span> <span class="comment"># 1, 3, 2, 4</span></span><br></pre></td></tr></table></figure>
+<p>如果想要遍历数组元素，可以使用原始的 <code>for</code> 循环：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="variable">$i</span> = <span class="number">0</span>; <span class="variable">$i</span> <span class="operator">-lt</span> <span class="variable">$array</span>.length; <span class="variable">$i</span>++) &#123;</span><br><span class="line">	<span class="variable">$array</span>[<span class="variable">$i</span>]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>或者 <code>while</code> 循环：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$i</span> = <span class="number">0</span></span><br><span class="line"><span class="keyword">while</span>(<span class="variable">$i</span> <span class="operator">-lt</span> <span class="variable">$array</span>.length) &#123;</span><br><span class="line">	<span class="variable">$array</span>[<span class="variable">$i</span>]</span><br><span class="line">	<span class="variable">$i</span>++</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>更简洁一点是使用 <code>foreach</code> 循环：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">foreach</span> (<span class="variable">$element</span> <span class="keyword">in</span> <span class="variable">$array</span>) &#123;</span><br><span class="line">	<span class="variable">$element</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>更为强大的是数组的 <code>foreach</code> 方法，它有多个重载版本：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ForEach</span>(scriptblock expression)</span><br><span class="line"><span class="keyword">ForEach</span>(<span class="built_in">type</span> convertToType)</span><br><span class="line"><span class="keyword">ForEach</span>(string propertyName)</span><br><span class="line"><span class="keyword">ForEach</span>(string propertyName, object[] newValue)</span><br><span class="line"><span class="keyword">ForEach</span>(string methodName)</span><br><span class="line"><span class="keyword">ForEach</span>(string methodName, object[] arguments)</span><br><span class="line"><span class="keyword">ForEach</span>(scriptblock expression, object[] arguments)</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>详细使用可参考 <a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_arrays?view=powershell-6#foreach">这里</a>。</p>
+</blockquote>
+<p>数组还有过滤方法，语法如下：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Where</span>(scriptblock expression[, <span class="type">WhereOperatorSelectionMode</span> <span class="type">mode</span></span><br><span class="line">                            [, <span class="built_in">int</span> <span class="type">numberToReturn</span>]])</span><br></pre></td></tr></table></figure>
+<ul>
+<li>expression：过滤条件表达式</li>
+<li>mode：过滤模式，<code>default</code>、<code>first</code>、<code>last</code>、<code>SkipUntil</code>、</li>
+<li>numberToReturn：限制返回元素数量</li>
+</ul>
+<p><code>Default</code> 模式下，将返回条件为真的元素，数量受 <code>numberToReturn</code> 限制。</p>
+<p><code>First</code> 模式下，如不指定 <code>numberToReturn</code>，返回条件为真的第一个元素，否则数量受 <code>numberToReturn</code> 限制。</p>
+<p><code>Last</code> 模式下，如不指定 <code>numberToReturn</code>，返回条件为真的最后一个元素，否则数量受 <code>numberToReturn</code> 限制。</p>
+<p><code>SkipUntil</code> 模式下，跳过条件为假的元素，直到条件为真的元素，返回该元素及剩余元素，数量受 <code>numberToReturn</code> 限制。</p>
+<p><code>Until</code> 模式下，返回条件为假的元素，直至条件为真，数量受 <code>numberToReturn</code> 限制。</p>
+<p><code>Split</code> 模式下，将返回 2 个数组，前者的元素为条件测试为真，后者的元素为条件测试为假，<code>numberToReturn</code> 仅限制前者数量。</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(<span class="number">0</span>..<span class="number">9</span>).Where&#123; <span class="variable">$_</span> % <span class="number">2</span> &#125;</span><br></pre></td></tr></table></figure>
+<h1 id="特殊情况"><a href="#特殊情况" class="headerlink" title="特殊情况"></a>特殊情况</h1><p>即使一个数组为 <code>$null</code>，仍然可以安全地访问其 <code>Count</code> 和 <code>Length</code> 属性（均为 0）。但 <code>LongLength</code> 属性不存在。</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_arrays?view=powershell-6#properties-of-arrays">MS PS Doc - About Arrays</a></p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Eric Zong
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://ericzonglu.gitee.io/posts/powershell-array.html" title="PowerShell专题：数组">http://ericzonglu.gitee.io/posts/powershell-array.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/PowerShell%E4%B8%93%E9%A2%98/" rel="tag"># PowerShell专题</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/powershell-script-block.html" rel="prev" title="PowerShell专题：脚本块">
+      <i class="fa fa-chevron-left"></i> PowerShell专题：脚本块
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/posts/character-encoding.html" rel="next" title="字符编码概论">
+      字符编码概论 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A6%82%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA"><span class="nav-number">2.</span> <span class="nav-text">创建</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AE%BF%E9%97%AE%E5%85%83%E7%B4%A0"><span class="nav-number">3.</span> <span class="nav-text">访问元素</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B1%9E%E6%80%A7%E3%80%81%E6%96%B9%E6%B3%95%E5%8F%8A%E6%93%8D%E4%BD%9C"><span class="nav-number">4.</span> <span class="nav-text">属性、方法及操作</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%89%B9%E6%AE%8A%E6%83%85%E5%86%B5"><span class="nav-number">5.</span> <span class="nav-text">特殊情况</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-number">6.</span> <span class="nav-text">参考</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Eric Zong</p>
+  <div class="site-description" itemprop="description">这里有作为一个程序员想记录的一切。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">96</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Eric Zong</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

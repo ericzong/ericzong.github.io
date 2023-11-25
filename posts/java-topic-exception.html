@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"ericzonglu.gitee.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="介绍Java中的异常处理。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java专题：异常">
+<meta property="og:url" content="http://ericzonglu.gitee.io/posts/java-topic-exception.html">
+<meta property="og:site_name" content="八白龙的博客">
+<meta property="og:description" content="介绍Java中的异常处理。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-05-16T15:00:00.000Z">
+<meta property="article:modified_time" content="2021-06-03T15:50:29.075Z">
+<meta property="article:author" content="Eric Zong">
+<meta property="article:tag" content="Java基础">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://ericzonglu.gitee.io/posts/java-topic-exception.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Java专题：异常 | 八白龙的博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">八白龙的博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">程序员的杂货铺</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-references">
+
+    <a href="/references/" rel="section"><i class="bookmark fa-fw"></i>参考</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://ericzonglu.gitee.io/posts/java-topic-exception.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Eric Zong">
+      <meta itemprop="description" content="这里有作为一个程序员想记录的一切。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="八白龙的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Java专题：异常
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-05-16 23:00:00" itemprop="dateCreated datePublished" datetime="2021-05-16T23:00:00+08:00">2021-05-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-06-03 23:50:29" itemprop="dateModified" datetime="2021-06-03T23:50:29+08:00">2021-06-03</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/%E4%B8%93%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">专题</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <link type="text/css" rel="stylesheet" href="../css/tree.css" />
+
+<h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p>异常（exception），该术语是异常事件（exceptional event）的简称。 异常是一个事件，它发生在程序执行过程中，扰乱程序指令的正常流程。</p>
+<p>异常对象（exception object），发生错误的方法创建，包含错误信息，包括其类型和发生错误时的程序状态。</p>
+<p>创建一个异常对象并将其交由运行时系统（runtime system）处理，这被称为抛出异常（throwing an exception）。</p>
+<h1 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h1><div class="tree">
+    <ul>
+      <li>
+        <a>Throwable</a>
+        <ul>
+          <li>
+            <a>Error</a>
+          </li>
+          <li>
+            <a>Exception</a>
+            <ul>
+              <li>
+                <a>RuntimeException</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+
+<p>异常分为两大类：受检（checked）异常和非受检（unchecked）异常。</p>
+<p>非受检异常包括：错误（Error）和运行时异常（RuntimeException）。与非受检异常对应，其他所有异常都是受检异常。</p>
+<h1 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// 可能抛出异常的代码</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">catch</span>(ExceptionType name)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// 异常处理</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">catch</span>(ExceptionType2 name)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// 异常处理</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">finally</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// 无论是否异常均会执行的代码，如资源回收和释放等</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Java 7 加入多重捕获（multicatch）语法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">catch</span>(ExceptionType | ExceptionType2 ex)</span><br><span class="line">&#123;</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+<p>Java 7 还加入了 Try-with-resources（TWR）语法，用以管理自动关闭的资源：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>(AutoCloseableImp auto = ...)</span><br><span class="line">&#123;</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+<h1 id="新特性"><a href="#新特性" class="headerlink" title="新特性"></a>新特性</h1><h2 id="多重异常捕获（multicatch）"><a href="#多重异常捕获（multicatch）" class="headerlink" title="多重异常捕获（multicatch）"></a>多重异常捕获（multicatch）</h2><p>多重 catch 子句可捕获的异常是表示其异常参数类型的并集中的类型。</p>
+<p>实际上，多重异常捕获是编译器把捕获多个异常的 catch 子句转换成了多个 catch 子句，在每个 catch 子句中捕获一个异常。</p>
+<p>多重异常捕获catch子句中异常参数的具体类型是所有列出异常在类继承层次结构上的最小祖先类。 因为所有异常都是 <code>Exception</code> 类的后代，所以这样一个最小的上界总是会存在的。</p>
+<p>多重异常捕获时，异常变量有隐式的 <code>final</code> 修饰，因此 <code>catch</code> 子句内不能对异常变量重新赋值。 过渡阶段最好显式地使用 <code>final</code> 修饰异常变量，以使语意明确。</p>
+<h2 id="Try-with-resources（TWR）"><a href="#Try-with-resources（TWR）" class="headerlink" title="Try-with-resources（TWR）"></a>Try-with-resources（TWR）</h2><p><code>try</code> 语句中声明的资源类型都要实现 <code>java.lang.AutoCloseable</code> 接口，否则编译错误。</p>
+<p>传统的 try…finally… 写法关闭资源时，如果 <code>try</code> 块和 <code>finally</code> 块中都抛出异常，那么 <code>try</code> 块中的异常将被抑制（suppressed）； TWR 则不会，原来的异常会重新抛出，而 <code>close()</code> 方法抛出的异常会“被抑制”，这些异常将自动捕获，并由 <code>addSuppressed()</code> 方法增加到原来的异常，可调用 <code>getSuppressed()</code> 方法获取。</p>
+<p>TWR 中资源是按创建顺序相反的顺序关闭的。</p>
+<p>TWR 语句也可以有 <code>catch</code> 和 <code>finally</code> 块，它们将在声明的资源被关闭后运行。不过在实际中，一个 <code>try</code> 语句中加入这么多内容可能不是一个好主意。</p>
+<p><code>Closeable</code> 接口继承自 <code>AutoCloseable</code> 接口，前者 <code>close</code> 方法抛出 <code>IOException</code>，后者抛出 <code>Exception</code>。</p>
+<h2 id="final-rethrow"><a href="#final-rethrow" class="headerlink" title="final rethrow"></a>final rethrow</h2><p>有一种异常处理场景是：捕获异常仅仅为了记录日志，之后会重新抛出捕获的异常。</p>
+<p>在 Java 6 及之前的编译器中存在一个“缺陷”：如果捕获的是 <code>Exception</code> 或某种比实际异常类型更宽泛的异常类型， 那么重抛的异常类型将视为这种宽泛的异常类型，而丢失了具体性。</p>
+<p>但是，Java 7 的编译器可以更精确地检查重抛异常的类型，而不会丢失异常的具体性。不过，如果在 <code>catch</code> 块中给异常重新赋值， 那么编译器将不能精确识别异常类型，而退化为之前的方式处理。</p>
+<h2 id="Lambda表达式"><a href="#Lambda表达式" class="headerlink" title="Lambda表达式"></a>Lambda表达式</h2><p>Java 8 加入 Lambda 表达式，它不能抛出任何异常类，并且没有任何可以在其上执行异常分析的直接子表达式。包含表达式和语句的 Lambda 表达式体可以抛出异常类。</p>
+<h1 id="特殊说明"><a href="#特殊说明" class="headerlink" title="特殊说明"></a>特殊说明</h1><p>将异常声明为受检异常还是非受检异常的一条指导原则是：如果客户端可以合理地从一个异常中恢复，那么应该将异常声明为受检异常， 否则，应该声明为非受检异常。</p>
+<p>受检异常必须服从捕获或指定要求（the Catch or Specify Requirement）。</p>
+<p>编写良好的程序应该预见并恢复受检异常。</p>
+<p>错误通常不可恢复，也不必捕获或抛出。但如果是在一个测试执行引擎中，测试脚本所抛出的错误也应在捕获范畴。</p>
+<p>运行时异常通常不可预见或恢复，并且往往它暗示程序中存在 bug，比如逻辑错误或是不恰当的 API 使用。</p>
+<p><code>throw</code> 语句可抛出的是任意 <code>Throwable</code> 及其子类的实例，对应地，<code>throws</code> 声明方法可能抛出的异常类型与之类似。</p>
+<p>可以在任意地方捕获 <code>RuntimeException</code> 和 <code>Exception</code>，但受检异常只有当 <code>try</code> 块可能抛出该异常时才能捕获。</p>
+<p>如果只是把当前异常重新抛出，那么 <code>printStackTrace()</code> 方法显示的将是原来异常抛出点的调用栈信息，而并非重新抛出点的信息。 要想更新这个信息，可以调用 <code>fillInStackTree()</code> 方法。如果要把其他类型的异常链接起来，应该使用 <code>initCause()</code> 方法而不是构造器。</p>
+<p>尽量避免在 <code>finally</code> 块中递归调用可能引起异常的方法，这将导致该方法的异常不能被正常抛出，最终被 <code>StackOverflowError</code> 掩盖。</p>
+<p>尽量避免在 <code>finally</code> 块中使用 <code>return</code> 或 <code>throw</code> 等导致方法控制权转移的语句。</p>
+<p>涉及方法覆盖时，覆盖方法的 <code>throws</code> 子句声明可能抛出的异常应是被覆盖方法可能抛出异常的子集； 当涉及覆盖多个接口的同一方法时，<code>throws</code> 子句声明可能抛出的异常应是它们可能抛出异常的交集而非并集，极端情况下覆盖方法可能根本不能有 <code>throws</code> 子句。</p>
+<p>该规定的原因在于，对于任何适用于父类或父接口（下统一简称“父类”）的方法调用，应同样适用于子类或实现类（下统一简称“子类”），这是符合父子类概念的。 否则，如果子类方法声明的异常范围能超出父类声明的范围，那么，理应存在未处理的异常而导致编译期错误，但对于上转型或接口回调等情况下，编译期是不能对其检查的。</p>
+<h2 id="关于执行流程"><a href="#关于执行流程" class="headerlink" title="关于执行流程"></a>关于执行流程</h2><p>当程序进入 <code>try</code> 块后，才可能执行 <code>catch</code> 和 <code>finally</code> 块。通常情况下，<code>finally</code> 块是尽一切可能确保执行的， 但是未必一定会执行，以下情况时将不会执行：</p>
+<ul>
+<li>执行 <code>try</code> 或 <code>catch</code> 块时，JVM 退出（如 <code>System.exit(0)</code>）;</li>
+<li>正在执行 <code>try</code> 或 <code>catch</code> 块的线程被中断或 kill 掉，即使整个程序还在继续执行。</li>
+</ul>
+<p><code>finally</code> 在 <code>try</code> 或 <code>catch</code> 块中存在控制转移语句时，<code>finally</code> 块的执行情况会有一些特殊。</p>
+<p>控制转移语句包括：<code>return</code>、<code>throw</code> 和 <code>break</code>、<code>continue</code>，前两者将控制权转交给方法调用者，后两者控制权在方法内转移。</p>
+<p><code>finally</code> 块将在控制权转移前执行。对于 <code>return</code> 的返回值和 <code>throw</code> 抛出的异常，是不能在 <code>finally</code> 块中改变的， 因为底层会将返回值及异常事先保存在本地变量表中，当 <code>finally</code> 块执行完成后再取回。</p>
+<p>此外，如果 <code>return</code> 和 <code>throw</code> 后是一个表达式，那么执行 <code>finally</code> 块前这个表达式的值会被计算。 由于该表达式计算过程中引起的变量值的变化在执行 <code>finally</code> 块前，所以在 <code>finally</code> 块中使用这些改变了值的变量时要注意其当前值。</p>
+<p>如果在 <code>try</code> 或 <code>catch</code> 块中执行 <code>System.exit(0)</code>，则由于 JVM 退出，从而 <code>finally</code> 块不会被执行。此时，清理工作可在如下两个地方执行：</p>
+<ul>
+<li>系统中注册的关闭钩子：<code>Runtime.getRuntime().addShutdownHook(Thread thread)；</code></li>
+<li>若调用了 <code>System.runFinalizerOnExit(true)</code>，JVM 会对未结束的对象调用 <code>Finalizer</code>。（该方法极度危险，不推荐使用）</li>
+</ul>
+<h2 id="Java异常处理机制的优势"><a href="#Java异常处理机制的优势" class="headerlink" title="Java异常处理机制的优势"></a>Java异常处理机制的优势</h2><ol>
+<li>分组和区别错误类型；</li>
+<li>深入了解错误产生的原因，传播错误的调用栈；</li>
+<li>将错误处理代码与常规代码分离；</li>
+<li>强制用户处理特定异常（受检异常）。</li>
+</ol>
+<h1 id="惯用技巧"><a href="#惯用技巧" class="headerlink" title="惯用技巧"></a>惯用技巧</h1><h2 id="双层捕获关闭流"><a href="#双层捕获关闭流" class="headerlink" title="双层捕获关闭流"></a>双层捕获关闭流</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">InputStream in = ...;</span><br><span class="line"><span class="keyword">try</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">try</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// code that might throw exception</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">finally</span></span><br><span class="line">    &#123;</span><br><span class="line">        in.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">catch</span>(IOException e)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// show error message</span></span><br><span class="line">&#125;  </span><br></pre></td></tr></table></figure>
+<p>说明：内层的 <code>try</code> 语句块只有一个职责，就是确保关闭输入流。 外层的 <code>try</code> 语句块也只有一个职责，就是确保报告出现的错误。 这种设计方式不仅清楚，而且还具有一个功能，就是将会报告 <code>finally</code> 子句中出现的错误。</p>
+<h2 id="抛出受检异常"><a href="#抛出受检异常" class="headerlink" title="抛出受检异常"></a>抛出受检异常</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ThrowCheckedExceptionToUnckecked</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        doThrow(<span class="keyword">new</span> SQLException());</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">doThrow</span><span class="params">(Exception e)</span> </span>&#123;</span><br><span class="line">        ThrowCheckedExceptionToUnckecked.&lt;RuntimeException&gt; doThrow0(e);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@SuppressWarnings(&quot;unchecked&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> &lt;E extends Exception&gt; <span class="function"><span class="keyword">void</span> <span class="title">doThrow0</span><span class="params">(Exception e)</span> <span class="keyword">throws</span> E </span>&#123;</span><br><span class="line">        <span class="keyword">throw</span> (E) e;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;  </span><br></pre></td></tr></table></figure>
+<p>说明：对于受检异常捕获/抛出检查是由编译器进行的，而非 JVM。而通过泛型的特殊应用，我们可以绕过编译器检查抛出受检异常。</p>
+<h1 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h1><h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><ul>
+<li><p>异常转译</p>
+<p>捕获原始异常，然后抛出一个新的业务异常，新的业务异常中包含了对用户的提供信息。</p>
+</li>
+</ul>
+<h2 id="杂项"><a href="#杂项" class="headerlink" title="杂项"></a>杂项</h2><p><code>RuntimeException</code> 这个名字具有迷惑性，因为，我们讨论的所有错误都发生在运行时。</p>
+<p>Java7 几乎把所有“资源类”（包括文件 IO 的各种类、JDBC 编程的 <code>Connection</code>、<code>Statement</code> 等接口）进行了改写，改写后资源类都实现了 <code>AutoCloseable</code> 或 <code>Closeable</code> 接口。</p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Eric Zong
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://ericzonglu.gitee.io/posts/java-topic-exception.html" title="Java专题：异常">http://ericzonglu.gitee.io/posts/java-topic-exception.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Java%E5%9F%BA%E7%A1%80/" rel="tag"># Java基础</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/java-topic-array.html" rel="prev" title="Java专题：数组">
+      <i class="fa fa-chevron-left"></i> Java专题：数组
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/posts/java-topic-serialization.html" rel="next" title="Java专题：序列化">
+      Java专题：序列化 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A6%82%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%86%E7%B1%BB"><span class="nav-number">2.</span> <span class="nav-text">分类</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AF%AD%E6%B3%95"><span class="nav-number">3.</span> <span class="nav-text">语法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%96%B0%E7%89%B9%E6%80%A7"><span class="nav-number">4.</span> <span class="nav-text">新特性</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%9A%E9%87%8D%E5%BC%82%E5%B8%B8%E6%8D%95%E8%8E%B7%EF%BC%88multicatch%EF%BC%89"><span class="nav-number">4.1.</span> <span class="nav-text">多重异常捕获（multicatch）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Try-with-resources%EF%BC%88TWR%EF%BC%89"><span class="nav-number">4.2.</span> <span class="nav-text">Try-with-resources（TWR）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#final-rethrow"><span class="nav-number">4.3.</span> <span class="nav-text">final rethrow</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="nav-number">4.4.</span> <span class="nav-text">Lambda表达式</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%89%B9%E6%AE%8A%E8%AF%B4%E6%98%8E"><span class="nav-number">5.</span> <span class="nav-text">特殊说明</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B"><span class="nav-number">5.1.</span> <span class="nav-text">关于执行流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Java%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%E6%9C%BA%E5%88%B6%E7%9A%84%E4%BC%98%E5%8A%BF"><span class="nav-number">5.2.</span> <span class="nav-text">Java异常处理机制的优势</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%83%AF%E7%94%A8%E6%8A%80%E5%B7%A7"><span class="nav-number">6.</span> <span class="nav-text">惯用技巧</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%8C%E5%B1%82%E6%8D%95%E8%8E%B7%E5%85%B3%E9%97%AD%E6%B5%81"><span class="nav-number">6.1.</span> <span class="nav-text">双层捕获关闭流</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8A%9B%E5%87%BA%E5%8F%97%E6%A3%80%E5%BC%82%E5%B8%B8"><span class="nav-number">6.2.</span> <span class="nav-text">抛出受检异常</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%99%84%E5%BD%95"><span class="nav-number">7.</span> <span class="nav-text">附录</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89"><span class="nav-number">7.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9D%82%E9%A1%B9"><span class="nav-number">7.2.</span> <span class="nav-text">杂项</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Eric Zong</p>
+  <div class="site-description" itemprop="description">这里有作为一个程序员想记录的一切。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">96</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Eric Zong</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

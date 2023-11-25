@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"ericzonglu.gitee.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="海盗分金问题讨论。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="海盗分金问题">
+<meta property="og:url" content="http://ericzonglu.gitee.io/posts/math-pirate-and-gold.html">
+<meta property="og:site_name" content="八白龙的博客">
+<meta property="og:description" content="海盗分金问题讨论。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-10-28T17:00:00.000Z">
+<meta property="article:modified_time" content="2022-10-28T17:00:00.000Z">
+<meta property="article:author" content="Eric Zong">
+<meta property="article:tag" content="推理">
+<meta property="article:tag" content="抽象思维">
+<meta property="article:tag" content="逆向思维">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://ericzonglu.gitee.io/posts/math-pirate-and-gold.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>海盗分金问题 | 八白龙的博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">八白龙的博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">程序员的杂货铺</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-references">
+
+    <a href="/references/" rel="section"><i class="bookmark fa-fw"></i>参考</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://ericzonglu.gitee.io/posts/math-pirate-and-gold.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Eric Zong">
+      <meta itemprop="description" content="这里有作为一个程序员想记录的一切。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="八白龙的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          海盗分金问题
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-10-29 01:00:00" itemprop="dateCreated datePublished" datetime="2022-10-29T01:00:00+08:00">2022-10-29</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E5%AD%A6/" itemprop="url" rel="index"><span itemprop="name">数学</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>有五个海盗要分 100 块金子，于是他们制定了一个规则：他们依次提出分配方案，每提出一个分配方案，所有人就进行一次表决。如果赞成票有一半及一半以上，则按该方案分配，否则将方案提出者扔下海喂鲨鱼，余下的人继续提出方案和投票。假设所有海盗都无限理性聪明，并且都想活命、多得金子、多杀人。请问，第一个海盗提出什么方案，才会通过？</p>
+<h1 id="分析-amp-解答"><a href="#分析-amp-解答" class="headerlink" title="分析&amp;解答"></a>分析&amp;解答</h1><p>本题的关键在于逆向思维：如果海盗依次被扔下海，最终会是什么情况？</p>
+<p>为了描述方便，我们依次为海盗编号为 1号、2号、3号、4号、5号。</p>
+<ol>
+<li>当只剩两个海盗时，4号只需要自己的赞成票就可使自己的分配方案通过。故4号分配方案为 $[100, 0]$。</li>
+<li>但是，该局面同样会被3号洞悉。因此3号会以一块金子的代价贿赂5号，5号会得到比4号分配方案多一块金子而必然会答应。所以，3号分配方案为 $[99, 0, 1]$。</li>
+<li>同样，该局面会被2号洞悉。2号会以一块金子的代价贿赂4号。2号分配方案为 $[99, 0, 1, 0]$。</li>
+<li>同样，该局面会被1号洞悉。1号会以一块金子的代价分别贿赂3号和5号。1号分配方案为 $[98, 0, 1, 0, 1]$。</li>
+</ol>
+<p>这样就推出了第一个海盗应提出并且会通过的分配方案：$[98, 0, 1, 0, 1]$。</p>
+<h1 id="推广"><a href="#推广" class="headerlink" title="推广"></a>推广</h1><script type="math/tex; mode=display">
+\begin{array}{r|r|r|r|r|r}
+    \hline
+    方案 & 1号 & 2号 & 3号 & 4号 & 5号 \\
+    \hline
+    2 & × & × & × & 100 & 0\\
+    \hline
+    3 & × & × & 99 & 0 & 1 \\
+    \hline
+    4 & × & 98 & 0 & 1 & 0\\
+    \hline
+    5 & 98 & 0 & 1 & 0 & 1 \\
+    \hline
+\end{array}</script><blockquote>
+<p>注意，方案编号为当前剩余人数。</p>
+</blockquote>
+<p>发现规律了吗？</p>
+<p>提案者之后分得的金块数是一个 $0, 1, \cdots$ 序列，提案者所得的金块数即分配后余下的金块数。</p>
+<p>得知该规律后，我们可以将本题推广到不止 5 个海盗分配的情况。比如 10 个海盗的分配方案为：$[96, 0, 1, 0, 1, 0, 1, 0, 1, 0]$。</p>
+<p>很容易注意到，分金的人数越多，提案者需要越多的金子来贿赂以获得足够的赞成票，得到的金子就越少。但是，金子只有 100 块，所以这种贿赂方案不可能无限推广。可以推知，当 200 个海盗分金时，分配方案为：</p>
+<script type="math/tex; mode=display">
+[1, 0, \cdots, 1, 0] \quad \scriptsize{(100 对 1，0)}</script><p>故 201 个海盗分金时，提案者将分不金子，所有 100 块金子都用于贿赂以获得 100 赞成票，再加上自己那一票才足以保命。202 个海盗分金也是类似情况。</p>
+<blockquote>
+<p>注意，从 202 个海盗分金开始分配方案就不唯一了。</p>
+</blockquote>
+<p>但是，203 个海盗分金时，出现了另一特殊情况，最多可以获得 101 赞成票，未过半。所以，203 个海盗分金的提案者必死。</p>
+<p>所以，203 个及以上海盗分金的情况下，提案者都是“必死局”么？当然……不是！</p>
+<p>分析 204 个海盗分金的情况就知道了，由于方案 203 的提案者必死，所以他必然会赞成方案 204。这导致方案 204 又有了足够的赞成票。</p>
+<p>后续更多人数分金的情况如何呢？我们列一个表来帮助分析下。</p>
+<script type="math/tex; mode=display">
+\begin{array}{r|c|c|c|c|c|c|c|c}
+\hline
+方案 & 201号 & 202号 & 203号 & 204号 & 205号 & 206号 & 207号 & 208号 \\
+\hline
+201 & \checkmark \\
+\hline
+202 & × & \checkmark \\
+\hline
+\xcancel{203} & × & × & \checkmark \\
+\hline
+204 & × & × & \checkmark & \checkmark\\
+\hline
+\xcancel{205} & × & × & × & × & \checkmark \\
+\hline
+\xcancel{206} & × & × & × & × & \checkmark & \checkmark \\
+\hline
+\xcancel{207} & × & × & × & × & \checkmark & \checkmark & \checkmark \\
+\hline
+208 & × & × & × & × & \checkmark & \checkmark & \checkmark & \checkmark\\
+\end{array}</script><p>注：</p>
+<ol>
+<li>为了描述方便，我们调整了编号方法，$n$ 个人分金时，分配方案编号为 $n$，提案者编号也为 $n$。</li>
+<li>这里假设 100 块金子都用于贿赂前 200 个海盗中的 100 人了，所以上表只显示了 200 位以后的情况。</li>
+<li>被叉掉编号的方案表示它是“必杀方案”。</li>
+</ol>
+<p>可见，205、206、207 号也是“必杀方案”，因此这三名海盗会“无条件支持”208 号。</p>
+<p>由此可以推知，$200 + 2^n$ 号方案总是可以通过的分配方案，而 200 号后的其他方案都是“必杀”的。</p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Eric Zong
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://ericzonglu.gitee.io/posts/math-pirate-and-gold.html" title="海盗分金问题">http://ericzonglu.gitee.io/posts/math-pirate-and-gold.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%8E%A8%E7%90%86/" rel="tag"># 推理</a>
+              <a href="/tags/%E6%8A%BD%E8%B1%A1%E6%80%9D%E7%BB%B4/" rel="tag"># 抽象思维</a>
+              <a href="/tags/%E9%80%86%E5%90%91%E6%80%9D%E7%BB%B4/" rel="tag"># 逆向思维</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/math-ball-and-floor-puzzle.html" rel="prev" title="球与楼层谜题">
+      <i class="fa fa-chevron-left"></i> 球与楼层谜题
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/posts/math-false-positive.html" rel="next" title="疾病假阳性的概率计算">
+      疾病假阳性的概率计算 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%86%E6%9E%90-amp-%E8%A7%A3%E7%AD%94"><span class="nav-number">1.</span> <span class="nav-text">分析&amp;解答</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8E%A8%E5%B9%BF"><span class="nav-number">2.</span> <span class="nav-text">推广</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Eric Zong</p>
+  <div class="site-description" itemprop="description">这里有作为一个程序员想记录的一切。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">96</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Eric Zong</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>

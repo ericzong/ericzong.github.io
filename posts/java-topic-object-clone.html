@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"ericzonglu.gitee.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="深拷贝与浅拷贝的相关知识。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java专题：对象拷贝">
+<meta property="og:url" content="http://ericzonglu.gitee.io/posts/java-topic-object-clone.html">
+<meta property="og:site_name" content="八白龙的博客">
+<meta property="og:description" content="深拷贝与浅拷贝的相关知识。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2018-12-25T16:00:00.000Z">
+<meta property="article:modified_time" content="2020-10-03T03:54:05.285Z">
+<meta property="article:author" content="Eric Zong">
+<meta property="article:tag" content="Java基础">
+<meta property="article:tag" content="Java入门教程">
+<meta property="article:tag" content="Java对比">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://ericzonglu.gitee.io/posts/java-topic-object-clone.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Java专题：对象拷贝 | 八白龙的博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">八白龙的博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">程序员的杂货铺</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-references">
+
+    <a href="/references/" rel="section"><i class="bookmark fa-fw"></i>参考</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://ericzonglu.gitee.io/posts/java-topic-object-clone.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Eric Zong">
+      <meta itemprop="description" content="这里有作为一个程序员想记录的一切。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="八白龙的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Java专题：对象拷贝
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-12-26 00:00:00" itemprop="dateCreated datePublished" datetime="2018-12-26T00:00:00+08:00">2018-12-26</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-10-03 11:54:05" itemprop="dateModified" datetime="2020-10-03T11:54:05+08:00">2020-10-03</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/%E4%B8%93%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">专题</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="预备知识"><a href="#预备知识" class="headerlink" title="预备知识"></a>预备知识</h1><h2 id="创建对象的方式"><a href="#创建对象的方式" class="headerlink" title="创建对象的方式"></a>创建对象的方式</h2><ol>
+<li><code>new</code></li>
+<li><code>Class.newInstance()</code></li>
+<li><code>Constructor.newInstance()</code></li>
+<li><code>Object.clone()</code></li>
+<li>反序列化</li>
+<li>对于 <code>String</code> 及基本类型封装类：字面量、表达式</li>
+</ol>
+<h2 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h2><p>Java 的数据类型可分为两大类：基本数据类型和引用类型。</p>
+<p>简单来说，基本数据类型直接存储于栈中；而引用类型仅将引用存储于栈中，真实对象存储在堆中。</p>
+<h1 id="关于拷贝"><a href="#关于拷贝" class="headerlink" title="关于拷贝"></a>关于拷贝</h1><p>所谓“拷贝”，或称“克隆”，从字面不难理解，就是根据一个蓝本对象，创造一个相同的克隆对象。</p>
+<p>拷贝操作后的结果一定是生成一个新的克隆对象，但是拷贝操作的具体实现路径不是唯一的。</p>
+<p>对于基本类型比较简单，可以认为基本类型的实例变量就是数据本身，因此，拷贝基本类型实例变量只能是生成一个相同的副本。这不会产生分歧，分歧体现在引用类型的实例变量的拷贝上。</p>
+<p>但是，对于引用类型实例变量而言，它仅仅是一个引用，或者说“地址”，对于它拷贝存在两种处理方式：1. 简单拷贝引用类型实例变量，其结果是得到一个引用，该引用与原引用指向堆中相同的真实对象；2. 根据引用类型实例变量引用的对象生成一个相同的对象（可能存在递归的克隆操作）。这就是产生分歧的源头。</p>
+<h2 id="浅拷贝-vs-深拷贝"><a href="#浅拷贝-vs-深拷贝" class="headerlink" title="浅拷贝 vs. 深拷贝"></a>浅拷贝 vs. 深拷贝</h2><p>如上所述，对象拷贝就有了两种实现方式。</p>
+<p>对于引用类型实例变量仅拷贝其引用地址的实现方式，称为“<strong>浅拷贝</strong>”——它是 Java 拷贝方法的默认行为——而生成新的引用的对象的实现方式则称为“<strong>深拷贝</strong>”。</p>
+<p>从对象结构上来看，深拷贝生成的克隆对象与蓝本对象完全独立，但是浅拷贝生成的克隆对象与蓝本对象共享引用类型实例变量引用的真实对象。</p>
+<h2 id="通常需要深拷贝"><a href="#通常需要深拷贝" class="headerlink" title="通常需要深拷贝"></a>通常需要深拷贝</h2><p>我们需要哪种拷贝？</p>
+<p>要回答这个问题，需要我们先回答另一个问题：我们为什么拷贝？</p>
+<p>回想一下，我们拷贝得到一个克隆对象后，用它做了什么？</p>
+<p>也许将克隆对象做为一个快照，稍后与蓝本对象对比差异；也许为了避免对蓝本对象的修改，而修改克隆对象……</p>
+<p>总之，大多数情况下，事实上我们希望得到的克隆对象应该是独立于蓝本对象的，换句话说，我们需要“深拷贝”。</p>
+<h2 id="默认却是浅拷贝"><a href="#默认却是浅拷贝" class="headerlink" title="默认却是浅拷贝"></a>默认却是浅拷贝</h2><p>我们几乎总是需要深拷贝，但 Java 默认提供浅拷贝，这是为什么？</p>
+<p>从设计上来看，浅拷贝比深拷贝简单易实现，且支持从简单的浅拷贝扩展到深拷贝是合理的。</p>
+<p>另一方面，由于对象间的引用可能是极其复杂的，所以深拷贝实现可能会很复杂，甚至实现一种通用的深拷贝是不可能的。比如，拷贝一个循环链表的结点，可能引发无限递归拷贝的问题。要解决这些问题，可能会涉及循环引用检测，或者对象图遍历等等方面，复杂度、性能等方面都可能面临各种考验。</p>
+<p>而且，话说回来，完全的深拷贝也许也不是我们想要的。</p>
+<p>所以，提供一个浅拷贝实现，并支持深拷贝扩展应该算是比较恰当的设计。</p>
+<h2 id="clone-方法"><a href="#clone-方法" class="headerlink" title="clone() 方法"></a>clone() 方法</h2><p>Java 使用 <code>clone()</code> 方法拷贝对象，该方法是 <code>Object</code> 对象声明的，如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">native</span> Object <span class="title">clone</span><span class="params">()</span> <span class="keyword">throws</span> CloneNotSupportedException</span>;</span><br></pre></td></tr></table></figure>
+<p>注意：<code>clone()</code> 方法是一个本地方法，换句话说，它不是 Java 本身实现的。</p>
+<h2 id="实现深拷贝"><a href="#实现深拷贝" class="headerlink" title="实现深拷贝"></a>实现深拷贝</h2><p>Java 扩展实现深拷贝是容易的，只需要被拷贝对象对应的类实现 <code>Cloneable</code> 这个标记接口，并重写 <code>clone()</code> 方法，将访问权限放宽为 <code>public</code> 即可。</p>
+<p>定制的 <code>clone()</code> 方法大概内容如下（这里不给示例代码了）：</p>
+<ol>
+<li>调用 <code>super.clone()</code> 拷贝当前对象；</li>
+<li>拷贝创建新的实例变量对象并设入当前克隆对象。</li>
+</ol>
+<p>注意：实例变量涉及到的自定义类也应该实现深拷贝；如果是通用集合类型还需要自行创建集合对象，并深拷贝其中元素并添加入新集合中。</p>
+<h2 id="clone-方法的可见性"><a href="#clone-方法的可见性" class="headerlink" title="clone() 方法的可见性"></a>clone() 方法的可见性</h2><p>读者可能注意到，<code>clone()</code> 方法是在 <code>Object</code> 中声明的 <code>protected</code> 方法，而所有类都是 <code>Object</code> 的子类，但如果我们在没有实现 <code>Cloneable</code> 的类对象上调用 <code>clone()</code> 方法会得到一个编译错误，提示 <code>clone()</code> 不可见。</p>
+<p>如果读者对其有所疑惑，说明对 <code>protected</code> 访问权限的理解有所偏差。</p>
+<p>根据 Java 语言规范：对象的 <code>protected</code> 成员或构造器在声明它的包的外部，只能被负责实现该对象的代码所访问。 </p>
+<p>假设我们声明一个类 A，对于 <code>Object.clone()</code> 而言，它就是存在于声明它的包（<code>java.lang</code>）外部的 <code>protected</code> 成员。而何为“负责实现该对象的代码”呢？就是类 A 代码。因此，我们可以在类 A 中调用 <code>Object.clone()</code>，但不能在类 B 中调用 <code>A.clone()</code>。</p>
+<p>因而，为了使声明的类的 <code>clone()</code> 方法可见，只能重写 <code>clone()</code> 并放宽访问权限为 <code>public</code>。</p>
+<p>但是，如果我们仅仅重写 <code>clone()</code> 方法但不实现 <code>Cloneable</code> 接口，代码是可以通过编译，但会得到一个运行时异常，这是因为 <code>Object.clone()</code> 方法会检查被拷贝对象是否实现 <code>Cloneable</code> 接口。</p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Eric Zong
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://ericzonglu.gitee.io/posts/java-topic-object-clone.html" title="Java专题：对象拷贝">http://ericzonglu.gitee.io/posts/java-topic-object-clone.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Java%E5%9F%BA%E7%A1%80/" rel="tag"># Java基础</a>
+              <a href="/tags/Java%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/" rel="tag"># Java入门教程</a>
+              <a href="/tags/Java%E5%AF%B9%E6%AF%94/" rel="tag"># Java对比</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/posts/java-topic-why-final.html" rel="next" title="Java专题：为什么内部类访问的外部局部变量必须是final的？">
+      Java专题：为什么内部类访问的外部局部变量必须是final的？ <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%A2%84%E5%A4%87%E7%9F%A5%E8%AF%86"><span class="nav-number">1.</span> <span class="nav-text">预备知识</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%96%B9%E5%BC%8F"><span class="nav-number">1.1.</span> <span class="nav-text">创建对象的方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.2.</span> <span class="nav-text">数据类型</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E%E6%8B%B7%E8%B4%9D"><span class="nav-number">2.</span> <span class="nav-text">关于拷贝</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%85%E6%8B%B7%E8%B4%9D-vs-%E6%B7%B1%E6%8B%B7%E8%B4%9D"><span class="nav-number">2.1.</span> <span class="nav-text">浅拷贝 vs. 深拷贝</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%9A%E5%B8%B8%E9%9C%80%E8%A6%81%E6%B7%B1%E6%8B%B7%E8%B4%9D"><span class="nav-number">2.2.</span> <span class="nav-text">通常需要深拷贝</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%BB%98%E8%AE%A4%E5%8D%B4%E6%98%AF%E6%B5%85%E6%8B%B7%E8%B4%9D"><span class="nav-number">2.3.</span> <span class="nav-text">默认却是浅拷贝</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#clone-%E6%96%B9%E6%B3%95"><span class="nav-number">2.4.</span> <span class="nav-text">clone() 方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E6%B7%B1%E6%8B%B7%E8%B4%9D"><span class="nav-number">2.5.</span> <span class="nav-text">实现深拷贝</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#clone-%E6%96%B9%E6%B3%95%E7%9A%84%E5%8F%AF%E8%A7%81%E6%80%A7"><span class="nav-number">2.6.</span> <span class="nav-text">clone() 方法的可见性</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Eric Zong</p>
+  <div class="site-description" itemprop="description">这里有作为一个程序员想记录的一切。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">96</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Eric Zong</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

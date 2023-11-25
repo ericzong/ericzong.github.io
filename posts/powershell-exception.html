@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"ericzonglu.gitee.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="介绍 PowerShell 异常及其处理。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PowerShell 异常处理">
+<meta property="og:url" content="http://ericzonglu.gitee.io/posts/powershell-exception.html">
+<meta property="og:site_name" content="八白龙的博客">
+<meta property="og:description" content="介绍 PowerShell 异常及其处理。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-04-14T16:00:00.000Z">
+<meta property="article:modified_time" content="2020-10-04T11:29:42.234Z">
+<meta property="article:author" content="Eric Zong">
+<meta property="article:tag" content="脚本语言">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://ericzonglu.gitee.io/posts/powershell-exception.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>PowerShell 异常处理 | 八白龙的博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">八白龙的博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">程序员的杂货铺</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-references">
+
+    <a href="/references/" rel="section"><i class="bookmark fa-fw"></i>参考</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://ericzonglu.gitee.io/posts/powershell-exception.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Eric Zong">
+      <meta itemprop="description" content="这里有作为一个程序员想记录的一切。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="八白龙的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          PowerShell 异常处理
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-04-15 00:00:00" itemprop="dateCreated datePublished" datetime="2019-04-15T00:00:00+08:00">2019-04-15</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-10-04 19:29:42" itemprop="dateModified" datetime="2020-10-04T19:29:42+08:00">2020-10-04</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/PowerShell/" itemprop="url" rel="index"><span itemprop="name">PowerShell</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/PowerShell/%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">入门教程</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p>PowerShell 有两种异常类型，终止异常和非终止异常。</p>
+<ul>
+<li>终止异常（Terminating Errors）：不由命令本身发出的错误。通常与安全相关。</li>
+<li>非终止异常（Non-Terminating Errors）：来自命令内部的错误。</li>
+</ul>
+<p>PowerShell 有两种异常处理机制，Trap 和 try-catch。</p>
+<p>需要特别注意的是，Trap/try-catch 只能捕获到终止异常，不能捕获到非终止异常。</p>
+<p>如果想要捕获非终止异常，需要将非终止异常转换为终止异常，进而捕获。有两种转换方式：</p>
+<ul>
+<li><code>-ErrorAction Stop</code>。通常命令都支持 <code>ErrorAction</code> 选项，将其设置为 <code>Stop</code> 就能将产生的非终止异常转换为终止异常。</li>
+<li><code>$ErrorActionPreference=&#39;Stop&#39;</code>。如果命令没有指定 <code>ErrorAction</code> 选项，可以设置 <code>$ErrorActionPreference</code> 以指定后续所有命令的默认异常行为。</li>
+</ul>
+<blockquote>
+<p>初次见到 PowerShell 的异常系统时或许会感到奇怪，跟其他主流编程语言不太相同，默认情况下异常处理机制居然不能捕获到异常！不过，如果意识到 PowerShell 是脚本语言的话也就可以理解了。脚本侧重批处理能力，而不是交互能力，因此，出现错误能继续运行而不需要用户干预更重要。故普通命令异常不会阻止脚本执行理应是默认行为。</p>
+</blockquote>
+<h1 id="Trap"><a href="#Trap" class="headerlink" title="Trap"></a>Trap</h1><p>Trap 相当于一个“全局”的异常处理器，它处理终止异常。</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Trap</span> [<span class="type">ExceptionType</span>] &#123;</span><br><span class="line">	<span class="comment"># 异常处理程序</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Trap 后可以指定具体处理的异常类型（用方括号括起来），也可以不指定，处理所有异常。</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">trapDefault</span></span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">Trap</span> &#123;<span class="string">&quot;Get Exception&quot;</span>&#125;</span><br><span class="line">    <span class="number">1</span>/<span class="variable">$null</span>	<span class="comment"># 异常 1</span></span><br><span class="line">    <span class="built_in">Get-Process</span> <span class="string">&quot;NoSuchProcess&quot;</span> <span class="comment"># 异常 2</span></span><br><span class="line">    <span class="built_in">Dir</span> Miss: <span class="comment"># 异常 3</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面的函数中，除 <code>1/$null</code> 抛出终止异常外，其他均为非终止异常，因此，Trap 只捕获到一次异常，故结果是：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Get Exception</span><br><span class="line">异常 1 堆栈</span><br><span class="line">异常 2 堆栈</span><br><span class="line">异常 3 堆栈</span><br></pre></td></tr></table></figure>
+<h2 id="Continue-amp-Break"><a href="#Continue-amp-Break" class="headerlink" title="Continue &amp; Break"></a>Continue &amp; Break</h2><p>默认情况下会打印异常堆栈，如果不想打印异常堆栈，可使用 Continue：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Trap</span> &#123;</span><br><span class="line">    <span class="string">&quot;Get Exception: <span class="variable">$</span>(<span class="variable">$_</span>.Exception.Message)&quot;</span></span><br><span class="line">    <span class="keyword">Continue</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>注意：Continue 不会阻止脚本的后续执行，但是，如果捕获的异常是从调用的函数中抛出的，那么，处理该函数的第一个异常后，该函数的执行结束，但脚本继续执行。</p>
+<p>如果想要处理异常后终止执行，可使用 Break：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Trap</span> &#123;</span><br><span class="line">    <span class="string">&quot;Get Exception: <span class="variable">$</span>(<span class="variable">$_</span>.Exception.Message)&quot;</span></span><br><span class="line">    <span class="keyword">Break</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>注意：Break 中断脚本执行，即使异常从调用函数中抛出，当前脚本的执行也会终止。</p>
+<h1 id="try-…-catch-…"><a href="#try-…-catch-…" class="headerlink" title="try … catch …"></a>try … catch …</h1><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">  <span class="built_in">dir</span> <span class="string">&quot;nothing&quot;</span> <span class="literal">-ErrorAction</span> Stop</span><br><span class="line">  <span class="built_in">Write-Host</span> <span class="string">&quot;no executed&quot;</span></span><br><span class="line">&#125; <span class="keyword">catch</span> &#123;</span><br><span class="line">  <span class="built_in">Write-Warning</span> <span class="string">&quot;Error: <span class="variable">$_</span>&quot;</span></span><br><span class="line">  <span class="built_in">Write-Host</span> <span class="variable">$_</span>.getType().fullname</span><br><span class="line">&#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">  <span class="built_in">Write-Host</span> <span class="string">&quot;Always run&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">Write-Host</span> <span class="string">&quot;will be executed&quot;</span></span><br></pre></td></tr></table></figure>
+<h1 id="获取异常信息"><a href="#获取异常信息" class="headerlink" title="获取异常信息"></a>获取异常信息</h1><h2 id="重定向"><a href="#重定向" class="headerlink" title="重定向"></a>重定向</h2><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">redirectToFile</span></span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">dir</span> <span class="string">&quot;NoSuchDirectory&quot;</span> <span class="number">2</span>&gt; Error.txt <span class="comment"># 重定向错误流，标准流中没有异常信息</span></span><br><span class="line">    <span class="built_in">Get-Content</span> Error.txt</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">redirectToVar</span></span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="variable">$myError</span> = <span class="built_in">dir</span> <span class="string">&quot;NoSuchDirectory&quot;</span> <span class="number">2</span>&gt;&amp;<span class="number">1</span></span><br><span class="line">    <span class="variable">$myError</span>.Exception</span><br><span class="line">    <span class="variable">$myError</span>.InvocationInfo</span><br><span class="line">    <span class="variable">$myerror</span>.FullyQualifiedErrorId</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="异常变量参数"><a href="#异常变量参数" class="headerlink" title="异常变量参数"></a>异常变量参数</h2><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">errorVariable</span></span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">Remove-Item</span> <span class="string">&quot;NoSuchDirectory&quot;</span> <span class="literal">-ErrorVariable</span> ErrorStore <span class="literal">-ErrorAction</span> <span class="string">&quot;SilentlyContinue&quot;</span></span><br><span class="line">    <span class="variable">$ErrorStore</span></span><br><span class="line">    <span class="variable">$ErrorStore</span>.GetType().fullName</span><br><span class="line">    <span class="variable">$ErrorStore</span>[<span class="number">0</span>].getType().fullName</span><br><span class="line">    <span class="variable">$ErrorStore</span>[<span class="number">0</span>].Exception.Message</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>当然，这要求命令支持 <code>ErrorVariable</code> 参数。</p>
+<p>注意，不受 <code>ErrorAction</code> 影响。</p>
+<h2 id="Error"><a href="#Error" class="headerlink" title="$Error"></a>$Error</h2><p>PowerShell 自动收集异常到 <code>$Error</code> 中，它是一个数组，最新的异常保存于索引 0 处。</p>
+<p><code>$Error</code> 保存的最大异常数于 <code>$MaximumErrorCount</code> 定义。</p>
+<p>可调用 <code>$Error.Clear()</code> 清空该数组。</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$Error</span>[<span class="number">0</span>].Exception.Message</span><br><span class="line"><span class="variable">$Error</span>.Clear()</span><br></pre></td></tr></table></figure>
+<h2 id="Trap-catch-中的异常变量"><a href="#Trap-catch-中的异常变量" class="headerlink" title="Trap/catch 中的异常变量"></a>Trap/catch 中的异常变量</h2><p>Trap 或 catch 块中可以使用 <code>$_</code> 或 <code>$PSItem</code> 访问异常记录。</p>
+<h1 id="抛出异常"><a href="#抛出异常" class="headerlink" title="抛出异常"></a>抛出异常</h1><p>使用 <code>Throw</code> 抛出异常，通常可以抛出任何东西，一般指定一个异常信息字符串。</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 必需参数缺省异常信息定义</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">throwException</span><span class="params">(<span class="variable">$a</span>, <span class="variable">$b</span>=<span class="variable">$</span>(throw &quot;required&quot;)</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">throwException2</span></span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">Param</span>(</span><br><span class="line">        <span class="variable">$a</span>,</span><br><span class="line">        <span class="variable">$b</span>=<span class="variable">$</span>(<span class="keyword">throw</span> <span class="string">&quot;required&quot;</span>)</span><br><span class="line">    )</span><br><span class="line">    <span class="variable">$a</span> + <span class="variable">$b</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="异常判断"><a href="#异常判断" class="headerlink" title="异常判断"></a>异常判断</h1><p><code>$?</code> bool 值，保存上一操作是否异常。</p>
+<h1 id="显示风格"><a href="#显示风格" class="headerlink" title="显示风格"></a>显示风格</h1><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 异常信息颜色</span></span><br><span class="line"><span class="variable">$host</span>.PrivateData.ErrorForegroundColor <span class="comment"># Red</span></span><br><span class="line"><span class="variable">$host</span>.PrivateData.ErrorBackgroundColor <span class="comment"># Black</span></span><br><span class="line"><span class="comment"># 异常信息输出设置</span></span><br><span class="line"><span class="variable">$ErrorView</span> <span class="comment"># 默认值 NormalView</span></span><br><span class="line"><span class="variable">$ErrorView</span>=<span class="string">&#x27;categoryview&#x27;</span> <span class="comment"># 仅显式一行异常信息</span></span><br></pre></td></tr></table></figure>
+<h1 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h1><h2 id="ErrorAction-选项"><a href="#ErrorAction-选项" class="headerlink" title="ErrorAction 选项"></a>ErrorAction 选项</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>候选值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Continue</td>
+<td>默认值，显示错误信息并继续执行</td>
+</tr>
+<tr>
+<td>Ignore</td>
+<td>3.0+，不显示错误信息并继续执行。与 SilentlyContinue 不同，它不会添加异常记录到 <code>$Error</code></td>
+</tr>
+<tr>
+<td>Inquire</td>
+<td>显示错误信息并弹框与用户交互</td>
+</tr>
+<tr>
+<td>SilentlyContinue</td>
+<td>不显示错误信息并继续执行</td>
+</tr>
+<tr>
+<td>Stop</td>
+<td>显示错误信息并退出脚本执行</td>
+</tr>
+<tr>
+<td>Suspend</td>
+<td>仅用于 workflow。当终止异常发生时执行会暂停，决定是否恢复执行</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="https://www.pstips.net/powershell-trap-error-in-function.html">PSTips - Powershell 在函数中捕获异常</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.pstips.net/powershell-error-record-details.html">PSTips - Powershell 错误记录:详细错误</a></p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Eric Zong
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://ericzonglu.gitee.io/posts/powershell-exception.html" title="PowerShell 异常处理">http://ericzonglu.gitee.io/posts/powershell-exception.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E8%84%9A%E6%9C%AC%E8%AF%AD%E8%A8%80/" rel="tag"># 脚本语言</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/tool-scoop-bucket.html" rel="prev" title="Scoop bucket 使用详解">
+      <i class="fa fa-chevron-left"></i> Scoop bucket 使用详解
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/posts/nodejs-get-start.html" rel="next" title="Node.js 入门">
+      Node.js 入门 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A6%82%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Trap"><span class="nav-number">2.</span> <span class="nav-text">Trap</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Continue-amp-Break"><span class="nav-number">2.1.</span> <span class="nav-text">Continue &amp; Break</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#try-%E2%80%A6-catch-%E2%80%A6"><span class="nav-number">3.</span> <span class="nav-text">try … catch …</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96%E5%BC%82%E5%B8%B8%E4%BF%A1%E6%81%AF"><span class="nav-number">4.</span> <span class="nav-text">获取异常信息</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%87%8D%E5%AE%9A%E5%90%91"><span class="nav-number">4.1.</span> <span class="nav-text">重定向</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%82%E5%B8%B8%E5%8F%98%E9%87%8F%E5%8F%82%E6%95%B0"><span class="nav-number">4.2.</span> <span class="nav-text">异常变量参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Error"><span class="nav-number">4.3.</span> <span class="nav-text">$Error</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Trap-catch-%E4%B8%AD%E7%9A%84%E5%BC%82%E5%B8%B8%E5%8F%98%E9%87%8F"><span class="nav-number">4.4.</span> <span class="nav-text">Trap&#x2F;catch 中的异常变量</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8A%9B%E5%87%BA%E5%BC%82%E5%B8%B8"><span class="nav-number">5.</span> <span class="nav-text">抛出异常</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BC%82%E5%B8%B8%E5%88%A4%E6%96%AD"><span class="nav-number">6.</span> <span class="nav-text">异常判断</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%98%BE%E7%A4%BA%E9%A3%8E%E6%A0%BC"><span class="nav-number">7.</span> <span class="nav-text">显示风格</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%99%84%E5%BD%95"><span class="nav-number">8.</span> <span class="nav-text">附录</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#ErrorAction-%E9%80%89%E9%A1%B9"><span class="nav-number">8.1.</span> <span class="nav-text">ErrorAction 选项</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-number">8.2.</span> <span class="nav-text">参考</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Eric Zong</p>
+  <div class="site-description" itemprop="description">这里有作为一个程序员想记录的一切。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">96</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Eric Zong</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

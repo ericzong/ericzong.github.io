@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"ericzonglu.gitee.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="介绍void在JavaScript中的“现代”用法。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【译文】现代JavaScript中使用void的一个例子">
+<meta property="og:url" content="http://ericzonglu.gitee.io/posts/js-a-case-for-using-void-in-modern-javascript.html">
+<meta property="og:site_name" content="八白龙的博客">
+<meta property="og:description" content="介绍void在JavaScript中的“现代”用法。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-05-15T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-03-14T09:08:30.170Z">
+<meta property="article:author" content="Eric Zong">
+<meta property="article:tag" content="译文">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://ericzonglu.gitee.io/posts/js-a-case-for-using-void-in-modern-javascript.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>【译文】现代JavaScript中使用void的一个例子 | 八白龙的博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">八白龙的博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">程序员的杂货铺</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-references">
+
+    <a href="/references/" rel="section"><i class="bookmark fa-fw"></i>参考</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://ericzonglu.gitee.io/posts/js-a-case-for-using-void-in-modern-javascript.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Eric Zong">
+      <meta itemprop="description" content="这里有作为一个程序员想记录的一切。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="八白龙的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【译文】现代JavaScript中使用void的一个例子
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-05-16 00:00:00" itemprop="dateCreated datePublished" datetime="2020-05-16T00:00:00+08:00">2020-05-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-03-14 17:08:30" itemprop="dateModified" datetime="2021-03-14T17:08:30+08:00">2021-03-14</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JS/" itemprop="url" rel="index"><span itemprop="name">JS</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>英文原文：<a target="_blank" rel="noopener" href="https://gist.github.com/slikts/dee3702357765dda3d484d8888d3029e" title="A case for using void in modern JavaScript">A case for using <code>void</code> in modern JavaScript</a> (<a href="../_favorites/js-a-case-for-using-void-in-modern-javascript.html" title="原文备份">backup</a>)</p>
+<p>原文作者：Reinis Ivanovs</p>
+<p>原文日期：2020-03-24</p>
+</blockquote>
+<p>过去，<a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/void"><code>void</code> 运算符</a>有一些用例：</p>
+<ul>
+<li><p>用于 <code>&lt;a href=&quot;javascript:void(0)&quot;&gt;</code> 以实现动态按钮，但这是一种不良且过时的做法</p>
+</li>
+<li><p>在可能覆盖标识符 <code>undefined</code> 的邪恶的前 ES5 时代，用于访问原始 <code>undefined</code> 值</p>
+</li>
+<li>用于节省一些字符而将 <code>undefined</code> 缩短为 <code>void 0</code>；这仍被压缩器（minifier）使用</li>
+</ul>
+<p>除了由 ES6 中的箭头函数引入的新用例外，这些用例对于现代 JavaScript 均没有普世价值：</p>
+<h1 id="使用void来说明无返回值（void）的箭头函数"><a href="#使用void来说明无返回值（void）的箭头函数" class="headerlink" title="使用void来说明无返回值（void）的箭头函数"></a>使用<code>void</code>来说明无返回值（<code>void</code>）的箭头函数</h1><p>ES6 箭头函数表达式允许函数体省略花括号以使代码更为简洁，但是这在返回值是否打算被使用方面产生了二义性，因为该函数也许仅仅只是使用其副作用：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 省略花括号</span></span><br><span class="line"><span class="keyword">const</span> id = <span class="function"><span class="params">x</span> =&gt;</span> x;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 调用函数仅仅是为了副作用</span></span><br><span class="line"><span class="keyword">const</span> log = <span class="function"><span class="params">x</span> =&gt;</span> <span class="built_in">console</span>.log(x);</span><br></pre></td></tr></table></figure>
+<p>控制台 API 是众所周知的，因此该示例并不具二义性，但它说明了原理。</p>
+<p>添加花括号可以显式地创建刻意返回 void 的箭头函数，但这将降低简洁性：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">const log = x =&gt; &#123;</span><br><span class="line">  console.log(x);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>该函数仍然可以在一行中格式化，但是像 Prettier 这样的自动格式化工具通常会添加换行符，并且不返回值的意图不如使用 <code>void</code> 运算符时清晰：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> log = <span class="function"><span class="params">x</span> =&gt;</span> <span class="keyword">void</span> <span class="built_in">console</span>.log(x);</span><br></pre></td></tr></table></figure>
+<p>像这样使用 <code>void</code> 的最明显的好处是减少了行数；尤其是像 CPS 这样的编程风格，它们经常依赖 void 回调。</p>
+<h2 id="类型系统与-void-类型"><a href="#类型系统与-void-类型" class="headerlink" title="类型系统与 void 类型"></a>类型系统与 <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Void_type" title="wiki void 类型">void 类型</a></h2><p>许多类型系统，包括 TypeScript 的类型系统，都具有 void 类型的概念，这使得 <code>void</code> 运算符对无返回值函数的使用是互补的并且更易于识别。</p>
+<h2 id="React-useEffect-钩子"><a href="#React-useEffect-钩子" class="headerlink" title="React useEffect 钩子"></a>React <a target="_blank" rel="noopener" href="https://reactjs.org/docs/hooks-effect.html" title="React useEffect 钩子"><code>useEffect</code></a> 钩子</h2><p><code>void</code> 的常见实用案例是 React 中的 <code>useEffect</code> 钩子：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">useEffect(<span class="function">() =&gt;</span> <span class="keyword">void</span> (<span class="built_in">document</span>.title = <span class="string">&#x27;example&#x27;</span>));</span><br></pre></td></tr></table></figure>
+<p>这是一个特别突出的例子，因为 <code>useEffect</code> 钩子可以使用它的回调返回值来清理效果，所以意外地返回一个函数可能是一个运行时错误。</p>
+<h1 id="在异步-IIFES-中使用-void"><a href="#在异步-IIFES-中使用-void" class="headerlink" title="在异步 IIFES 中使用 void"></a>在异步 IIFES 中使用 <code>void</code></h1><p>对于使用 <code>void</code> 运算符的异步的立即调用函数表达式（IIFES），还有另外一个但不太重要的用例。传统的 IIFES 用于实现模块化作用域，因为 JS 没有块作用域或实际的模块，但是现代 JS 两者兼具，所以 IIFES 除了一种情况外，在很大程度上没有意义：在<a target="_blank" rel="noopener" href="https://2ality.com/2019/12/top-level-await.html" title="模块顶层 await">模块的顶层</a>使用 <code>await</code> 或 <code>for-await-of</code> 语法：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> (<span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">  <span class="keyword">await</span> fetch(something);</span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure>
+<p>这是一个足够流行的用例，为此存在第 3 阶段的建议。由于优先级，仍需在函数表达式周围加上括号，但是使用 <code>void</code> 解决了前括号不能与 ASI 一起使用的问题（更具体地说，如果没有显式分号行终止符，则括号会中断）。</p>
+<h1 id="风格指南与-no-void"><a href="#风格指南与-no-void" class="headerlink" title="风格指南与 no-void"></a>风格指南与 <a target="_blank" rel="noopener" href="https://eslint.org/docs/rules/no-void"><code>no-void</code></a></h1><p>流行的风格指南，比如 Airbnb 和标准 JS，使用 <code>no-void</code> ESLint 规则来阻止使用 <code>void</code> 运算符，但是可以说这是一种疏忽而应由用户重写。</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/airbnb/javascript/issues/2145">Airbnb 关于移除 <code>no-void</code> 的问题</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/standard/standard/issues/1464">标准 JS 关于移除 <code>no-void</code> 的问题</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/eslint/eslint/issues/12688">ESLint <code>no-void</code> 规则更改请求</a></li>
+</ul>
+<hr>
+<p>（精彩留言，归纳、概述、意译）</p>
+<p><strong>话题一</strong>：</p>
+<p>为什么需要用</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">useEffect(<span class="function">() =&gt;</span> <span class="keyword">void</span> (<span class="built_in">document</span>.title = <span class="string">&#x27;example&#x27;</span>));</span><br></pre></td></tr></table></figure>
+<p>代替</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">useEffect(<span class="function">() =&gt;</span> &#123; <span class="built_in">document</span>.title = <span class="string">&#x27;example&#x27;</span> &#125;);</span><br></pre></td></tr></table></figure>
+<p>后者比使用 <code>void</code> 更短并更具可读性。</p>
+<p><strong>作者答疑</strong>：</p>
+<p>启用 <a target="_blank" rel="noopener" href="https://eslint.org/docs/rules/brace-style"><code>brace-style</code></a> 的 ESLint 或 Prettier 会将带有花括号的块体（body） 格式化为三行，而不是一行。<code>void</code> 使无返回值更为明显，而相对地，忽略 <code>return</code> 语句可能仍是错误的。</p>
+<p><strong>话题二</strong>：</p>
+<p>在 React 中，以下代码可以阻止用户修改文本框内容，同时支持选中文本拷贝：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;input type=&quot;text&quot; onChange=&#123;void(0)&#125; value=&quot;This value cannot be changed by the user&quot; /&gt;</span><br></pre></td></tr></table></figure>
+<p><strong>作者观点</strong>：</p>
+<p>这应该是 <code>readonly</code> 属性要做的。</p>
+<p><strong>反馈</strong>：</p>
+<p><code>readonly</code> 对于 UX 而言并不是好的选择，大多数浏览器实现都阻止用户拷贝文本框内容。</p>
+<p><code>readonly</code> 的这种实现可能在未来会被各浏览器修改，但使用上面所提到的技巧，现在就可以得到期望的行为。</p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Eric Zong
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://ericzonglu.gitee.io/posts/js-a-case-for-using-void-in-modern-javascript.html" title="【译文】现代JavaScript中使用void的一个例子">http://ericzonglu.gitee.io/posts/js-a-case-for-using-void-in-modern-javascript.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E8%AF%91%E6%96%87/" rel="tag"># 译文</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/mysql-count-function.html" rel="prev" title="MySQL笔记：count函数">
+      <i class="fa fa-chevron-left"></i> MySQL笔记：count函数
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/posts/java-kp-optional.html" rel="next" title="Java知识点：Optional类的使用">
+      Java知识点：Optional类的使用 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8void%E6%9D%A5%E8%AF%B4%E6%98%8E%E6%97%A0%E8%BF%94%E5%9B%9E%E5%80%BC%EF%BC%88void%EF%BC%89%E7%9A%84%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0"><span class="nav-number">1.</span> <span class="nav-text">使用void来说明无返回值（void）的箭头函数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B1%BB%E5%9E%8B%E7%B3%BB%E7%BB%9F%E4%B8%8E-void-%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.1.</span> <span class="nav-text">类型系统与 void 类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#React-useEffect-%E9%92%A9%E5%AD%90"><span class="nav-number">1.2.</span> <span class="nav-text">React useEffect 钩子</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9C%A8%E5%BC%82%E6%AD%A5-IIFES-%E4%B8%AD%E4%BD%BF%E7%94%A8-void"><span class="nav-number">2.</span> <span class="nav-text">在异步 IIFES 中使用 void</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%A3%8E%E6%A0%BC%E6%8C%87%E5%8D%97%E4%B8%8E-no-void"><span class="nav-number">3.</span> <span class="nav-text">风格指南与 no-void</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Eric Zong</p>
+  <div class="site-description" itemprop="description">这里有作为一个程序员想记录的一切。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">96</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Eric Zong</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

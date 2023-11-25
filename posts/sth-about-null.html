@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"ericzonglu.gitee.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="介绍“Null引用问题”的由来，以及种各规避方法。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="null漫谈">
+<meta property="og:url" content="http://ericzonglu.gitee.io/posts/sth-about-null.html">
+<meta property="og:site_name" content="八白龙的博客">
+<meta property="og:description" content="介绍“Null引用问题”的由来，以及种各规避方法。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-01-01T07:29:27.000Z">
+<meta property="article:modified_time" content="2021-06-22T13:17:19.311Z">
+<meta property="article:author" content="Eric Zong">
+<meta property="article:tag" content="科技史">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://ericzonglu.gitee.io/posts/sth-about-null.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>null漫谈 | 八白龙的博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">八白龙的博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">程序员的杂货铺</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-references">
+
+    <a href="/references/" rel="section"><i class="bookmark fa-fw"></i>参考</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://ericzonglu.gitee.io/posts/sth-about-null.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Eric Zong">
+      <meta itemprop="description" content="这里有作为一个程序员想记录的一切。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="八白龙的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          null漫谈
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-01-01 15:29:27" itemprop="dateCreated datePublished" datetime="2021-01-01T15:29:27+08:00">2021-01-01</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-06-22 21:17:19" itemprop="dateModified" datetime="2021-06-22T21:17:19+08:00">2021-06-22</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/%E4%B8%93%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">专题</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="null起源"><a href="#null起源" class="headerlink" title="null起源"></a>null起源</h1><p>如果你使用 Java 或类似的语言编程，那么应该经常遇到名为“空指针”的异常，其原因通常在于被访问属性或方法的对象是 <code>null</code> 值，这往往是因为该对象作为参数传入时就是 <code>null</code>。</p>
+<p>而作为参数，<code>null</code> 值本身有两个意思：</p>
+<ul>
+<li>参数不存在</li>
+<li>参数没有值</li>
+</ul>
+<p>很显然 <code>null</code> 值具有二义性，而在计算机科学里这是能避免就尽量避免的。所以，<code>null</code> 值的二义性是一个 Java 中的设计缺陷。不过，也不光是在 Java 语言中，<code>null</code> 的二义性在编程语言里是广泛存在的一个问题。这个问题被称为“<strong>Null 引用问题</strong>”。</p>
+<blockquote>
+<p>Null 引用是计算机科学中一个历史悠久又臭名昭著的问题。在 1964 年，由快排算法的创造者东尼·霍尔发明。他自称这是个“<strong>十亿美元的错误</strong>”。</p>
+<p>有些计算机语言，运算可能会返回空值（null），这是一个设计错误，因为会中断类型系统，你将无法依靠编译器来检查代码的有效性。任何可能为 null 的值都是等待爆炸的炸弹。我们必须依靠运行时手动检查来确保所处理的值不为 null。即使是静态类型语言，null 也剥夺了类型系统的许多好处。<br>——<a target="_blank" rel="noopener" href="https://web.archive.org/web/20210224005240/https://medium.com/better-programming/goto-destroys-lives-7636dd9201dd">《可变状态是新的 Goto》</a></p>
+</blockquote>
+<h1 id="“判空地狱”与自动检查"><a href="#“判空地狱”与自动检查" class="headerlink" title="“判空地狱”与自动检查"></a>“判空地狱”与自动检查</h1><p>Null 引用问题会在意想不到的地方引起空指针异常，这可能使得程序意外中断。</p>
+<p>一个常见的不触发空指针异常的编程模式相信大家耳熟能详，就是在使用某个对象前判断其是否为空。但是，在极限情况下，我们可能会发现一段核心代码中，“判空”语句可能占了很高的比例，代码中充斥着 <code>if(xxx != null) &#123; doSth(); &#125;</code> 语句显然是不恰当的。</p>
+<p>而类似这样检查代码其实都是“模板化”的，因此，很容易想到用一套检查框架来处理它。最为常见的即是使用注解标识，常见的注解有 <code>@NotNull</code> 和 <code>@NonNull</code>。前者是 JSR 303（Bean 校验框架），在运行时检查；后者是 JSR 305（缺陷检查框架），进行编译器检查，目前仅 IDEA 支持。</p>
+<p>使用这些检查框架，可以在很大程度上规避空指针异常，但并不能杜绝。</p>
+<h1 id="空对象模式"><a href="#空对象模式" class="headerlink" title="空对象模式"></a>空对象模式</h1><p>另一种规避空指针的方法是，空对象（NullObject）模式。</p>
+<p>空对象模式的基本思想是，所有传递的对象都不会是 <code>null</code> 值，如果确实是“空”值，则传递一个“空对象”，该对象具有普通对象的所有属性以及方法，通常两者分别是默认值和默认实现。</p>
+<p>这样，就不会导致空指针了——But，传空对象不传 <code>null</code> 的约束不是强制的，So……</p>
+<h1 id="链式编程中的空指针定位"><a href="#链式编程中的空指针定位" class="headerlink" title="链式编程中的空指针定位"></a>链式编程中的空指针定位</h1><p>另一方面，空指针在链式编程模式下会相当难于定位。</p>
+<p>如果你经常使用链式编程模式，那么，你应该遇到过这样的场景，一条很长的链式调用语句，抛出空指针异常。这时，要定位具体是哪个调用引起的空指针，简直就是一个恶梦。</p>
+<p>原因在于，JVM 在这种场景下抛出的异常信息是不充足的。通常，异常信息仅仅告知某行代码有问题，但由于是链式调用，所以该行代码包括了多个调用，而我们不能明确知道是哪个调用结果为 null。</p>
+<p>因此，如果要想获知哪个调用结果为 null，通常需要使用调用器 debug，在运行时逐一查看调用链——痛苦一言难尽……</p>
+<p>好在，既然这是一个众所周知的痛点，这个世界必然会有人出手解决它。</p>
+<p>SAP 早在 2006 年就为其商业 JVM 实现了增强型的 NullPointerException。而在 2019 年 2 月，它被提议作为 OpenJDK 社区的一个增强，很快，便成为了一个 JEP。继而，该功能在 2019 年 10 月完成并在 JDK 14 版本推出。</p>
+<p>本质上，JEP 358 旨在通过描述某个变量是 “null” 来提高 JVM 生成的 <code>NullPointerException</code> 的可读性。JEP 358 通过在方法、文件名和行号旁边描述为 null 的变量，带来了一个详细的 <code>NullPointerException</code> 消息。它通过分析程序的字节码指令来工作。因此，它能够精确地确定哪个变量或表达式是 <code>null</code>。最重要的是，JDK 14 中默认关闭详细的异常消息。其命令行启用选项为：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-XX:+ShowCodeDetailsInExceptionMessages</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>首先，只有当 JVM 本身抛出一个 NullPointerException 时，才会进行详细的消息计算，如果我们在 Java 代码中显式抛出异常，则不会执行计算。原因是因为：在这些情况下，很可能已经在异常构造函数中传递了一条有意义的消息。<br>其次，JEP 358 懒汉式地计算消息，这意味着只有当我们打印异常消息时才调用增强的 NullPointerException，而不是当异常发生时就调用。因此，对于通常的 JVM 流程不应该有任何性能影响，在那里我们可以捕获并重新抛出异常，因为我们并不会只想打印异常消息。<br>最后，详细的异常消息可能包含源代码中的局部变量名。因此，我们可以认为这是一个潜在的安全风险。但是，只有在运行使用激活的 <code>-g</code> 标记编译的代码时，才会发生这种情况，该标记会生成调试信息并将其添加到类文件中。</p>
+</blockquote>
+<h1 id="消除二义性"><a href="#消除二义性" class="headerlink" title="消除二义性"></a>消除二义性</h1><p>从上文可以看到，无论是主动判空，还是注解检查，或是空对象模式，亦或是增强型 NPE，手段无非是规避 <code>null</code> 值。但是，都没有消除其二义性问题。</p>
+<p>而 Java 8 新增的 <code>Optional</code> 类较为优雅地消除了二义性问题。</p>
+<p><code>Optional</code> 类对象是一个容器，可能包含一个非空值也可能不包含值。它提供了相应方法进行值的存在性判断，以便决定下一步处理。不仅如此，<code>Optional</code> 类还提供了丰富的方法，对值进行加工处理，使用这些方法则不需要关注值是否为 <code>null</code>，只需要关注处理逻辑即可，这提供了确定性。</p>
+<p>我们可以选择在参数不存在时抛出想要的异常，或在参数为“空”时指定一个默认值……</p>
+<blockquote>
+<p>关于 <code>Optional</code> 更多请参考我的另一篇相关专题<a href="2020-07-27-java-kp-optional.html">《Java知识点：Optional类的使用》</a>。</p>
+</blockquote>
+<p><code>Optional</code> 除了可以有效规避空指针问题，另一个优点是：它天生“优雅地”支持链式调用。但反过来说，使用 <code>Optional</code> 进行复杂的链式调用时，代码可读性并不是很理想。</p>
+<h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h1><p>为了规避空指针，我们应该优先考虑使用 <code>Optional</code> 类，毕竟它是 Java 原生的，拿来即可用。</p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Eric Zong
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://ericzonglu.gitee.io/posts/sth-about-null.html" title="null漫谈">http://ericzonglu.gitee.io/posts/sth-about-null.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E7%A7%91%E6%8A%80%E5%8F%B2/" rel="tag"># 科技史</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/java-topic-about-history.html" rel="prev" title="关于Java的一些有趣历史">
+      <i class="fa fa-chevron-left"></i> 关于Java的一些有趣历史
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/posts/windows-robocopy-command.html" rel="next" title="学习笔记：robocopy命令">
+      学习笔记：robocopy命令 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#null%E8%B5%B7%E6%BA%90"><span class="nav-number">1.</span> <span class="nav-text">null起源</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E2%80%9C%E5%88%A4%E7%A9%BA%E5%9C%B0%E7%8B%B1%E2%80%9D%E4%B8%8E%E8%87%AA%E5%8A%A8%E6%A3%80%E6%9F%A5"><span class="nav-number">2.</span> <span class="nav-text">“判空地狱”与自动检查</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%A9%BA%E5%AF%B9%E8%B1%A1%E6%A8%A1%E5%BC%8F"><span class="nav-number">3.</span> <span class="nav-text">空对象模式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%93%BE%E5%BC%8F%E7%BC%96%E7%A8%8B%E4%B8%AD%E7%9A%84%E7%A9%BA%E6%8C%87%E9%92%88%E5%AE%9A%E4%BD%8D"><span class="nav-number">4.</span> <span class="nav-text">链式编程中的空指针定位</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B6%88%E9%99%A4%E4%BA%8C%E4%B9%89%E6%80%A7"><span class="nav-number">5.</span> <span class="nav-text">消除二义性</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B0%8F%E7%BB%93"><span class="nav-number">6.</span> <span class="nav-text">小结</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Eric Zong</p>
+  <div class="site-description" itemprop="description">这里有作为一个程序员想记录的一切。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">96</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Eric Zong</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

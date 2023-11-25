@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"ericzonglu.gitee.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="介绍PowerShell管理注册表。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PowerShell专题：注册表">
+<meta property="og:url" content="http://ericzonglu.gitee.io/posts/powershell-registry.html">
+<meta property="og:site_name" content="八白龙的博客">
+<meta property="og:description" content="介绍PowerShell管理注册表。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-11-22T16:00:00.000Z">
+<meta property="article:modified_time" content="2020-10-08T08:46:05.159Z">
+<meta property="article:author" content="Eric Zong">
+<meta property="article:tag" content="注册表">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://ericzonglu.gitee.io/posts/powershell-registry.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>PowerShell专题：注册表 | 八白龙的博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">八白龙的博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">程序员的杂货铺</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-references">
+
+    <a href="/references/" rel="section"><i class="bookmark fa-fw"></i>参考</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://ericzonglu.gitee.io/posts/powershell-registry.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Eric Zong">
+      <meta itemprop="description" content="这里有作为一个程序员想记录的一切。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="八白龙的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          PowerShell专题：注册表
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-11-23 00:00:00" itemprop="dateCreated datePublished" datetime="2019-11-23T00:00:00+08:00">2019-11-23</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-10-08 16:46:05" itemprop="dateModified" datetime="2020-10-08T16:46:05+08:00">2020-10-08</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/PowerShell/" itemprop="url" rel="index"><span itemprop="name">PowerShell</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/PowerShell/%E4%B8%93%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">专题</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>注册表对于 Windows 系统而言十分重要，因此，在执行每一条修改注册表的命令时都应该十分小心。</p>
+<p>除非你真的知道你在做什么，否则，不应该执行任何修改注册表的相关命令。</p>
+<p>一个最佳的实验环境就是在虚拟机中，即使最终系统因此而崩溃，也不会有太大的损害。</p>
+</blockquote>
+<h1 id="命令列表"><a href="#命令列表" class="headerlink" title="命令列表"></a>命令列表</h1><p>先来看命令，PowerShell 中操作注册表的常用命令有如下这些：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>HKCU:</code>, <code>HKLM:</code></td>
+<td>预定义注册表虚拟驱动器</td>
+</tr>
+<tr>
+<td><code>Get-ChildItem</code>/<code>dir</code></td>
+<td>列出键</td>
+</tr>
+<tr>
+<td><code>Set-Location</code>/<code>cd</code></td>
+<td>导航</td>
+</tr>
+<tr>
+<td><code>New-Item</code>/<code>md</code></td>
+<td>新建键</td>
+</tr>
+<tr>
+<td><code>Get-Item</code></td>
+<td>获取键对象</td>
+</tr>
+<tr>
+<td><code>Remove-Item</code>/<code>del</code></td>
+<td>删除键</td>
+</tr>
+<tr>
+<td><code>Test-Path</code></td>
+<td>测试键存在</td>
+</tr>
+<tr>
+<td><code>New-ItemProperty</code></td>
+<td>新建键值</td>
+</tr>
+<tr>
+<td><code>Set-ItemProperty</code></td>
+<td>设置键值</td>
+</tr>
+<tr>
+<td><code>Get-ItemProperty</code></td>
+<td>获取键值</td>
+</tr>
+<tr>
+<td><code>Clear-ItemProperty</code></td>
+<td>清除键值内容</td>
+</tr>
+<tr>
+<td><code>Remove-ItemProperty</code></td>
+<td>删除键值</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>注册表入口被预定义为提供器，或者说虚拟驱动器，因此，访问注册表很像是在访问文件系统（从以上命令也可以看出，大多是文件系统的命令），而注册表的键被视为文件夹，但值并非被视为文件，而是键的属性。</p>
+<blockquote>
+<p>通过 <code>Get-PSProvider registry</code> 命令可以查看注册表的提供程序。</p>
+<p>通过 <code>Get-PSDrive -PSProvider Registry</code> 命令可以查看注册表的虚拟驱动器。</p>
+</blockquote>
+<h1 id="注册表值类型"><a href="#注册表值类型" class="headerlink" title="注册表值类型"></a>注册表值类型</h1><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>值类型</th>
+<th>描述</th>
+<th>数据类型</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>String</td>
+<td>字符串</td>
+<td>REG_SZ</td>
+</tr>
+<tr>
+<td>ExpandString</td>
+<td>包含环境变量的字符串在执行时可以自动处理</td>
+<td>REG_EXPAND_SZ</td>
+</tr>
+<tr>
+<td>MultiString</td>
+<td>多行文本</td>
+<td>REG_MULTI_SZ</td>
+</tr>
+<tr>
+<td>Binary</td>
+<td>二进制值</td>
+<td>REG_BINARY</td>
+</tr>
+<tr>
+<td>DWord</td>
+<td>32 位数值</td>
+<td>REG_DWORD</td>
+</tr>
+<tr>
+<td>QWord</td>
+<td>64 位数值</td>
+<td>REG_QWORD</td>
+</tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<p>值类型可用于：</p>
+<ul>
+<li><p><code>New-Item</code> 命令， <code>-itemType</code> 选项候选值</p>
+</li>
+<li><p><code>New-ItemProperty</code> 命令，<code>-propertyType</code> 选项候选值</p>
+</li>
+</ul>
+</blockquote>
+<h1 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h1><ul>
+<li>如果键包含空格，需用引号引起来。</li>
+<li>默认值名为 <code>(default)</code>，是一个无名值。它需要使用 <code>New-Item</code> 和 <code>-Value</code> 来创建，并通过其“名称”来访问和修改它，但 PowerShell 一旦创建默认值，那就只能清除其内容，而不能删除它。</li>
+<li>不能如文件系统一次性创建多层文件夹一样创建多层键，即创建一个新键需要确保其父键存在。</li>
+<li><code>Get-ItemProperty</code> 会获取到键值外的其他属性，因此，要获取某个值需要特别指定，如：<code>(Get-ItemProperty HKCU:\Software\Test).T1</code>。</li>
+<li>PowerShell 不能删除默认值，只能使用 <code>Clear-ItemProperty</code> 清除其内容。</li>
+</ul>
+<h1 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h1><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 搜索，支持 -recurse, -include, -exclude</span></span><br><span class="line"><span class="built_in">Dir</span> HKCU:, HKLM: <span class="literal">-recurse</span> <span class="literal">-include</span> PowerShell <span class="literal">-ErrorAction</span> SilentlyContinue</span><br><span class="line"><span class="comment"># 获取键对象</span></span><br><span class="line"><span class="variable">$key</span> = <span class="built_in">Get-Item</span> HKLM:\Software\Microsoft\PowerShell</span><br><span class="line"><span class="comment"># 获取键下的值计数</span></span><br><span class="line"><span class="variable">$key</span>.ValueCount</span><br><span class="line"><span class="comment"># 创建新键</span></span><br><span class="line"><span class="built_in">New-Item</span> HKCU:\Software\Test</span><br><span class="line"><span class="comment"># 创建有默认值的键</span></span><br><span class="line"><span class="built_in">New-Item</span> <span class="literal">-itemType</span> String HKCU:\Software\Test <span class="literal">-value</span> 这是默认值</span><br><span class="line"><span class="comment"># 创建值</span></span><br><span class="line"><span class="built_in">New-ItemProperty</span> HKCU:\Software\Test <span class="literal">-name</span> T1 <span class="literal">-value</span> 默认值 <span class="literal">-propertyType</span> String</span><br><span class="line"><span class="comment"># 创建/修改值</span></span><br><span class="line"><span class="built_in">Set-ItemProperty</span> HKCU:\Software\Test <span class="literal">-name</span> <span class="string">&#x27;(default)&#x27;</span> <span class="literal">-value</span> 设置值</span><br><span class="line"><span class="comment"># 删除值</span></span><br><span class="line"><span class="built_in">Remove-ItemProperty</span> HKCU:\Software\Test T1</span><br><span class="line"><span class="comment"># 清除默认值</span></span><br><span class="line"><span class="built_in">Clear-ItemProperty</span> HKCU:\Software\Test <span class="string">&#x27;default&#x27;</span></span><br><span class="line"><span class="comment"># 创建键并添加值（仅新键可写，Get-Item 得到的键是只读的）</span></span><br><span class="line"><span class="variable">$newKey</span> = mk HKCU:\Software\Test2</span><br><span class="line"><span class="variable">$newKey</span>.SetValue(<span class="string">&quot;T1&quot;</span>, <span class="string">&quot;test1&quot;</span>, <span class="string">&quot;String&quot;</span>)</span><br><span class="line"><span class="comment"># 删除非空键</span></span><br><span class="line"><span class="built_in">Del</span> <span class="string">&quot;HKCU:\Software\Test Key&quot;</span> <span class="literal">-recurse</span></span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Eric Zong
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://ericzonglu.gitee.io/posts/powershell-registry.html" title="PowerShell专题：注册表">http://ericzonglu.gitee.io/posts/powershell-registry.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%B3%A8%E5%86%8C%E8%A1%A8/" rel="tag"># 注册表</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/tool-chocolatey.html" rel="prev" title="Chocolatey入门">
+      <i class="fa fa-chevron-left"></i> Chocolatey入门
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/posts/markdown-get-start.html" rel="next" title="Markdown入门">
+      Markdown入门 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%91%BD%E4%BB%A4%E5%88%97%E8%A1%A8"><span class="nav-number">1.</span> <span class="nav-text">命令列表</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B3%A8%E5%86%8C%E8%A1%A8%E5%80%BC%E7%B1%BB%E5%9E%8B"><span class="nav-number">2.</span> <span class="nav-text">注册表值类型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="nav-number">3.</span> <span class="nav-text">注意事项</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B"><span class="nav-number">4.</span> <span class="nav-text">示例</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Eric Zong</p>
+  <div class="site-description" itemprop="description">这里有作为一个程序员想记录的一切。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">96</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Eric Zong</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

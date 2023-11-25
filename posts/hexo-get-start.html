@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"ericzonglu.gitee.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="Hexo入门教程。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo入门">
+<meta property="og:url" content="http://ericzonglu.gitee.io/posts/hexo-get-start.html">
+<meta property="og:site_name" content="八白龙的博客">
+<meta property="og:description" content="Hexo入门教程。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-09-08T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-05-15T07:43:22.518Z">
+<meta property="article:author" content="Eric Zong">
+<meta property="article:tag" content="入门教程">
+<meta property="article:tag" content="Hexo">
+<meta property="article:tag" content="博客搭建">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://ericzonglu.gitee.io/posts/hexo-get-start.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Hexo入门 | 八白龙的博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">八白龙的博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">程序员的杂货铺</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-references">
+
+    <a href="/references/" rel="section"><i class="bookmark fa-fw"></i>参考</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://ericzonglu.gitee.io/posts/hexo-get-start.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Eric Zong">
+      <meta itemprop="description" content="这里有作为一个程序员想记录的一切。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="八白龙的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Hexo入门
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-09-09 00:00:00" itemprop="dateCreated datePublished" datetime="2020-09-09T00:00:00+08:00">2020-09-09</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-05-15 15:43:22" itemprop="dateModified" datetime="2022-05-15T15:43:22+08:00">2022-05-15</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">工具</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p>什么是 Hexo？套用 <a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/">Hexo 官方中文文档</a> 的原话：</p>
+<blockquote>
+<p>Hexo 是一个快速、简洁且高效的博客框架。Hexo 使用 Markdown（或其他渲染引擎）解析文章，在几秒内，即可利用靓丽的主题生成静态网页。 </p>
+</blockquote>
+<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><p>Hexo 依赖 Node.js 和 Git，因此，应确保已事先安装好了它们。然后执行安装命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g hexo-cli</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>局部安装</strong></p>
+<p>上面的命令是全局安装，如果希望局部安装有两种方式。</p>
+<ol>
+<li>手动修改 <code>path</code> 环境变量</li>
+</ol>
+<p>在希望安装的目录执行 <code>npm install hexo</code> 并将该目录下的 <code>node_modules/.bin</code>  目录添加到 <code>path</code> 环境变量。</p>
+<ol>
+<li>使用 <code>npx</code> 执行 <code>hexo</code> 命令</li>
+</ol>
+<p><code>npx</code> 可以调用项目内部安装的模块，更多说明参见 阮一峰老师的<a target="_blank" rel="noopener" href="http://www.ruanyifeng.com/blog/2019/02/npx.html">《npx 使用教程》</a>。</p>
+<p>因此，如果当前路径正处于某个 Node.js 项目下，而该项目已经安装了 hexo，那么 <code>npx</code> 就可以直接执行 hexo 命令。</p>
+<p>但如果找不到可供调用的 hexo 命令，那么 <code>npx</code> 会临时下载一个执行，完成后删除（显然效率较低）。</p>
+<hr>
+<p><strong>全局 vs. 局部</strong></p>
+<p>全局安装最明显的优点就是处处可调用，而局部安装调用就会麻烦一点，但环境“干净”一些——对于一些人而言，这一点更重要，当然笔者也在其列 (^_^)。</p>
+</blockquote>
+<h1 id="上手"><a href="#上手" class="headerlink" title="上手"></a>上手</h1><p>hexo 使用以下格式调用其子命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo &lt;<span class="built_in">command</span>&gt;</span><br></pre></td></tr></table></figure>
+<p>对于命令行工具而言，<code>help</code> 命令是上手最好的切入点：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo <span class="built_in">help</span> [<span class="built_in">command</span>]</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>使用 npx</strong></p>
+<p><code>npx</code> 调用 hexo 直接在以上命令前加 <code>npx</code> 即可。如：<code>npx hexo &lt;command&gt;</code>、<code>npx help [command]</code>……</p>
+</blockquote>
+<h1 id="创建站点"><a href="#创建站点" class="headerlink" title="创建站点"></a>创建站点</h1><p>要创建自己博客，第一步当然是构建基本结构，执行以下命令可以创建一个站点目录：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo init hexo-demo</span><br></pre></td></tr></table></figure>
+<p>执行成功后，站点目录下会生成如下一些主要的文件夹和文件：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>文件(夹)</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>_config.yml</td>
+<td>网站配置文件</td>
+</tr>
+<tr>
+<td>package.json</td>
+<td>npm 配置文件</td>
+</tr>
+<tr>
+<td>scaffolds</td>
+<td>模板文件夹</td>
+</tr>
+<tr>
+<td>source</td>
+<td>资源文件夹</td>
+</tr>
+<tr>
+<td>themes</td>
+<td>主题文件夹</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>此时，其实站点已经是可以本地运行了，执行以下命令即可：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo server</span><br><span class="line"><span class="comment"># 可缩写为</span></span><br><span class="line">hexo s</span><br></pre></td></tr></table></figure>
+<p>按命令提示在浏览器中访问 <code>http://localhost:4000</code> 即可看到“Hello World”页面了。</p>
+<blockquote>
+<p><strong>指定端口</strong></p>
+<p>默认端口是 4000，如需修改，使用 <code>--port</code> 或 <code>-p</code>（缩写）选项指定。如：<code>hexo s -p 6666</code>。</p>
+</blockquote>
+<h1 id="编写文章"><a href="#编写文章" class="headerlink" title="编写文章"></a>编写文章</h1><p>博客的基本结构已经搭好了——如果你不关注外观的话——接下来，就是编写自己的文章了。</p>
+<p>首先，当然是创建一个“空白”文件开始编写文章了，执行以下命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new <span class="string">&quot;The first post&quot;</span></span><br></pre></td></tr></table></figure>
+<p>这样，在 <code>&lt;hexo&gt;/source/_posts/</code> 目录下就会创建一个名为 <code>The first post.md</code> 的文件，用编辑器打开并进行编辑保存。</p>
+<p>还记得吗，我们没有关闭 hexo 的服务，它默认会监听文件变更，所以一旦保存文章就会发布，刷新网页就可以看到新增的文章。</p>
+<h1 id="中途的小结"><a href="#中途的小结" class="headerlink" title="中途的小结"></a>中途的小结</h1><p>至此，我们已经在本地搭建了一个博客服务，并可以本地浏览。上文所做的一切，基本上就是达成该目标最小化的操作了。</p>
+<p>还缺什么？</p>
+<ol>
+<li>使用了默认的配置，因此博客站点没有任何标识性的信息；</li>
+<li>创建文章的模板是默认的，通常需要更多模板化的信息；</li>
+<li>使用的是默认主题，它简单但不美观；</li>
+<li>默认情况下，页面基础文本是英文的；</li>
+<li>没有置顶功能；</li>
+<li>只能本地浏览，如何发布到网络？</li>
+<li>……</li>
+</ol>
+<h1 id="定制文章"><a href="#定制文章" class="headerlink" title="定制文章"></a>定制文章</h1><h2 id="new命令"><a href="#new命令" class="headerlink" title="new命令"></a>new命令</h2><p>话说 <code>new</code> 命令的一般形式是下面这样的：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new [layout] &lt;title&gt;</span><br></pre></td></tr></table></figure>
+<p>它使用一个模板来生成新的文件。</p>
+<h2 id="关于模板文件"><a href="#关于模板文件" class="headerlink" title="关于模板文件"></a>关于模板文件</h2><p>模板存在于 <code>&lt;hexo&gt;/scaffolds</code> 目录下，默认情况下该目录下有 <code>post.md</code>、<code>page.md</code>、<code>draft.md</code> 三个文件，即对应三种模板；生成的文件，所在路径根据使用的模板不同而不同；生成的文件名，默认为标题，后缀为 <code>.md</code>。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>布局</th>
+<th>模板文件</th>
+<th>路径</th>
+<th>示例命令</th>
+<th>示例文件生成路径</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>post</td>
+<td>post.md</td>
+<td><code>source/_posts</code></td>
+<td><code>hexo new post pf</code></td>
+<td><code>source/_posts/pf.md</code></td>
+</tr>
+<tr>
+<td>page</td>
+<td>page.md</td>
+<td><code>source</code></td>
+<td><code>hexo new page pp</code></td>
+<td><code>source/pp/index.md</code></td>
+</tr>
+<tr>
+<td>draft</td>
+<td>draft.md</td>
+<td><code>source/_drafts</code></td>
+<td><code>hexo new draft df</code></td>
+<td><code>source/_drafts/df.md</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>大多数情况下，我们会在模板文件中定制 Front Matter 以免重复编写，大致内容如下：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">layout:</span> &#123;&#123; <span class="string">layout</span> &#125;&#125;</span><br><span class="line"><span class="attr">title:</span> &#123;&#123; <span class="string">title</span> &#125;&#125;</span><br><span class="line"><span class="attr">excerpt:</span> <span class="string">&quot;简介&quot;</span></span><br><span class="line"><span class="attr">categories:</span> </span><br><span class="line"><span class="attr">tags:</span> </span><br><span class="line"><span class="attr">date:</span> &#123;&#123; <span class="string">date</span> &#125;&#125;</span><br><span class="line"><span class="attr">updated:</span> &#123;&#123; <span class="string">updated</span> &#125;&#125;</span><br><span class="line"><span class="meta">---</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>除 Front Matter 外，当然可以添加其他内容，这视需求而定。更多可参考官方中文文档 <a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/front-matter">Front Matter 章节</a>。</p>
+</blockquote>
+<h2 id="生成文章与显示效果"><a href="#生成文章与显示效果" class="headerlink" title="生成文章与显示效果"></a>生成文章与显示效果</h2><p>值得注意的是，模板不仅影响生成文章的初始内容及路径，还会影响其显示效果。</p>
+<p><strong>post 模板</strong></p>
+<p>通常而言，使用 post 模板生成的文件就是常规意义上的帖子，它会出现在文章列表中。</p>
+<blockquote>
+<p><strong>自定义模板</strong></p>
+<p>自定义模板相当简单，只需在 <code>&lt;hexo&gt;/scaffolds</code> 目录下创建一个 Markdown 文件即可。比如：创建一个 <code>mydoc.md</code> 文件，这样就有了一个名为 <code>mydoc</code> 的模板。</p>
+<p>自定义模板效果与 post 模板相同，生成文件的路径等都一样，仅仅是内容上的差异。</p>
+<p><strong>缺省值</strong></p>
+<p><code>new</code> 命令中模板参数是可以省略的，默认缺省值为 <code>post</code>。缺省值是在 <code>_config.yml</code> 中由 <code>default_layout</code> 配置项指定。</p>
+</blockquote>
+<p><strong>draft 模板</strong></p>
+<p>draft 模板生成的是草稿，即还未发布的帖子。草稿文件存放于 <code>source/_drafts</code> 目录——该目录初始并不存在，会在创建首个草稿时自动创建——默认启动 hexo 服务，草稿不会显示在文章列表中，除非启动命令添加了 <code>--draft</code> 选项。</p>
+<p><strong>page 模板</strong></p>
+<p>page 模板生成普通页面，并不显示在文章列表中，但可以在帖子中作为链接显示。</p>
+<blockquote>
+<p>使用 <code>page</code> 可创建 about 页。如：<code>hexo new page about</code>。</p>
+</blockquote>
+<h2 id="发布草稿"><a href="#发布草稿" class="headerlink" title="发布草稿"></a>发布草稿</h2><p>使用 draft 模板生成的草稿需要通过发布操作成为正式的帖子。本质上来说，就是将草稿文件从 <code>_draft</code> 目录发布到 <code>_posts</code> 目录。这可以手动操作，但 hexo 提供了专门的命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo publish [layout] &lt;filename&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="文件名"><a href="#文件名" class="headerlink" title="文件名"></a>文件名</h2><p><code>new</code> 命令中 title（标题）是必需指定的。默认情况下，生成的文件名就是指定的标题。</p>
+<blockquote>
+<p><strong>配置</strong></p>
+<p>新建文件名由 <code>_config.yml</code> 中的 <code>new_post_name</code> 配置项决定，其默认配置为 <code>:title.md</code>，所以文件名默认是标题。</p>
+<p>如果是从 Jekyll 迁移到 hexo，或者更偏好类似 Jekyll 的命名方式，可以使用 <code>:year-:month-:day-:title.md</code>。</p>
+<p>但是，如果你的标题是中文而又想文件名是纯英文的，或者单纯想自定义文件名，那么，可以为 <code>new</code> 命令添加 <code>--path</code> 选项以指定文件路径及名称。比如：<code>hexo new post --path &quot;dir/my-doc&quot; &quot;我的标题&quot;</code>。</p>
+<p><strong>特殊符号</strong></p>
+<p>文件名是不能包含某些特殊字符的，但是指定的标题可以是任意的。这时，特殊字符会转换为“-”。但是，如果你想通过 <code>--path</code> 创建一个文件名非法的文件，那么，你可能会得到一个错误。</p>
+</blockquote>
+<h1 id="定制主题"><a href="#定制主题" class="headerlink" title="定制主题"></a>定制主题</h1><p>hexo 提供了很多现成的主题，你只需要在 <a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/themes">官方主题页面</a>  浏览选择你喜欢的主题，并从主题所在的 GitHub 库中下载它，并将主题文件夹拷贝到 <code>&lt;hexo&gt;/themes</code> 目录下即可使用。</p>
+<p>使用主题只需要配置 <code>_config.yml</code> 的 <code>theme</code> 配置项即可。</p>
+<p>以 next 主题为例。首先，我们从 <a target="_blank" rel="noopener" href="https://github.com/theme-next/hexo-theme-next">GitHub 库</a> 将其代码 Clone 或下载 ZIP 压缩包（需解压）到本地；然后，将主题文件夹重命名为 <code>next</code> 并拷贝到 <code>&lt;hexo&gt;/themes</code> 目录；最后，将 <code>_config.yml</code> 的 <code>theme</code> 配置项设置为 <code>next</code>（即主题文件夹名）。</p>
+<blockquote>
+<p>值得注意的是，主题本身也有自己的配置文件，即主题文件夹下的 <code>_config.yml</code>。各个主题的配置项是有差异的，因此，如果想要对主题进行一些配置，你需要阅读主题的配置说明——通常在主题的网站或 GitHub 库中。</p>
+<p>如果你是一位前端开发人员，想要完全自己写一个主题，可参考官方中文文档 <a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/themes">主题章节</a>。</p>
+</blockquote>
+<h1 id="发布到网络"><a href="#发布到网络" class="headerlink" title="发布到网络"></a>发布到网络</h1><p>在发布之前，应该在 <code>_config.yml</code> 配置文件中配置好博客的一些信息，比如：博客名、简介、作者等等。</p>
+<blockquote>
+<p>更多配置信息可参考官方中文文档 <a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/configuration">配置章节</a>。</p>
+</blockquote>
+<h2 id="发布配置"><a href="#发布配置" class="headerlink" title="发布配置"></a>发布配置</h2><p>在配置中跟发布相关的配置主要有两部分：一是发布的配置，再是链接信息。</p>
+<p>先来看发布配置，即指明如何发布博客，这里以发布到 Gitee 为例，配置大致如下：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">deploy:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">git</span></span><br><span class="line">  <span class="attr">repo:</span> <span class="string">https://gitee.com/ericzonglu/ericzonglu.git</span> <span class="comment"># Git 库地址，克隆时用的那个</span></span><br><span class="line">  <span class="attr">branch:</span> <span class="string">master</span></span><br><span class="line">  <span class="attr">message:</span> <span class="string">更新于：&#123;&#123;</span> <span class="string">now(&#x27;YYYY-MM-DD</span> <span class="string">HH:mm:ss&#x27;)</span> <span class="string">&#125;&#125;</span> <span class="comment"># 发布的注释，即站点的提交日志</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注意：<code>deploy</code> 可以是一个数组，换句话说，hexo 支持同时发布到多个平台。</p>
+</blockquote>
+<p>接着是指定站点的网址信息：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">url:</span> <span class="string">http://ericzonglu.gitee.io</span></span><br><span class="line"><span class="attr">root:</span> <span class="string">/</span></span><br></pre></td></tr></table></figure>
+<p>注意，要发布到 Git 服务器的话，需要安装 <code>hexo-deployer-git</code>，执行如下命令安装即可：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
+<p>到此，我们有了发布博客所需的本地素材，接下来就是发布到 Gitee。因此，我们需要先在 Gitee 创建一个仓库。</p>
+<h2 id="创建仓库"><a href="#创建仓库" class="headerlink" title="创建仓库"></a>创建仓库</h2><p>最简单的方式是创建一个与自己用户名相同的仓库。</p>
+<p>比如笔者的 Gitee 用户名为 ericzonglu，因此，创建一个名为 ericzonglu 的仓库，一切默认配置就好。</p>
+<blockquote>
+<p>其实，发布配置跟这里的仓库是对应的，但可以并行操作不分先后。</p>
+</blockquote>
+<h2 id="发布"><a href="#发布" class="headerlink" title="发布"></a>发布</h2><p>本地配置 OK，Git 仓库也有了，就可以正式发布了，执行以下命令即可：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 执行任一命令即可发布</span></span><br><span class="line">hexo generate --deploy</span><br><span class="line">hexo deploy --generate</span><br><span class="line"><span class="comment"># 两者的缩写形式</span></span><br><span class="line">hexo g -d</span><br><span class="line">hexo d -g</span><br></pre></td></tr></table></figure>
+<p>如果某些时候发布不生效，可以清楚下缓存：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br></pre></td></tr></table></figure>
+<p>待发布命令执行成功，就提交到了仓库，我们还需要开启 Gitee Pages 服务，以使站点可访问。</p>
+<h2 id="开启-Gitee-Pages-服务"><a href="#开启-Gitee-Pages-服务" class="headerlink" title="开启 Gitee Pages 服务"></a>开启 Gitee Pages 服务</h2><p>导航到对应仓库页，并点击“服务-Gitee Pages”菜单，来到 Gitee Pages 服务页，点击“启动”按钮启动服务，即可访问自己的博客了。</p>
+<blockquote>
+<p>注意，启动成功后页面会显示博客的网站地址，这个地址对应的正是 <code>_config.yml</code> 中的 <code>url</code> 配置项。</p>
+</blockquote>
+<h1 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h1><h2 id="hexo-vs-Jekyll"><a href="#hexo-vs-Jekyll" class="headerlink" title="hexo vs. Jekyll"></a>hexo vs. Jekyll</h2><p>笔者之前使用的是 Jekyll + GitHub，hexo + Gitee 与之相比还是有明显差别的。</p>
+<h3 id="提交并不等于发布"><a href="#提交并不等于发布" class="headerlink" title="提交并不等于发布"></a>提交并不等于发布</h3><p>如果你用过 Jekyll + GitHub，或许会认为提交后，Gitee 会自动发布站点使内容更新。</p>
+<p>呃……如果你是免费用户，还是老实地到 Gitee Pages 服务页点下“更新”按钮吧。</p>
+<h3 id="仓库装的不是“源码”"><a href="#仓库装的不是“源码”" class="headerlink" title="仓库装的不是“源码”"></a>仓库装的不是“源码”</h3><p>对于 Jekyll + GitHub 而言，我们提交的是博客“源码”，GitHub 会自动编译发布。</p>
+<p>但是，hexo 发布的是编译后的静态站点资源，所以，你还需要有一个仓库来存储博客站点的“源码”。</p>
+<blockquote>
+<p>注意，这是使用 hexo 的发布命令发布的效果。</p>
+<p>如果查看 <a target="_blank" rel="noopener" href="https://gitee.com/help/articles/4136#jekyllhugohexo-%E7%BC%96%E8%AF%91%E5%88%A4%E6%96%AD%E4%BE%9D%E6%8D%AE">相关帮助</a> 可知，Gitee Pages 是支持 hexo 的，它会使用 <code>hexo generate</code> 生成静态文件。但是，hexo 的编译时间较长——自己试了下，半小时还没编译完，果断放弃了。</p>
+</blockquote>
+<h3 id="分类与标签"><a href="#分类与标签" class="headerlink" title="分类与标签"></a>分类与标签</h3><p>分类与标签都可以是多个值，Jekyll 用空格分隔多个值，而 Hexo 以列表形式列出多个值。</p>
+<p>在 Jekyll 中分类与标签的区别很模糊，从显示效果上看，分类页和标签页显示也很类似。我自己在使用 Jekyll 时，通常分类只指定一个，标签才会指定多个。</p>
+<p>而 Hexo 的分类有很大的不同，它是有层级的，而非扁平结构。比如以下的配置：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">categories:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">Java</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">知识点</span></span><br></pre></td></tr></table></figure>
+<p>Hexo 不会生成两个分类（一个叫“Java”，另一个叫“知识点”），而是生成一个两级的分类（第一级叫“Java”，第二级叫“知识点”）。</p>
+<p>但注意，Hexo 的标签是扁平结构。</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">tags:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">Java基础</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">入门教程</span></span><br></pre></td></tr></table></figure>
+<p>如你所愿，这会生成两个平行的标签。</p>
+<p>可是，如果我们就是想让一篇文章分属多个分类呢？使用数组形式：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">categories:</span></span><br><span class="line">  <span class="bullet">-</span> [<span class="string">Java</span>, <span class="string">知识点</span>]</span><br><span class="line">  <span class="bullet">-</span> [<span class="string">Java基础</span>]</span><br></pre></td></tr></table></figure>
+<p>这样就生成了两个分类：一个二级分类“Java/知识点”，一个一级分类“Java基础”。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/">hexo 中文文档</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/theme-next/hexo-theme-next">Next 主题</a></p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Eric Zong
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://ericzonglu.gitee.io/posts/hexo-get-start.html" title="Hexo入门">http://ericzonglu.gitee.io/posts/hexo-get-start.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/" rel="tag"># 入门教程</a>
+              <a href="/tags/Hexo/" rel="tag"># Hexo</a>
+              <a href="/tags/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/" rel="tag"># 博客搭建</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/jekyll-collections-settings.html" rel="prev" title="Jekyll配置之Collections">
+      <i class="fa fa-chevron-left"></i> Jekyll配置之Collections
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/posts/java-features-java7.html" rel="next" title="Java语言新特性漫谈：Java 7篇">
+      Java语言新特性漫谈：Java 7篇 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A6%82%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%89%E8%A3%85"><span class="nav-number">2.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%8A%E6%89%8B"><span class="nav-number">3.</span> <span class="nav-text">上手</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E7%AB%99%E7%82%B9"><span class="nav-number">4.</span> <span class="nav-text">创建站点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BC%96%E5%86%99%E6%96%87%E7%AB%A0"><span class="nav-number">5.</span> <span class="nav-text">编写文章</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%AD%E9%80%94%E7%9A%84%E5%B0%8F%E7%BB%93"><span class="nav-number">6.</span> <span class="nav-text">中途的小结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9A%E5%88%B6%E6%96%87%E7%AB%A0"><span class="nav-number">7.</span> <span class="nav-text">定制文章</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#new%E5%91%BD%E4%BB%A4"><span class="nav-number">7.1.</span> <span class="nav-text">new命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E%E6%A8%A1%E6%9D%BF%E6%96%87%E4%BB%B6"><span class="nav-number">7.2.</span> <span class="nav-text">关于模板文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%9F%E6%88%90%E6%96%87%E7%AB%A0%E4%B8%8E%E6%98%BE%E7%A4%BA%E6%95%88%E6%9E%9C"><span class="nav-number">7.3.</span> <span class="nav-text">生成文章与显示效果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%91%E5%B8%83%E8%8D%89%E7%A8%BF"><span class="nav-number">7.4.</span> <span class="nav-text">发布草稿</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E5%90%8D"><span class="nav-number">7.5.</span> <span class="nav-text">文件名</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9A%E5%88%B6%E4%B8%BB%E9%A2%98"><span class="nav-number">8.</span> <span class="nav-text">定制主题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%91%E5%B8%83%E5%88%B0%E7%BD%91%E7%BB%9C"><span class="nav-number">9.</span> <span class="nav-text">发布到网络</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%91%E5%B8%83%E9%85%8D%E7%BD%AE"><span class="nav-number">9.1.</span> <span class="nav-text">发布配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E4%BB%93%E5%BA%93"><span class="nav-number">9.2.</span> <span class="nav-text">创建仓库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%91%E5%B8%83"><span class="nav-number">9.3.</span> <span class="nav-text">发布</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%80%E5%90%AF-Gitee-Pages-%E6%9C%8D%E5%8A%A1"><span class="nav-number">9.4.</span> <span class="nav-text">开启 Gitee Pages 服务</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%99%84%E5%BD%95"><span class="nav-number">10.</span> <span class="nav-text">附录</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#hexo-vs-Jekyll"><span class="nav-number">10.1.</span> <span class="nav-text">hexo vs. Jekyll</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8F%90%E4%BA%A4%E5%B9%B6%E4%B8%8D%E7%AD%89%E4%BA%8E%E5%8F%91%E5%B8%83"><span class="nav-number">10.1.1.</span> <span class="nav-text">提交并不等于发布</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%93%E5%BA%93%E8%A3%85%E7%9A%84%E4%B8%8D%E6%98%AF%E2%80%9C%E6%BA%90%E7%A0%81%E2%80%9D"><span class="nav-number">10.1.2.</span> <span class="nav-text">仓库装的不是“源码”</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%86%E7%B1%BB%E4%B8%8E%E6%A0%87%E7%AD%BE"><span class="nav-number">10.1.3.</span> <span class="nav-text">分类与标签</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-number">10.2.</span> <span class="nav-text">参考</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Eric Zong</p>
+  <div class="site-description" itemprop="description">这里有作为一个程序员想记录的一切。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">96</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Eric Zong</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

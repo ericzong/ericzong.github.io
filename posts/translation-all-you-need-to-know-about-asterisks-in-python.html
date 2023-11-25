@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"ericzonglu.gitee.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="介绍Python中各种星号的用法。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【译文】Python中关于星号你所需要知道的一切">
+<meta property="og:url" content="http://ericzonglu.gitee.io/posts/translation-all-you-need-to-know-about-asterisks-in-python.html">
+<meta property="og:site_name" content="八白龙的博客">
+<meta property="og:description" content="介绍Python中各种星号的用法。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-09-15T17:40:00.000Z">
+<meta property="article:modified_time" content="2022-09-18T03:30:00.000Z">
+<meta property="article:author" content="Eric Zong">
+<meta property="article:tag" content="译文">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://ericzonglu.gitee.io/posts/translation-all-you-need-to-know-about-asterisks-in-python.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>【译文】Python中关于星号你所需要知道的一切 | 八白龙的博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">八白龙的博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">程序员的杂货铺</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-references">
+
+    <a href="/references/" rel="section"><i class="bookmark fa-fw"></i>参考</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://ericzonglu.gitee.io/posts/translation-all-you-need-to-know-about-asterisks-in-python.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Eric Zong">
+      <meta itemprop="description" content="这里有作为一个程序员想记录的一切。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="八白龙的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【译文】Python中关于星号你所需要知道的一切
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-09-16 01:40:00" itemprop="dateCreated datePublished" datetime="2022-09-16T01:40:00+08:00">2022-09-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-09-18 11:30:00" itemprop="dateModified" datetime="2022-09-18T11:30:00+08:00">2022-09-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>英文原文：<a target="_blank" rel="noopener" href="https://bas.codes/posts/python-asterisks">All you need to know about Asterisks in Python</a><br>原文作者：<a target="_blank" rel="noopener" href="https://twitter.com/bascodes?ref_src=twsrc%5Etfw">bascodes</a></p>
+</blockquote>
+<p>大多数开发人员都知道星号（<code>*</code>）字符是 Python 中的乘法运算符：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">product = <span class="number">4</span> * <span class="number">2</span> <span class="comment"># 8</span></span><br></pre></td></tr></table></figure>
+<p>但是，对于列表或字典数据结构而言，星号有一些特殊含义。</p>
+<h1 id="args-和-kwargs"><a href="#args-和-kwargs" class="headerlink" title="*args 和 **kwargs"></a><code>*args</code> 和 <code>**kwargs</code></h1><h2 id="函数定义中的-args"><a href="#函数定义中的-args" class="headerlink" title="函数定义中的 *args"></a>函数定义中的 <code>*args</code></h2><p>星号操作符（也称为解构操作符）在 Python 中最广为人知的用法是在函数中使用。</p>
+<p>假设有一个函数，它可以累加值并返回这些值的和：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">add</span>(<span class="params">number_1, number_2</span>):</span></span><br><span class="line">    <span class="keyword">return</span> number_1 + number_2</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(add(<span class="number">1</span>,<span class="number">2</span>)) <span class="comment"># 3</span></span><br></pre></td></tr></table></figure>
+<p>如果你想对任意数量的值求和呢？可以在参数名称前添加星号，如这样：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">add</span>(<span class="params">*numbers</span>):</span></span><br><span class="line">    <span class="built_in">sum</span> = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> number <span class="keyword">in</span> numbers:</span><br><span class="line">        <span class="built_in">sum</span> += number</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">sum</span></span><br></pre></td></tr></table></figure>
+<p>正如你可能已从函数体中注意到，我们期望 <code>numbers</code> 是一个可迭代对象。实际上，如果你检查其类型，<code>numbers</code> 是一个 <code>tuple</code>。而且，实际上，我们现在可以用任意数量的参数调用该函数：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">add(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>) <span class="comment"># 10</span></span><br></pre></td></tr></table></figure>
+<h2 id="函数调用中的"><a href="#函数调用中的" class="headerlink" title="函数调用中的 *"></a>函数调用中的 <code>*</code></h2><p>到目前为止，我们已经知道可以定义一个函数，使它接受一系列参数。但是如果我们有一个函数，它有一组固定的参数，我们想要传递一系列值给它。考虑这个函数：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">add</span>(<span class="params">number_1, number_2, number_3</span>):</span></span><br><span class="line">    <span class="keyword">return</span> number_1 + number_2 + number_3</span><br></pre></td></tr></table></figure>
+<p>这个函数正好接受 3 个参数。假设我们有一个正好有三个元素的列表。当然，我们可以这样调用函数：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">my_list = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]</span><br><span class="line"></span><br><span class="line">add(my_list[<span class="number">0</span>], my_list[<span class="number">1</span>], my_list[<span class="number">2</span>])</span><br></pre></td></tr></table></figure>
+<p>幸运的是，解构操作符（<code>*</code>）可以以两种方式工作。我们已经在函数的定义中看到了它的用法，但是我们也可以使用它来调用函数：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">my_list = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]</span><br><span class="line"></span><br><span class="line">add(*my_list)</span><br></pre></td></tr></table></figure>
+<h2 id="函数定义中的-kwargs"><a href="#函数定义中的-kwargs" class="headerlink" title="函数定义中的 **kwargs"></a>函数定义中的 <code>**kwargs</code></h2><p>同样地，我们可以使用星号（<code>*</code>）操作符来解构列表，我们也可以使用双星号（<code>**</code>）操作符来解构 Python 函数中的字典。</p>
+<p>考虑一个这样的函数：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">change_user_details</span>(<span class="params">username, email, phone, date_of_birth, street_address</span>):</span></span><br><span class="line">    user = get_user(username)</span><br><span class="line">    user.email = email</span><br><span class="line">    user.phone = phone</span><br><span class="line">    ...</span><br></pre></td></tr></table></figure>
+<p>如果使用关键字参数（<code>kwargs</code>）调用它，函数调用可能如下所示：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">change_user_details(<span class="string">&#x27;bascodes&#x27;</span>, email=<span class="string">&#x27;blog@bascodes.example.com&#x27;</span>, phone=<span class="string">&#x27;...&#x27;</span>, ...)</span><br></pre></td></tr></table></figure>
+<p>在这种情况下，我们可以像这样重写函数，以接受任意数量的关键字参数，然后将这些参数表示为一个名为 <code>kwargs</code> 的字典：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">change_user_details</span>(<span class="params">username, **kwargs</span>):</span></span><br><span class="line">    user = get_user(username)</span><br><span class="line">    user.email = kwargs[<span class="string">&#x27;email&#x27;</span>]</span><br><span class="line">    user.phone = kwargs[<span class="string">&#x27;phone&#x27;</span>]</span><br><span class="line">    ...</span><br></pre></td></tr></table></figure>
+<p>当然，我们可以像使用 Python 中的任何其他字典一样使用 <code>kwargs</code> 字典，因此，如果我们像这样实际使用字典数据结构，那么函数可能会变得更清晰一些：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">change_user_details</span>(<span class="params">username, **kwargs</span>):</span></span><br><span class="line">    user = get_user(username)</span><br><span class="line">    <span class="keyword">for</span> attribute, value <span class="keyword">in</span> kwargs.items():</span><br><span class="line">        <span class="built_in">setattr</span>(user, attribute, value)</span><br><span class="line">    ...</span><br></pre></td></tr></table></figure>
+<h2 id="函数调用中的-1"><a href="#函数调用中的-1" class="headerlink" title="函数调用中的 **"></a>函数调用中的 <code>**</code></h2><p>当然，<code>**</code> 操作符也适用于调用函数：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">details = &#123;</span><br><span class="line">    <span class="string">&#x27;email&#x27;</span>: <span class="string">&#x27;blog@bascodes.example.com&#x27;</span>,</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br><span class="line">change_user_detail(<span class="string">&#x27;bascodes&#x27;</span>, **details)</span><br></pre></td></tr></table></figure>
+<h1 id="限制如何调用函数"><a href="#限制如何调用函数" class="headerlink" title="限制如何调用函数"></a>限制如何调用函数</h1><h2 id="仅关键字参数"><a href="#仅关键字参数" class="headerlink" title="仅关键字参数"></a>仅关键字参数</h2><p>函数定义中星号最令人惊讶的特性之一是它可以单独使用，即不需要变量（参数）名。也就是说，这是 Python 中一个完全有效的函数定义：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">my_function</span>(<span class="params">*, keyword_arg_1</span>):</span></span><br><span class="line">    ...</span><br></pre></td></tr></table></figure>
+<p>但是，在这种情况下，独立的星号有什么作用呢？如上所述，星号在列表中捕获所有（非关键字）参数。在我们的示例中，没有变量名可出现在参数列表中。在 <code>*</code> 之后我们有一个名为 <code>keyword_arg_1</code> 的变量。因为 <code>*</code> 已经匹配了所有的位置参数，我们剩下的 <code>keyword_arg_1</code>，它必须用作关键字参数。</p>
+<p>使用 <code>my_function(1)</code> 调用上面的函数会抛出一个错误：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">TypeError: my_function() takes 0 positional arguments but 1 was given</span><br></pre></td></tr></table></figure>
+<h2 id="仅位置参数"><a href="#仅位置参数" class="headerlink" title="仅位置参数"></a>仅位置参数</h2><p>与上个示例中仅使用关键字参数相反，如果我们想强制函数的用户仅使用位置参数，该怎么办呢？</p>
+<p>好吧，有一种非常 Pythonic 的方法。我们说明下使用 <code>/</code> 符号（与乘法相反）的处理技巧：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">only_positional_arguments</span>(<span class="params">arg1, arg2, /</span>):</span></span><br><span class="line">    ...</span><br></pre></td></tr></table></figure>
+<p>令人惊讶的是，很少有 Python 开发人员知道这个通过 <a target="_blank" rel="noopener" href="https://peps.python.org/pep-0570/">PEP 570</a> 引入到 Python 3.8 的技巧。</p>
+<p>如果你使用 <code>only_positional_arguments(arg1=1, arg2=2)</code> 调用上面的函数，将会抛出一个 TypeError：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">TypeError: only_positional_arguments() got some positional-only arguments passed as keyword arguments: &#x27;arg1, arg2&#x27;</span><br></pre></td></tr></table></figure>
+<h1 id="在字面量中使用-和"><a href="#在字面量中使用-和" class="headerlink" title="在字面量中使用 * 和 **"></a>在字面量中使用 <code>*</code> 和 <code>**</code></h1><p>星号（<code>*</code>）和双星号（<code>**</code>）操作符不仅适用于函数定义和调用，还可用于构造列表笔字典。</p>
+<h2 id="构造列表"><a href="#构造列表" class="headerlink" title="构造列表"></a>构造列表</h2><p>假设，我们有两个列表，并想合并它们。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">my_list_1 = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]</span><br><span class="line">my_list_2 = [<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>]</span><br></pre></td></tr></table></figure>
+<p>当然，我们可以用 <code>+</code> 操作符合并这些列表：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">merged_list = my_list_1 + my_list_2</span><br></pre></td></tr></table></figure>
+<p>然而，<code>*</code> 操作符给了我们更多的灵活性。假设，我们想在中间插入一个标量值，我们可以使用：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">some_value = <span class="number">42</span></span><br><span class="line">merged_list = [*my_list_1, some_value, *my_list_2]</span><br><span class="line"></span><br><span class="line"><span class="comment"># [1, 2, 3, 42, 10, 20, 30]</span></span><br></pre></td></tr></table></figure>
+<h2 id="构造字典"><a href="#构造字典" class="headerlink" title="构造字典"></a>构造字典</h2><p>适用于列表和星号（<code>*</code>）操作符的，同样适用于字典和双星号（<code>**</code>）。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">social_media_details = &#123;</span><br><span class="line">    <span class="string">&#x27;twitter&#x27;</span>: <span class="string">&#x27;bascodes&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">contact_details = &#123;</span><br><span class="line">    <span class="string">&#x27;email&#x27;</span>: <span class="string">&#x27;blog@bascodes.example.com&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">user_dict = &#123;<span class="string">&#x27;username&#x27;</span>: <span class="string">&#x27;bas&#x27;</span>, **social_media_details, **contact_details&#125;</span><br><span class="line"><span class="comment"># &#123;&#x27;email&#x27;: &#x27;blog@bascodes.example.com&#x27;, &#x27;twitter&#x27;: &#x27;bascodes&#x27;, &#x27;username&#x27;: &#x27;bas&#x27;&#125;</span></span><br></pre></td></tr></table></figure>
+<h1 id="解构列表"><a href="#解构列表" class="headerlink" title="解构列表"></a>解构列表</h1><p>你可能已经知道，可以像这样将列表的元素拆分为多个变量：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">my_list = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]</span><br><span class="line">a, b, c = my_list</span><br><span class="line"></span><br><span class="line"><span class="comment"># a -&gt; 1</span></span><br><span class="line"><span class="comment"># b -&gt; 2</span></span><br><span class="line"><span class="comment"># c -&gt; 3</span></span><br></pre></td></tr></table></figure>
+<p>但是你知道吗，当你有一个任意长度的列表时，你可以使用星号（<code>*</code>）来赋值给变量？</p>
+<p>假设，你想要特定列表变量中的第一个和最后一个元素。</p>
+<p>你可以像这样使用星号：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">my_list = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]</span><br><span class="line">a, *b, c = my_list</span><br></pre></td></tr></table></figure>
+<p>在这个示例中，<code>a</code> 现在饮食列表的第一个元素，<code>c</code> 包含 <code>my_list</code> 的最后一个元素。但是，<code>b</code> 中有什么呢？</p>
+<p>在 <code>b</code> 中，有整个列表，除了第一个和最后一个元素，即 <code>[2]</code>。注意，现在 <code>b</code> 是一个列表。</p>
+<p>当我们研究更大的列表时，这个概念可能会更清晰一点：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">my_list = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>, <span class="number">10</span>]</span><br><span class="line">a, *b, c = my_list</span><br><span class="line"></span><br><span class="line"><span class="comment"># a -&gt; 1</span></span><br><span class="line"><span class="comment"># b -&gt; [2, 3, 4, 5, 6, 7, 8, 9]</span></span><br><span class="line"><span class="comment"># c -&gt; 10</span></span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Eric Zong
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://ericzonglu.gitee.io/posts/translation-all-you-need-to-know-about-asterisks-in-python.html" title="【译文】Python中关于星号你所需要知道的一切">http://ericzonglu.gitee.io/posts/translation-all-you-need-to-know-about-asterisks-in-python.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E8%AF%91%E6%96%87/" rel="tag"># 译文</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/math-sum-of-divisor.html" rel="prev" title="求解整数所有约数之和">
+      <i class="fa fa-chevron-left"></i> 求解整数所有约数之和
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/posts/math-hanoi.html" rel="next" title="求解河内塔移动步数的计算公式">
+      求解河内塔移动步数的计算公式 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#args-%E5%92%8C-kwargs"><span class="nav-number">1.</span> <span class="nav-text">*args 和 **kwargs</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E5%AE%9A%E4%B9%89%E4%B8%AD%E7%9A%84-args"><span class="nav-number">1.1.</span> <span class="nav-text">函数定义中的 *args</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E8%B0%83%E7%94%A8%E4%B8%AD%E7%9A%84"><span class="nav-number">1.2.</span> <span class="nav-text">函数调用中的 *</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E5%AE%9A%E4%B9%89%E4%B8%AD%E7%9A%84-kwargs"><span class="nav-number">1.3.</span> <span class="nav-text">函数定义中的 **kwargs</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E8%B0%83%E7%94%A8%E4%B8%AD%E7%9A%84-1"><span class="nav-number">1.4.</span> <span class="nav-text">函数调用中的 **</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%99%90%E5%88%B6%E5%A6%82%E4%BD%95%E8%B0%83%E7%94%A8%E5%87%BD%E6%95%B0"><span class="nav-number">2.</span> <span class="nav-text">限制如何调用函数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%85%E5%85%B3%E9%94%AE%E5%AD%97%E5%8F%82%E6%95%B0"><span class="nav-number">2.1.</span> <span class="nav-text">仅关键字参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%85%E4%BD%8D%E7%BD%AE%E5%8F%82%E6%95%B0"><span class="nav-number">2.2.</span> <span class="nav-text">仅位置参数</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9C%A8%E5%AD%97%E9%9D%A2%E9%87%8F%E4%B8%AD%E4%BD%BF%E7%94%A8-%E5%92%8C"><span class="nav-number">3.</span> <span class="nav-text">在字面量中使用 * 和 **</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9E%84%E9%80%A0%E5%88%97%E8%A1%A8"><span class="nav-number">3.1.</span> <span class="nav-text">构造列表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9E%84%E9%80%A0%E5%AD%97%E5%85%B8"><span class="nav-number">3.2.</span> <span class="nav-text">构造字典</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%A7%A3%E6%9E%84%E5%88%97%E8%A1%A8"><span class="nav-number">4.</span> <span class="nav-text">解构列表</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Eric Zong</p>
+  <div class="site-description" itemprop="description">这里有作为一个程序员想记录的一切。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">96</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Eric Zong</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

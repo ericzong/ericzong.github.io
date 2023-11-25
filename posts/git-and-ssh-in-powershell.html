@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"ericzonglu.gitee.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="介绍通过SSH访问Git的相关配置，并且使其可与PowerShell协作。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="在PowerShell中通过SSH使用Git">
+<meta property="og:url" content="http://ericzonglu.gitee.io/posts/git-and-ssh-in-powershell.html">
+<meta property="og:site_name" content="八白龙的博客">
+<meta property="og:description" content="介绍通过SSH访问Git的相关配置，并且使其可与PowerShell协作。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://ericzonglu.gitee.io/image/post_git-and-ssh-in-powershell/putty.png">
+<meta property="og:image" content="http://ericzonglu.gitee.io/image/post_git-and-ssh-in-powershell/tortoisegit-settings.png">
+<meta property="og:image" content="http://ericzonglu.gitee.io/image/post_git-and-ssh-in-powershell/pageant.png">
+<meta property="og:image" content="http://ericzonglu.gitee.io/image/post_git-and-ssh-in-powershell/pull.png">
+<meta property="og:image" content="http://ericzonglu.gitee.io/image/post_git-and-ssh-in-powershell/pageant-auto.png">
+<meta property="article:published_time" content="2019-07-04T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-04-13T16:00:00.000Z">
+<meta property="article:author" content="Eric Zong">
+<meta property="article:tag" content="PowerShell">
+<meta property="article:tag" content="SSH">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://ericzonglu.gitee.io/image/post_git-and-ssh-in-powershell/putty.png">
+
+<link rel="canonical" href="http://ericzonglu.gitee.io/posts/git-and-ssh-in-powershell.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>在PowerShell中通过SSH使用Git | 八白龙的博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">八白龙的博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">程序员的杂货铺</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-references">
+
+    <a href="/references/" rel="section"><i class="bookmark fa-fw"></i>参考</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://ericzonglu.gitee.io/posts/git-and-ssh-in-powershell.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Eric Zong">
+      <meta itemprop="description" content="这里有作为一个程序员想记录的一切。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="八白龙的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          在PowerShell中通过SSH使用Git
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-07-05 00:00:00" itemprop="dateCreated datePublished" datetime="2019-07-05T00:00:00+08:00">2019-07-05</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-04-14 00:00:00" itemprop="dateModified" datetime="2021-04-14T00:00:00+08:00">2021-04-14</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Git/" itemprop="url" rel="index"><span itemprop="name">Git</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Git/%E5%BA%94%E7%94%A8/" itemprop="url" rel="index"><span itemprop="name">应用</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="HTTPS访问及其缺点"><a href="#HTTPS访问及其缺点" class="headerlink" title="HTTPS访问及其缺点"></a>HTTPS访问及其缺点</h1><p>使用 Git 最简单的方式就是通过 HTTPS 进行访问，这样就不需要过多的配置即可使用。想来应该有相当一部分初学者都会使用这种较为简单的方式使用 Git，笔者亦是如此。通常来说，这是“够用”的，但长久下来会发现并不“好用”。</p>
+<p>主要的问题在于，使用 HTTPS 方式推送时，凭证的存储。默认 Git 每次都会询问用户名和密码，不过，Git 拥有一个凭证系统可以存储凭证（见“参考”部分链接），使得我们不必每次都输入用户名和密码。这个系统有多种方式存储凭证，可通过以下命令查看本地配置：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --global --get-regexp credential.helper</span><br></pre></td></tr></table></figure>
+<p>笔者的 Windows 系统环境使用的是 <code>credential.helper manager</code>，这是一种较常用的永久存储方式。But，长期使用过程中会发现，仍然可能存在凭证失效需要重新输入的情况，通常这发生在某个本地仓库“较长时间”不与远程仓库同步的状况下，但不尽然。我的同步操作通常是计划任务自动执行的，当切换到另一个工作环境拉取代码的时候才发现另一边的代码因为凭证莫名失效而推送失败，想像一下那种沮丧的心情吧！</p>
+<p>因此，笔者决定尝试切换到 SSH。</p>
+<blockquote>
+<p>注意，本文讨论的工作环境是 Windows 系统。</p>
+</blockquote>
+<p>这里假设我们已经有了一个正常工作在 HTTPS 模式下的 Git 环境，下面我们一步步将其切换到 SSH 模式下来工作。</p>
+<h1 id="查看当前配置"><a href="#查看当前配置" class="headerlink" title="查看当前配置"></a>查看当前配置</h1><p>为了确保环境是“干净”的，应该首先查看工作环境下 SSH 配置情况。</p>
+<blockquote>
+<p>注意，以下命令如无特别说明都将在 Git bash 下执行，直到说明在 PowerShell 中使用时。</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls -al ~/.ssh</span><br></pre></td></tr></table></figure>
+<p>如果之前没有配置过 SSH，那么可能不存在 <code>~/.ssh</code> 目录，或它是空的。</p>
+<blockquote>
+<p>如果该目录存在内容，确认不是你自己配置的，或与你共用当前系统用户的其他人所配置则可删除它们。</p>
+</blockquote>
+<h1 id="生成-SSH-密钥"><a href="#生成-SSH-密钥" class="headerlink" title="生成 SSH 密钥"></a>生成 SSH 密钥</h1><p>这里我们先使用 Git 自带的 <code>ssh-keygen</code> 应用生成密钥对：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -b 4096 -C <span class="string">&quot;your-email&quot;</span></span><br><span class="line"><span class="comment"># Enter file in which to save the key (/c/Users/ericzong/.ssh/id_rsa):</span></span><br><span class="line"><span class="comment"># Enter passphrase (empty for no passphrase):</span></span><br><span class="line"><span class="comment"># Enter same passphrase again:</span></span><br></pre></td></tr></table></figure>
+<p>显然，你需要将上面命令中的 <code>your-email</code> 部分替换为自己的 GitHub 帐号绑定的邮箱地址。</p>
+<p>执行该命令后，命令行会询问密钥文件的完整存储路径，按自己的需要填写或直接回车保持默认。随后会要求指定口令，这里我们直接回车不设置密码。</p>
+<p>然后，密钥文件成功生成，假设我们指定的文件名为 <code>github</code>。那么，在指定存储路径下，会生成两个文件，<code>github</code>（私钥文件）和 <code>github.pub</code>（公钥文件）。</p>
+<p>有了密钥文件，接下来就需要分别将私钥添加到本地配置以及将公钥添加到 GitHub 帐户。</p>
+<h1 id="将私钥添加到-ssh-agent"><a href="#将私钥添加到-ssh-agent" class="headerlink" title="将私钥添加到 ssh-agent"></a>将私钥添加到 ssh-agent</h1><p>本地我们使用 Git 自带的 ssh-agent 来管理私钥，因此，我们需要启动 ssh-agent 并使用 Git 自带的 ssh-add 将私钥添加其中。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">eval</span> $(ssh-agent -s)</span><br><span class="line">ssh-add ~/.ssh/github</span><br></pre></td></tr></table></figure>
+<p>这样，私钥就添加完成了。</p>
+<h1 id="将公钥添加到GitHub帐户"><a href="#将公钥添加到GitHub帐户" class="headerlink" title="将公钥添加到GitHub帐户"></a>将公钥添加到GitHub帐户</h1><p>首先将公钥文件内容复制到剪贴板，可以使用以下命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">clip &lt; ~/.ssh/github.pub</span><br></pre></td></tr></table></figure>
+<p>如果没有 <code>clip</code> 应用，可使用文本编辑器直接打开 <code>github.pub</code> 复制其中内容。</p>
+<p>然后登录 GitHub，页面右上角用户头像右边的下拉菜单中点击“Settings”，跳转到的页面中点击左侧导航菜单“SSH and GPG keys”，跳转到的页面中点击“New SSH key”按钮，跳转到的页面中填写“Title”（描述，可任意填写）和“Key”（粘贴之前复制的公钥），最后点击“Add SSH key”按钮。</p>
+<p>至此，公钥也添加完成了。</p>
+<h1 id="修改仓库URL"><a href="#修改仓库URL" class="headerlink" title="修改仓库URL"></a>修改仓库URL</h1><p>在 HTTPS 模式下，仓库使用的是 HTTPS URL，需要替换为 SSH URL：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看当前远程仓库 URL</span></span><br><span class="line">git remote -v</span><br><span class="line"><span class="comment"># origin  https://github.com/USERNAME/REPOSITORY.git (fetch)</span></span><br><span class="line"><span class="comment"># origin  https://github.com/USERNAME/REPOSITORY.git (push)</span></span><br><span class="line"><span class="comment"># 修改为 SSH URL</span></span><br><span class="line">git remote set-url origin git@github.com:USERNAME/REPOSITORY.git</span><br><span class="line"><span class="comment"># 再次查看确认修改</span></span><br><span class="line">git remote -v</span><br><span class="line"><span class="comment"># 测试。如果返回你的用户名，则配置成功</span></span><br><span class="line">ssh -T git@github.com</span><br></pre></td></tr></table></figure>
+<h1 id="在PowerShell中使用"><a href="#在PowerShell中使用" class="headerlink" title="在PowerShell中使用"></a>在PowerShell中使用</h1><p>以上的命令都是在 Git bash 中执行，因此自然可以直接使用 Git 自带的应用命令。但是在 PowerShell 中通常会发现 Git 自带的应用命令都不可用，这是由于默认情况下 Git 安装时不会将 <code>bin</code> 目录添加到 PowerShell 的 <code>path</code> 中。</p>
+<p>因此，我们需要将 Git 的 <code>bin</code> 目录添加到 PowerShell 的 <code>path</code> 中，通常将其添加到 <code>profile.ps1</code> 中：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ~/Documents/WindowsPowerShell/profile.ps1</span></span><br><span class="line"><span class="variable">$env:path</span> += <span class="string">&quot;;<span class="variable">$Env:SCOOP</span>/apps/git/current/bin;<span class="variable">$Env:SCOOP</span>/apps/git/current/usr/bin&quot;</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注意，笔者是使用 scoop 来管理应用的。追加的其实是 <code>Git/bin</code> 和 <code>Git/usr/bin</code> 两个目录。</p>
+</blockquote>
+<p>这样，在 PowerShell 中就可以使用 Git 自带的应用命令了。</p>
+<p>But，虽然使用 <code>ssh-agent</code> 可以启动 agent，但是当使用 <code>ssh-add</code> 添加私钥时出现了“Error connecting to agent: Connection refused”错误。</p>
+<p>看来想在 PowerShell 中直接使用 Git 自带的 SSH 相关应用是有问题的。</p>
+<p>好在我们可以借助一个名为 <a target="_blank" rel="noopener" href="https://github.com/dahlbyk/posh-git">posh-git</a> 的工具，它提供了在 PowerShell 中使用 SSH 的命令，你可以方便地用 scoop 安装它：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scoop install posh<span class="literal">-git</span></span><br></pre></td></tr></table></figure>
+<p>安装后，我们就可以使用其提供的命令了：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 启动 agent</span></span><br><span class="line"><span class="built_in">start-sshagent</span></span><br><span class="line"><span class="comment"># 添加私钥</span></span><br><span class="line"><span class="built_in">add-sshkey</span> ~/.ssh/git</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注意，posh-git 的 SSH 相关功能仍然依赖 Git 的相关应用命令，因此，将 Git 的 <code>bin</code> 目录加入 PowerShell 的 <code>path</code> 中仍是必要的。</p>
+</blockquote>
+<p>至此，我们终于可以在 PowerShell 中使用 SSH 访问 GitHub 的仓库了。但是需要手动启动 agent 和添加私钥，想要自动完成也很简单，将这些命令加入 <code>profile.ps1</code> 即可。</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ~/Documents/WindowsPowerShell/profile.ps1</span></span><br><span class="line"><span class="built_in">start-sshagent</span></span><br><span class="line"><span class="built_in">add-sshkey</span> ~/.ssh/git</span><br></pre></td></tr></table></figure>
+<p>这样，只要打开 PowerShell 就可以直接使用 SSH 操作 Git 仓库了。</p>
+<h2 id="posh-git-v1-0-的变更和-posh-sshell"><a href="#posh-git-v1-0-的变更和-posh-sshell" class="headerlink" title="posh-git v1.0 的变更和 posh-sshell"></a>posh-git v1.0 的变更和 posh-sshell</h2><p>如果你使用的是 1.0 之前的 posh-git，那就完事儿了。</p>
+<p>但是，某天笔者将 posh-git 升级到 1.0 时，发现所有 posh-git 中的 SSH 命令都不能识别了。看了 CHANGELOG 才知道，1.0 将所有 SSH 命令都移除了，移到了一个名为 <a target="_blank" rel="noopener" href="https://github.com/dahlbyk/posh-sshell">posh-sshell</a> 的模块中。</p>
+<p>还能说什么，安装 posh-sshell 吧！</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PowerShellGet\<span class="built_in">Install-Module</span> posh<span class="literal">-sshell</span> <span class="literal">-Scope</span> CurrentUser</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>scoop 暂未收录 posh-sshell，所以只好使用 PowerShellGet 安装了。</p>
+</blockquote>
+<p>安装好 posh-sshell 后，只需要导入模块，即可如往常一样使用相关 SSH 命令了：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Import-Module</span> posh<span class="literal">-sshell</span></span><br></pre></td></tr></table></figure>
+<h1 id="使用TortoiseGit"><a href="#使用TortoiseGit" class="headerlink" title="使用TortoiseGit"></a>使用TortoiseGit</h1><p>以上配置只对 PowerShell 有效，如果你还使用 TortoiseGit 的话，会发现经过以上修改，TortoiseGit 已经不能正常访问远程仓库了。</p>
+<p>这是由于，TortoiseGit 不能使用 <code>ssh-keygen</code> 生成的密钥。而是需要使用 TortoiseGit 自带的工具“PuTTY Key Generator”来生成后缀为 <code>.ppk</code> 的私钥文件。我们可以通过搜索或是 <code>TortoiseGit/bin/puttygen.exe</code> 启动它。</p>
+<h2 id="转换生成-ppk私钥"><a href="#转换生成-ppk私钥" class="headerlink" title="转换生成.ppk私钥"></a>转换生成<code>.ppk</code>私钥</h2><p>由于我们已经通过 <code>ssh-keygen</code> 生成了私钥，因此只需要导入并保存为 <code>.ppk</code> 文件即可。在菜单中点击“Conversions → Import key”，选择之前生成的私钥文件即可。</p>
+<p><img src="../image/post_git-and-ssh-in-powershell/putty.png" alt="putty import key"></p>
+<p>加载私钥文件后，“Save private key”按钮将使能，点击它保存新的后缀为 <code>.ppk</code> 的私钥文件。</p>
+<blockquote>
+<p>Putty 也可以直接生成 <code>.ppk</code> 的私钥文件，点击“Generate”按钮并按提示操作即可。</p>
+<p>只是这里如果再生成新的私钥文件，又需要再为 GitHub 帐户添加一次对应公钥，这是不必要的。</p>
+</blockquote>
+<p>有了 <code>.ppk</code> 后缀的私钥文件，需要将其配置到 TortoiseGit。</p>
+<h2 id="配置Putty-Key"><a href="#配置Putty-Key" class="headerlink" title="配置Putty Key"></a>配置Putty Key</h2><p>在资源管理器中右击要配置的本地仓库根目录，在右键菜单中选择 “TortoiseGit → Settings”菜单，弹出配置对话框，将“Git → Remote”配置页面中的“Putty Key”栏位设置为新生成的私钥路径即可。</p>
+<p><img src="../image/post_git-and-ssh-in-powershell/tortoisegit-settings.png" alt="tortoisegit-settings"></p>
+<h2 id="启动并配置Pageant"><a href="#启动并配置Pageant" class="headerlink" title="启动并配置Pageant"></a>启动并配置Pageant</h2><p>除此之外，还需要使用 Git 自带的 pageant 应用来加载验证私钥。pageant 位于 <code>TortoiseGit/bin/pageant.exe</code>，其界面很简单，点击“Add Key”选择 <code>.ppk</code> 文件即可。</p>
+<p><img src="../image/post_git-and-ssh-in-powershell/pageant.png" alt="pageant"></p>
+<p>至此，TortoiseGit 就可以正常操作远程仓库了。</p>
+<h2 id="Pageant的启动"><a href="#Pageant的启动" class="headerlink" title="Pageant的启动"></a>Pageant的启动</h2><p>上面是手动启动 Pageant 并手动加载的私钥，但是由于我们为远程仓库配置了“Putty Key”，所以在操作远程仓库时可以自动启动 Pageant。比如，在拉取对话框中，只需要勾选“AutoLoad Putty Key”，那么即使此时没有启动 Pageant，TortoiseGit 也会自动启动它，并根据远程仓库的“Putty Key”配置加载私钥。</p>
+<p><img src="../image/post_git-and-ssh-in-powershell/pull.png" alt="pull"></p>
+<p>但是，可能我们还是希望 Pageant 能随系统自启并加载私钥，那么，我们可以为 <code>pageant.exe</code> 创建一个快捷方式，并在其属性对话框中为“目标”属性追加私钥文件路径，再将快捷方式放置于“启动”目录即可。</p>
+<p><img src="../image/post_git-and-ssh-in-powershell/pageant-auto.png" alt="pageant auto"></p>
+<h1 id="关于密码保护"><a href="#关于密码保护" class="headerlink" title="关于密码保护"></a>关于密码保护</h1><p>关于密钥至少有一件事我们一直没有说明，就是密钥是可以添加密码保护的。</p>
+<p>你应该还记得使用 <code>ssh-keygen</code> 生成密钥对时被询问设置密码，那时我们“留空”使得密钥没有密码保护。另外，Putty 在保存私钥时也会提示是否设置密码，也没有设置。</p>
+<p>那么，是否需要设置密码呢？看你自己的需求。如果需要更高的安全性就应该设置密码——没有密码保护，那么只要拿到私钥文件就可以操作远程仓库了。</p>
+<p>设置密码后对使用有什么影响呢？当没有密码时，你应该可以无障碍地顺利完成本文所有操作。但是，如果有密码，那么在各个添加私钥等环节通常就要求输入密码。这不是又变相出现使用 HTTPS 模式时所面对的问题了吗？而且，由于这种交互，自动的计划任务几乎是不可能完成的。</p>
+<p>总之，如果不要求较高安全性的情况下，通常我们不需要为密钥添加密码保护。</p>
+<h1 id="命令汇总"><a href="#命令汇总" class="headerlink" title="命令汇总"></a>命令汇总</h1><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 生成密钥</span></span><br><span class="line">ssh<span class="literal">-keygen</span> <span class="literal">-t</span> rsa <span class="literal">-b</span> <span class="number">4096</span> <span class="literal">-C</span> <span class="string">&quot;your-email&quot;</span></span><br><span class="line"><span class="comment"># 启动 agent（posh-git 命令）</span></span><br><span class="line"><span class="built_in">start-sshagent</span></span><br><span class="line"><span class="comment"># 添加私钥（posh-git 命令）</span></span><br><span class="line"><span class="built_in">add-sshkey</span> /PATH/TO/PRIVATEKEY</span><br><span class="line"><span class="comment"># 查看远程仓库 URL</span></span><br><span class="line">git remote <span class="literal">-v</span></span><br><span class="line"><span class="comment"># 修改远程仓库 URL</span></span><br><span class="line">git remote <span class="built_in">set-url</span> origin git@github.com:USERNAME/REPOSITORY.git</span><br><span class="line"><span class="comment"># 测试</span></span><br><span class="line">ssh <span class="literal">-T</span> git@github.com</span><br></pre></td></tr></table></figure>
+<h1 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h1><h2 id="启动正确的ssh-agent"><a href="#启动正确的ssh-agent" class="headerlink" title="启动正确的ssh-agent"></a>启动正确的ssh-agent</h2><p>有可能按照以上配置，PowerShell 中仍然报 SSH 连接拒绝。可能的原因是：启动的 ssh-agent 来自于 OpenSSH 而非 Git 自带的。</p>
+<p>你可以执行 <code>which ssh-agent</code> 或 <code>where ssh-agent</code> 来查看 ssh-agent 应用文件路径。</p>
+<p>如果系统安装了 OpenSSH，且其位于 <code>System32</code> 目录下（如 Win10 内置的 OpenSSH），那么由于 <code>porfile.ps1</code> 中我们是向 <code>path</code> 追加的 Git <code>bin</code> 目录，因此 OpenSSH 路径下的 ssh-agent 先被搜索到，导致错误启动了 OpenSSH 的 ssh-agent。</p>
+<p>解决方案很简单，将 Git <code>bin</code> 目录加在 <code>path</code> 之前即可：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ~/Documents/WindowsPowerShell/profile.ps1</span></span><br><span class="line"><span class="variable">$env:path</span> += <span class="string">&quot;;<span class="variable">$env:SCOOP</span>\apps\git\current\bin;<span class="variable">$env:SCOOP</span>\apps\git\current\usr\bin&quot;</span></span><br></pre></td></tr></table></figure>
+<p>或者通过环境变量 <code>GIT_SSH</code> 来明确指定 SSH 的位置：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 注意，以下命令是通过查找定位的 SSH 位置，如果这不是你想要的，请修改该路径</span></span><br><span class="line">[<span class="type">environment</span>]::setenvironmentvariable(<span class="string">&#x27;GIT_SSH&#x27;</span>, (<span class="built_in">resolve-path</span> (scoop which ssh)), <span class="string">&#x27;USER&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="ssh-agent启动报错"><a href="#ssh-agent启动报错" class="headerlink" title="ssh-agent启动报错"></a>ssh-agent启动报错</h2><p>如果你使用的是 Windows 10 或其他原因在启动 ssh-agent 报如下错误：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">unable to <span class="built_in">start</span> ssh<span class="literal">-agent</span> service, error :<span class="number">1058</span></span><br></pre></td></tr></table></figure>
+<p>可在 PowerShell 中执行（需管理员权限）如下命令：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Set-Service</span> <span class="literal">-Name</span> ssh<span class="literal">-agent</span> <span class="literal">-StartupType</span> automatic</span><br></pre></td></tr></table></figure>
+<h2 id="push时仍要求输入用户密码"><a href="#push时仍要求输入用户密码" class="headerlink" title="push时仍要求输入用户密码"></a>push时仍要求输入用户密码</h2><p>通常应该是远程仓库使用的是 HTTPS URL，通过如下命令查看：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git remote <span class="literal">-vv</span></span><br><span class="line"><span class="comment"># origin  https://github.com/username/project.git (fetch)</span></span><br><span class="line"><span class="comment"># origin  https://github.com/username/project.git (push)</span></span><br></pre></td></tr></table></figure>
+<p>只需要先移除远程仓库，重新添加 SSH URL 的远程仓库即可：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git remote <span class="built_in">rm</span> origin</span><br><span class="line">git remote add origin git@github.com:username/project.git</span><br><span class="line">git push -<span class="literal">-set</span><span class="literal">-upstream</span> origin master</span><br></pre></td></tr></table></figure>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a target="_blank" rel="noopener" href="https://git-scm.com/book/zh/v2/Git-%E5%B7%A5%E5%85%B7-%E5%87%AD%E8%AF%81%E5%AD%98%E5%82%A8">《Pro Git》Git 工具 - 凭证存储</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/dahlbyk/posh-git">GitHub - posh-git</a></p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Eric Zong
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://ericzonglu.gitee.io/posts/git-and-ssh-in-powershell.html" title="在PowerShell中通过SSH使用Git">http://ericzonglu.gitee.io/posts/git-and-ssh-in-powershell.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/PowerShell/" rel="tag"># PowerShell</a>
+              <a href="/tags/SSH/" rel="tag"># SSH</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/js-undefined-identifier.html" rel="prev" title="JS中的undefined">
+      <i class="fa fa-chevron-left"></i> JS中的undefined
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/posts/git-cancel-operation.html" rel="next" title="Git撤销操作讨论">
+      Git撤销操作讨论 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#HTTPS%E8%AE%BF%E9%97%AE%E5%8F%8A%E5%85%B6%E7%BC%BA%E7%82%B9"><span class="nav-number">1.</span> <span class="nav-text">HTTPS访问及其缺点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E5%BD%93%E5%89%8D%E9%85%8D%E7%BD%AE"><span class="nav-number">2.</span> <span class="nav-text">查看当前配置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%94%9F%E6%88%90-SSH-%E5%AF%86%E9%92%A5"><span class="nav-number">3.</span> <span class="nav-text">生成 SSH 密钥</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B0%86%E7%A7%81%E9%92%A5%E6%B7%BB%E5%8A%A0%E5%88%B0-ssh-agent"><span class="nav-number">4.</span> <span class="nav-text">将私钥添加到 ssh-agent</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B0%86%E5%85%AC%E9%92%A5%E6%B7%BB%E5%8A%A0%E5%88%B0GitHub%E5%B8%90%E6%88%B7"><span class="nav-number">5.</span> <span class="nav-text">将公钥添加到GitHub帐户</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E4%BB%93%E5%BA%93URL"><span class="nav-number">6.</span> <span class="nav-text">修改仓库URL</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9C%A8PowerShell%E4%B8%AD%E4%BD%BF%E7%94%A8"><span class="nav-number">7.</span> <span class="nav-text">在PowerShell中使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#posh-git-v1-0-%E7%9A%84%E5%8F%98%E6%9B%B4%E5%92%8C-posh-sshell"><span class="nav-number">7.1.</span> <span class="nav-text">posh-git v1.0 的变更和 posh-sshell</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8TortoiseGit"><span class="nav-number">8.</span> <span class="nav-text">使用TortoiseGit</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BD%AC%E6%8D%A2%E7%94%9F%E6%88%90-ppk%E7%A7%81%E9%92%A5"><span class="nav-number">8.1.</span> <span class="nav-text">转换生成.ppk私钥</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AEPutty-Key"><span class="nav-number">8.2.</span> <span class="nav-text">配置Putty Key</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%AF%E5%8A%A8%E5%B9%B6%E9%85%8D%E7%BD%AEPageant"><span class="nav-number">8.3.</span> <span class="nav-text">启动并配置Pageant</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Pageant%E7%9A%84%E5%90%AF%E5%8A%A8"><span class="nav-number">8.4.</span> <span class="nav-text">Pageant的启动</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E%E5%AF%86%E7%A0%81%E4%BF%9D%E6%8A%A4"><span class="nav-number">9.</span> <span class="nav-text">关于密码保护</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%91%BD%E4%BB%A4%E6%B1%87%E6%80%BB"><span class="nav-number">10.</span> <span class="nav-text">命令汇总</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="nav-number">11.</span> <span class="nav-text">注意事项</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%AF%E5%8A%A8%E6%AD%A3%E7%A1%AE%E7%9A%84ssh-agent"><span class="nav-number">11.1.</span> <span class="nav-text">启动正确的ssh-agent</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ssh-agent%E5%90%AF%E5%8A%A8%E6%8A%A5%E9%94%99"><span class="nav-number">11.2.</span> <span class="nav-text">ssh-agent启动报错</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#push%E6%97%B6%E4%BB%8D%E8%A6%81%E6%B1%82%E8%BE%93%E5%85%A5%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81"><span class="nav-number">11.3.</span> <span class="nav-text">push时仍要求输入用户密码</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-number">12.</span> <span class="nav-text">参考</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Eric Zong</p>
+  <div class="site-description" itemprop="description">这里有作为一个程序员想记录的一切。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">96</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Eric Zong</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

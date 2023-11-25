@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"ericzonglu.gitee.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="Java关键字final相关知识点。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java知识点：final关键字">
+<meta property="og:url" content="http://ericzonglu.gitee.io/posts/java-kp-keyword-final.html">
+<meta property="og:site_name" content="八白龙的博客">
+<meta property="og:description" content="Java关键字final相关知识点。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2018-12-25T16:00:00.000Z">
+<meta property="article:modified_time" content="2020-10-02T13:00:33.841Z">
+<meta property="article:author" content="Eric Zong">
+<meta property="article:tag" content="Java基础">
+<meta property="article:tag" content="Java入门教程">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://ericzonglu.gitee.io/posts/java-kp-keyword-final.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Java知识点：final关键字 | 八白龙的博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">八白龙的博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">程序员的杂货铺</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-references">
+
+    <a href="/references/" rel="section"><i class="bookmark fa-fw"></i>参考</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://ericzonglu.gitee.io/posts/java-kp-keyword-final.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Eric Zong">
+      <meta itemprop="description" content="这里有作为一个程序员想记录的一切。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="八白龙的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Java知识点：final关键字
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-12-26 00:00:00" itemprop="dateCreated datePublished" datetime="2018-12-26T00:00:00+08:00">2018-12-26</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-10-02 21:00:33" itemprop="dateModified" datetime="2020-10-02T21:00:33+08:00">2020-10-02</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/%E7%9F%A5%E8%AF%86%E7%82%B9/" itemprop="url" rel="index"><span itemprop="name">知识点</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="用法"><a href="#用法" class="headerlink" title="用法"></a>用法</h1><p>Java 中，<code>final</code> 关键字可以在多处使用，可以修饰类、方法、变量，效果都很类似，但又各有差异。可谓是“关键字重载”的典范。</p>
+<p>总体来说，<code>final</code> 带有一种“不可变”的意思。其各种用法可参考下表：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">修饰对象</th>
+<th style="text-align:left">效果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">类</td>
+<td style="text-align:left">不能被继承</td>
+</tr>
+<tr>
+<td style="text-align:left">方法</td>
+<td style="text-align:left">不能被子类重写</td>
+</tr>
+<tr>
+<td style="text-align:left">变量</td>
+<td style="text-align:left">不能重新赋值</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h1 id="知识点"><a href="#知识点" class="headerlink" title="知识点"></a>知识点</h1><p>虽然，看起来用法也不算很多，但整理一下相关知识点，发现还是有不少的。</p>
+<ul>
+<li>变量<ul>
+<li>不能重新赋值</li>
+<li>初始化<ul>
+<li>静态变量初始化时机</li>
+<li>实例变量初始化时机</li>
+<li>局部变量初始化时机</li>
+<li>空白 <code>final</code></li>
+<li>常量</li>
+</ul>
+</li>
+<li>隐式 <code>final</code></li>
+<li>事实 <code>final</code></li>
+<li>写受保护的域</li>
+</ul>
+</li>
+<li>方法</li>
+<li>综合<ul>
+<li>多线程</li>
+<li>兼容性</li>
+</ul>
+</li>
+<li>比较<ul>
+<li><code>final</code> vs. <code>finally</code> vs. <code>finalize()</code></li>
+<li><code>final</code> vs. <code>abstract</code></li>
+<li>变量与方法的“重写”行为</li>
+</ul>
+</li>
+</ul>
+<h1 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h1><h2 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h2><h3 id="不能重新赋值"><a href="#不能重新赋值" class="headerlink" title="不能重新赋值"></a>不能重新赋值</h3><p><code>final</code> 变量只能赋值一次，对于成员变量而言这是必须的，但对于局部变量不是——可是不赋值就不可使用，因此，这是没有意义的，通常也不合规范。</p>
+<p>重新赋值包括：使用赋值号赋值，前/后缀加/减。</p>
+<h3 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h3><p>关于 <code>final</code> 变量初始化，首先需要知道“空白 <code>final</code>”的概念。空白 <code>final</code> 指声明缺少初始化器的 <code>final</code> 变量。换句话说，如果声明时赋值了，那就不是空白 <code>final</code>。</p>
+<p>各种变量都可以声明为空白 <code>final</code>，但其后续赋值时机限制是不同的。</p>
+<ul>
+<li><p>对于局部变量而言，只需要在使用该变量前为其赋值即可。</p>
+</li>
+<li><p>对于静态变量而言，需要在类初始化完成前赋值。</p>
+</li>
+<li>对于实例变量而言，需要在实例初始化完成前赋值。</li>
+</ul>
+<p>因此，静态变量只有 2 个赋值时机：声明时和 static 初始化块中；实例变量有 3 个赋值时机：声明时、普通初始化块中和构造器中。</p>
+<p>另外一种常见的特殊的变量是常量变量，也就是我们常说的“常量”。</p>
+<p>常量变量指用常量表达式初始化的 <code>final</code> 变量。至于<strong>常量表达式</strong>的准确含义与组成成分可参考 <a target="_blank" rel="noopener" href="https://docs.oracle.com/javase/specs/jls/se11/html/jls-15.html#jls-15.28">JLS15.28</a>。</p>
+<p>因此，常量明显有以下特点：</p>
+<ul>
+<li><code>final</code> 变量</li>
+<li>声明时赋值</li>
+<li>使用常量表达式赋值</li>
+</ul>
+<p>然而……这些特点个个都是“坑”，我们一一来看。</p>
+<p>首先，常量必然是 final 的，但不必是 static 的。虽然，我们最常见的是静态常量，声明类似 <code>public static final int i = 42;</code>，但常量也可以是实例变量，甚至是局部变量。</p>
+<p>其次，常量必需声明时赋值。换句话说，空白 <code>final</code> 不是常量。</p>
+<p>最后，常量必需用常量表达式赋值。因此，常量必然是基本数据类型或字符串类型。常量表达式组成成分很繁杂，简单概括来说，它是由字面量（即基本数据类型和字符串）或其它常量经过适当操作符运算的表达式。</p>
+<p>示例1-1</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">finalTest</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> i = <span class="number">42</span>;    <span class="comment">// 静态常量</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">int</span> j = <span class="number">43</span>;           <span class="comment">// 实例常量</span></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">int</span> k = <span class="number">44</span>;               <span class="comment">// 局部常量</span></span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">int</span> p;                    <span class="comment">// 空白 final，不是常量</span></span><br><span class="line">        p = <span class="number">45</span>;</span><br><span class="line">        <span class="keyword">final</span> Integer q = <span class="number">99</span>;           <span class="comment">// 非基本数据类型和字符串类型变量，不是常量</span></span><br><span class="line"></span><br><span class="line">        System.out.println(i);</span><br><span class="line">        System.out.println(j);</span><br><span class="line">        System.out.println(k);</span><br><span class="line">        System.out.println(p);</span><br><span class="line">        System.out.println(q);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>对于常量，编译器会对常量表达式进行“预先计算”替换为结果字面量，其它对常量的引用也会替换为该结果字面量。</p>
+<p>下面的代码就是上例代码编译后再反编译的代码，可以看到这些替换。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FinalTest</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> i = <span class="number">42</span>;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">int</span> j = <span class="number">43</span>;</span><br><span class="line">  </span><br><span class="line">  <span class="meta">@Test</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span></span><br><span class="line"><span class="function">  </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> k = <span class="number">44</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">int</span> p = <span class="number">45</span>;</span><br><span class="line">    Integer q = Integer.valueOf(<span class="number">99</span>);</span><br><span class="line">    System.out.println(<span class="number">42</span>);</span><br><span class="line">    System.out.println(<span class="number">43</span>);</span><br><span class="line">    System.out.println(<span class="number">44</span>);</span><br><span class="line">    System.out.println(p);</span><br><span class="line">    System.out.println(q);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="隐式-final"><a href="#隐式-final" class="headerlink" title="隐式 final"></a>隐式 final</h3><p>所谓“隐式 <code>final</code> 变量”，是指那些虽然没有 <code>final</code> 修饰，但实际上其缺省修饰符就包括 <code>final</code> 的变量。包括以下几种：</p>
+<ul>
+<li>接口中的成员变量</li>
+<li><code>try-with-resources</code> 语句中声明的资源变量</li>
+<li>多重 catch 子句中的异常参数</li>
+</ul>
+<p>接口中的成员变量通常规范要求不用显式 <code>final</code> 修饰，否则认为是“多余”的。</p>
+<p>后面两个是 Java 7 加入的新特性，通常规范未作要求，但一个推荐的作法是：在从低版本升级的过渡阶段应该加上 <code>final</code> 以明确语义。</p>
+<p>示例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">InterfaceField</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> implicitlyFinal = <span class="number">42</span>;       <span class="comment">// 隐式 final，接口中的域</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyClcass</span> <span class="keyword">implements</span> <span class="title">InterfaceField</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span>(InputStream implicitlyFinalResource = <span class="keyword">new</span> FileInputStream(<span class="string">&quot;xxx&quot;</span>)) &#123; </span><br><span class="line">            <span class="comment">// 隐式 final，TWR 资源</span></span><br><span class="line">            System.out.println(implicitlyFinal);</span><br><span class="line">            System.out.println(implicitlyFinalResource);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (FileNotFoundException | RuntimeException implicitlyFinalException) &#123; </span><br><span class="line">            <span class="comment">// 隐式 final，多重 catch 异常参数</span></span><br><span class="line">            implicitlyFinalException.printStackTrace();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="事实-final"><a href="#事实-final" class="headerlink" title="事实 final"></a>事实 final</h3><p>局部变量和方法、构造器、lambda、异常参数，如果不会重新赋值，那么就称为“实事（effectively）<code>final</code>”。</p>
+<p>注意，这里又提到了异常参数，上文中说多重 catch 子句中的异常参数是隐式 final 的，但是普通的单个 catch 子句中的异常参数不是，它可能是事实 final 的，只要没有重新赋值。</p>
+<h3 id="写保护的域"><a href="#写保护的域" class="headerlink" title="写保护的域"></a>写保护的域</h3><p><code>System.out</code>、<code>System.err</code>、<code>System.in</code> 都是 <code>static final</code> 修饰的，但通过 <code>System.setOut()</code>、<code>System.setErr()</code>、<code>System.setIn ()</code> 可以分别修改它们。这些域被称为“写保护的域”。</p>
+<p>《Java 语言规范》中说明这是一个“历史遗留问题”。另一方面看，这些修改方法都是 <code>native</code> 的，因此，我们可以理解为本地方法可以绕过 JVM 限制修改 <code>final</code> 域。</p>
+<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><p><code>final</code> 方法的一个语义是允许编译器根据情况将该方法的所有调用替换为“内联”方式，从而提升效率。</p>
+<h2 id="综合"><a href="#综合" class="headerlink" title="综合"></a>综合</h2><h3 id="多线程"><a href="#多线程" class="headerlink" title="多线程"></a>多线程</h3><p>多线程情况下，<code>final</code> 域的语义与普通域是不同的。</p>
+<p>其中一个明显的区别是，当一个线程中的对象完全初始化时，另一线程保证可以看到该对象的 <code>final</code> 域的值，但不保证能看到普通域的值。</p>
+<p>因此，一个可能的安全问题是：即使使用的对象是不可变的，但如果其中的域不是 <code>final</code> 的，那么其它线程就可能看到该域的缺省值。</p>
+<p>另外，<code>final</code> 域是可能在对象构造之后修改的，比如反序列化、反射等方法。</p>
+<p>通常，这些多少会涉及 Java 内存模型的知识，这里就不一一赘述了。</p>
+<h3 id="兼容性"><a href="#兼容性" class="headerlink" title="兼容性"></a>兼容性</h3><p>通常，一个 <code>final</code> 修饰被去掉前后的代码是兼容的，不会引起错误。</p>
+<p>但是，反过来，加上 <code>final</code> 修饰前后的代码通常就不是兼容的。</p>
+<ul>
+<li>一个类如果加上 final 修饰，那么其子类在运行时会抛出 <code>VerifyError</code></li>
+<li>一个方法加上 final 修饰，那么子类重写的方法运行时会抛出 <code>VerifyError</code></li>
+<li>一个成员变量加上 final 修饰，那么其它赋值在运行时会抛出 <code>IllegalAccessError</code></li>
+</ul>
+<p>注意，上面讨论的是仅重编译修改部分的情况。在 IDE 中，这种修改往往是引起编译错误。</p>
+<p>一个需要特别说明的是——常量。</p>
+<p>由于常量会在编译时进行字面量替换，所以修改常量的值在仅重编译修改部分的情况下，该修改将不会被观察到。</p>
+<h2 id="比较"><a href="#比较" class="headerlink" title="比较"></a>比较</h2><h3 id="final-vs-finally-vs-finalize"><a href="#final-vs-finally-vs-finalize" class="headerlink" title="final vs. finally vs. finalize()"></a>final vs. finally vs. finalize()</h3><p>语义上说，它们几乎没有相关性。</p>
+<p>面试中经常把它们放在一起讨论区别，大概仅仅是它们单词的相似性而已吧！但是，你应该清楚它们各自指的是什么。</p>
+<h3 id="final-vs-abstract"><a href="#final-vs-abstract" class="headerlink" title="final vs. abstract"></a>final vs. abstract</h3><p><code>final</code> 与 <code>abstract</code> 在语义上是互斥的，因此不能同时使用。</p>
+<h3 id="变量与方法的“重写”行为"><a href="#变量与方法的“重写”行为" class="headerlink" title="变量与方法的“重写”行为"></a>变量与方法的“重写”行为</h3><p>子类中可以重新声明与父类中同名的成员变量，即使在父类中已被声明为 <code>final</code> 的。此时，子类中声明的成员变量会隐藏父类中声明的同名成员变量。由于是隐藏，所以子类中的变量和父类中的变量是相互独立的，因此，它们的修饰符可以不同。</p>
+<p>与成员变量不同的是，只要方法签名（方法名+参数列表）相同，那就认为是重写，而 <code>final</code> 方法不能被重写。</p>
+<p>总而言之，子类中可以重新声明父类中同名 <code>final</code> 成员变量，但是不能声明父类中签名相同的 <code>final</code> 方法。</p>
+<h1 id="其它"><a href="#其它" class="headerlink" title="其它"></a>其它</h1><p>一个与 <code>final</code> 相关的最佳实践是：所有方法参数都应该用 <code>final</code> 修饰。</p>
+<p>另一个常讨论的问题是：为什么在内部类中引用的外部变量必须是（事实） <code>final</code> 的？<br>该问题说法不尽相同，比较可信说法是：内部类使用的外部变量将以值拷贝的形式被内部类中自动生成的隐藏变量持有，因此它们是不同的引用，为了使其同步，因此必须是不可变的。</p>
+<h1 id="意外？例外"><a href="#意外？例外" class="headerlink" title="意外？例外"></a>意外？例外</h1><h2 id="常量修改"><a href="#常量修改" class="headerlink" title="常量修改"></a>常量修改</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> i = <span class="number">42</span>;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String s = <span class="keyword">null</span>;</span><br></pre></td></tr></table></figure>
+<p>假设，修改 <code>i = 43</code>，<code>s = &quot;new&quot;</code>，然后仅重编译修改部分。</p>
+<p>那么，其它代码引用 <code>i</code> 的地方看到的值还是 42，而 <code>s</code> 会看到新值 <code>new</code>。</p>
+<p>关键在于 null 不是常量表达式，因此 <code>s</code> 本身不是一个常量声明，所以修改后能被观察到新值。</p>
+<h2 id="读取到-final-域缺省值"><a href="#读取到-final-域缺省值" class="headerlink" title="读取到 final 域缺省值"></a>读取到 final 域缺省值</h2><p><code>final</code> 域被初始化之前，存在被读取到其缺省值的可能。</p>
+<p>在《Java 解惑》一书中，有如下的示例展示了这种情况：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Calendar;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Elvis</span> </span>&#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> Elvis INSTANCE = <span class="keyword">new</span> Elvis();</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">int</span> beltSize;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> CURRENT_YEAR = </span><br><span class="line">		Calendar.getInstance().get(Calendar.YEAR);</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="title">Elvis</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		beltSize = CURRENT_YEAR - <span class="number">1930</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">beltSize</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> beltSize;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">&quot;Elvis wears a size &quot;</span> </span><br><span class="line">                           + INSTANCE.beltSize() + <span class="string">&quot; belt.&quot;</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>以上程序输出：Elvis wears a size -1930 belt.</p>
+<p>这个结果很反直觉，要清楚原因，大致需要知道以下几个知识点。</p>
+<ul>
+<li><code>CURRENT_YEAR</code> 不是常量。因此，不应期望第 10 行代码等效于当前年份与 1930 之差。</li>
+<li>域初始化是自上而下顺序执行的。<code>INSTANCE</code> 初始化时 <code>CURRENT_YEAR</code> 还没有初始化，仍为缺省值 0。</li>
+<li>类的循环初始化。<code>Elvis</code> 执行 <code>main()</code> 方法触发了类初始化。首先需要初始化域 <code>INSTANCE</code>，这需要实例化当前类。而构造器中访问了 <code>CURRENT_YEAR</code>，这又要求当前类初始化完成。然而，当前正在执行类初始化，因此这个递归的类初始化请求会被忽略。故取到 <code>CURRENT_YEAR</code> 的缺省值 0。进而在构造器中为 <code>beltSize</code> 赋值为 -1930。</li>
+</ul>
+<p>要修正这个错误，需要对静态域初始化器调整排序，使得初始化器出现在任何依赖于它的初始化器之前。即 <code>CURRENT_YEAR</code> 应置于 <code>INSTANCE</code> 之前。</p>
+<hr>
+<h1 id="遗留问题"><a href="#遗留问题" class="headerlink" title="遗留问题"></a>遗留问题</h1><ul>
+<li>常量为什么必需声明时赋值？</li>
+<li>常量表达式中怎样算是必要的字符串强制转换？</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Eric Zong
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://ericzonglu.gitee.io/posts/java-kp-keyword-final.html" title="Java知识点：final关键字">http://ericzonglu.gitee.io/posts/java-kp-keyword-final.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Java%E5%9F%BA%E7%A1%80/" rel="tag"># Java基础</a>
+              <a href="/tags/Java%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/" rel="tag"># Java入门教程</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/java-kp-keyword-static.html" rel="prev" title="Java知识点：static关键字">
+      <i class="fa fa-chevron-left"></i> Java知识点：static关键字
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/posts/java-framework-active-jdbc-03.html" rel="next" title="ActiveJDBC笔记：3 编程技巧">
+      ActiveJDBC笔记：3 编程技巧 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%94%A8%E6%B3%95"><span class="nav-number">1.</span> <span class="nav-text">用法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E7%82%B9"><span class="nav-number">2.</span> <span class="nav-text">知识点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AF%B4%E6%98%8E"><span class="nav-number">3.</span> <span class="nav-text">说明</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%98%E9%87%8F"><span class="nav-number">3.1.</span> <span class="nav-text">变量</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8D%E8%83%BD%E9%87%8D%E6%96%B0%E8%B5%8B%E5%80%BC"><span class="nav-number">3.1.1.</span> <span class="nav-text">不能重新赋值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-number">3.1.2.</span> <span class="nav-text">初始化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9A%90%E5%BC%8F-final"><span class="nav-number">3.1.3.</span> <span class="nav-text">隐式 final</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8B%E5%AE%9E-final"><span class="nav-number">3.1.4.</span> <span class="nav-text">事实 final</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%99%E4%BF%9D%E6%8A%A4%E7%9A%84%E5%9F%9F"><span class="nav-number">3.1.5.</span> <span class="nav-text">写保护的域</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%B9%E6%B3%95"><span class="nav-number">3.2.</span> <span class="nav-text">方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%BC%E5%90%88"><span class="nav-number">3.3.</span> <span class="nav-text">综合</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%9A%E7%BA%BF%E7%A8%8B"><span class="nav-number">3.3.1.</span> <span class="nav-text">多线程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%BC%E5%AE%B9%E6%80%A7"><span class="nav-number">3.3.2.</span> <span class="nav-text">兼容性</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%AF%94%E8%BE%83"><span class="nav-number">3.4.</span> <span class="nav-text">比较</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#final-vs-finally-vs-finalize"><span class="nav-number">3.4.1.</span> <span class="nav-text">final vs. finally vs. finalize()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#final-vs-abstract"><span class="nav-number">3.4.2.</span> <span class="nav-text">final vs. abstract</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%98%E9%87%8F%E4%B8%8E%E6%96%B9%E6%B3%95%E7%9A%84%E2%80%9C%E9%87%8D%E5%86%99%E2%80%9D%E8%A1%8C%E4%B8%BA"><span class="nav-number">3.4.3.</span> <span class="nav-text">变量与方法的“重写”行为</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%B6%E5%AE%83"><span class="nav-number">4.</span> <span class="nav-text">其它</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%84%8F%E5%A4%96%EF%BC%9F%E4%BE%8B%E5%A4%96"><span class="nav-number">5.</span> <span class="nav-text">意外？例外</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E9%87%8F%E4%BF%AE%E6%94%B9"><span class="nav-number">5.1.</span> <span class="nav-text">常量修改</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%BB%E5%8F%96%E5%88%B0-final-%E5%9F%9F%E7%BC%BA%E7%9C%81%E5%80%BC"><span class="nav-number">5.2.</span> <span class="nav-text">读取到 final 域缺省值</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%81%97%E7%95%99%E9%97%AE%E9%A2%98"><span class="nav-number">6.</span> <span class="nav-text">遗留问题</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Eric Zong</p>
+  <div class="site-description" itemprop="description">这里有作为一个程序员想记录的一切。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">96</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Eric Zong</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

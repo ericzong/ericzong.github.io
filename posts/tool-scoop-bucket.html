@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"ericzonglu.gitee.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="介绍Scoop Bucket及其创建。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Scoop bucket 使用详解">
+<meta property="og:url" content="http://ericzonglu.gitee.io/posts/tool-scoop-bucket.html">
+<meta property="og:site_name" content="八白龙的博客">
+<meta property="og:description" content="介绍Scoop Bucket及其创建。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-04-10T16:00:00.000Z">
+<meta property="article:modified_time" content="2020-08-13T16:00:00.000Z">
+<meta property="article:author" content="Eric Zong">
+<meta property="article:tag" content="Scoop">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://ericzonglu.gitee.io/posts/tool-scoop-bucket.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Scoop bucket 使用详解 | 八白龙的博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">八白龙的博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">程序员的杂货铺</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-references">
+
+    <a href="/references/" rel="section"><i class="bookmark fa-fw"></i>参考</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://ericzonglu.gitee.io/posts/tool-scoop-bucket.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Eric Zong">
+      <meta itemprop="description" content="这里有作为一个程序员想记录的一切。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="八白龙的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Scoop bucket 使用详解
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-04-11 00:00:00" itemprop="dateCreated datePublished" datetime="2019-04-11T00:00:00+08:00">2019-04-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-08-14 00:00:00" itemprop="dateModified" datetime="2020-08-14T00:00:00+08:00">2020-08-14</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">工具</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B7%A5%E5%85%B7/%E5%BA%94%E7%94%A8%E7%AE%A1%E7%90%86/" itemprop="url" rel="index"><span itemprop="name">应用管理</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="关于-bucket"><a href="#关于-bucket" class="headerlink" title="关于 bucket"></a>关于 bucket</h1><p>Scoop 作为一个“安装器（installer）”，不同于软件包管理器，它不需要存储软件包，只是提供应用清单（app manifests）。</p>
+<p>应用清单描述应用包在何处下载、如何安装等信息，而应用清单存放在 bucket 中——应用清单仓库，不是软件包仓库。</p>
+<p>与 bucket 相关的命令可以通过 Scoop 的帮助系统查看：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scoop help bucket</span><br></pre></td></tr></table></figure>
+<p>Scoop 安装后，内置了一个 main bucket，此外，还提供了几个 known bucket 以提供更多的应用。</p>
+<p>main bucket 是内置的，因此不用额外添加，而其他几个 known bucket 需要用户自行添加。而要添加 known bucket 需要先知道它们的名字，这需要使用以下命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scoop bucket known</span><br></pre></td></tr></table></figure>
+<p>知道了名字，我们就可以逐一添加它们了：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scoop bucket add &lt;name&gt;</span><br></pre></td></tr></table></figure>
+<p>添加后，我们就可以从这些 bucket 中搜索安装应用了。显然，这些 bucket 不可能囊括所有的应用，如果我们需要的应用不在这些 bucket 中怎么办呢？Scoop 很灵活，它支持用户自己创建 bucket，并添加。</p>
+<h1 id="创建-bucket"><a href="#创建-bucket" class="headerlink" title="创建 bucket"></a>创建 bucket</h1><p>要创建 bucket 其实很简单，bucket 实质上是一个 GitHub 仓库，因此，在自己的 GitHub 帐号下新建一个仓库，你就得到了一个 bucket。并且通过以下命令就可以添加到 Scoop 中：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 添加 bucket（指定名称和 GitHub 仓库地址）</span></span><br><span class="line">scoop bucket add my<span class="literal">-bucket</span> https://github.com/&lt;your<span class="literal">-username</span>&gt;/my<span class="literal">-bucket</span></span><br><span class="line"><span class="comment"># 查看已添加的 bucket 列表（新添加的 bucket 应该也在其中）</span></span><br><span class="line">scoop bucket list</span><br></pre></td></tr></table></figure>
+<p>不过，目前为止，我们创建的 bucket 是空的，尚未包含任何应用。bucket 以应用清单的形式提供应用，因此，我们还需要添加应用清单。</p>
+<h1 id="应用清单"><a href="#应用清单" class="headerlink" title="应用清单"></a>应用清单</h1><p>所谓“应用清单”，实质上就是一个 JSON 文件，文件中使用一个 JSON 对象提供应用信息。</p>
+<p>我们可以使用 Scoop 命令创建该文件：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scoop create &lt;url&gt;</span><br></pre></td></tr></table></figure>
+<p>当然，也可以拷贝一个现成的清单文件进行修改。</p>
+<h2 id="简单示例"><a href="#简单示例" class="headerlink" title="简单示例"></a>简单示例</h2><p>比如，在 GitHub 仓库根目录创建文件 <code>hello.json</code>，其内容大致如下：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">&quot;version&quot;</span>: <span class="string">&quot;1.0&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;url&quot;</span>: <span class="string">&quot;https://.../hello.ps1&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;bin&quot;</span>: <span class="string">&quot;hello.ps1&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这样，就在自己的 bucket 中添加了一个名为“hello”的应用，通过应用名就可以搜索或安装它：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 搜索应用</span></span><br><span class="line">scoop search hello</span><br><span class="line"><span class="comment"># 安装</span></span><br><span class="line">scoop install hello</span><br></pre></td></tr></table></figure>
+<p>当然，以上命令有效的前提是已经添加了自定义的 bucket。</p>
+<h2 id="属性配置"><a href="#属性配置" class="headerlink" title="属性配置"></a>属性配置</h2><p>前文只给出了一个简单的应用清单示例，不过，应用清单中的 JSON 对象有很多配置属性，主要分为 <a target="_blank" rel="noopener" href="https://github.com/lukesampson/scoop/wiki/App-Manifests#required-properties">必要属性</a> 和 <a target="_blank" rel="noopener" href="https://github.com/lukesampson/scoop/wiki/App-Manifests#optional-properties">可选属性</a>，详细说明请参考官方 <a target="_blank" rel="noopener" href="https://github.com/lukesampson/scoop/wiki/App-Manifests#required-properties">Wiki</a>。</p>
+<p>通常，要一个应用清单是可用的，至少必须配置必要属性，即 <code>version</code> 和 <code>url</code>，分别指定应用版本和下载地址。这样，scoop 就可以依此判断应用状态，以正确执行各种命令。而可选属性并非总是可缺省的，这取决于应用的形式，下文应用清单示例会进行相关说明。</p>
+<h2 id="自动更新"><a href="#自动更新" class="headerlink" title="自动更新"></a>自动更新</h2><p>当应用版本升级时，可以手动维护应用清单，以升级相关信息，主要包括：版本号（<code>version</code>）、下载地址（<code>url</code>）、哈希码（<code>hash</code>）等。</p>
+<p>但是，手动维护工作量很大，所以，scoop 提供了自动更新应用清单的功能，只是需要进行相关属性配置即可启用。</p>
+<p>简单来说，需要配置 <code>checkver</code> 和 <code>autoupdate</code> 两个属性，前者用以获取最新版本，后者用以获取更新的下载地址和哈希码等。</p>
+<h3 id="自动更新配置"><a href="#自动更新配置" class="headerlink" title="自动更新配置"></a>自动更新配置</h3><blockquote>
+<p>应用清单的配置难点在于，部分关键属性的结构是可变的，同一个属性，可能既可以是一个字符串，也可以是一个数组，还可以是一个对象……</p>
+<p>这并非是 scoop 的开发者有意为之，而是由于应用的提供方式并没有一个统一的规范，所以需要不同的配置方式与之对应。</p>
+<p>而 <code>checkver</code> 和 <code>autoupdate</code> 属性正在其列。我们需要清楚哪种应用提供方式对应哪种属性配置方式，否则会很混乱。</p>
+</blockquote>
+<h4 id="checkver属性"><a href="#checkver属性" class="headerlink" title="checkver属性"></a>checkver属性</h4><p><strong>在主页匹配版本</strong></p>
+<p>最简单的配置是给一个正则表达式，比如后文的 Q-Dir 的配置 <code>&quot;checkver&quot;: &quot;Q-Dir ([^\\ ]+)&quot;</code>。scoop 将使用该正则表达式去 <code>homepage</code> 属性指定的主页中去匹配版本。</p>
+<p><strong>在指定页面匹配版本</strong></p>
+<p>但是，如果应用主页没有版本信息，而要去其他页面查找，那么 <code>checkver</code> 将配置为一个 JSON 对象（<code>checkver.url</code> 指定该页面；<code>checkver.regex</code> 指定正则），比如后文中的 Typora：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;checkver&quot;</span>: &#123;</span><br><span class="line">    <span class="attr">&quot;url&quot;</span>: <span class="string">&quot;https://typora.io/windows/dev_release.html&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;regex&quot;</span>: <span class="string">&quot;&lt;h4&gt;([\\d\\.]+)&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>在 JSON 文件中匹配版本</strong></p>
+<p>如果查找的不是一个页面，而是一个在线 JSON 文件，则需要利用 JSONPath 等相关配置，详见 <a target="_blank" rel="noopener" href="https://github.com/lukesampson/scoop/wiki/App-Manifest-Autoupdate#using-jsonpath-in-checkver">这里</a>。</p>
+</blockquote>
+<p><strong>在 GitHub 仓库主页匹配版本</strong></p>
+<p>特别地，当应用发布于 GitHub 上时，<code>homepage</code> 正是该仓库位置，那么仅需配置 <code>&quot;checkver&quot;: &quot;github&quot;</code> 即可。比如后文 PowerShell 的配置。</p>
+<blockquote>
+<p>注意，<code>github</code> 是一个特殊值。默认的正则表达式是 <code>\/releases\/tag\/(?:v)?([\d.]+)</code>。而且它匹配的应该不是页面内容，而是 <code>/releases/latest</code> 重定向到的页面的 URL——即最后一个正式版的发布页面，因此，不会匹配到预览版等版本。</p>
+</blockquote>
+<p><strong>指定 GitHub 仓库匹配版本</strong></p>
+<p>关于 GitHub 发布的应用的另一种情况是，该应用有自己的主页（<code>homepage</code> 属性不是 GitHub 仓库位置），但版本信息需要在 GitHub 中获取，则需要用 <code>checkver.github</code> 来指定仓库位置。</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;checkver&quot;</span>: &#123;</span><br><span class="line">    <span class="attr">&quot;github&quot;</span>: <span class="string">&quot;https://github.com/&lt;user&gt;/&lt;project&gt;&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>指定页面匹配版本</strong></p>
+<p>更一般的，如果版本信息不在主页，而在其他页面，则需要配置 <code>checkver.url</code> 和 <code>checkver.regex</code> 分别指定版本所在页面的 URL 和正则表达式。</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;checkver&quot;</span>: &#123;</span><br><span class="line">    <span class="attr">&quot;url&quot;</span>: <span class="string">&quot;https://path/to/version/page&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;regex&quot;</span>: <span class="string">&quot;...&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong><code>checkver</code>下常用的其他属性</strong></p>
+<ul>
+<li><code>checkver.reverse</code>：<code>true</code>/<code>false</code>，返回最后一次匹配，默认是首次。</li>
+<li><code>checkver.replace</code>：替换版本值。这通常会使用<a target="_blank" rel="noopener" href="https://github.com/lukesampson/scoop/wiki/App-Manifest-Autoupdate#captured-variables">捕获变量</a>（随后说明）。</li>
+</ul>
+<blockquote>
+<p>注意：<code>checkver.replace</code> 使用捕获变量的格式（<code>$&#123;1&#125;</code>/<code>$&#123;name1&#125;</code>）与 <code>autoupdate</code> 中格式（<code>$match1</code>/<code>$matchName1</code>）的区别。</p>
+<p><code>checkver</code> 下所有属性可参考 <a target="_blank" rel="noopener" href="https://github.com/lukesampson/scoop/wiki/App-Manifest-Autoupdate#properties-of-checkver">这里</a>。</p>
+</blockquote>
+<p><strong>关于版本变量</strong></p>
+<p>所谓版本变量，就是存储了当前版本信息的变量。</p>
+<p>最常见的应该是 <code>$version</code>，它存储了当前应用的版本。默认情况下，它的值来源于 <code>checkver</code> 的正则表达式匹配的第一个捕获分组。通常，它用于需自动更新的各种 URL 中，比如：<code>autoupdate.url</code>（可参考 PowerShell 应用清单示例）。</p>
+<blockquote>
+<p>注意：经测试，一旦正则匹配中有命名捕获分组，那么 <code>$version</code> 就不会有值，除非有捕获分组被命名为 <code>version</code>。</p>
+<p>当然，版本变量不止这一个，更多版本变量信息参考 <a target="_blank" rel="noopener" href="https://github.com/lukesampson/scoop/wiki/App-Manifest-Autoupdate#version-variables">这里</a>。</p>
+</blockquote>
+<p><strong>关于捕获变量</strong></p>
+<p>所谓捕获变量，就是存储了在 <code>checkver</code> 正则匹配中捕获分组所匹配文本的变量。</p>
+<blockquote>
+<p>更多参考 <a target="_blank" rel="noopener" href="https://github.com/lukesampson/scoop/wiki/App-Manifest-Autoupdate#captured-variables">这里</a>。</p>
+</blockquote>
+<h4 id="autoupdate属性"><a href="#autoupdate属性" class="headerlink" title="autoupdate属性"></a>autoupdate属性</h4><p>从用途上说，<code>autoupdate</code> 属性是要自动更新应用清单文件中的一系列版本相关信息，这包括：<code>url</code>（应用链接）、<code>hash</code>、<code>extract_dir</code>……</p>
+<p><code>autoupdate</code> 属性配置大致类似下面这样：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;autoupdate&quot;</span>: &#123;</span><br><span class="line">    <span class="attr">&quot;architecture&quot;</span>: &#123;</span><br><span class="line">        <span class="attr">&quot;64bit&quot;</span>: &#123;</span><br><span class="line">            <span class="attr">&quot;url&quot;</span>: ...</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">&quot;32bit&quot;</span>: &#123;</span><br><span class="line">            <span class="attr">&quot;url&quot;</span>: ...</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">&quot;hash&quot;</span>: &#123;</span><br><span class="line">        <span class="attr">&quot;url&quot;</span>: ...,</span><br><span class="line">        <span class="attr">&quot;find&quot;</span>: ...</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>但是，与 <code>checkver</code> 属性类似，这个结构是易变的。</p>
+<p><strong>关于<code>url</code>配置</strong></p>
+<p>如果应用不区分 32/64 位系统架构，那么，<code>autoupdate.architecture</code> 属性的层次就不是必须的，直接指定 <code>autoupdate.url</code> 属性就好。</p>
+<p>通常，<code>url</code> 都会使用版本变量或捕获变量，除非下载链接是固定的。（可参考本文示例部分）</p>
+<p><strong>关于<code>hash</code>配置</strong></p>
+<p>如果 HASH 码的获取无关系统架构，那么，通常独立配置 <code>autoupdate.hash</code> 属性；但是，如果有关，那么通常分别配置 <code>autoupdate.architecture.32bit.hash</code> 和 <code>autoupdate.architecture.64bit.hash</code>。</p>
+<p>HASH 码有多种获取方式，这要根据应用提供 HASH 码的形式来确定使用哪种配置方式。通常需要配置 <code>hash.url</code> 和 <code>hash.find</code> 属性。</p>
+<blockquote>
+<p><code>hash</code> 属性不是必须的，但应尽力配置，否则自动更新时将会通过下载应用来计算其 HASH 码——这可能很耗时。</p>
+<p>HASH 码 可通过多种方式获取，包括：请求链接、在线文件中正则查找、JSON path 查找在线 JSON 文件等。</p>
+<p>更多 <code>hash</code> 配置参考 <a target="_blank" rel="noopener" href="https://github.com/lukesampson/scoop/wiki/App-Manifest-Autoupdate#adding-hash-to-autoupdate">这里</a>。</p>
+<p>更多 <code>autoupdate</code> 配置参考 <a target="_blank" rel="noopener" href="https://github.com/lukesampson/scoop/wiki/App-Manifest-Autoupdate#adding-autoupdate-to-a-manifest">这里</a>。</p>
+</blockquote>
+<h3 id="更新应用清单"><a href="#更新应用清单" class="headerlink" title="更新应用清单"></a>更新应用清单</h3><p>scoop 提供了一个脚本，位于 <code>scoop\apps\scoop\current\bin\checkver.ps1</code>，用以更新应用清单。不过，通常我们不会直接使用该脚本，而是使用有批处理能力的 checkver.ps1 脚本，它位于任一 known bucket 的 <code>bin</code> 目录下，比如：<code>scoop\buckets\extras\bin\checkver.ps1</code>。我们应在自定义的 bucket 中创建一个 <code>bin</code> 目录，并将该脚本拷贝过去。</p>
+<p>这样，我们在自定义 bucket 根目录就可以执行以下命令：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看某个或所有可自动更新应用的版本状态（列表应用版本及是否可更新）</span></span><br><span class="line">./bin/checkver.ps1 [<span class="type">app</span> | *]</span><br><span class="line"><span class="comment"># 更新某个或所有可自动更新应用的信息（将更新应用清单文件）</span></span><br><span class="line">./bin/checkver.ps1 [<span class="type">app</span> | *] <span class="literal">-u</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注意：仅配置 <code>checkver</code> 属性的情况下，<code>checkver.ps1 &lt;app&gt;</code> 仍然具有检查版本更新的能力。但没有配置 <code>autoupdate</code> 属性的情况下是不能更新应用清单文件的。</p>
+<p>更多可用的参数可参考 <a target="_blank" rel="noopener" href="https://github.com/lukesampson/scoop/wiki/App-Manifest-Autoupdate#parameters-of-checkverps1">这里</a>。</p>
+</blockquote>
+<h2 id="持久化数据"><a href="#持久化数据" class="headerlink" title="持久化数据"></a>持久化数据</h2><p>默认情况下，升级应用时，通常相当于全新安装新版本，安装目录下的所有数据或配置文件都不会自动迁移。</p>
+<p>Scoop 使用 <code>persist</code> 属性来配置处理这些需要持久化的数据或配置文件。</p>
+<blockquote>
+<p>原理是安装时将这些文件保存在 <code>scoop/persist/&lt;app&gt;</code> 目录下，应用版本目录下创建相应的目录联接（对于目录）或硬链接（对于文件）。</p>
+</blockquote>
+<p>注意：持久化的数据通常是安装后就存在的文件（夹），如果不存在会被视为目录处理。</p>
+<blockquote>
+<p>有些应用的配置文件既不在文件夹中，也并非安装后就存在，而是在首次运行时创建的。</p>
+<p>对于这种配置文件，持久化的一种思路是，在安装前自行创建该配置文件。详见 <a href="#mouseinc">MouseInc 应用清单示例</a>。</p>
+</blockquote>
+<h3 id="持久化配置"><a href="#持久化配置" class="headerlink" title="持久化配置"></a>持久化配置</h3><p>配置应该如下面这样：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">&quot;persist&quot;</span>: [</span><br><span class="line">        <span class="string">&quot;keeps_its_name&quot;</span>,</span><br><span class="line">        [<span class="string">&quot;original_name&quot;</span>, <span class="string">&quot;new_name_inside_the_data_dir&quot;</span>]</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>persist</code> 属性可以是一个字符串，当且仅当只有一个文件（夹）需要持久化时；通常，它是一个数组，列出了所有需要持久化的文件（夹）。当然，可以为持久化目录中的文件（夹）取不同的名字，像上面配置示例那样给出一个两个元素的子数组，两个元素分别指定原名称和数据存储别名即可。</p>
+<h3 id="卸载时清理数据"><a href="#卸载时清理数据" class="headerlink" title="卸载时清理数据"></a>卸载时清理数据</h3><p>另一点需要注意的是，带有持久化数据的应用在被卸载时，默认不会删除持久化数据，除非卸载命令指定 <code>-p</code>（purge）标志。</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scoop uninstall <span class="literal">-p</span> &lt;app&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="配置参考"><a href="#配置参考" class="headerlink" title="配置参考"></a>配置参考</h2><p>Scoop 提供了多个 bucket，每个中都有很多应用清单可供参考。并且这些 bucket 都被同步到了本地，所以，很方便地就可以进行浏览查看。</p>
+<p>main bucket 位于：<code>scoop\apps\scoop\current\bucket\</code>，其他添加的 bucket 位于：<code>scoop\buckets\</code>。</p>
+<h2 id="共享应用"><a href="#共享应用" class="headerlink" title="共享应用"></a>共享应用</h2><p>如果要分享某个应用给他人的话，可以有以下方法：</p>
+<ul>
+<li>将 bucket 共享给对方添加</li>
+<li>通过本地或共享的应用清单文件安装，如：<code>scoop install \\shared\file\to\hello.js</code></li>
+<li>通过应用清单的 URL 安装，如：<code>scoop install https://path/to/hello.json</code> </li>
+</ul>
+<blockquote>
+<p>从后两种安装方法可以看出，事实上 bucket 不是必须的，重点是将应用清单传给 <code>scoop install</code> 命令。</p>
+</blockquote>
+<h1 id="应用清单示例"><a href="#应用清单示例" class="headerlink" title="应用清单示例"></a>应用清单示例</h1><h2 id="PowerShell"><a href="#PowerShell" class="headerlink" title="PowerShell "></a><a target="_blank" rel="noopener" href="https://github.com/PowerShell/PowerShell">PowerShell </a></h2><p>涉及知识点：</p>
+<ul>
+<li>GitHub 仓库版本检测。<code>&quot;checkver&quot;: &quot;github&quot;</code></li>
+<li><code>autoupdate.architecture.xxbit.url</code> 属性中引用版本变量 <code>$version</code>。</li>
+<li><code>autoupdate.architecture.hash.find</code> 属性中引用文件名变量 <code>$basename</code>。</li>
+</ul>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    ...</span><br><span class="line">    <span class="attr">&quot;checkver&quot;</span>: <span class="string">&quot;github&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;autoupdate&quot;</span>: &#123;</span><br><span class="line">        <span class="attr">&quot;note&quot;</span>: <span class="string">&quot;Thanks for using autoupdate, please test your updates!&quot;</span>,</span><br><span class="line">        <span class="attr">&quot;architecture&quot;</span>: &#123;</span><br><span class="line">            <span class="attr">&quot;64bit&quot;</span>: &#123;</span><br><span class="line">                <span class="attr">&quot;url&quot;</span>: <span class="string">&quot;https://github.com/PowerShell/PowerShell/releases/download/v$version/PowerShell-$version-win-x64.zip&quot;</span></span><br><span class="line">            &#125;,</span><br><span class="line">            <span class="attr">&quot;32bit&quot;</span>: &#123;</span><br><span class="line">                <span class="attr">&quot;url&quot;</span>: <span class="string">&quot;https://github.com/PowerShell/PowerShell/releases/download/v$version/PowerShell-$version-win-x86.zip&quot;</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">&quot;hash&quot;</span>: &#123;</span><br><span class="line">            <span class="attr">&quot;url&quot;</span>: <span class="string">&quot;https://github.com/PowerShell/PowerShell/releases/latest&quot;</span>,</span><br><span class="line">            <span class="attr">&quot;find&quot;</span>: <span class="string">&quot;(?:$basename)(?:[\\s\\S]*?)([a-fA-F0-9]&#123;64&#125;)&quot;</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>完整配置参见 <a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/ericzong/ericzone/master/powershell.json">这里</a>。</p>
+</blockquote>
+<p>上例中，由于 <a target="_blank" rel="noopener" href="https://github.com/PowerShell/PowerShell">PowerShell  </a> 发布于 GitHub，<code>homepage</code> 即是其仓库地址，所以，<code>checkver</code> 属性指定为 <code>github</code> 即可。</p>
+<p><code>autoupdate</code> 属性中的 <code>url</code> 通常会引用版本变量 <code>$version</code>，以生成更新的下载地址。详见 <a target="_blank" rel="noopener" href="https://github.com/lukesampson/scoop/wiki/App-Manifest-Autoupdate#add-autoupdate-to-a-manifest">这里</a>。</p>
+<p>示例中，哈希码的获取使用了一些技巧。</p>
+<p>首先，<code>url</code> 使用的是 latest 路径，这里展示的也是最后一个正式版本，与 <code>checkver</code> 查找对应。（可以看下这个页面的结构）</p>
+<p>匹配的正则表达式中使用到了 <code>$basename</code> 变量，它代表下载地址中的文件名。因为 PowerShell 一个正式版本发布包含多个系统及位数的文件，所以需要文件名去匹配。注意文件名后换了一行列出 SHA256 哈希码，因此使用 <code>(?:[\\s\\S]*?)</code> 匹配换行。这里量词不能是 <code>*</code>，否则会匹配到最后一个哈希码，应使用 <code>*?</code> （勉强匹配）。</p>
+<h2 id="Q-Dir"><a href="#Q-Dir" class="headerlink" title="Q-Dir"></a>Q-Dir</h2><p>涉及知识点：</p>
+<ul>
+<li><code>extract_dir</code> 属性指定解压文件夹。</li>
+<li><code>persist</code> 属性持久化数据。</li>
+<li><code>checkver</code> 属性为正则表达式。</li>
+</ul>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    ...</span><br><span class="line">    <span class="attr">&quot;extract_dir&quot;</span>: <span class="string">&quot;Q-Dir&quot;</span>,</span><br><span class="line">    ...</span><br><span class="line">    <span class="attr">&quot;persist&quot;</span>: [</span><br><span class="line">        <span class="string">&quot;Favoriten&quot;</span>,</span><br><span class="line">        <span class="string">&quot;Q-Dir.ini&quot;</span></span><br><span class="line">    ],</span><br><span class="line">    <span class="attr">&quot;checkver&quot;</span>: <span class="string">&quot;Q-Dir ([^\\ ]+)&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;autoupdate&quot;</span>: &#123;</span><br><span class="line">        ...</span><br><span class="line">        <span class="attr">&quot;hash&quot;</span>: &#123;</span><br><span class="line">            <span class="attr">&quot;url&quot;</span>: <span class="string">&quot;https://www.softwareok.com/?Download=Q-Dir&quot;</span>,</span><br><span class="line">            <span class="attr">&quot;find&quot;</span>: <span class="string">&quot;$basename.*?([a-fA-F0-9]&#123;64&#125;)&quot;</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>完整配置参见 <a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/ericzong/ericzone/master/qdir.json">这里</a>。与 PowerShell   类似的配置就不再赘述了。</p>
+</blockquote>
+<p>首先，注意 Q-Dir 配置了 <code>extract_dir</code> 属性，但 PowerShell 没有。这是因为，PowerShell   压缩包直接包含所有文件，而 Q-Dir 压缩包包含的是 Q-Dir 目录，所以，需要 <code>extract_dir</code> 属性指明解压出 Q-Dir 目录中的文件。</p>
+<p>其次，配置了 <code>persist</code> 属性，这是指定持久化数据的。这里主要是为了保存 Q-Dir 的配置文件和快捷目录。</p>
+<p><code>checkver</code> 属性是一个正则表达式，它从 <code>homepage</code> 中匹配版本信息。</p>
+<p>Q-Dir 的文件名与 HASH 码间没有换行，所以使用 <code>.*?</code> 匹配即可。</p>
+<h2 id="Typora"><a href="#Typora" class="headerlink" title="Typora"></a>Typora</h2><p>涉及知识点：</p>
+<ul>
+<li>安装程序配置</li>
+<li>添加快捷方式</li>
+</ul>
+<p>配置方案一：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    ...</span><br><span class="line">    <span class="attr">&quot;innosetup&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Typora 的特殊之处在于它只有安装版，没有便携版。因此，我们需要执行安装程序。</p>
+<p>不过，由于 Typora 安装程序是基于 InnoSetup 的，所以直接将 <code>innosetup</code> 属性设置为 <code>true</code> 即可。</p>
+<p>配置方案二：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    ...</span><br><span class="line">    <span class="attr">&quot;installer&quot;</span>: &#123;</span><br><span class="line">        <span class="attr">&quot;args&quot;</span>: [</span><br><span class="line">            <span class="string">&quot;/VERYSILENT&quot;</span>,</span><br><span class="line">            <span class="string">&quot;/SUPPRESSMSGBOXES&quot;</span>,</span><br><span class="line">            <span class="string">&quot;/NOCANCEL&quot;</span>,</span><br><span class="line">            <span class="string">&quot;/NORESTART&quot;</span>,</span><br><span class="line">            <span class="string">&quot;/CLOSEAPPLICATIONS&quot;</span>,</span><br><span class="line">	<span class="string">&quot;/GROUP=typora&quot;</span>,</span><br><span class="line">            <span class="string">&quot;/DIR=$dir&quot;</span>,</span><br><span class="line">            <span class="string">&quot;/LOG=$dir/install.log&quot;</span></span><br><span class="line">        ]</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">&quot;uninstaller&quot;</span>: &#123;</span><br><span class="line">        <span class="attr">&quot;file&quot;</span>: <span class="string">&quot;unins000.exe&quot;</span>,</span><br><span class="line">        <span class="attr">&quot;args&quot;</span>: <span class="string">&quot;/VERYSILENT&quot;</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">&quot;shortcuts&quot;</span>: [</span><br><span class="line">        [</span><br><span class="line">            <span class="string">&quot;Typora.exe&quot;</span>,</span><br><span class="line">            <span class="string">&quot;Typora&quot;</span></span><br><span class="line">        ]</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>另外，我们也可以通过 <code>installer</code> 和 <code>uninstaller</code> 属性来指定安装和卸载行为。由于 Typora 提供了命令行安装与卸载接口，因此，配置方案二将具有更多的控制权。</p>
+<p>安装文件是确定的，所以只需要 <code>installer.args</code> 指定选项即可；而卸载不同，还需要 <code>uninstaller.file</code> 指定卸载程序文件。</p>
+<blockquote>
+<p>通常，安装/卸载程序都应提供命令行接口，并且有静默安装/卸载的选项，否则将不能自动化的安装与卸载，即不适合用这种方式管理。</p>
+</blockquote>
+<p>此外，我们还通过 <code>shortcuts</code> 属性来为 Typora 在开始菜单中添加了快捷方式。</p>
+<h2 id="MouseInc"><a href="#MouseInc" class="headerlink" title="MouseInc"></a>MouseInc</h2><p>涉及知识点：</p>
+<ul>
+<li><code>persist</code> 属性持久化数据。</li>
+<li><code>pre_install</code> 预安装脚本，在应用安装前执行。</li>
+</ul>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	<span class="attr">&quot;homepage&quot;</span>: <span class="string">&quot;https://shuax.com/project/mouseinc/&quot;</span>,</span><br><span class="line">	<span class="attr">&quot;url&quot;</span>: <span class="string">&quot;https://dl.shuax.com/MouseInc2.10.21.7z&quot;</span>,</span><br><span class="line">	<span class="attr">&quot;version&quot;</span>: <span class="string">&quot;2.10.21&quot;</span>,</span><br><span class="line">	<span class="attr">&quot;license&quot;</span>: <span class="string">&quot;Freeware&quot;</span>,</span><br><span class="line">	<span class="attr">&quot;extract_dir&quot;</span>: <span class="string">&quot;MouseInc&quot;</span>,</span><br><span class="line">	<span class="attr">&quot;checkver&quot;</span>: <span class="string">&quot;MouseInc ([\\d.]+)&quot;</span>,</span><br><span class="line">	<span class="attr">&quot;autoupdate&quot;</span>: &#123;</span><br><span class="line">		<span class="attr">&quot;url&quot;</span>: <span class="string">&quot;https://dl.shuax.com/MouseInc$version.7z&quot;</span></span><br><span class="line">	&#125;,</span><br><span class="line">	<span class="attr">&quot;pre_install&quot;</span>: <span class="string">&quot;ni \&quot;$dir\\MouseInc.json\&quot;&quot;</span>,</span><br><span class="line">	<span class="attr">&quot;persist&quot;</span>: [</span><br><span class="line">		<span class="string">&quot;MouseInc.json&quot;</span></span><br><span class="line">	],</span><br><span class="line">	<span class="attr">&quot;depends&quot;</span>: <span class="string">&quot;&quot;</span>,</span><br><span class="line">	<span class="attr">&quot;hash&quot;</span>: <span class="string">&quot;fdb6dc659dc583fc3c7de911910defdae80b2c593180b6039f36d348ef345bb5&quot;</span>,</span><br><span class="line">	<span class="attr">&quot;bin&quot;</span>: [</span><br><span class="line">		[</span><br><span class="line">			<span class="string">&quot;MouseInc.exe&quot;</span>,</span><br><span class="line">			<span class="string">&quot;mouseinc&quot;</span></span><br><span class="line">		]</span><br><span class="line">	]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>关于 MouseInc，我们要讨论是其配置文件的持久化。</p>
+<p>MouseInc 配置文件的特殊之处在于，该文件是在首次运行时生成的。因此，如果只配置 <code>persist</code> 属性，那么安装后会发现配置文件被 <code>scoop</code> 视为文件夹处理了。而 MouseInc 启动时将不能再创建同名的文件，进而导致一些莫名的问题。</p>
+<p>想要正确处理这种运行时生成的配置文件，一种方案是使用预安装脚本事先创建配置文件，这样，<code>scoop</code> 就可以正确处理了。</p>
+<p>从 MouseInc 的应用清单可见，<code>pre_install</code> 属性配置了预安装脚本，该脚本会在应用安装前执行。</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># &quot;ni \&quot;$dir\\MouseInc.json\&quot;&quot;  即</span></span><br><span class="line"><span class="built_in">ni</span> <span class="variable">$dir</span>\MouseInc.json</span><br></pre></td></tr></table></figure>
+<p>注意：由于脚本是以 json 值的形式提供的，所以，双引号、反斜杠等特殊符号均需进行转义。</p>
+<blockquote>
+<p>脚本中可以使用一些相关变量，比如本例中的 <code>$dir</code> 即当前安装应用的目录，更多可用变量参考<a target="_blank" rel="noopener" href="https://github.com/lukesampson/scoop/wiki/Pre--and-Post-install-scripts">这里</a>。</p>
+<p>另，<code>post_install</code> 属性可配置应用安装后执行的脚本。</p>
+</blockquote>
+<h1 id="参考资源"><a href="#参考资源" class="headerlink" title="参考资源"></a>参考资源</h1><p><a target="_blank" rel="noopener" href="https://github.com/lukesampson/scoop/wiki/Buckets">Scoop Wiki - Buckets</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/lukesampson/scoop/wiki/App-Manifests">Scoop Wiki - App Manifests</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/lukesampson/scoop/wiki/App-Manifests#optional-properties">Scoop Wiki - Optional Properties</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/lukesampson/scoop/wiki/Creating-an-app-manifest">Scoop Wiki - Creating an app manifest</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/lukesampson/scoop/wiki/App-Manifest-Autoupdate">Scoop Wiki - Autoupdate</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/ericzong/ericzone">我的 bucket</a></p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Eric Zong
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://ericzonglu.gitee.io/posts/tool-scoop-bucket.html" title="Scoop bucket 使用详解">http://ericzonglu.gitee.io/posts/tool-scoop-bucket.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Scoop/" rel="tag"># Scoop</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/tool-scoop-get-start.html" rel="prev" title="Scoop入门">
+      <i class="fa fa-chevron-left"></i> Scoop入门
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/posts/powershell-exception.html" rel="next" title="PowerShell 异常处理">
+      PowerShell 异常处理 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E-bucket"><span class="nav-number">1.</span> <span class="nav-text">关于 bucket</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA-bucket"><span class="nav-number">2.</span> <span class="nav-text">创建 bucket</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BA%94%E7%94%A8%E6%B8%85%E5%8D%95"><span class="nav-number">3.</span> <span class="nav-text">应用清单</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%80%E5%8D%95%E7%A4%BA%E4%BE%8B"><span class="nav-number">3.1.</span> <span class="nav-text">简单示例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B1%9E%E6%80%A7%E9%85%8D%E7%BD%AE"><span class="nav-number">3.2.</span> <span class="nav-text">属性配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%87%AA%E5%8A%A8%E6%9B%B4%E6%96%B0"><span class="nav-number">3.3.</span> <span class="nav-text">自动更新</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%8A%A8%E6%9B%B4%E6%96%B0%E9%85%8D%E7%BD%AE"><span class="nav-number">3.3.1.</span> <span class="nav-text">自动更新配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9B%B4%E6%96%B0%E5%BA%94%E7%94%A8%E6%B8%85%E5%8D%95"><span class="nav-number">3.3.2.</span> <span class="nav-text">更新应用清单</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8C%81%E4%B9%85%E5%8C%96%E6%95%B0%E6%8D%AE"><span class="nav-number">3.4.</span> <span class="nav-text">持久化数据</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8C%81%E4%B9%85%E5%8C%96%E9%85%8D%E7%BD%AE"><span class="nav-number">3.4.1.</span> <span class="nav-text">持久化配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%B8%E8%BD%BD%E6%97%B6%E6%B8%85%E7%90%86%E6%95%B0%E6%8D%AE"><span class="nav-number">3.4.2.</span> <span class="nav-text">卸载时清理数据</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E5%8F%82%E8%80%83"><span class="nav-number">3.5.</span> <span class="nav-text">配置参考</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B1%E4%BA%AB%E5%BA%94%E7%94%A8"><span class="nav-number">3.6.</span> <span class="nav-text">共享应用</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BA%94%E7%94%A8%E6%B8%85%E5%8D%95%E7%A4%BA%E4%BE%8B"><span class="nav-number">4.</span> <span class="nav-text">应用清单示例</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#PowerShell"><span class="nav-number">4.1.</span> <span class="nav-text">PowerShell </span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Q-Dir"><span class="nav-number">4.2.</span> <span class="nav-text">Q-Dir</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Typora"><span class="nav-number">4.3.</span> <span class="nav-text">Typora</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MouseInc"><span class="nav-number">4.4.</span> <span class="nav-text">MouseInc</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%BA%90"><span class="nav-number">5.</span> <span class="nav-text">参考资源</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Eric Zong</p>
+  <div class="site-description" itemprop="description">这里有作为一个程序员想记录的一切。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">96</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Eric Zong</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

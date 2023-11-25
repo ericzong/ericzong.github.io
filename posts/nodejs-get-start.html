@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"ericzonglu.gitee.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="Node.js 入门教程。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Node.js 入门">
+<meta property="og:url" content="http://ericzonglu.gitee.io/posts/nodejs-get-start.html">
+<meta property="og:site_name" content="八白龙的博客">
+<meta property="og:description" content="Node.js 入门教程。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-04-22T16:00:00.000Z">
+<meta property="article:modified_time" content="2020-10-04T05:49:18.843Z">
+<meta property="article:author" content="Eric Zong">
+<meta property="article:tag" content="入门教程">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://ericzonglu.gitee.io/posts/nodejs-get-start.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Node.js 入门 | 八白龙的博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">八白龙的博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">程序员的杂货铺</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-references">
+
+    <a href="/references/" rel="section"><i class="bookmark fa-fw"></i>参考</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://ericzonglu.gitee.io/posts/nodejs-get-start.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Eric Zong">
+      <meta itemprop="description" content="这里有作为一个程序员想记录的一切。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="八白龙的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Node.js 入门
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-04-23 00:00:00" itemprop="dateCreated datePublished" datetime="2019-04-23T00:00:00+08:00">2019-04-23</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-10-04 13:49:18" itemprop="dateModified" datetime="2020-10-04T13:49:18+08:00">2020-10-04</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Node-js/" itemprop="url" rel="index"><span itemprop="name">Node.js</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p>Node.js 是运行在服务端的 JavaScript。</p>
+<blockquote>
+<p>Node.js 不是语言名称，它只是 JS 的一种宿主环境。</p>
+</blockquote>
+<p>它使用 Google 的 V8 引擎，V8 引擎使用 C++ 开发，与 C 语言执行效率非常相近。</p>
+<p>它的高性能依赖于两种机制：非阻塞型 I/O 和 事件循环。</p>
+<h1 id="交互式解释器"><a href="#交互式解释器" class="headerlink" title="交互式解释器"></a>交互式解释器</h1><p>跟大多数现代语言环境一样，Node.js 提供名为 REPL(Read-Eval-Print-Loop) 的交互式解释器。</p>
+<blockquote>
+<p>REPL 内部使用 eval 函数来计算表达式执行结果。</p>
+</blockquote>
+<p>Node.js 安装成功后，通过 <code>node</code> 命令可以在命令行进入交互模式。</p>
+<h2 id="上下文对象"><a href="#上下文对象" class="headerlink" title="上下文对象"></a>上下文对象</h2><p>如果直接进入 REPL 环境中，通常，只能进行一些简单的测试或实验工作，否则，输入量会较大，不适合通过交互模式进行。</p>
+<p>一个可选的方案是，将某些任务的基础工作放在一个脚本文件中执行，以初始化交互环境。</p>
+<p>Node.js 可通过脚本向 REPL 上下文对象中添加变量或函数。</p>
+<p>比如，使用 <code>node repl.js</code> 执行包含如下内容的 js 脚本，将进入交互模式并可以直接使用脚本中定义的变量 <code>msg</code> 和函数 <code>test</code>。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// repl.js</span></span><br><span class="line"><span class="keyword">var</span> repl = <span class="built_in">require</span>(<span class="string">&#x27;repl&#x27;</span>);</span><br><span class="line"><span class="keyword">var</span> context = repl.start().context;</span><br><span class="line">context.msg = <span class="string">&#x27;Hello! World!&#x27;</span>;</span><br><span class="line">context.test = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;<span class="built_in">console</span>.log(context.msg);&#125;;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>start() 开始了一个 REPL，这就是为什么执行后会进入交互模式而不是回到命令行。</p>
+</blockquote>
+<h2 id="基础命令"><a href="#基础命令" class="headerlink" title="基础命令"></a>基础命令</h2><p>REPL 自带一些基础命令，它们均以“.”开头。通过其中一个基础命令 <code>.help</code> 就可查看所有基础命令帮助。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&gt; .help</span><br><span class="line">.break    Sometimes you get stuck, this gets you out</span><br><span class="line">.clear    Alias for .break | Break, and also clear the local context</span><br><span class="line">.editor   Enter editor mode</span><br><span class="line">.exit     Exit the repl</span><br><span class="line">.help     Print this help message</span><br><span class="line">.load     Load JS from a file into the REPL session</span><br><span class="line">.save     Save all evaluated commands in this REPL session to a file</span><br></pre></td></tr></table></figure>
+<p>交互模式下，我们不只可以输入单行表达式，也可以输入多行，比如定义函数时往往会是多行。多行表达式从第 2 行开始以英文省略号为前缀。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="keyword">var</span> test = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">... <span class="built_in">console</span>.log(<span class="string">&#x27;Hello! World!&#x27;</span>);</span><br><span class="line">... &#125;;</span><br></pre></td></tr></table></figure>
+<p>编写多行表达式时，很容易出现输入错误，而换行后就不可以修改前面的行，于是只得取消，返回交互模式。这时就要使用 <code>.break</code> 命令了。</p>
+<blockquote>
+<p>值得注意的是，<code>.break</code> 命令尽可能新起一行输入。</p>
+<p>命令之前可以有空格，但有其它字符将不会返回交互模式。</p>
+<p>命令之后也可以有其它字符，不过当然是以空格分隔的。</p>
+<p>另外，Ctrl + C 是个更快捷的选择。</p>
+</blockquote>
+<p><code>.clear</code> 命令通常是 <code>.break</code> 的别名。但是，如果交互模式是由 start() 启动的，那么 <code>.clear</code> 除了与 <code>.break</code> 相同的效果外还有一个附加效果——清理上下文对象——即交互中定义的所有变量和函数都将清除。</p>
+<blockquote>
+<p>当 <code>.clear</code> 命令启动清理效果时，会回显“Clearing context…”字样。</p>
+</blockquote>
+<p><code>.editor</code> 命令会进入编辑器模式。它允许一次性输入大段代码，可以包含多个表达式。但是，编辑器模式仍然不能修改光标所在行之前的行。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> .editor</span></span><br><span class="line">// Entering editor mode (^D to finish, ^C to cancel)</span><br></pre></td></tr></table></figure>
+<p><code>.exit</code> 退出交互模式。</p>
+<blockquote>
+<p>在“干净”的交互状态下，有两个快捷键可用于退出：Ctrl + C（按两次） 或 Ctrl + D。</p>
+<p>所谓“干净”，是指命令提示符（“&gt;”）后没有任何输入。如果有，可以按 Ctrl + C 抛弃它。</p>
+<p>按两次 Ctrl + C 退出时，第一次会回显“(To exit, press ^C again or type .exit)”提示。</p>
+</blockquote>
+<p><code>.save</code> 和 <code>.load</code> 是一对命令，前者将当前会话中执行的命令保存到文件，后者用以加载这种命令文件。</p>
+<h1 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h1><h2 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h2><p><code>global</code> 代表全局命名空间，是 Node.js 的顶级变量。</p>
+<p>下划线（_）可访问最近使用的表达式。</p>
+<h2 id="模块"><a href="#模块" class="headerlink" title="模块"></a>模块</h2><h3 id="导入导出"><a href="#导入导出" class="headerlink" title="导入导出"></a>导入导出</h3><p>exports，导出变量、函数或方法</p>
+<p>module.exports，等价于 exports。但将模块定义为类时，仅能用它。</p>
+<p>require(module)，将从当前目录逐层上溯查找 node_modules/module 以及全局目录：</p>
+<ul>
+<li>环境变量 NODE_PATH</li>
+<li>$HOME/.node_modules</li>
+<li>$HOME/.node_libraries</li>
+</ul>
+<h3 id="模块文件"><a href="#模块文件" class="headerlink" title="模块文件"></a>模块文件</h3><ul>
+<li>.js</li>
+<li>.json</li>
+<li>.node，编译后的二进制模块文件</li>
+</ul>
+<h3 id="相对路径"><a href="#相对路径" class="headerlink" title="相对路径"></a>相对路径</h3><p>模块文件的相对路径相对于当前目录而言，当前目录：</p>
+<ul>
+<li>REPL 运行时，指命令行窗口所在目录</li>
+<li>文件中运行时，指文件所在目录</li>
+</ul>
+<h3 id="相关使用"><a href="#相关使用" class="headerlink" title="相关使用"></a>相关使用</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 判断当前是否主模块</span></span><br><span class="line"><span class="keyword">if</span>(<span class="built_in">module</span> === <span class="built_in">require</span>.main) &#123;&#125;</span><br><span class="line"><span class="comment">// 查询完整模块名</span></span><br><span class="line"><span class="built_in">require</span>.resolve(<span class="built_in">module</span>);</span><br><span class="line"><span class="comment">// 已加载模块缓存，键-值对</span></span><br><span class="line"><span class="built_in">require</span>.cache[<span class="built_in">require</span>.resolve(<span class="built_in">module</span>)]</span><br><span class="line"><span class="comment">// 删除模块缓存</span></span><br><span class="line"><span class="keyword">delete</span> <span class="built_in">require</span>.cache[<span class="built_in">require</span>.resolve(<span class="built_in">module</span>)]</span><br></pre></td></tr></table></figure>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><h2 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> V8 开发中特性</span></span><br><span class="line">(node --v8-options) -match &quot;in progress&quot;</span><br><span class="line"><span class="meta">#</span><span class="bash"> V8 版本</span></span><br><span class="line">node -p process.versions.v8</span><br></pre></td></tr></table></figure>
+<h2 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h2><p><a target="_blank" rel="noopener" href="http://www.runoob.com/nodejs/nodejs-tutorial.html">菜鸟教程</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.nodebeginner.org/index-zh-cn.html">Node入门</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/nodejs/node">GitHub</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.nodecloud.org/">NodeCloud</a></p>
+<p><a target="_blank" rel="noopener" href="http://nodejs.cn/">Node.js中文网 - API</a></p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Eric Zong
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://ericzonglu.gitee.io/posts/nodejs-get-start.html" title="Node.js 入门">http://ericzonglu.gitee.io/posts/nodejs-get-start.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/" rel="tag"># 入门教程</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/powershell-exception.html" rel="prev" title="PowerShell 异常处理">
+      <i class="fa fa-chevron-left"></i> PowerShell 异常处理
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/posts/scss-get-start.html" rel="next" title="SCSS入门">
+      SCSS入门 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A6%82%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%A4%E4%BA%92%E5%BC%8F%E8%A7%A3%E9%87%8A%E5%99%A8"><span class="nav-number">2.</span> <span class="nav-text">交互式解释器</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8A%E4%B8%8B%E6%96%87%E5%AF%B9%E8%B1%A1"><span class="nav-number">2.1.</span> <span class="nav-text">上下文对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4"><span class="nav-number">2.2.</span> <span class="nav-text">基础命令</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86"><span class="nav-number">3.</span> <span class="nav-text">基础知识</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%98%E9%87%8F"><span class="nav-number">3.1.</span> <span class="nav-text">变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A8%A1%E5%9D%97"><span class="nav-number">3.2.</span> <span class="nav-text">模块</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%BC%E5%85%A5%E5%AF%BC%E5%87%BA"><span class="nav-number">3.2.1.</span> <span class="nav-text">导入导出</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A8%A1%E5%9D%97%E6%96%87%E4%BB%B6"><span class="nav-number">3.2.2.</span> <span class="nav-text">模块文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%B8%E5%AF%B9%E8%B7%AF%E5%BE%84"><span class="nav-number">3.2.3.</span> <span class="nav-text">相对路径</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%B8%E5%85%B3%E4%BD%BF%E7%94%A8"><span class="nav-number">3.2.4.</span> <span class="nav-text">相关使用</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-number">4.</span> <span class="nav-text">参考</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%91%BD%E4%BB%A4"><span class="nav-number">4.1.</span> <span class="nav-text">命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%93%BE%E6%8E%A5"><span class="nav-number">4.2.</span> <span class="nav-text">链接</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Eric Zong</p>
+  <div class="site-description" itemprop="description">这里有作为一个程序员想记录的一切。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">96</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Eric Zong</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"ericzonglu.gitee.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="PowerShell函数与脚本入门教程。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PowerShell入门：函数与脚本">
+<meta property="og:url" content="http://ericzonglu.gitee.io/posts/powershell-function-and-script.html">
+<meta property="og:site_name" content="八白龙的博客">
+<meta property="og:description" content="PowerShell函数与脚本入门教程。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-05-15T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-05-09T16:00:00.000Z">
+<meta property="article:author" content="Eric Zong">
+<meta property="article:tag" content="入门教程">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://ericzonglu.gitee.io/posts/powershell-function-and-script.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>PowerShell入门：函数与脚本 | 八白龙的博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">八白龙的博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">程序员的杂货铺</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-references">
+
+    <a href="/references/" rel="section"><i class="bookmark fa-fw"></i>参考</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://ericzonglu.gitee.io/posts/powershell-function-and-script.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Eric Zong">
+      <meta itemprop="description" content="这里有作为一个程序员想记录的一切。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="八白龙的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          PowerShell入门：函数与脚本
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-05-16 00:00:00" itemprop="dateCreated datePublished" datetime="2019-05-16T00:00:00+08:00">2019-05-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-05-10 00:00:00" itemprop="dateModified" datetime="2022-05-10T00:00:00+08:00">2022-05-10</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/PowerShell/" itemprop="url" rel="index"><span itemprop="name">PowerShell</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h1><p>简单来说，函数就是命名的语句块。</p>
+<p>简单函数定义语法如下：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">Function</span> &lt;<span class="keyword">function</span>-<span class="title">name</span>&gt; <span class="params">(<span class="variable">$param1</span>, <span class="variable">$param2</span>)</span></span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="comment"># code</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>完整的函数结构包括：关键字、作用域、函数名、参数、函数体。完整语法参考 <a href="#函数完整方法">这里</a>。</p>
+</blockquote>
+<h1 id="关键字"><a href="#关键字" class="headerlink" title="关键字"></a>关键字</h1><p>函数定义通常以 <code>Function</code> 开头，说明定义类型为函数。</p>
+<blockquote>
+<p>关键字还可以是 <code>Filter</code>，定义的是过滤器，它是一种特殊的函数。</p>
+</blockquote>
+<h1 id="作用域"><a href="#作用域" class="headerlink" title="作用域"></a>作用域</h1><p>通常，函数属于创建它的作用域，除非有必要否则一般由 PowerShell 自行管理其作用域。</p>
+<p>如需指定作用域，需在函数名前加作用域前缀：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> [&lt;<span class="title">scope-modifier</span>&gt;:]&lt;<span class="title">name</span>&gt;</span> &#123;&lt;function<span class="literal">-body</span>&gt;&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="函数名"><a href="#函数名" class="headerlink" title="函数名"></a>函数名</h1><p>PowerShell 建议的函数名格式为“动名词对（verb-noun pair）”，并且动词还规定有标准的，可通过命名 <code>Get-Verb</code> 查看。</p>
+<blockquote>
+<p>函数名理论上可以是“任意”的，但符合 PowerShell 建议格式的函数名更易被他人理解。</p>
+</blockquote>
+<h1 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h1><h2 id="定义方式"><a href="#定义方式" class="headerlink" title="定义方式"></a>定义方式</h2><p>PowerShell 有两种参数定义方式，一种跟大多数语言类似，将参数放置于函数名后的圆括号中，如：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span><span class="params">(<span class="variable">$a</span>, <span class="variable">$b</span>)</span></span> &#123;</span><br><span class="line">  <span class="variable">$a</span> + <span class="variable">$b</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>也可以将参数定义在函数体内，置于 <code>param</code> 语句中，如：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test1</span></span> &#123;</span><br><span class="line">  <span class="keyword">param</span>(<span class="variable">$a</span>, <span class="variable">$b</span>)</span><br><span class="line">  </span><br><span class="line">  <span class="variable">$a</span> + <span class="variable">$b</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>效果上是相同的，但 PowerShell 推荐后者。</p>
+<h2 id="命名参数与位置参数"><a href="#命名参数与位置参数" class="headerlink" title="命名参数与位置参数"></a>命名参数与位置参数</h2><p>如果在定义函数时有声明参数，显然这些参数是有名字的，因此，在调用该函数时可以用“名-值对”的形式传递该参数。此时，称为“<strong>命名参数</strong>”。</p>
+<p>另一方面，也允许定义函数时不声明参数，而在执行时传递参数，这种参数没有名称，只能通过相对位置访问，称为“<strong>位置参数</strong>”。</p>
+<blockquote>
+<p>不过，即使是声明的参数，默认情况下也会绑定位置。因此，也可以不使用其名称传参，此时，也是位置参数。</p>
+<p>可见，命名参数和位置参数是依调用情况而不是定义情况而定的。下文会进一步讨论。</p>
+</blockquote>
+<h2 id="参数类型"><a href="#参数类型" class="headerlink" title="参数类型"></a>参数类型</h2><p>到目前为止，都还没有限制参数的类型——这在 PowerShell 中是允许的——如果不指定参数类型，那么理论上，可以传入任何值。但实际上，这通常不是我们想要的。</p>
+<p>要为参数指定类型需要在定义函数时，在参数之前加上类型限制，比如：<code>[int]$num</code>、<code>[string]$name</code>等等。这跟限制变量类型一致。</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Add</span><span class="params">([int]<span class="variable">$one</span>, [int]<span class="variable">$another</span>)</span></span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="variable">$one</span> + <span class="variable">$another</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="开关参数"><a href="#开关参数" class="headerlink" title="开关参数"></a>开关参数</h2><p>对于 PowerShell 而言，一个布尔类型的参数，更合适的作法是将其定义为 <code>[switch]</code> 类型，称为“<strong>开关参数</strong>”。</p>
+<p>开关参数不要求传值，如果为 <code>$true</code> 只需要列出该参数，为 <code>$false</code> 不列出。</p>
+<h2 id="默认值"><a href="#默认值" class="headerlink" title="默认值"></a>默认值</h2><p>命名参数可以指定默认值，只需要在参数声明时，后跟 <code>=</code> 将默认值赋值给参数即可。如：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Add</span><span class="params">([int]<span class="variable">$one</span>=1, [int]<span class="variable">$another</span>=1)</span></span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="variable">$one</span> + <span class="variable">$another</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>需要注意的是，默认值不能与必需参数（Mandatory）一起使用。一旦指定为必需参数，默认值就将失效。</p>
+<p>想要一个参数既有默认值，又是必需的（即传参“非空”），可以使用 <code>ValidateNotNullOrEmpty</code> 参数验证属性：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Test-ParameterValidation</span></span> &#123;</span><br><span class="line">    <span class="function">[<span class="type">CmdletBinding</span>()]</span></span><br><span class="line">    <span class="keyword">param</span>(</span><br><span class="line">        [<span class="type">ValidateNotNullOrEmpty</span>()]</span><br><span class="line">        [<span class="built_in">string</span>[]]<span class="variable">$ComputerName</span> = <span class="variable">$env:COMPUTERNAME</span></span><br><span class="line">    )</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">Write-Output</span> <span class="variable">$ComputerName</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>一个带有技巧性的惯用法是，为参数指定一个异常默认值。</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">doNotMiss</span><span class="params">(<span class="variable">$arg</span>=<span class="variable">$</span>(throw &quot;请提供参数 arg！&quot;)</span>)</span> &#123;</span><br><span class="line">	<span class="variable">$arg</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这样，如果不为 <code>arg</code> 参数传值，那么将得到指定的异常提示。</p>
+<p>注意这种参数与必需参数在缺少时的行为差异。</p>
+</blockquote>
+<h1 id="函数体"><a href="#函数体" class="headerlink" title="函数体"></a>函数体</h1><h2 id="访问所有参数"><a href="#访问所有参数" class="headerlink" title="访问所有参数"></a>访问所有参数</h2><p>通过自动变量 <code>$args</code> 数组，可以访问所有未声明的参数。</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sum</span></span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="variable">$sum</span> = <span class="number">0</span></span><br><span class="line">    <span class="variable">$args</span> | <span class="keyword">foreach</span> &#123; <span class="variable">$sum</span> += <span class="variable">$_</span> &#125;</span><br><span class="line">    <span class="variable">$sum</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">PS</span> &gt; sum <span class="number">2</span> <span class="number">5</span> <span class="number">8</span> </span><br><span class="line"><span class="comment"># 15</span></span><br></pre></td></tr></table></figure>
+<p>上面的函数并没有声明任何参数，但在调用时传入了参数，并在函数体中通过 <code>$args</code> 访问它们。</p>
+<p>如果函数调用时，所传参数都声明了，那么，可以使用自动变量 <code>$PSBoundParameters</code> 访问，它是一个字典，以参数名为键，传入的参数值为值。</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">print</span><span class="params">(<span class="variable">$a</span>, <span class="variable">$b</span>)</span></span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="variable">$PSBoundParameters</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">PS</span> &gt; print xxx yyy</span><br><span class="line"><span class="comment"># Key Value</span></span><br><span class="line"><span class="comment"># --- -----</span></span><br><span class="line"><span class="comment"># a   xxx  </span></span><br><span class="line"><span class="comment"># b   yyy  </span></span><br></pre></td></tr></table></figure>
+<p><code>$args</code> 包含函数未声明的参数，而 <code>$PSBoundParameters</code> 包含函数声明的参数。因此，如果传递的参数既有命名参数又有位置参数，那么，两个变量合在一起才能访问所有参数。</p>
+<blockquote>
+<p>显然，<code>$args</code>  和 <code>$PSBoundParameters</code> 是互补关系，不存在交集。</p>
+</blockquote>
+<h2 id="管道参数"><a href="#管道参数" class="headerlink" title="管道参数"></a>管道参数</h2><p>函数可以接收并处理管道对象，不过其函数体结构略有不同，语法如下：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">pipingFunction</span></span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">Begin</span> &#123;...&#125;</span><br><span class="line">    <span class="keyword">Process</span> &#123;...&#125;</span><br><span class="line">    <span class="keyword">End</span> &#123;...&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>Begin</code> 和 <code>End</code> 块中的语句分别在开始和结束时执行一次，<code>Process</code> 块中的语句针对管道中每一个对象执行一次。这 3 个块都是可选，如果都没有，相当于所有语句都位于 <code>End</code> 块中。</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">printPipe</span></span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">Begin</span> &#123; <span class="string">&#x27;begin&#x27;</span> &#125;</span><br><span class="line">    <span class="keyword">Process</span> &#123; <span class="variable">$_</span> &#125;</span><br><span class="line">    <span class="keyword">End</span> &#123; <span class="string">&#x27;end&#x27;</span> &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">PS</span> &gt; <span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>|printPipe</span><br><span class="line"><span class="comment"># begin</span></span><br><span class="line"><span class="comment"># 1</span></span><br><span class="line"><span class="comment"># 2</span></span><br><span class="line"><span class="comment"># 3</span></span><br><span class="line"><span class="comment"># end</span></span><br></pre></td></tr></table></figure>
+<p><code>Process</code> 块中使用 <code>$_</code> 访问当前处理的管道对象。</p>
+<p>管道参数还涉及一个自动变量 <code>$input</code>。在开始时（<code>Begin</code> 块中）它是空的。如果没有 <code>Process</code> 块，那么管道对象会逐一追加到其中，因此，在结束时（<code>End</code> 块中）它包含所有管道对象；但是如果有 <code>Process</code> 块，管道对象将从 <code>$input</code> 移到 <code>$_</code> 中，因此，结束时（<code>End</code>块中）它是空的。</p>
+<blockquote>
+<p>上文提到过过滤器（Filter），它的效果类似于一个仅有 <code>Process</code> 块的函数。</p>
+</blockquote>
+<h2 id="返回值"><a href="#返回值" class="headerlink" title="返回值"></a>返回值</h2><p>PowerShell 比较特殊的一点是，会将函数中所有的“输出”作为返回值。</p>
+<blockquote>
+<p>这里的“输出”指的是除写控制台操作外，执行后会在控制台回显值的语句。</p>
+<p>如果不想某些输出成为返回值，可以用写入控制台的方式避免。</p>
+</blockquote>
+<p>函数的返回值可以不是单值，当有多个输出时，它们将被自动收集到一个数组中返回。</p>
+<p><code>return</code> 语句可以返回值，并且它将阻止后续语句执行。</p>
+<h1 id="调用"><a href="#调用" class="headerlink" title="调用"></a>调用</h1><p>PowerShell 调用函数跟执行命令格式类似：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">PS</span> &gt; function<span class="literal">-name</span> <span class="literal">-arg1</span> value1 others</span><br><span class="line"><span class="comment"># 命名参数也可以用“:”分隔</span></span><br><span class="line"><span class="built_in">PS</span> &gt; function<span class="literal">-name</span> <span class="literal">-arg1</span>:value1</span><br></pre></td></tr></table></figure>
+<h2 id="传递数组"><a href="#传递数组" class="headerlink" title="传递数组"></a>传递数组</h2><p>如果某个参数是数组，则各元素用逗号分隔即可。</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">PS</span> &gt; function<span class="literal">-name</span> <span class="literal">-arrayArg</span> e1,e2,e3</span><br></pre></td></tr></table></figure>
+<h2 id="Splatting"><a href="#Splatting" class="headerlink" title="Splatting"></a>Splatting</h2><p>Splatting 是一种参数传递方式，它可将一系列参数传入命令，而不需要一一将其列在命令之后。以官方示例来说明：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Get-MyCommand</span></span> &#123; <span class="built_in">Get-Command</span> @Args &#125;</span><br><span class="line"><span class="built_in">PS</span> &gt; <span class="built_in">Get-MyCommand</span> <span class="literal">-Name</span> <span class="built_in">Get-ChildItem</span></span><br></pre></td></tr></table></figure>
+<p><code>@Args</code> 代表的是 <code>$Args</code>，即 <code>Get-MyCommand</code> 函数将调用它的所有未声明参数都传给了 <code>Get-Command</code> 函数进行了调用。</p>
+<p>同理，也可以使用 <code>@PSBoundParameters</code> 代表 <code>$PSBoundParameters</code>。</p>
+<p>更一般地，可以使用 <code>@&lt;HashTable&gt;</code> 和 <code>@&lt;Array&gt;</code> 分别传递哈希表和数组表示的一系列参数。</p>
+<h2 id="参数截断"><a href="#参数截断" class="headerlink" title="参数截断"></a>参数截断</h2><p>调用函数时，命名参数的名称是可以截断的，只要无歧义即可。换句话说，调用函数时指定参数名可以不写参数全名，而只写部分前缀，前提是通过这个前缀能唯一确定一个参数。</p>
+<blockquote>
+<p><strong>参数截断</strong>应当被视为一种命令行快速编写方式，不应在脚本中使用，这会降低脚本的可读性。</p>
+</blockquote>
+<h1 id="管理"><a href="#管理" class="headerlink" title="管理"></a>管理</h1><p>我们可以通过 <code>Function:</code> 驱动器查看函数定义：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看函数定义</span></span><br><span class="line"><span class="variable">$function:</span>&lt;function<span class="literal">-name</span>&gt;</span><br><span class="line"><span class="comment"># 复杂一点的方法</span></span><br><span class="line">(<span class="built_in">Get-ChildItem</span> function:&lt;function<span class="literal">-name</span>&gt;).Definition</span><br></pre></td></tr></table></figure>
+<p>同理，我们可以借此删除函数：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">del</span> Function:FunctionName</span><br></pre></td></tr></table></figure>
+<h1 id="高级函数"><a href="#高级函数" class="headerlink" title="高级函数"></a>高级函数</h1><p>所谓高级函数，与普通函数相比，具有多个自动添加到函数的通用参数，包括 <code>Verbose</code> 和 <code>Debug</code>。</p>
+<p>它使用 <code>CmdletBinding</code> 属性标识。</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Test-MrCmdletBinding</span></span> &#123;</span><br><span class="line"></span><br><span class="line">[<span class="type">CmdletBinding</span>()] <span class="comment">#&lt;&lt;-- This turns a regular function into an advanced function</span></span><br><span class="line"><span class="keyword">param</span> (</span><br><span class="line"><span class="variable">$ComputerName</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="built_in">Write-Output</span> <span class="variable">$ComputerName</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="高级参数"><a href="#高级参数" class="headerlink" title="高级参数"></a>高级参数</h2><p>高级函数中，可以为参数添加<strong>参数属性（parameter attribute）</strong>及<strong>属性参数（argument）</strong>来限制参数值。语法如下：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Param</span>(</span><br><span class="line">	[<span class="type">Attribute</span>(<span class="type">Argument</span> = <span class="type">value</span>)]</span><br><span class="line">	<span class="variable">$ParameterName</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>下面以 <code>Parameter</code> 属性为例说明，因为它是所有参数属性中属性参数最多的。</p>
+<blockquote>
+<p>注意这里有两个“参数”容易混淆——这是中文翻译的问题—— parameter 和 argument 通常均翻译为“参数”，但在这里，parameter 特指函数参数，而 argument 指参数属性（parameter attribute）的参数。</p>
+<p>更多参数属性可参考 <a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_functions_advanced_parameters?view=powershell-6#attributes-of-parameters">这里</a>。</p>
+</blockquote>
+<p><code>Mandatory</code> 属性参数指定参数是否必需，默认值为 <code>$false</code>，即参数可选；设置为 <code>$true</code> 则必需，如缺省该参数则提示输入。</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[<span class="type">Parameter</span>(<span class="type">Mandatory</span>=<span class="variable">$true</span>)]</span><br><span class="line"><span class="comment"># PowerShell 3.0+ 支持不赋值的写法</span></span><br><span class="line">[<span class="type">Parameter</span>(<span class="type">Mandatory</span>)]</span><br></pre></td></tr></table></figure>
+<p><code>Position</code> 属性参数用以指定参数位置索引号，从 0 开始。</p>
+<p><code>ParameterSetName</code> 属性参数指定参数所属参数集的名称。所谓“参数集”，就是参数分组，这使得传入不同的参数执行不同函数逻辑成为可能。 为使参数集唯一可确定，每个参数集都应该至少有一个其他参数集没有的参数。如果一个参数不指定参数集，则属于所有参数集。如果一个参数属于多个但不是全部参数集，则需要在多个 <code>Parameter</code> 参数属性中定义。</p>
+<blockquote>
+<p>可使用 <code>$PSCmdlet.ParameterSetName</code> 获取当前使用的参数集。</p>
+</blockquote>
+<h2 id="CmdletBinding属性"><a href="#CmdletBinding属性" class="headerlink" title="CmdletBinding属性"></a>CmdletBinding属性</h2><p><code>DefaultParameterSetName</code> 定义默认使用的参数集名称。当所传参数不足以明确参数集时造成冲突，默认参数集名称指定此时使用哪个参数集。</p>
+<p><code>PositionalBinding</code> 定义声明的参数是否绑定位置。默认值为 <code>$true</code>，会为声明的参数绑定位置，因此调用时不一定需要使用命名参数。</p>
+<p><code>SupportsShouldProcess</code> 添加 <code>WhatIf</code> 和 <code>Confirm</code> 参数，仅修改命令需要这些参数。</p>
+<h1 id="脚本"><a href="#脚本" class="headerlink" title="脚本"></a>脚本</h1><p>脚本是写在 <code>.ps1</code> 后缀文件中的 PowerShell 程序，在命令行中执行脚本中的命令和执行脚本几乎没有差别。</p>
+<p>但是，脚本中的变量、函数等默认加载到 Script 作用域，脚本执行完成后，脚本作用域会删除，换句话说，脚本中的变量、函数等也会随之删除。如果想要在脚本执行后，还能使用脚本中的变量、函数等，则需要将其加载到 Global 作用域中。</p>
+<p>这就要对脚本执行“dot-source”操作，即在脚本前加 <code>.</code>（英文句点）+ 空格：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">. ./MyScript.ps1</span><br></pre></td></tr></table></figure>
+<h1 id="关于注释"><a href="#关于注释" class="headerlink" title="关于注释"></a>关于注释</h1><p>尽量不使用内联注释，因为除非查看脚本源码，否则是不可见的。更好的选择是使用 <code>Write-Verbose</code>，并使用 <code>Verbose</code> 参数调用，否则不会显示详细输出。</p>
+<h1 id="讨论"><a href="#讨论" class="headerlink" title="讨论"></a>讨论</h1><h2 id="简单函数-vs-高级函数"><a href="#简单函数-vs-高级函数" class="headerlink" title="简单函数 vs. 高级函数"></a>简单函数 vs. 高级函数</h2><p>最显明的，简单函数不具有 <code>CmdletBinding</code> 属性的配置能力，不能使用高级参数。</p>
+<p>高级函数将拥有与 cmdlet 类似的能力，其中之一就是支持常见参数（Common Parameter），而简单函数不支持。</p>
+<h2 id="必需参数"><a href="#必需参数" class="headerlink" title="必需参数"></a>必需参数</h2><p>上文提到了两种定义必需参数的方法，一种是为参数指定抛出异常的默认值，另一种是使用 <code>Mandatory</code> 参数。</p>
+<p>注意两种必需参数在缺少该参数调用时，行为是不一样的。抛异常的方式会使脚本停止，而 <code>Mandatory</code> 参数的方式会提示用户输入参数值。</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><h2 id="函数语法"><a href="#函数语法" class="headerlink" title="函数语法"></a>函数语法</h2><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> [&lt;<span class="title">scope</span>:&gt;]&lt;<span class="title">name</span>&gt; [<span class="params">([type]<span class="variable">$parameter1</span>[,[type]<span class="variable">$parameter2</span>])</span>]</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">param</span>([<span class="type">type</span>]<span class="variable">$parameter1</span> [,[<span class="type">type</span>]<span class="variable">$parameter2</span>])</span><br><span class="line">  <span class="keyword">dynamicparam</span> &#123;&lt;statement list&gt;&#125;</span><br><span class="line">  <span class="keyword">begin</span> &#123;&lt;statement list&gt;&#125;</span><br><span class="line">  <span class="keyword">process</span> &#123;&lt;statement list&gt;&#125;</span><br><span class="line">  <span class="keyword">end</span> &#123;&lt;statement list&gt;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="CmdletBinding属性语法"><a href="#CmdletBinding属性语法" class="headerlink" title="CmdletBinding属性语法"></a>CmdletBinding属性语法</h2><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    [<span class="type">CmdletBinding</span>(<span class="type">ConfirmImpact</span>=&lt;<span class="built_in">String</span>&gt;,</span><br><span class="line">    <span class="type">DefaultParameterSetName</span>=&lt;<span class="built_in">String</span>&gt;,</span><br><span class="line">    <span class="type">HelpURI</span>=&lt;<span class="type">URI</span>&gt;,</span><br><span class="line">    <span class="type">SupportsPaging</span>=&lt;<span class="built_in">Bool</span><span class="type">ean</span>&gt;,</span><br><span class="line">    <span class="type">SupportsShouldProcess</span>=&lt;<span class="built_in">Bool</span><span class="type">ean</span>&gt;,</span><br><span class="line">    <span class="type">PositionalBinding</span>=&lt;<span class="built_in">Bool</span><span class="type">ean</span>&gt;)]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">Param</span> (<span class="variable">$Parameter1</span>)</span><br><span class="line">    <span class="keyword">Begin</span>&#123;&#125;</span><br><span class="line">    <span class="keyword">Process</span>&#123;&#125;</span><br><span class="line">    <span class="keyword">End</span>&#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h2><p><a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_functions?view=powershell-6">MS PS Doc - About Functions</a></p>
+<p><a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_functions_advanced?view=powershell-6">MS PS Doc - About Functions Advanced</a></p>
+<p><a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_functions_advanced_parameters?view=powershell-6">MS PS Doc - About Functions Advanced Parameters</a></p>
+<p><a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_functions_cmdletbindingattribute?view=powershell-6">MS PS Doc - About Functions CmdletBindingAttribute</a></p>
+<p><a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/powershell/developer/cmdlet/cmdlet-parameter-sets">Cmdlet Parameter Sets</a></p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Eric Zong
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://ericzonglu.gitee.io/posts/powershell-function-and-script.html" title="PowerShell入门：函数与脚本">http://ericzonglu.gitee.io/posts/powershell-function-and-script.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/" rel="tag"># 入门教程</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/powershell-get-start.html" rel="prev" title="PowerShell入门：语言篇">
+      <i class="fa fa-chevron-left"></i> PowerShell入门：语言篇
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/posts/powershell-extension.html" rel="next" title="PowerSehll扩展：posh-git">
+      PowerSehll扩展：posh-git <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%87%BD%E6%95%B0"><span class="nav-number">1.</span> <span class="nav-text">函数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%B3%E9%94%AE%E5%AD%97"><span class="nav-number">2.</span> <span class="nav-text">关键字</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BD%9C%E7%94%A8%E5%9F%9F"><span class="nav-number">3.</span> <span class="nav-text">作用域</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E5%90%8D"><span class="nav-number">4.</span> <span class="nav-text">函数名</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E6%95%B0"><span class="nav-number">5.</span> <span class="nav-text">参数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89%E6%96%B9%E5%BC%8F"><span class="nav-number">5.1.</span> <span class="nav-text">定义方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%91%BD%E5%90%8D%E5%8F%82%E6%95%B0%E4%B8%8E%E4%BD%8D%E7%BD%AE%E5%8F%82%E6%95%B0"><span class="nav-number">5.2.</span> <span class="nav-text">命名参数与位置参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E6%95%B0%E7%B1%BB%E5%9E%8B"><span class="nav-number">5.3.</span> <span class="nav-text">参数类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%80%E5%85%B3%E5%8F%82%E6%95%B0"><span class="nav-number">5.4.</span> <span class="nav-text">开关参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%BB%98%E8%AE%A4%E5%80%BC"><span class="nav-number">5.5.</span> <span class="nav-text">默认值</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E4%BD%93"><span class="nav-number">6.</span> <span class="nav-text">函数体</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BF%E9%97%AE%E6%89%80%E6%9C%89%E5%8F%82%E6%95%B0"><span class="nav-number">6.1.</span> <span class="nav-text">访问所有参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%A1%E9%81%93%E5%8F%82%E6%95%B0"><span class="nav-number">6.2.</span> <span class="nav-text">管道参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%94%E5%9B%9E%E5%80%BC"><span class="nav-number">6.3.</span> <span class="nav-text">返回值</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%B0%83%E7%94%A8"><span class="nav-number">7.</span> <span class="nav-text">调用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BC%A0%E9%80%92%E6%95%B0%E7%BB%84"><span class="nav-number">7.1.</span> <span class="nav-text">传递数组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Splatting"><span class="nav-number">7.2.</span> <span class="nav-text">Splatting</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E6%95%B0%E6%88%AA%E6%96%AD"><span class="nav-number">7.3.</span> <span class="nav-text">参数截断</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AE%A1%E7%90%86"><span class="nav-number">8.</span> <span class="nav-text">管理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%AB%98%E7%BA%A7%E5%87%BD%E6%95%B0"><span class="nav-number">9.</span> <span class="nav-text">高级函数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%AB%98%E7%BA%A7%E5%8F%82%E6%95%B0"><span class="nav-number">9.1.</span> <span class="nav-text">高级参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CmdletBinding%E5%B1%9E%E6%80%A7"><span class="nav-number">9.2.</span> <span class="nav-text">CmdletBinding属性</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%84%9A%E6%9C%AC"><span class="nav-number">10.</span> <span class="nav-text">脚本</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E%E6%B3%A8%E9%87%8A"><span class="nav-number">11.</span> <span class="nav-text">关于注释</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AE%A8%E8%AE%BA"><span class="nav-number">12.</span> <span class="nav-text">讨论</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%80%E5%8D%95%E5%87%BD%E6%95%B0-vs-%E9%AB%98%E7%BA%A7%E5%87%BD%E6%95%B0"><span class="nav-number">12.1.</span> <span class="nav-text">简单函数 vs. 高级函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BF%85%E9%9C%80%E5%8F%82%E6%95%B0"><span class="nav-number">12.2.</span> <span class="nav-text">必需参数</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-number">13.</span> <span class="nav-text">参考</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E8%AF%AD%E6%B3%95"><span class="nav-number">13.1.</span> <span class="nav-text">函数语法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CmdletBinding%E5%B1%9E%E6%80%A7%E8%AF%AD%E6%B3%95"><span class="nav-number">13.2.</span> <span class="nav-text">CmdletBinding属性语法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%93%BE%E6%8E%A5"><span class="nav-number">13.3.</span> <span class="nav-text">链接</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Eric Zong</p>
+  <div class="site-description" itemprop="description">这里有作为一个程序员想记录的一切。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">96</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Eric Zong</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

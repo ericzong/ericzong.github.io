@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"ericzonglu.gitee.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="介绍Java嵌套类相关知识点。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java专题：嵌套类">
+<meta property="og:url" content="http://ericzonglu.gitee.io/posts/java-topic-nested-class.html">
+<meta property="og:site_name" content="八白龙的博客">
+<meta property="og:description" content="介绍Java嵌套类相关知识点。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-06-03T15:50:00.000Z">
+<meta property="article:modified_time" content="2021-06-03T17:01:53.576Z">
+<meta property="article:author" content="Eric Zong">
+<meta property="article:tag" content="Java基础">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://ericzonglu.gitee.io/posts/java-topic-nested-class.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Java专题：嵌套类 | 八白龙的博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">八白龙的博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">程序员的杂货铺</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-references">
+
+    <a href="/references/" rel="section"><i class="bookmark fa-fw"></i>参考</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://ericzonglu.gitee.io/posts/java-topic-nested-class.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Eric Zong">
+      <meta itemprop="description" content="这里有作为一个程序员想记录的一切。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="八白龙的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Java专题：嵌套类
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-06-03 23:50:00" itemprop="dateCreated datePublished" datetime="2021-06-03T23:50:00+08:00">2021-06-03</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-06-04 01:01:53" itemprop="dateModified" datetime="2021-06-04T01:01:53+08:00">2021-06-04</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/%E4%B8%93%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">专题</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <link type="text/css" rel="stylesheet" href="../css/tree.css" />
+
+<h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>Java语言允许一个类定义在另一个类中，处于内层的类称为嵌套类（nested class）， 处于外层的类称为包围类（enclosing class）、外围类或外部类。</p>
+<p>嵌套是一种类之间的关系，而不是对象之间的关系。</p>
+<h1 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h1><div class="tree">
+    <ul>
+      <li>
+        <a>嵌套类<br>(nested class)</a>
+        <ul>
+          <li><a>静态成员类<br>(static member class)</a></li>
+          <li>
+            <a>内部类<br>(inner class)</a>
+            <ul>
+              <li><a>非静态成员类<br>(nonstatic member class)</a></li>
+              <li><a>局部类<br>(anonymous class)</a></li>
+              <li><a>匿名类<br>(local class)</a></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+</div>
+
+<p>嵌套类有四种：静态成员类、非静态成员类、匿名类、局部类。除第一种外，其它称为内部类。</p>
+<p>局部类是声明在语句块中的内部类，常见于方法体中；匿名类是无名内部类。注意它们都不是包围类成员。</p>
+<h1 id="使用原因"><a href="#使用原因" class="headerlink" title="使用原因"></a>使用原因</h1><p>之所以使用嵌套类，主要出于以下几点原因：</p>
+<ul>
+<li><strong>逻辑分组。</strong>如果一个类只对唯一的另一个类有用，那么这个类应该嵌入另一个类中以保持两个类在一起。 嵌套的帮助类使得包更精简。</li>
+<li><strong>增强封装。</strong>私有的嵌套类除其包围类外不可见，避免了以公共API的形式暴露，具有更严格的封装。</li>
+<li><strong>更具可读性和可维护性。</strong>嵌套类临近其被使用的地方，使代码更易理解和维护。</li>
+</ul>
+<p>需要嵌套类的原因：每个嵌套类都能独立地继承自一个（接口的）实现， 所以无论包围类是否已经继承了某个（接口的）实现，对于嵌套类都没有影响。</p>
+<p>局部类名字在外部（如方法外）不可见，使用它的唯一理由是：需要一个已命名的构造器， 或者需要重载构造器，而匿名类只能用于实例初始化。</p>
+<p>匿名类能使代码更简洁。同时声明及实例化一个类。当一个局部类只使用一次时，应使用匿名类。</p>
+<h1 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h1><h2 id="创建对象"><a href="#创建对象" class="headerlink" title="创建对象"></a>创建对象</h2><p>静态成员类 new OuterClass.StaticNestedClass()</p>
+<p>内部类 outerInstance.new InnerClass()</p>
+<h2 id="成员访问"><a href="#成员访问" class="headerlink" title="成员访问"></a>成员访问</h2><p>通常可以通过成员名称直接访问，如果存在遮蔽的情况，应加限定：</p>
+<p>嵌套类 OuterClass.member</p>
+<p>内部类 OuterClass.this.member</p>
+<h1 id="Class-文件名"><a href="#Class-文件名" class="headerlink" title="Class 文件名"></a>Class 文件名</h1><div class="table-container">
+<table>
+<thead>
+<tr>
+<th></th>
+<th>（非）静态成员类</th>
+<th>局部类</th>
+<th>匿名类</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Class 文件名</td>
+<td><code>OuterClass$InnerClass</code></td>
+<td><code>OuterClass$nInnerClass</code>①</td>
+<td><code>OuterClass$n</code>②</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>①局部类class文件名格式为 <code>OuterClass$nInnerClass.class</code>，与（非）静态成员类相比多了一个数字， 这是因为同一个类里不可能有两个同名的成员类，而同一个类里则可能有多个同名的局部类， 因而用数字区分。</p>
+<p>②匿名类没有类名，所以只能以数字区分。</p>
+<h1 id="特殊性"><a href="#特殊性" class="headerlink" title="特殊性"></a>特殊性</h1><h2 id="可访问性"><a href="#可访问性" class="headerlink" title="可访问性"></a>可访问性</h2><p>除了静态成员类不能访问包围类的实例成员外，其它内部类都可以访问所有包围类成员，即使是私有的。 反过来，包围类通过嵌套类实例也可以访问其私有成员。</p>
+<h2 id="遮蔽（shadow）"><a href="#遮蔽（shadow）" class="headerlink" title="遮蔽（shadow）"></a>遮蔽（shadow）</h2><p>在一个特定范围（比如内部类或方法声明）中，两个声明同名，此时一个声明将遮蔽另一个， 即简单名将引用到作用域较小的那个声明上。 一个变量、方法或类型可以分别遮蔽在一个特定范围内具有相同名字的所有变量、方法或类型。</p>
+<p>对于嵌套类而言，其变量、方法或类型都可能分别遮蔽外围类的变量、方法或类型。</p>
+<h2 id="序列化（Serialization）"><a href="#序列化（Serialization）" class="headerlink" title="序列化（Serialization）"></a>序列化（Serialization）</h2><p>强烈反对所有内部类的序列化。因为编译器会创建合成构造—— 使用编译器产生的合成域（synthetic field）来保存指向外围实例（enclosing instance）的引用及外围作用域的局部变量的值 ——但是它在不同Java编译器实现中是不同的，这意味着， .class文件也会不同。在不同JRE实现间进行序列化（serialize）和反序列化（deserialize）可能会引起兼容性问题。</p>
+<blockquote>
+<p>编译器修改了所有的内部类的构造器，添加了一个外围类引用的参数，并为外围类引用生成了一个实例域，由构造参数传入设置。</p>
+<p>编译器必须检测对局部变量的访问，为每一个变量建立相应的数据域，并将局部变量拷贝到构造器中，以便将这些数据域初始化为局部变量的副本。</p>
+<p>注：合成构造（synthetic constructs）使Java编译器能够实现新的Java特性而又不改变JVM。</p>
+</blockquote>
+<h2 id="类名冲突"><a href="#类名冲突" class="headerlink" title="类名冲突"></a>类名冲突</h2><p>所有嵌套类都可能存在命名冲突的问题。根据嵌套类的Class文件名，如果某类与其外围类同包，且类名与嵌套类Class文件同名， 那么将出现命名冲突，冲突的两个类不能同时编译。一般来说，类名应该尽量避免使用“$”，这将有效规避该问题。</p>
+<h1 id="关于接口"><a href="#关于接口" class="headerlink" title="关于接口"></a>关于接口</h1><h2 id="嵌套接口"><a href="#嵌套接口" class="headerlink" title="嵌套接口"></a>嵌套接口</h2><p>通常所说的嵌套类的范围比字面上要广，还应包括嵌套接口。</p>
+<p>嵌套接口是隐式静态的，因此只能声明在顶级类、接口或静态上下文中。</p>
+<blockquote>
+<p>“隐式”是一种缺省形式，代表拥有不可变更的默认值。比如上文中的“隐式静态”，即指嵌套接口不论是否使用 static 修饰，都必然是静态的。</p>
+</blockquote>
+<h2 id="接口中的嵌套类"><a href="#接口中的嵌套类" class="headerlink" title="接口中的嵌套类"></a>接口中的嵌套类</h2><p>接口的成员是隐匿静态的，所以其成员类一定是静态嵌套类。</p>
+<p>一种不常见的情况是，在接口的缺省（default）方法中定义内部类，因而接口中声明内部类是可能的，只是它们将不是成员类。</p>
+<h1 id="限制"><a href="#限制" class="headerlink" title="限制"></a>限制</h1><p>嵌套接口是隐式静态的，因此不能在方法、语句块等非静态上下文中声明接口。</p>
+<p>内部类中不能声明静态成员。</p>
+<blockquote>
+<p>静态成员包括静态域、静态方法、静态初始化器以及静态类型。其中要注意，由于嵌套接口是隐式静态的，因此内部类中必然不能声明接口。</p>
+</blockquote>
+<p>匿名类与正规的继承相比有些受限，因为匿名类可以扩展类，也可以实现接口，但是不能两者兼备。如果是实现接口，也只能实现一个接口。</p>
+<p>匿名类不能定义构造器，因为没有类名。取而代之的是，将构造器参数传递给超类（superclass）构造器。尤其是在匿名类实现接口的时候，不能有任何构造参数。</p>
+<p>局部/匿名类访问外围类的局部变量，如果仅在局部/匿名类构造参数中访问，则局部变量不必是 final 的，否则必须使用 final 修饰。</p>
+<blockquote>
+<p>Java8 放宽了这一限制，要求局部变量必须是 final 的或事实上是 final 的。所谓“事实上是”是指虽然没有 final 修饰，但代码中并没有为该局部变量重新赋值。</p>
+</blockquote>
+<h1 id="例外"><a href="#例外" class="headerlink" title="例外"></a>例外</h1><p>内部类可以有静态成员，只要它是常量。</p>
+<blockquote>
+<p>常量是一个原始类型或字符串类型的变量，其声明为 final，并使用编译期（compile-time）常量表达式初始化。</p>
+<p>编译期常量表达式通常是一个字符串或一个能在编译期求值的算数表达式，即字面量或字面量运算表达式。</p>
+</blockquote>
+<p>内部类可以继承不是常量的静态成员，尽管内部类不能声明它们。</p>
+<p>虽然，接口中的成员类一定是静态嵌套类，但 Java 8 允许接口声明缺省方法，这使得在接口中声明内部类成为可能。</p>
+<h1 id="其它说明"><a href="#其它说明" class="headerlink" title="其它说明"></a>其它说明</h1><p>接口的成员是隐式静态的，因此声明在其中的类不是内部类，而是静态嵌套类。</p>
+<p>嵌套类可以定义在接口中，并隐式地被 public static 修饰，甚至还可以实现包围接口。</p>
+<p>一个内部类被嵌套多少层并不重要，它能透明地访问所有它所嵌入的外围类的所有成员。</p>
+<p>内部类是一种编译器现象，与虚拟机无关。编译器将会把内部类翻译成用 $ 分隔外部类名与嵌套类名的常规类文件，而虚拟机对此一无所知。</p>
+<p>内部类系统在编译阶段会为构造器增加一个外围类参数作为第一参数。</p>
+<p>匿名类末尾的分号，不是用来标记此内部类结束的。标记的是表达式的结束，只不过这个表达式正巧包含了匿名类罢了。</p>
+<p>匿名类仅仅添加实例成员是没有意义的，因为它的上层“接口”不会暴露新添加的成员。不过，新添加的成员可以在重写的方法中被使用， 这可以使程序更具灵活性。</p>
+<p>闭包：一个可调用的对象，它记录了一些信息，这些信息来自于创建它的作用域。内部类是面向对象的闭包。</p>
+<h1 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h1><h2 id="遮蔽（shadow）-1"><a href="#遮蔽（shadow）-1" class="headerlink" title="遮蔽（shadow）"></a>遮蔽（shadow）</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ShadowTest</span> </span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">int</span> x = <span class="number">0</span>;</span><br><span class="line">  <span class="class"><span class="keyword">class</span> <span class="title">FirstLevel</span> </span></span><br><span class="line"><span class="class">  </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span> x = <span class="number">1</span>;</span><br><span class="line">    …</span><br><span class="line">  &#125;</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+<p>说明：在 <code>FirstLevel</code>中， <code>x</code> 将引用到其自己的成员 <code>x</code> 上，而遮蔽其外围类成员 <code>x</code>。要引用外围类成员 <code>x</code>，需要限定为 <code>ShadowTest.this.x</code>。</p>
+<h2 id="外围类继承内部类"><a href="#外围类继承内部类" class="headerlink" title="外围类继承内部类"></a>外围类继承内部类</h2><p>内部类的子类不一定是内部类，它可以了是一个顶级类（top-level class）。但内部类的子类实例一样需要保留一个引用，该引用指向其父类所在外围类的对象。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">OuterClass</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">  <span class="class"><span class="keyword">class</span> <span class="title">InnerClass</span></span></span><br><span class="line"><span class="class">  </span>&#123;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SubInnerClass</span> <span class="keyword">extends</span> <span class="title">OuterClass</span>. <span class="title">InnerClass</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="title">SubIn</span><span class="params">(OuterClass outerInstance )</span></span></span><br><span class="line"><span class="function">  </span>&#123;</span><br><span class="line">    outerInstance.<span class="keyword">super</span>(); <span class="comment">// ①</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+<p>① 内部类需要一个外围类对象来调用构造方法，这个外围类对象通常是隐式传入的，并在编译阶段为构造器增加一个外围类参数作为第一参数。 但是内部类的子类如果与父类不在同一个外围类中或者它就是一个顶级类，那么它将不能隐式访问外围类对象，所以需要显式的在构造方法中传一个外围类对象参数， 该参数在参数列表里的位置是任意的。并且在构造方法的第一行需要使用外围类对象参数来调用父类构造方法。</p>
+<h2 id="匿名类访问外部对象"><a href="#匿名类访问外部对象" class="headerlink" title="匿名类访问外部对象"></a>匿名类访问外部对象</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Base</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="title">Base</span><span class="params">( <span class="keyword">int</span> intvar )</span></span></span><br><span class="line"><span class="function">  </span>&#123;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">access</span><span class="params">()</span></span>; </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Outer</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Base <span class="title">getBase</span><span class="params">( <span class="keyword">int</span> intvar, <span class="keyword">final</span> String str, <span class="keyword">final</span> <span class="keyword">int</span> intvar2, <span class="keyword">int</span> intvar3 )</span></span></span><br><span class="line"><span class="function">  </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> Base( intvar① )</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">access</span><span class="params">()</span></span></span><br><span class="line"><span class="function">      </span>&#123;</span><br><span class="line">        System.out.println( str② );</span><br><span class="line">        System.out.println( intvar2 );</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>① 外部变量只在构造方法参数列表中出现，那么不必是 <code>final</code> 修饰的，因为该变量仅被传递给匿名类的基类构造方法，不会在匿名类内部直接使用。</p>
+<p>② 匿名类访问了外部变量，那么编译器要求该变量是 <code>final</code> 修饰的。Java 8 放宽了这一要求，只要变量事实上是 <code>final</code> 就可以不用 <code>final</code> 修饰。</p>
+<h1 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h1><h2 id="谬称"><a href="#谬称" class="headerlink" title="谬称"></a>谬称</h2><p>对于嵌套类而言，日常使用、交流乃至文档教材中其概念、名称及分类上都有诸多谬误。个人猜测，这种情况可能是由于翻译问题，或者概念混淆后的以讹传讹。</p>
+<p><strong>内部类概念范围扩大。</strong>首先，很多地方会使用内部类来指代嵌套类，需要明确的是，嵌套类的范围要比内部类大，嵌套类才是这一系列类型的统称。 属于这类的谬称有：静态内部类、静态成员内部类、类成员内部类。</p>
+<p><strong>内部类概念范围缩小。</strong>其次，相对于扩大内部类概念范围的情况，缩小其概念范围的情况也是常见的，通常使用内部类来指代非静态成员类，而排除了匿名类和局部类。 事实上，内部类是包括非静态成员类、匿名类和局部类的。</p>
+<h2 id="通俗命名"><a href="#通俗命名" class="headerlink" title="通俗命名"></a>通俗命名</h2><p>在实际使用中，嵌套类及其分类还有很多通俗的名称或别名，这与谬称不同，它们并没有扩大或缩小概念本身的范围。</p>
+<p><strong>局部内部类、匿名内部类</strong>：分别是局部类和匿名类的通俗叫法。这种把简单名扩展成长名称的方式很特别，或许是为了突出其内部类的属性。</p>
+<p><strong>非静态内部类、非静态嵌套类</strong>：概念同“内部类”，与谬称“静态内部类”相对，但它不属于谬称，因为内部类理应不是静态的。 但是，应注意的是，在某些语境中可能会排除局部类和匿名类，这属于“内部类概念范围缩小”的变体。</p>
+<p><strong>静态嵌套类</strong>：指静态成员类。</p>
+<p><strong>成员类</strong>：概括指静态成员类和非静态成员类。</p>
+<p><strong>非静态成员内部类、实例成员内部类</strong>：指非静态成员类。</p>
+<h2 id="编程技巧"><a href="#编程技巧" class="headerlink" title="编程技巧"></a>编程技巧</h2><h3 id="双括号初始化（double-brace-initialization）"><a href="#双括号初始化（double-brace-initialization）" class="headerlink" title="双括号初始化（double brace initialization）"></a>双括号初始化（double brace initialization）</h3><p>应用场景：快捷创建一个列表对象。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">invite(<span class="keyword">new</span> ArrayList&lt;String&gt;() &#123;&#123; add(“Eric”); add(“Zong”) &#125;&#125;); </span><br></pre></td></tr></table></figure>
+<p>说明：外层括号建立了ArrayList的一个匿名子类，内层括号则是一个对象构造块。</p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Eric Zong
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://ericzonglu.gitee.io/posts/java-topic-nested-class.html" title="Java专题：嵌套类">http://ericzonglu.gitee.io/posts/java-topic-nested-class.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Java%E5%9F%BA%E7%A1%80/" rel="tag"># Java基础</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/java-topic-annotation.html" rel="prev" title="Java专题：注解">
+      <i class="fa fa-chevron-left"></i> Java专题：注解
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/posts/java-topic-generic.html" rel="next" title="Java专题：泛型">
+      Java专题：泛型 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AE%80%E4%BB%8B"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%86%E7%B1%BB"><span class="nav-number">2.</span> <span class="nav-text">分类</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E5%8E%9F%E5%9B%A0"><span class="nav-number">3.</span> <span class="nav-text">使用原因</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AF%AD%E6%B3%95"><span class="nav-number">4.</span> <span class="nav-text">语法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E5%AF%B9%E8%B1%A1"><span class="nav-number">4.1.</span> <span class="nav-text">创建对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%88%90%E5%91%98%E8%AE%BF%E9%97%AE"><span class="nav-number">4.2.</span> <span class="nav-text">成员访问</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Class-%E6%96%87%E4%BB%B6%E5%90%8D"><span class="nav-number">5.</span> <span class="nav-text">Class 文件名</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%89%B9%E6%AE%8A%E6%80%A7"><span class="nav-number">6.</span> <span class="nav-text">特殊性</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%AF%E8%AE%BF%E9%97%AE%E6%80%A7"><span class="nav-number">6.1.</span> <span class="nav-text">可访问性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%81%AE%E8%94%BD%EF%BC%88shadow%EF%BC%89"><span class="nav-number">6.2.</span> <span class="nav-text">遮蔽（shadow）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BA%8F%E5%88%97%E5%8C%96%EF%BC%88Serialization%EF%BC%89"><span class="nav-number">6.3.</span> <span class="nav-text">序列化（Serialization）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B1%BB%E5%90%8D%E5%86%B2%E7%AA%81"><span class="nav-number">6.4.</span> <span class="nav-text">类名冲突</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E%E6%8E%A5%E5%8F%A3"><span class="nav-number">7.</span> <span class="nav-text">关于接口</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B5%8C%E5%A5%97%E6%8E%A5%E5%8F%A3"><span class="nav-number">7.1.</span> <span class="nav-text">嵌套接口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8E%A5%E5%8F%A3%E4%B8%AD%E7%9A%84%E5%B5%8C%E5%A5%97%E7%B1%BB"><span class="nav-number">7.2.</span> <span class="nav-text">接口中的嵌套类</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%99%90%E5%88%B6"><span class="nav-number">8.</span> <span class="nav-text">限制</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BE%8B%E5%A4%96"><span class="nav-number">9.</span> <span class="nav-text">例外</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%B6%E5%AE%83%E8%AF%B4%E6%98%8E"><span class="nav-number">10.</span> <span class="nav-text">其它说明</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B"><span class="nav-number">11.</span> <span class="nav-text">示例</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%81%AE%E8%94%BD%EF%BC%88shadow%EF%BC%89-1"><span class="nav-number">11.1.</span> <span class="nav-text">遮蔽（shadow）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%96%E5%9B%B4%E7%B1%BB%E7%BB%A7%E6%89%BF%E5%86%85%E9%83%A8%E7%B1%BB"><span class="nav-number">11.2.</span> <span class="nav-text">外围类继承内部类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8C%BF%E5%90%8D%E7%B1%BB%E8%AE%BF%E9%97%AE%E5%A4%96%E9%83%A8%E5%AF%B9%E8%B1%A1"><span class="nav-number">11.3.</span> <span class="nav-text">匿名类访问外部对象</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%99%84%E5%BD%95"><span class="nav-number">12.</span> <span class="nav-text">附录</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B0%AC%E7%A7%B0"><span class="nav-number">12.1.</span> <span class="nav-text">谬称</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%9A%E4%BF%97%E5%91%BD%E5%90%8D"><span class="nav-number">12.2.</span> <span class="nav-text">通俗命名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%96%E7%A8%8B%E6%8A%80%E5%B7%A7"><span class="nav-number">12.3.</span> <span class="nav-text">编程技巧</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%8C%E6%8B%AC%E5%8F%B7%E5%88%9D%E5%A7%8B%E5%8C%96%EF%BC%88double-brace-initialization%EF%BC%89"><span class="nav-number">12.3.1.</span> <span class="nav-text">双括号初始化（double brace initialization）</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Eric Zong</p>
+  <div class="site-description" itemprop="description">这里有作为一个程序员想记录的一切。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">96</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Eric Zong</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

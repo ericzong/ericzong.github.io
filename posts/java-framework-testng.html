@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"ericzonglu.gitee.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="TestNG 的使用入门教程。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="TestNG学习笔记">
+<meta property="og:url" content="http://ericzonglu.gitee.io/posts/java-framework-testng.html">
+<meta property="og:site_name" content="八白龙的博客">
+<meta property="og:description" content="TestNG 的使用入门教程。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2018-12-27T14:00:00.000Z">
+<meta property="article:modified_time" content="2022-02-22T12:00:00.000Z">
+<meta property="article:author" content="Eric Zong">
+<meta property="article:tag" content="测试">
+<meta property="article:tag" content="测试框架">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://ericzonglu.gitee.io/posts/java-framework-testng.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>TestNG学习笔记 | 八白龙的博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">八白龙的博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">程序员的杂货铺</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-references">
+
+    <a href="/references/" rel="section"><i class="bookmark fa-fw"></i>参考</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://ericzonglu.gitee.io/posts/java-framework-testng.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Eric Zong">
+      <meta itemprop="description" content="这里有作为一个程序员想记录的一切。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="八白龙的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          TestNG学习笔记
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-12-27 22:00:00" itemprop="dateCreated datePublished" datetime="2018-12-27T22:00:00+08:00">2018-12-27</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-02-22 20:00:00" itemprop="dateModified" datetime="2022-02-22T20:00:00+08:00">2022-02-22</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/%E6%A1%86%E6%9E%B6/" itemprop="url" rel="index"><span itemprop="name">框架</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><h2 id="什么是-TestNG"><a href="#什么是-TestNG" class="headerlink" title="什么是 TestNG?"></a>什么是 TestNG?</h2><p>TestNG表示下一代测试（NG，Next Generation的首字母）。</p>
+<p>它被设计覆盖所有类别的测试：单元、功能、端到端、集成等。</p>
+<p>TestNG提供了多个注解来标记不同层级的测试部件，以便控制测试流程、提供参数；并提供了大量断言方法来进行结果验证。</p>
+<h2 id="测试部件"><a href="#测试部件" class="headerlink" title="测试部件"></a>测试部件</h2><p>TestNG包含几个等级的测试部件，包括：测试套（件）、测试、测试类、测试方法。</p>
+<ul>
+<li>测试方法（test method）：使用@Test注解的Java方法；XML中使用&lt;methods&gt;配置。</li>
+<li>测试类（test class）：至少包含一个TestNG注解的Java类；XML中用&lt;class&gt;配置；包含测试方法。</li>
+<li>测试（test）：XML中用&lt;test&gt;配置；包含测试类。</li>
+<li>测试套（suite）：XML中用&lt;suite&gt;配置。</li>
+</ul>
+<blockquote>
+<p>说明：</p>
+<p>我个人把测试行为大致分为这样几个等级：系统级、应用级、模块级、场景级、功能级、操作级……</p>
+<p>它们跟TestNG的测试部件不是一一对应的，所以某个测试部件可以视具体情况对应某几个级别的测试行为（通常总是连续的级别）。比如：</p>
+<ul>
+<li>测试方法通常用于操作级或功能级（一般偏小而通用的功能）的测试；</li>
+<li>测试类通常用于功能级（较大的功能）或场景级的测试；</li>
+<li>测试通常用于场景级或模块级的测试；</li>
+<li>测试套通常用于模块级、应用级乃至系统级（常嵌套引用）的测试。</li>
+</ul>
+</blockquote>
+<h2 id="学习路线"><a href="#学习路线" class="headerlink" title="学习路线"></a>学习路线</h2><p>官网：<a target="_blank" rel="noopener" href="http://www.testng.org">http://www.testng.org</a></p>
+<blockquote>
+<p>官网文档本身就十分详细，适合学习入门。But…是全英文的，如果英文不好，看起来会有些费劲。不过，好在仅仅用了一页的篇幅就覆盖了TestNG几乎所有特性。</p>
+</blockquote>
+<h2 id="TestNG-vs-JUnit"><a href="#TestNG-vs-JUnit" class="headerlink" title="TestNG vs. JUnit"></a>TestNG vs. JUnit</h2><p>由于一些历史原因和自身定位的关系，JUnit存在一些缺点，通常较适合单元测试。</p>
+<p>而较JUnit而言，TestNG更为强大，覆盖更多的测试种类，并且可以无缝执行用JUnit编写的用例，而且TestNG覆盖JUnit几乎所有的功能。</p>
+<h1 id="注解"><a href="#注解" class="headerlink" title="注解"></a>注解</h1><p>TestNG有丰富的注解，其中@Test是最常用的，它用以标注测试方法。但也可标注类，使类中所有public方法成为测试方法。</p>
+<p>另外，较为常用的注解还有@BeforeXXX和@AfterXXX。它们总是成对的，用以定义“前置处理器”和“后置处理器”。</p>
+<blockquote>
+<p>注意：当存在继承关系时，@Before注解的方法将按继承链自上而下的顺序执行，@After注解的方法与之相反。</p>
+</blockquote>
+<p>相较于JUnit，TestNG的前/后置处理器更为丰富，控制更为精细，并且是与XML配置层级对应的。</p>
+<blockquote>
+<p>需要注意的是Class处理器，它被定义为在当前类所有测试方法前后执行。这看起来很清楚，但读者应该意识到，类可以不止执行一次。这里说的不是类被配置了多次的情况，而是针对工厂的情况而言的。</p>
+<p>当某个类由工厂创建多个实例后，将会执行多次，这种情况下，Class处理器会在每个实例前后都执行一次。</p>
+</blockquote>
+<p>其他的注解这里就不一一赘述了，下文中会具体用到大多数常用的注解。</p>
+<h1 id="使用配置"><a href="#使用配置" class="headerlink" title="使用配置"></a>使用配置</h1><h2 id="配置执行单元"><a href="#配置执行单元" class="headerlink" title="配置执行单元"></a>配置执行单元</h2><p>TestNG测试套使用xml文件配置的方式提供，以定义执行一组用例，甚至是其他测试套（嵌套）。</p>
+<p>TestNG为该xml文件定义有dtd，因此，xml配置文件的第一行总是这样：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">suite</span> <span class="meta-keyword">SYSTEM</span> <span class="meta-string">&quot;http://testng.org/testng-1.0.dtd&quot;</span> &gt;</span></span><br></pre></td></tr></table></figure>
+<p>测试套的所有内容都应该定义在&lt;suite&gt;标签内，并通常在其中用&lt;test&gt;标签定义多个测试，测试可以指定执行的类、包甚至是方法。</p>
+<h3 id="指定包"><a href="#指定包" class="headerlink" title="指定包"></a>指定包</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">suite</span> <span class="meta-keyword">SYSTEM</span> <span class="meta-string">&quot;http://testng.org/testng-1.0.dtd&quot;</span> &gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">suite</span> <span class="attr">name</span>=<span class="string">&quot;测试套件&quot;</span> <span class="attr">verbose</span>=<span class="string">&quot;1&quot;</span> &gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">test</span> <span class="attr">name</span>=<span class="string">&quot;简单测试&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">packages</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">package</span> <span class="attr">name</span>=<span class="string">&quot;test.sample&quot;</span> /&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">package</span> <span class="attr">name</span>=<span class="string">&quot;test.sample2&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">packages</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">test</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">suite</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>指定包下的所有测试类都将被执行，但不包含子包中的测试类。</p>
+</blockquote>
+<h3 id="指定类"><a href="#指定类" class="headerlink" title="指定类"></a>指定类</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">suite</span> <span class="meta-keyword">SYSTEM</span> <span class="meta-string">&quot;http://testng.org/testng-1.0.dtd&quot;</span> &gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">suite</span> <span class="attr">name</span>=<span class="string">&quot;测试套件&quot;</span> <span class="attr">verbose</span>=<span class="string">&quot;1&quot;</span> &gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">test</span> <span class="attr">name</span>=<span class="string">&quot;无名包类&quot;</span> &gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">classes</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">class</span> <span class="attr">name</span>=<span class="string">&quot;NoPackageTest&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">classes</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">test</span>&gt;</span></span><br><span class="line"> </span><br><span class="line">  <span class="tag">&lt;<span class="name">test</span> <span class="attr">name</span>=<span class="string">&quot;非无名包类&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">classes</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">class</span> <span class="attr">name</span>=<span class="string">&quot;test.sample.ParameterSample&quot;</span>/&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">class</span> <span class="attr">name</span>=<span class="string">&quot;test.sample.ParameterTest&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">classes</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">test</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">suite</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>类名应以全限定名给出。</p>
+</blockquote>
+<h3 id="指定方法"><a href="#指定方法" class="headerlink" title="指定方法"></a>指定方法</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">suite</span> <span class="meta-keyword">SYSTEM</span> <span class="meta-string">&quot;http://testng.org/testng-1.0.dtd&quot;</span> &gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">suite</span> <span class="attr">name</span>=<span class="string">&quot;测试套件&quot;</span> <span class="attr">verbose</span>=<span class="string">&quot;1&quot;</span> &gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">test</span> <span class="attr">name</span>=<span class="string">&quot;简单测试&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">classes</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">class</span> <span class="attr">name</span>=<span class="string">&quot;test.sample.FirstTest&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">methods</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">include</span> <span class="attr">name</span>=<span class="string">&quot;testCase&quot;</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">methods</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">class</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">classes</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">test</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">suite</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>指定方法时，不仅指定了要执行的测试类，还指明了其中需要执行的测试方法。</p>
+<p>可以看出，以上3种配置是层层细化的，可以灵活地配置各种级别的执行情况。</p>
+</blockquote>
+<h2 id="分组"><a href="#分组" class="headerlink" title="分组"></a>分组</h2><p>@Test注解的groups属性可定义分组，并可在配置指定执行哪些分组。比如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GroupTest</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="meta">@Test(groups = &#123;&quot;异常&quot;&#125;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testExceptionMethod</span><span class="params">()</span> </span>&#123;...&#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test(groups = &#123;&quot;高&quot;&#125;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testMethod</span><span class="params">()</span> </span>&#123;...&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>配置如下：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">suite</span> <span class="attr">name</span>=<span class="string">&quot;测试套件&quot;</span> <span class="attr">verbose</span>=<span class="string">&quot;1&quot;</span> &gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">test</span> <span class="attr">name</span>=<span class="string">&quot;简单测试&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groups</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">run</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">exclude</span> <span class="attr">name</span>=<span class="string">&quot;异常&quot;</span>  /&gt;</span>  <span class="comment">&lt;!-- name指定的是分组 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">include</span> <span class="attr">name</span>=<span class="string">&quot;高&quot;</span>  /&gt;</span>  <span class="comment">&lt;!-- 是@Test的groups属性定义的 --&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">run</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">groups</span>&gt;</span></span><br><span class="line"> </span><br><span class="line">    <span class="tag">&lt;<span class="name">classes</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">class</span> <span class="attr">name</span>=<span class="string">&quot;test.sample.GroupTest&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">classes</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">test</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">suite</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>分组是在测试方法上定义的，并在配置中指定是否执行。</p>
+<p>注意：<code>&lt;test&gt;</code>的子节点配置是有序的，应确保<code>&lt;groups&gt;</code>在<code>&lt;classes&gt;</code>之前，否则XML验证失败，强制执行会解析配置文件失败。</p>
+</blockquote>
+<h3 id="使用正则表达式"><a href="#使用正则表达式" class="headerlink" title="使用正则表达式"></a>使用正则表达式</h3><p>上面指定的是分组的全名，我们也可以指定正则表达式来匹配分组名，比如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RegularExpressionTest</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="meta">@Test(groups = &#123;&quot;windows.test&quot;&#125;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testWindowsOnly</span><span class="params">()</span> </span>&#123;...&#125;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Test(groups = &#123;&quot;linux.test&quot;&#125;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testLinuxOnly</span><span class="params">()</span> </span>&#123;...&#125;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Test(groups = &#123;&quot;windows.functest&quot;&#125;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testWindowsToo</span><span class="params">()</span> </span>&#123;...&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>配置中使用正则表达式如下：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">test</span> <span class="attr">name</span>=<span class="string">&quot;正则表达式测试&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groups</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">run</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">include</span> <span class="attr">name</span>=<span class="string">&quot;windows.*&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">run</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">groups</span>&gt;</span></span><br><span class="line"> </span><br><span class="line">  <span class="tag">&lt;<span class="name">classes</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">class</span> <span class="attr">name</span>=<span class="string">&quot;example.RegularExpressionTest&quot;</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">classes</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">test</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="部分组（Partial-group）"><a href="#部分组（Partial-group）" class="headerlink" title="部分组（Partial group）"></a>部分组（Partial group）</h3><p>上面的分组都是在方法级别定义的，但还可以在类级别定义分组，比如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test(groups = &#123;&quot;partial-group-test&quot;&#125;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">All</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="meta">@Test(groups = &#123;&quot;method-group-test&quot;&#125;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method1</span><span class="params">()</span> </span>&#123;...&#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method2</span><span class="params">()</span> </span>&#123;...&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>method2()是partial-group-test分组的一部分，因此称为“部分组”；而method1()除了属于其上定义的method-group-test分组外，也属于partial-group-test分组。</p>
+</blockquote>
+<h3 id="元分组（MetaGroup）——分组的分组"><a href="#元分组（MetaGroup）——分组的分组" class="headerlink" title="元分组（MetaGroup）——分组的分组"></a>元分组（MetaGroup）——分组的分组</h3><p>不仅可以指定执行测试类中定义的分组，甚至可以指定执行在配置文件中定义的分组。比如：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">test</span> <span class="attr">name</span>=<span class="string">&quot;元分组测试&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groups</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">define</span> <span class="attr">name</span>=<span class="string">&quot;functest&quot;</span>&gt;</span> <span class="comment">&lt;!-- 定义分组 --&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">include</span> <span class="attr">name</span>=<span class="string">&quot;windows&quot;</span>/&gt;</span> <span class="comment">&lt;!-- 引用了测试类中的分组 --&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">include</span> <span class="attr">name</span>=<span class="string">&quot;linux&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">define</span>&gt;</span></span><br><span class="line">  </span><br><span class="line">    <span class="tag">&lt;<span class="name">define</span> <span class="attr">name</span>=<span class="string">&quot;all&quot;</span>&gt;</span> <span class="comment">&lt;!-- 定义分组 --&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">include</span> <span class="attr">name</span>=<span class="string">&quot;functest&quot;</span>/&gt;</span> <span class="comment">&lt;!-- 引用上面定义的分组 --&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">include</span> <span class="attr">name</span>=<span class="string">&quot;checkintest&quot;</span>/&gt;</span> <span class="comment">&lt;!-- 引用了测试类中的分组 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">define</span>&gt;</span></span><br><span class="line">  </span><br><span class="line">    <span class="tag">&lt;<span class="name">run</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">include</span> <span class="attr">name</span>=<span class="string">&quot;all&quot;</span>/&gt;</span> <span class="comment">&lt;!-- 执行上面定义的分组 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">run</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">groups</span>&gt;</span></span><br><span class="line">  </span><br><span class="line">  <span class="tag">&lt;<span class="name">classes</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">class</span> <span class="attr">name</span>=<span class="string">&quot;test.sample.MetaGroupTest&quot;</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">classes</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">test</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="方法分组"><a href="#方法分组" class="headerlink" title="方法分组"></a>方法分组</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">test</span> <span class="attr">name</span>=<span class="string">&quot;方法分组测试&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">classes</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">class</span> <span class="attr">name</span>=<span class="string">&quot;example.MethodGroupTest&quot;</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">methods</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">include</span> <span class="attr">name</span>=<span class="string">&quot;.*enabledTestMethod.*&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">exclude</span> <span class="attr">name</span>=<span class="string">&quot;.*brokenTestMethod.*&quot;</span>/&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">methods</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;/<span class="name">class</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">classes</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">test</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>个人认为，严格来说这不应该叫作分组，配置文件中并没有出现&lt;groups&gt;标签，但官方文档就是这样定义的，姑且这样叫吧。</p>
+<p>注意，方法分组跟使用正则表达式匹配分组很像，但它们是不同的。首先，它们配置的标签不同；其次，方法分组的正则表达式匹配的是方法名，而不是分组名。</p>
+</blockquote>
+<h2 id="执行顺序"><a href="#执行顺序" class="headerlink" title="执行顺序"></a>执行顺序</h2><p>测试是按XML中配置的顺序执行的，如果想以不可预知的顺序执行，那么，只需要设置preserve-order属性为false即可：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">test</span> <span class="attr">name</span>=<span class="string">&quot;乱序执行测试&quot;</span> <span class="attr">preserve-order</span>=<span class="string">&quot;false&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="参数化"><a href="#参数化" class="headerlink" title="参数化"></a>参数化</h2><p>测试方法不必是无参的，有时传入参数会简化测试代码并增加灵活性。</p>
+<p>有2种方式为方法提供参数，一种是通过XML配置文件传入，另一种是编写一个返回数据的方法充当数据提供器。</p>
+<h3 id="配置参数"><a href="#配置参数" class="headerlink" title="配置参数"></a>配置参数</h3><p>首先，应该在XML文件中定义参数：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">suite</span> <span class="attr">name</span>=<span class="string">&quot;测试套件&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">parameter</span> <span class="attr">name</span>=<span class="string">&quot;first-name&quot;</span> <span class="attr">value</span>=<span class="string">&quot;Eric&quot;</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">test</span> <span class="attr">name</span>=<span class="string">&quot;XML参数测试&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>然后，在测试方法上注解注入这个参数就可以了：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Parameters(&#123; &quot;first-name&quot; &#125;)</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testXmlParameter</span><span class="params">(String firstName)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">assert</span> <span class="string">&quot;Eric&quot;</span>.equals(firstName);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>说明：</p>
+<ol>
+<li>XML中定义的参数名不需要与方法参数相同，如上例一为“first-name”一为“firstName”。</li>
+<li>可重复使用&lt;parameter&gt;定义多个参数，并在注解@Parameters中提供参数名数组作为属性，即可传入多个参数。但注解指定的参数个数应与方法参数个数匹配。</li>
+<li>@Parameters注解不仅可应用于@Test（即@Test注解的方法，下同），还可以应用于：@BeforeXXX、@AfterXXX、@Factory以及至多一个构造器。</li>
+</ol>
+</blockquote>
+<p>如果指定要传入的参数在XML中未定义，则会抛出异常，除非使用@Optional提供默认值：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Parameters(&quot;miss&quot;)</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testNonExistentParameter</span><span class="params">(<span class="meta">@Optional(&quot;defaultValue&quot;)</span>String value)</span> </span>&#123;...&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="数据提供器"><a href="#数据提供器" class="headerlink" title="数据提供器"></a>数据提供器</h3><p>从配置参数的说明中可以看出，它存在不少限制：</p>
+<ol>
+<li>当参数过多时，定义和使用都比较繁琐（当然，跟Java方法的建议一样，就不应该传入过多的参数）。</li>
+<li>仅能传字符串。由于是从XML读取的数据，所以只能是字符串。</li>
+<li>仅能传一组参数。如果想传入多组参数进行测试就不行了。</li>
+</ol>
+<p>以上限制对于数据提供器而言，都将不是问题。</p>
+<p><strong>数据提供器的基本使用</strong></p>
+<p>所谓数据提供器，其实就是一个创建并返回参数的方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@DataProvider(name = &quot;data&quot;)</span></span><br><span class="line"><span class="keyword">public</span> Object[][] createData() </span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> Object[][]</span><br><span class="line">    &#123;</span><br><span class="line">        &#123; <span class="string">&quot;Eric&quot;</span>, <span class="keyword">new</span> Integer(<span class="number">100</span>) &#125;,</span><br><span class="line">        &#123; <span class="string">&quot;Zong&quot;</span>, <span class="keyword">new</span> Integer(<span class="number">500</span>)&#125;,</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>注意，数据提供器的返回值类型必须是Object[][]（或Iterator&lt;Object[]&gt;）。可以将其看作一个表格，每一行就是一组测试数据。</p>
+<p>使用方法如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test(dataProvider = &quot;data&quot;)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testGroupData</span><span class="params">(String name, Integer no)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    System.out.println(n1 + <span class="string">&quot; &quot;</span> + n2);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>映射关系由@Test的dataProvider属性和@DataProvider的name属性对应确定，上例中是“data”。</p>
+<p>注意，由于提供的数据有“两行”，所以测试方法testGroupData()将被调用两次，各传入“一行”数据。</p>
+<p><strong>使用位于不同类中的数据提供器</strong></p>
+<p>默认情况下，将在当前类或其基类中查找数据提供器。如果想将数据放在一个不同的类中，需要一个<u>静态方法</u>或一个<u>带无参构造器的类</u>：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StaticProvider</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="meta">@DataProvider(name = &quot;data&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Object[][] createData()</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Object[][]&#123; &#123;<span class="string">&quot;Eric&quot;</span>&#125;, &#123;<span class="string">&quot;Zong&quot;</span>&#125; &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyTest</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="meta">@Test(dataProvider = &quot;data&quot;, dataProviderClass = StaticProvider.class)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">(String name)</span> </span>&#123; ... &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>说明：需要使用dataProviderClass属性指定数据提供器所在的类。</p>
+</blockquote>
+<p><strong>数据提供器鉴别调用方法</strong></p>
+<p>数据提供器可以分别为多个测试方法提供测试数据，甚至可以根据调用方法的不同来返回不同的测试数据。关键点在于，为数据提供器方法传入调用方法参数即可，如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test(dataProvider = &quot;data&quot;)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testMethod</span><span class="params">(String name, <span class="keyword">int</span> index)</span> </span>&#123;</span><br><span class="line">    System.out.println(<span class="string">&quot;方法一：name=&quot;</span> + name + <span class="string">&quot;;index=&quot;</span> + index);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Test(dataProvider = &quot;data&quot;)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testMethod2</span><span class="params">(String name, <span class="keyword">int</span> index)</span> </span>&#123;</span><br><span class="line">    System.out.println(<span class="string">&quot;方法二：name=&quot;</span> + name + <span class="string">&quot;;index=&quot;</span> + index);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@DataProvider(name = &quot;data&quot;)</span></span><br><span class="line"><span class="keyword">public</span> Object[][] createData(Method method) &#123;</span><br><span class="line">    <span class="keyword">if</span>( Objects.equals(<span class="string">&quot;testMethod&quot;</span>, method.getName())) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Object[][] &#123;</span><br><span class="line">                &#123;<span class="string">&quot;Eric Zong&quot;</span>, <span class="number">1</span>&#125;,</span><br><span class="line">                &#123;<span class="string">&quot;Peter Park&quot;</span>, <span class="number">2</span>&#125;</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span>(Objects.equals(<span class="string">&quot;testMethod2&quot;</span>, method.getName())) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Object[][] &#123;</span><br><span class="line">                &#123;<span class="string">&quot;张三&quot;</span>, <span class="number">10</span>&#125;,</span><br><span class="line">                &#123;<span class="string">&quot;李四&quot;</span>, <span class="number">20</span>&#125;</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 结果输出：</span></span><br><span class="line"><span class="comment">// 方法一：name=Eric Zong;index=1</span></span><br><span class="line"><span class="comment">// 方法一：name=Peter Park;index=2</span></span><br><span class="line"><span class="comment">// 方法二：name=张三;index=10</span></span><br><span class="line"><span class="comment">// 方法二：name=李四;index=20</span></span><br></pre></td></tr></table></figure>
+<p>注意，<code>createData()</code> 方法传入了一 <code>Method</code> 类型的参数，它代表当前调用该数据提供器方法的测试方法。因此，在 <code>createData()</code> 中可以根据 <code>method</code> 参数来区别返回不同的测试数据。</p>
+<h2 id="依赖"><a href="#依赖" class="headerlink" title="依赖"></a>依赖</h2><h3 id="注解依赖"><a href="#注解依赖" class="headerlink" title="注解依赖"></a>注解依赖</h3><p>硬依赖（hard dependency）：依赖项之一失败则跳过不执行。</p>
+<p>软依赖（soft dependency）：依赖项失败仍然执行，仅保证执行顺序，@Test(alwaysRun=true)。</p>
+<ul>
+<li>依赖方法</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test(dependsOnMethods = &#123;&quot;initMethod&quot;&#125;)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testMethod</span><span class="params">()</span> </span>&#123;...&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>依赖组</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test(dependsOnGroups = &#123;&quot;init.*&quot;&#125;)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testMethod</span><span class="params">()</span> </span>&#123;...&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>说明：支持正则表达式。</p>
+</blockquote>
+<ul>
+<li>按实例分组依赖</li>
+</ul>
+<p>被依赖的方法总是在依赖它的方法之前运行，如果测试方法都只运行一次，这没什么问题。</p>
+<p>但是，在多实例的情况下，比如工厂（后文将进行详细说明），这种运行顺序可能就不是我们想要的了。例如：一个测试中有登入和登出2个测试方法，登出是依赖登入的。假设执行了2个实例，则顺序可能是：登入A、登入B、登出A、登出B。但实际我们期望的顺序可能是：登入A、登出A、登入B、登出B。即期望的依赖是按实例隔离的，而不是按测试隔离的。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">suite</span> <span class="attr">name</span>=<span class="string">&quot;Factory&quot;</span> <span class="attr">group-by-instances</span>=<span class="string">&quot;true&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">test</span> <span class="attr">name</span>=<span class="string">&quot;Factory&quot;</span> <span class="attr">group-by-instances</span>=<span class="string">&quot;true&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>说明：这仍然属于注解依赖，因为，依赖是以注解定义的，配置中只是指明了隔离性。</p>
+</blockquote>
+<h3 id="配置依赖"><a href="#配置依赖" class="headerlink" title="配置依赖"></a>配置依赖</h3><p>除了使用注解定义依赖，还可以在配置文件中定义依赖：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">test</span> <span class="attr">name</span>=<span class="string">&quot;测试套件&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groups</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">group</span> <span class="attr">name</span>=<span class="string">&quot;组C&quot;</span> <span class="attr">depends-on</span>=<span class="string">&quot;组A 组B&quot;</span> /&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">group</span> <span class="attr">name</span>=<span class="string">&quot;组Z&quot;</span> <span class="attr">depends-on</span>=<span class="string">&quot;组C&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">groups</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">test</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="工厂"><a href="#工厂" class="headerlink" title="工厂"></a>工厂</h2><p>针对一个测试，很多时候不只需要执行一次，很可能我们期望它能以不同的值或配置执行多次。这就需要用到工厂了。</p>
+<p>简单来说，工厂能针对一个测试动态地创建不同的测试实例。其目的主要是为了复用测试逻辑代码。</p>
+<h3 id="方法工厂"><a href="#方法工厂" class="headerlink" title="方法工厂"></a>方法工厂</h3><blockquote>
+<p>“方法工厂”这个词是我生造的，从测试概念上来讲，它是一个创建测试实例的工厂，从Java代码上来看是一个方法。</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestFactory</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="meta">@Factory</span></span><br><span class="line">    <span class="keyword">public</span> Object[] createInstances()</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// Just create n instances of TestClass</span></span><br><span class="line">        <span class="keyword">return</span> instances;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestClass</span> </span>&#123;...&#125;</span><br></pre></td></tr></table></figure>
+<p>注意，方法createInstances()上使用了注解@Factory，说明它是一个工厂。</p>
+<p>该方法返回值必须是一个Object数组，以返回多个测试类实例。但它不必是static的。</p>
+<p>配置文件中只需要配置工厂方法所在的类即可，不需要配置测试类，如下：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">class</span> <span class="attr">name</span>=<span class="string">&quot;TestFactory&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>说明：</p>
+<p>工厂方法可以接收参数。</p>
+<p>工厂方法也可以定义在测试类中。</p>
+</blockquote>
+<h3 id="构造器工厂"><a href="#构造器工厂" class="headerlink" title="构造器工厂"></a>构造器工厂</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestClass</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="meta">@Factory(dataProvider = &quot;data&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">TestClass</span><span class="params">(String config)</span> </span>&#123;...&#125;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@DataProvider</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Object[][] data() &#123;...&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>注意：</p>
+<ul>
+<li>@Factory注解标注在了测试类的构造器上，并使用dataProvider属性指定了数据提供器为构造器提供参数。</li>
+<li>通常数据提供器方法也定义在测试类中，并且为static（想想为什么呢？）。</li>
+<li>@DataProvider通常不提供name属性，而默认使用方法名作为数据提供器名称。</li>
+</ul>
+<blockquote>
+<p>方法工厂 vs. 构造器工厂</p>
+<p>形式上讲，两种工厂的区别仅仅在于，一个用普通方法创建测试实例，而另一种使用构造器。但最终，方法工厂也要调用构造器。</p>
+<p>不过，方法工厂更具灵活性。它不需要数据提供器提供参数，甚至参数不必通过构造器传入，而使用测试类的某些设置方法进行设置。</p>
+</blockquote>
+<h2 id="并行"><a href="#并行" class="headerlink" title="并行"></a>并行</h2><h3 id="测试套并行"><a href="#测试套并行" class="headerlink" title="测试套并行"></a>测试套并行</h3><p>我们可以在命令行中一次执行多个测试套件，通过调整线程池的大小，可使其并行执行：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java org.testng.TestNG -suitethreadpoolsize 3 testng1.xml testng2.xml testng3.xml</span><br></pre></td></tr></table></figure>
+<h3 id="其他级别的并行"><a href="#其他级别的并行" class="headerlink" title="其他级别的并行"></a>其他级别的并行</h3><p>在测试套件中，我们也可以指定其内部的并行方式：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">suite</span> <span class="attr">name</span>=<span class="string">&quot;测试套件&quot;</span> <span class="attr">parallel</span>=<span class="string">&quot;classes&quot;</span> <span class="attr">thread-count</span>=<span class="string">&quot;2&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>参数说明：</p>
+<ul>
+<li>parallel - 并行级别</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>级别</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>methods</td>
+<td>TestNG将在不同的线程中运行所有的测试方法。依赖方法将在单独的线程中运行，但它们将尊重你指定的顺序。</td>
+</tr>
+<tr>
+<td>tests</td>
+<td>TestNG 将在同一个线程中运行相同的标记的所有方法，但是每个标记将在一个单独的线程中。这允许你将所有非线程安全的类分组在同一个中，并保证它们将在同一个线程中运行，同时利用尽可能多的线程来运行测试。</td>
+</tr>
+<tr>
+<td>classes</td>
+<td>TestNG将在同一个线程中运行同一个类中的所有方法，但是每个类都将在一个单独的线程中运行。</td>
+</tr>
+<tr>
+<td>instances</td>
+<td>TestNG将在同一个线程中运行相同实例中的所有方法，但是在两个不同实例上的两个方法将在不同的线程中运行。</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li>thread-count - 线程的个数</li>
+</ul>
+<h2 id="带返回值方法"><a href="#带返回值方法" class="headerlink" title="带返回值方法"></a>带返回值方法</h2><p>默认情况下，如果一个方法有返回值，即使被@Test标注也会被忽略，不会执行，除非设置allow-return-values=”true”：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">suite</span> <span class="attr">allow-return-values</span>=<span class="string">&quot;true&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">test</span> <span class="attr">allow-return-values</span>=<span class="string">&quot;true&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="JUnit"><a href="#JUnit" class="headerlink" title="JUnit"></a>JUnit</h2><p>TestNG可以执行JUnit编写的测试类，区别仅仅是添加一个junit属性：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">test</span> <span class="attr">name</span>=<span class="string">&quot;JUnitTests&quot;</span> <span class="attr">junit</span>=<span class="string">&quot;true&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>对于JUnit4，TestNG使用org.junit.runner.JUnitCore运行测试。</p>
+</blockquote>
+<h1 id="命令行执行"><a href="#命令行执行" class="headerlink" title="命令行执行"></a>命令行执行</h1><h2 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h2><p>在上文“测试套并行”部分已经见过命令行执行的方法了：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java org.testng.TestNG -suitethreadpoolsize 3 testng1.xml testng2.xml testng3.xml</span><br></pre></td></tr></table></figure>
+<h2 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h2><p>命令行可能有一些常用的固定参数，可以将它们放在一个文本文件中：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">C:&gt; more c:\command.txt</span><br><span class="line">-d test-output testng.xml</span><br><span class="line">C:&gt; java org.testng.TestNG @c:\command.txt</span><br></pre></td></tr></table></figure>
+<h2 id="JVM属性"><a href="#JVM属性" class="headerlink" title="JVM属性"></a>JVM属性</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -Dtestng.test.classpath=&quot;c:/build;c:/java/classes;&quot; org.testng.TestNG testng.xml</span><br></pre></td></tr></table></figure>
+<h1 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h1><p>TestFixture 是指一个测试运行所需的固定环境，准确的定义：</p>
+<blockquote>
+<p>The testfixture is everything we need to have in place to exercise the SUT.</p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Eric Zong
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://ericzonglu.gitee.io/posts/java-framework-testng.html" title="TestNG学习笔记">http://ericzonglu.gitee.io/posts/java-framework-testng.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%B5%8B%E8%AF%95/" rel="tag"># 测试</a>
+              <a href="/tags/%E6%B5%8B%E8%AF%95%E6%A1%86%E6%9E%B6/" rel="tag"># 测试框架</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/java-framework-active-jdbc-02.html" rel="prev" title="ActiveJDBC笔记：2 基本使用">
+      <i class="fa fa-chevron-left"></i> ActiveJDBC笔记：2 基本使用
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/posts/java-tool-maven-02.html" rel="next" title="Maven笔记：最佳实践">
+      Maven笔记：最佳实践 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A6%82%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF-TestNG"><span class="nav-number">1.1.</span> <span class="nav-text">什么是 TestNG?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95%E9%83%A8%E4%BB%B6"><span class="nav-number">1.2.</span> <span class="nav-text">测试部件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF"><span class="nav-number">1.3.</span> <span class="nav-text">学习路线</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TestNG-vs-JUnit"><span class="nav-number">1.4.</span> <span class="nav-text">TestNG vs. JUnit</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B3%A8%E8%A7%A3"><span class="nav-number">2.</span> <span class="nav-text">注解</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E9%85%8D%E7%BD%AE"><span class="nav-number">3.</span> <span class="nav-text">使用配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E6%89%A7%E8%A1%8C%E5%8D%95%E5%85%83"><span class="nav-number">3.1.</span> <span class="nav-text">配置执行单元</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8C%87%E5%AE%9A%E5%8C%85"><span class="nav-number">3.1.1.</span> <span class="nav-text">指定包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8C%87%E5%AE%9A%E7%B1%BB"><span class="nav-number">3.1.2.</span> <span class="nav-text">指定类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8C%87%E5%AE%9A%E6%96%B9%E6%B3%95"><span class="nav-number">3.1.3.</span> <span class="nav-text">指定方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E7%BB%84"><span class="nav-number">3.2.</span> <span class="nav-text">分组</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="nav-number">3.2.1.</span> <span class="nav-text">使用正则表达式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%83%A8%E5%88%86%E7%BB%84%EF%BC%88Partial-group%EF%BC%89"><span class="nav-number">3.2.2.</span> <span class="nav-text">部分组（Partial group）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%83%E5%88%86%E7%BB%84%EF%BC%88MetaGroup%EF%BC%89%E2%80%94%E2%80%94%E5%88%86%E7%BB%84%E7%9A%84%E5%88%86%E7%BB%84"><span class="nav-number">3.2.3.</span> <span class="nav-text">元分组（MetaGroup）——分组的分组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E5%88%86%E7%BB%84"><span class="nav-number">3.2.4.</span> <span class="nav-text">方法分组</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F"><span class="nav-number">3.3.</span> <span class="nav-text">执行顺序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E6%95%B0%E5%8C%96"><span class="nav-number">3.4.</span> <span class="nav-text">参数化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E5%8F%82%E6%95%B0"><span class="nav-number">3.4.1.</span> <span class="nav-text">配置参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E6%8F%90%E4%BE%9B%E5%99%A8"><span class="nav-number">3.4.2.</span> <span class="nav-text">数据提供器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BE%9D%E8%B5%96"><span class="nav-number">3.5.</span> <span class="nav-text">依赖</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B3%A8%E8%A7%A3%E4%BE%9D%E8%B5%96"><span class="nav-number">3.5.1.</span> <span class="nav-text">注解依赖</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E4%BE%9D%E8%B5%96"><span class="nav-number">3.5.2.</span> <span class="nav-text">配置依赖</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B7%A5%E5%8E%82"><span class="nav-number">3.6.</span> <span class="nav-text">工厂</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E5%B7%A5%E5%8E%82"><span class="nav-number">3.6.1.</span> <span class="nav-text">方法工厂</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9E%84%E9%80%A0%E5%99%A8%E5%B7%A5%E5%8E%82"><span class="nav-number">3.6.2.</span> <span class="nav-text">构造器工厂</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B9%B6%E8%A1%8C"><span class="nav-number">3.7.</span> <span class="nav-text">并行</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95%E5%A5%97%E5%B9%B6%E8%A1%8C"><span class="nav-number">3.7.1.</span> <span class="nav-text">测试套并行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E7%BA%A7%E5%88%AB%E7%9A%84%E5%B9%B6%E8%A1%8C"><span class="nav-number">3.7.2.</span> <span class="nav-text">其他级别的并行</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%A6%E8%BF%94%E5%9B%9E%E5%80%BC%E6%96%B9%E6%B3%95"><span class="nav-number">3.8.</span> <span class="nav-text">带返回值方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JUnit"><span class="nav-number">3.9.</span> <span class="nav-text">JUnit</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%91%BD%E4%BB%A4%E8%A1%8C%E6%89%A7%E8%A1%8C"><span class="nav-number">4.</span> <span class="nav-text">命令行执行</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%91%BD%E4%BB%A4"><span class="nav-number">4.1.</span> <span class="nav-text">命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E6%95%B0"><span class="nav-number">4.2.</span> <span class="nav-text">参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JVM%E5%B1%9E%E6%80%A7"><span class="nav-number">4.3.</span> <span class="nav-text">JVM属性</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%99%84%E5%BD%95"><span class="nav-number">5.</span> <span class="nav-text">附录</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Eric Zong</p>
+  <div class="site-description" itemprop="description">这里有作为一个程序员想记录的一切。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">96</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Eric Zong</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

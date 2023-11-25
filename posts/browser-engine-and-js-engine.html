@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"ericzonglu.gitee.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="追溯浏览器引擎及JS引擎的历史变迁。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="浏览器引擎及JS引擎考">
+<meta property="og:url" content="http://ericzonglu.gitee.io/posts/browser-engine-and-js-engine.html">
+<meta property="og:site_name" content="八白龙的博客">
+<meta property="og:description" content="追溯浏览器引擎及JS引擎的历史变迁。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-04-04T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-03-27T16:37:18.059Z">
+<meta property="article:author" content="Eric Zong">
+<meta property="article:tag" content="科技史">
+<meta property="article:tag" content="排版引擎">
+<meta property="article:tag" content="JavaScript引擎">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://ericzonglu.gitee.io/posts/browser-engine-and-js-engine.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>浏览器引擎及JS引擎考 | 八白龙的博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">八白龙的博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">程序员的杂货铺</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-references">
+
+    <a href="/references/" rel="section"><i class="bookmark fa-fw"></i>参考</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://ericzonglu.gitee.io/posts/browser-engine-and-js-engine.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Eric Zong">
+      <meta itemprop="description" content="这里有作为一个程序员想记录的一切。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="八白龙的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          浏览器引擎及JS引擎考
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-04-05 00:00:00" itemprop="dateCreated datePublished" datetime="2020-04-05T00:00:00+08:00">2020-04-05</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-03-28 00:37:18" itemprop="dateModified" datetime="2021-03-28T00:37:18+08:00">2021-03-28</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">工具</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B7%A5%E5%85%B7/%E6%B5%8F%E8%A7%88%E5%99%A8/" itemprop="url" rel="index"><span itemprop="name">浏览器</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="此引擎非彼引擎"><a href="#此引擎非彼引擎" class="headerlink" title="此引擎非彼引擎"></a>此引擎非彼引擎</h1><p>提起浏览器，我们应该会觉得很熟悉，因为作为现代人几乎我们天天都在使用浏览器访问互联网，虽然我们使用的未必是同一厂商浏览器。不过，对于大多数人而言，我们只是简单地使用浏览器而已，并不真正了解浏览器。</p>
+<p>提到浏览器往往会听到一些概念，比如：内核、引擎、JS 引擎……</p>
+<p>我们所说的<strong>浏览器内核</strong>，通常指的是<strong>渲染引擎</strong>（Rendering Engine，或称“<strong>排版引擎</strong>”，即 Layout Engine）以及 <strong>JS 引擎</strong>。</p>
+<blockquote>
+<p>最开始排版引擎和 JS 引擎并没有区分得很明确，随着 JS 引擎越来越独立，内核就倾向于指排版引擎了。</p>
+<p>通常，浏览器内核也称“浏览器引擎”，但严格来说，<strong>浏览器引擎</strong>是指查询及操作渲染引擎的接口。</p>
+</blockquote>
+<h1 id="从主流说起"><a href="#从主流说起" class="headerlink" title="从主流说起"></a>从主流说起</h1><p>虽然浏览器厂商很多，但主流的浏览器无非：Chrome、Firefox、Safari、Opera、IE……</p>
+<blockquote>
+<p>微软先是抛弃了 IE，推出了全新的浏览器 Edge，但最终还是拥抱了谷歌，推出了 Chromium 版的 Edge。</p>
+</blockquote>
+<p>而主流的浏览器内核主要有四种：Blink、Gecko、WebKit、Trident……</p>
+<blockquote>
+<p>随着 IE 逐渐淡出，Trident 最终可能不再是主流。</p>
+</blockquote>
+<h1 id="内核的发展"><a href="#内核的发展" class="headerlink" title="内核的发展"></a>内核的发展</h1><h2 id="Gecko"><a href="#Gecko" class="headerlink" title="Gecko"></a>Gecko</h2><p>Gecko 是个开源的跨平台内核，由 C++ 编写。由于现在 Firefox 使用它，因此俗称“Firefox 内核”。</p>
+<p>1998 年初，Raptor 排版引擎由网景开源发布；但因商标问题，Raptor 后改名为 NGLayout（即 Next Generation Layout）；最后，网景市场部门将 NGLayout 重命名为 Gecko。</p>
+<p>2000 年 11 月，采用 Gecko 引擎的 Netscape 6.0 正式发布。</p>
+<p>2003 年 7 月 15 日，美国在线（AOL）解散网景公司，Mozilla 基金会在当天成立。Gecko 由 Mozilla 基金会维护。</p>
+<blockquote>
+<p>Mozilla.org 是网景成立的非正式组织，是 Mozilla 基金会前身。</p>
+</blockquote>
+<p>2016 年 10 月，Mozilla 宣布 Quantum 项目，目标是“构建下一代 Firefox 浏览器引擎”。它从实验项目 Servo 中引入许多改进。2017 年 11 月发布的 Firefox 57 激活 Servo 组件的初始版本。其他组件在未来版本中将逐步从 Servo 合并到 Gecko。</p>
+<h2 id="Trident-EdgeHTML"><a href="#Trident-EdgeHTML" class="headerlink" title="Trident/EdgeHTML"></a>Trident/EdgeHTML</h2><p>1997 年 10 月，Trident 的首个版本 随 IE4 发布。因此，Trident 俗称“IE 内核”。由 C++ 编写。</p>
+<blockquote>
+<p>微软还有一个 Tasman，它是 Internet Explorer for Mac 的排版引擎，它仍使用在 Office for Mac 中。</p>
+</blockquote>
+<p>IE 与 Trident 版本的对应关系为：IE4~7（Trident 没有明确版本）、IE8（Trident 4）、IE9（Trident 5）、IE10（Trident 6）、IE11（Trident 7）……</p>
+<blockquote>
+<p>虽然 Trident 不是开源的，但却是一款开放的内核，其接口内核设计相当成熟。因此，早期有许多国产浏览器都使用“IE 内核”。甚至，现在国内流行的双核浏览器，通常也是一个内核是 Trident，再加一个其他内核。并把其他内核称为“高速浏览模式”，而称 Trident 为“兼容浏览模式”。</p>
+</blockquote>
+<p>说到这里，不得不顺便提下微软之后发布的 Microsoft Edge，它使用名为 EdgeHTML 的排版引擎，该引擎是 Trident 的一个分支。</p>
+<p>But，2018 年 12 月，微软声明 Edge 将会重新以 Chromium 为基础，即是说 Chromium 版的 Edge 会沿用 Blink 排版引擎——EdgeHTML 继 IE 之后被微软抛弃了。</p>
+<h2 id="KHTML"><a href="#KHTML" class="headerlink" title="KHTML"></a>KHTML</h2><p>KDE 使用 C++ 开发，以 LGPL 授权。</p>
+<p>由于 IE 的市场占有率太高，KHTML 显得有些小众，但它并非不重要，因为 WebKit 是它的分支。</p>
+<h2 id="WebKit-WebKit2"><a href="#WebKit-WebKit2" class="headerlink" title="WebKit/WebKit2"></a>WebKit/WebKit2</h2><p>WebKit 派生自 KHTML，主要由苹果公司开发，并用于 Apple Safari 浏览器，故俗称“Safari 内核”。</p>
+<p>苹果于 2001 年 6 月 25 日开始 WebKit 项目。</p>
+<blockquote>
+<p>实事上，WebKit 项目主要派生了两部分代码，一是从排版引擎 KHTML 派生出了 WebCore，另外是从 JS 引擎 KJS 派生出了 JavaScriptCore。</p>
+<p>JavaScriptCore 于 2002 年 6 月发布，而 WebCore 于 2003 年 1 月随 Safari 浏览器发布。</p>
+</blockquote>
+<p>2005 年 6 月 7 日，苹果将 WebKit 开源（之前开源的 WebCore 及 JavaScriptCore）。</p>
+<blockquote>
+<p>WebCore 及 JavaScriptCore 以 GNU 授权，而 WebKit 其他组件以 BSD 授权。</p>
+<p>但 Safari 浏览器是部分开源的，苹果公司的某些接口未对外开源。</p>
+</blockquote>
+<p>2010 年 4 月 8 日，苹果发布 WebKit2。</p>
+<blockquote>
+<p>在 Chrome 28 之前，Google 使用 WebKit 中 WebCore 与自己的 JavaScript V8 引擎（当时，这也统称为“WebKit引擎”）。</p>
+<p>WebKit2 会创建一个环境使网页的内容在另外一个进程（Process）运行，而这与 Google 的 V8 引擎的沙箱实现有冲突，这意味着 Google 不能使用 WebKit2 排版引擎。这就是 Google 从 WebCore 创建分支开发 Blink 排版引擎的根源所在。</p>
+</blockquote>
+<h2 id="Presto"><a href="#Presto" class="headerlink" title="Presto"></a>Presto</h2><p>Presto 是 Opera Software 公司自行开发的排版引擎，由 C++ 编写，跨平台。并专用于 Opera 浏览器 7.0~12.18 版本。</p>
+<p>2013 年 2 月 12 日，为了减少研发成本，Opera 宣布放弃 Presto 引擎的开发，转而跟随 Chrome 使用 WebKit。</p>
+<blockquote>
+<p>不久，谷歌推出 Blink 引擎，Opera 也紧随其后使用 Blink。</p>
+</blockquote>
+<p>2016 年 2 月 15 日，Opera 被中资昆仑万维以及 360 联合收购，同日发布 Opera 12.18，这是最后一个使用 Presto 内核的 Opera 版本。</p>
+<h2 id="Blink"><a href="#Blink" class="headerlink" title="Blink"></a>Blink</h2><p>Blink 是谷歌发起的，由 C++ 编写的跨平台排版引擎。使用 GNU 和 BSD 许可证。</p>
+<blockquote>
+<p>Blink 的名字是受 Netscape Navigator 引入的非标准元素 blink 启发而来。</p>
+<p>有个有趣的段子是说，Blink 引擎永远不会支持 blink 元素。</p>
+</blockquote>
+<p>2013 年 4 月 3 日，谷歌在 Chromium Blog 上发表博客，将在 Chromium 项目中研发 Blink 排版引擎，标志着与 WebKit 分道扬镳。</p>
+<p>But，实事上，Blink 并不是一个全新的排版引擎，它只是 WebKit 项目中开源组件 WebCore 的一个分支。</p>
+<blockquote>
+<p>还记得上文提到 Opera Software 也跟随谷歌使用 Blink 引擎了吗？因此之后，它们一起共同开发 Blink。</p>
+</blockquote>
+<h1 id="JavaScript-引擎"><a href="#JavaScript-引擎" class="headerlink" title="JavaScript 引擎"></a>JavaScript 引擎</h1><blockquote>
+<p>1995 年，Brendan Eich 被招聘到 Netscape，并在 10 天内设计开发出 JavaScript。</p>
+</blockquote>
+<h2 id="SpiderMonkey"><a href="#SpiderMonkey" class="headerlink" title="SpiderMonkey"></a>SpiderMonkey</h2><p>1996 年秋，Brendan Eich 在家两个礼拜重写 Mocha 程序库，即后来大家熟知的 SpiderMonkey。SpiderMonkey 由 C 和 C++ 实现，（很显然）是第一个 JavaScript 引擎，首先使用于 Netscape Navigator 浏览器。</p>
+<p>Mozilla Firefox 1.0～3.0 版本也使用 SpiderMonkey。</p>
+<blockquote>
+<p>SpiderMonkey 的命名很有“戏剧色彩”噢！</p>
+</blockquote>
+<p>2008 年 8 月 23 日，TraceMonkey 作为 Firefox 3.5 的 SpiderMonkey 中的编译引擎发布，是第一个为 JavaScript 语言编写的 JIT 编译器。</p>
+<p>Mozilla Firefox 3.5 ~ 3.6 版本使用了 TraceMonkey。</p>
+<p>2010 年初，JägerMonkey（内部称为 MethodJIT）被用来改善性能，采用组合编译（Method JIT）和汇编器（Assembler，移植于 WebKit 的 Nitro）。</p>
+<p>Mozilla Firefox 4 开始使用 JägerMonkey。</p>
+<blockquote>
+<p>德文 Jäger 原意为“猎人”。</p>
+<p>随后，Method JIT 和 TraceMonkey 的 Tracing JIT 集成。</p>
+</blockquote>
+<p>2013 年初，IonMonkey 作为 Firefox 18 的默认引擎发布。</p>
+<p>2013 年 6 月 25 日，OdinMonkey 随 Firefox 22 发布，但它不是一个 JIT 编译器，用于最优化 asm.js，编译器仍为 IonMonkey。</p>
+<h2 id="KJS"><a href="#KJS" class="headerlink" title="KJS"></a>KJS</h2><p>KJS 是 KDE 的 JavaScript 引擎，与 KDE 的排版引擎 KHTML 一样，虽不算耳熟能详但十分重要——苹果的 JavaScriptCore 是其分支。</p>
+<p>2000 年随 KDE 项目的 Konqueror 浏览器发布。</p>
+<h2 id="JScript-Chakra"><a href="#JScript-Chakra" class="headerlink" title="JScript/Chakra"></a>JScript/Chakra</h2><p>1996 年 8 月，JScript 引擎随 IE3.0 发布。直至 2011 年 3 月，IE9.0 发布，IE 一直使用 JScript 引擎。</p>
+<p>Chakra（查克拉，好“火影”的名字），准确地说，它是一个 JScript 引擎，用于 IE9 ~ IE11。</p>
+<p>Chakra 还有一个 JavaScript 引擎分支，用于 Microsoft Edge。2015 年 12 月 5 日，微软将 Chakra 核心组件开源，并命名为 ChakraCore。</p>
+<h2 id="JavaScriptCore"><a href="#JavaScriptCore" class="headerlink" title="JavaScriptCore"></a>JavaScriptCore</h2><p>2002 年 6 月 13 日，Apple 发布 JavaScriptCore，它是 KJS 的一个分支。</p>
+<p>2008 年 6 月 2 日，WebKit 项目宣布重写了 JavaScriptCore，称为“SquirrelFish”（一个字节码解释器），后来变成了 SquirrelFish Extreme（简称 SFX，市场称之为 Nitro，可将 JS 编译为机器语言不需解释器），于 2008 年 9 月 18 日发布。</p>
+<h2 id="V8"><a href="#V8" class="headerlink" title="V8"></a>V8</h2><p>V8 是由 Google 丹麦用 C++ 编写的开源 JavaScript 引擎，用于 Google Chrome、Chromium 浏览器以及 Node.js。</p>
+<h1 id="浏览器趣闻"><a href="#浏览器趣闻" class="headerlink" title="浏览器趣闻"></a>浏览器趣闻</h1><p>网景公司将自己的 1.0 版本的研发代号称作 Mozilla。Mozilla 一词是由“Mosaic Killa”（Mosaic杀手/终结者，Killa 是俚语中 Killer 的拼法）和“Godzilla eat the Mosaic”（Godzilla，即“哥斯拉”，日本遭受核打击和“第五福龙丸”事件后创造的经典虚拟生物）合成而来。即Mosaic + Godzilla + Killa = Mozilla！网景公司员工也常将其称作 Moz 或 Mozzie。</p>
+<p>自 1.0 版本发行以来，Netscape Navigator 迅速占领了市场，并且成功取代 Mosaic 成为新的 Web 标准。曾一度超过 90% 的市场占有率，并且一直保持这个占有率到 1996 年初（3.0 版本）。</p>
+<p>1995年，微软在获得 Mosaic 的技术授权后，开发出了自己的第一代浏览器 Internet Explorer 1.0（官方简称 IE），并于同年 8 月开始在其新版 32 位操作系统 Windows 95 中搭售，这一策略完美的捆绑销售了 IE 浏览器，在当时浏览器的使用可是付费的，对这种捆绑于操作系统的销售，无疑大范围的提升了 IE 浏览器的使用率。</p>
+<p>有一种很普遍的说法：Google Chrome 早期使用的是 WebKit 内核。但严格来说，这并不正确。开始，WebKit 仅仅是苹果的一个项目名称，该项目的确是在开发浏览器内核，主要从 KHTML 以及 KJS 中分别派生出了 WebCore 以及 JavaScriptCore。因此，所谓的“WebKit 内核”应该主要包含 WebCore 和 JavaScriptCore 两部分，而 Chrome 只使用了 WebCore，JavaScript 引擎用的是自己的 V8。严格意义上，不能说 Chrome 的内核是 WebKit。但是，由于后来内核越来越倾向于单指排版引擎，所以也称 Chrome 使用的是 WebKit 内核。这其实是语义“讹变”的结果。</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Mozilla/Gecko">MDN web docs - Gecko</a></p>
+<p><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/Gecko">维基百科（中文）- Gecko</a></p>
+<p><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/Trident_(%E6%8E%92%E7%89%88%E5%BC%95%E6%93%8E">维基百科（中文）- Trident</a>)</p>
+<p><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/EdgeHTML">维基百科（中文）- EdgeHTML</a></p>
+<p><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/KHTML">维基百科（中文）- KHTML</a></p>
+<p><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/WebKit">维基百科（中文）- WebKit</a></p>
+<p><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/Presto">维基百科（中文）- Prosto</a></p>
+<p><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/Blink">维基百科（中文）- Blink</a></p>
+<p><a target="_blank" rel="noopener" href="https://webkit.org/">【官网】WebKit - A fast, open source web browser engine.</a></p>
+<p><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/KJS">维基百科（中文）- KJS</a></p>
+<p><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/SpiderMonkey">维基百科（中文）- SpiderMonkey</a></p>
+<p><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Mozilla/Projects/SpiderMonkey">MDN web docs - SpiderMonkey</a></p>
+<p><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/JScript">维基百科（中文）- JScript</a></p>
+<p><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/Chakra_(JScript%E5%BC%95%E6%93%8E">维基百科（中文）- Chakra（JScript引擎）</a>)</p>
+<p><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/Chakra_(JavaScript%E5%BC%95%E6%93%8E">维基百科（中文）- Chakra（JavaScript引擎）</a>)</p>
+<p><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/V8_(JavaScript%E5%BC%95%E6%93%8E">维基百科（中文）- V8</a>)</p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Eric Zong
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://ericzonglu.gitee.io/posts/browser-engine-and-js-engine.html" title="浏览器引擎及JS引擎考">http://ericzonglu.gitee.io/posts/browser-engine-and-js-engine.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E7%A7%91%E6%8A%80%E5%8F%B2/" rel="tag"># 科技史</a>
+              <a href="/tags/%E6%8E%92%E7%89%88%E5%BC%95%E6%93%8E/" rel="tag"># 排版引擎</a>
+              <a href="/tags/JavaScript%E5%BC%95%E6%93%8E/" rel="tag"># JavaScript引擎</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/tool-chocolatey-install-dir.html" rel="prev" title="Chocolatey安装目录选项">
+      <i class="fa fa-chevron-left"></i> Chocolatey安装目录选项
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/posts/tool-ps-get-start-operation.html" rel="next" title="PS笔记：操作篇">
+      PS笔记：操作篇 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%AD%A4%E5%BC%95%E6%93%8E%E9%9D%9E%E5%BD%BC%E5%BC%95%E6%93%8E"><span class="nav-number">1.</span> <span class="nav-text">此引擎非彼引擎</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%8E%E4%B8%BB%E6%B5%81%E8%AF%B4%E8%B5%B7"><span class="nav-number">2.</span> <span class="nav-text">从主流说起</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%86%85%E6%A0%B8%E7%9A%84%E5%8F%91%E5%B1%95"><span class="nav-number">3.</span> <span class="nav-text">内核的发展</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Gecko"><span class="nav-number">3.1.</span> <span class="nav-text">Gecko</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Trident-EdgeHTML"><span class="nav-number">3.2.</span> <span class="nav-text">Trident&#x2F;EdgeHTML</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#KHTML"><span class="nav-number">3.3.</span> <span class="nav-text">KHTML</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#WebKit-WebKit2"><span class="nav-number">3.4.</span> <span class="nav-text">WebKit&#x2F;WebKit2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Presto"><span class="nav-number">3.5.</span> <span class="nav-text">Presto</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Blink"><span class="nav-number">3.6.</span> <span class="nav-text">Blink</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JavaScript-%E5%BC%95%E6%93%8E"><span class="nav-number">4.</span> <span class="nav-text">JavaScript 引擎</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#SpiderMonkey"><span class="nav-number">4.1.</span> <span class="nav-text">SpiderMonkey</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#KJS"><span class="nav-number">4.2.</span> <span class="nav-text">KJS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JScript-Chakra"><span class="nav-number">4.3.</span> <span class="nav-text">JScript&#x2F;Chakra</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JavaScriptCore"><span class="nav-number">4.4.</span> <span class="nav-text">JavaScriptCore</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#V8"><span class="nav-number">4.5.</span> <span class="nav-text">V8</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B5%8F%E8%A7%88%E5%99%A8%E8%B6%A3%E9%97%BB"><span class="nav-number">5.</span> <span class="nav-text">浏览器趣闻</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-number">6.</span> <span class="nav-text">参考</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Eric Zong</p>
+  <div class="site-description" itemprop="description">这里有作为一个程序员想记录的一切。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">96</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Eric Zong</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

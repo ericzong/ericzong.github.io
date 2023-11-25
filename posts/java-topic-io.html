@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"ericzonglu.gitee.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="介绍 Java IO 相关的基本概念、本地输入输出相关的接口。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java专题：IO流">
+<meta property="og:url" content="http://ericzonglu.gitee.io/posts/java-topic-io.html">
+<meta property="og:site_name" content="八白龙的博客">
+<meta property="og:description" content="介绍 Java IO 相关的基本概念、本地输入输出相关的接口。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-05-08T15:30:00.000Z">
+<meta property="article:modified_time" content="2021-05-10T15:03:59.850Z">
+<meta property="article:author" content="Eric Zong">
+<meta property="article:tag" content="Java基础">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://ericzonglu.gitee.io/posts/java-topic-io.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Java专题：IO流 | 八白龙的博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">八白龙的博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">程序员的杂货铺</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-references">
+
+    <a href="/references/" rel="section"><i class="bookmark fa-fw"></i>参考</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://ericzonglu.gitee.io/posts/java-topic-io.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Eric Zong">
+      <meta itemprop="description" content="这里有作为一个程序员想记录的一切。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="八白龙的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Java专题：IO流
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-05-08 23:30:00" itemprop="dateCreated datePublished" datetime="2021-05-08T23:30:00+08:00">2021-05-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-05-10 23:03:59" itemprop="dateModified" datetime="2021-05-10T23:03:59+08:00">2021-05-10</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/%E4%B8%93%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">专题</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <link type="text/css" rel="stylesheet" href="../css/tree.css" />
+
+<blockquote>
+<p>本文主要介绍 Java IO 相关的基本概念、本地输入输出相关的接口。<br>并未深入讨论流的工作方式与模型，网络编程以及较高级的应用部分也未涉及。</p>
+</blockquote>
+<h1 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h1><p>流：数据字节序列的抽象概念。</p>
+<p>节点流类：用于直接操作目标设备所对应的流类。</p>
+<p>流节点：节点流类所对应的IO源或目标。</p>
+<p>输入流：程序可以从中读取数据的流。</p>
+<p>输出流：程序能向其中写入数据的流。</p>
+<p>字节流：以字节为单位传输数据的流。</p>
+<p>字符流：以字符为单位传输数据的流。</p>
+<p>节点流：用于直接操作目标设备的流，直接从一个源读写数据的流（没有经过包装和修饰，即底层流或原始流）。</p>
+<p>包装流：Wrapper 流对象可能内含一个底层流对象的引用（reference），即所谓包装（wrap）了一个底层流对象。 用以提供过滤（filtered）、缓冲（buffered）等附加功能。</p>
+<p>过滤流：过滤流包装另一个流，来提供附加的功能，或者以这种方式更改数据。</p>
+<h1 id="归纳"><a href="#归纳" class="headerlink" title="归纳"></a>归纳</h1><h2 id="流的分类"><a href="#流的分类" class="headerlink" title="流的分类"></a>流的分类</h2><p>按流向分：输入流、输出流</p>
+<p>按数据传输单位分：字节流、字符流</p>
+<p>按操作对象分：文件流、网络流、内存流、磁带流等</p>
+<p>按是否包装分：原始流、包装流</p>
+<blockquote>
+<p>JDK 中，流类被直观地从流向和传输单位等维度进行了划分。</p>
+</blockquote>
+<h2 id="类层次结构"><a href="#类层次结构" class="headerlink" title="类层次结构"></a>类层次结构</h2>  <div class="tree">
+    <ul>
+      <li>
+        <a>InputStream</a>
+        <ul>
+          <li><a>ByteArrayInputStream</a></li>
+          <li><a>FileInputStream</a></li>
+          <li><a>ObjectInputStream</a></li>
+          <li>
+            <a>FilterInputStream</a>
+            <ul>
+              <li><a>BufferedInputStream</a></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+
+  <div class="tree">
+    <ul>
+      <li>
+        <a>OutputStream</a>
+        <ul>
+          <li><a>ByteArrayOutputStream</a></li>
+          <li><a>FileOutputStream</a></li>
+          <li><a>ObjectOutputStream</a></li>
+          <li>
+            <a>FilterOutputStream</a>
+            <ul>
+              <li><a>BufferedOutputStream</a></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+
+  <div class="tree">
+    <ul>
+      <li>
+        <a>Reader</a>
+        <ul>
+          <li><a>BufferedReader</a></li>
+          <li><a>CharArrayReader</a></li>
+          <li><a>StringReader</a></li>
+          <li><a>FilterReader</a></li>
+          <li>
+            <a>InputStreamReader</a>
+            <ul>
+              <li><a>FileReader</a></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+
+<p>  <div class="tree">
+    <ul>
+      <li>
+        <a>Writer</a>
+        <ul>
+          <li><a>BufferedWriter</a></li>
+          <li><a>CharArrayWriter</a></li>
+          <li><a>StringWriter</a></li>
+          <li><a>FilterWriter</a></li>
+          <li>
+            <a>OnputStreamWriter</a>
+            <ul>
+              <li><a>FileWriter</a></li>
+            </ul>
+          </li>
+          <li><a>PrintWriter</a></li>
+        </ul>
+      </li>
+    </ul>
+  </div></p>
+<h1 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h1><h2 id="字符流"><a href="#字符流" class="headerlink" title="字符流"></a>字符流</h2><p>Java 中的字符流处理的最基本单元是 Unicode 码元（即 Unicode 代码单元，2 字节，0x0000~0xFFFF），通常用来处理文本数据。</p>
+<p>Java 中的 String 类型默认就把字符以 Unicode 规则编码后存储在内存中。</p>
+<p>与存储在内存中不同，存储在磁盘上的数据通常有着各种各样的编码方式。使用不同的编码方式，相同的字符会有不同的二进制表示。</p>
+<p>字符流工作方式如下：</p>
+<ul>
+<li>输出字符流：把要写入文件的字符序列（Unicode 码元序列）转为指定编码方式下的字节序列，然后再写入到文件中；</li>
+<li>输入字符流：把要读取的字节序列按指定编码方式解码为相应字符序列（Unicode 码元序列）从而存入内存中。</li>
+</ul>
+<p>由于字符流在输出前实际上要完成 Unicode 码元序列到相应编码方式的字节序列的转换，所以它会使用内存缓冲区来存放转换后得到的字节序列，等待都转换完毕再一同写入磁盘文件。</p>
+<p>因此，字符流输出时，总需要指定目标编码方式，缺省情况下将使用系统默认编码。</p>
+<h2 id="对象流"><a href="#对象流" class="headerlink" title="对象流"></a>对象流</h2><p>将对象转换为一个字节序列，并写入到对象输出流中，称为“序列化”。序列化是 Java RMI（Remote Method Invocation）的技术，而 RMI 又是 Java EJB（Enterprise Java Bean）的基础。</p>
+<p>包括：<code>ObjectOutputStream</code>、<code>ObjectInputStream</code>。</p>
+<h3 id="序列化"><a href="#序列化" class="headerlink" title="序列化"></a>序列化</h3><p>能被序列化的类需要实现标记接口 <code>java.io.Serializable</code>。</p>
+<p>如果被序列化的类中某个属性不需要序列化，则应使用 <code>transient</code> 修饰符修饰该属性。</p>
+<h3 id="序列化类的变更"><a href="#序列化类的变更" class="headerlink" title="序列化类的变更"></a>序列化类的变更</h3><p>如果类在序列化与反序列化的过程进行了修改，那么反序列化可能会出现问题。</p>
+<p>Java 序列化使用 <code>serialVersionUID</code> 属性代表对象版本，不需要显式指定该属性，JVM 会基于一种算法来自动生成一个。</p>
+<blockquote>
+<p><code>serialVersionUID</code> 的生成算法会根据类名、实现的接口、成员变量、方法以及在庞大本地集群中的位置来计算。</p>
+</blockquote>
+<p><code>serialVersionUID</code> 是 64 位的长整型，称为<strong>流的唯一标识符</strong>（stream unique identifier）。</p>
+<p>如果序列化与反序列化时，对应类的 <code>serialVersionUID</code> 属性不同，则反序列化时会出现 <code>java.io.InvalidClassException</code>。</p>
+<blockquote>
+<p>通常，建议自定义 <code>serialVersionUID</code> 属性，以便人为保证一些小更新版本间的兼容性。</p>
+<p>但这样做的一个风险是，可能因为疏忽，在大的版本更新时忘记更新 <code>serialVersionUID</code> 属性，而出现错误。</p>
+<p>手动维护 <code>serialVersionUID</code> 的一条经验规则是，无论任何时候添加或删除一个类特征（即属性或其他任何实例级状态变量），都需要重新维护。</p>
+</blockquote>
+<h1 id="比较"><a href="#比较" class="headerlink" title="比较"></a>比较</h1><h2 id="流-vs-文件"><a href="#流-vs-文件" class="headerlink" title="流 vs. 文件"></a>流 vs. 文件</h2><p>文件是数据的静态存储形式，而流是指数据传输时的形态。文件只是流的操作对象之一。</p>
+<h2 id="字节流-vs-字符流"><a href="#字节流-vs-字符流" class="headerlink" title="字节流 vs. 字符流"></a>字节流 vs. 字符流</h2><p><code>InputStreamReader</code>、<code>OutputStreamWriter</code> 是将字节流转换为字符流的桥梁（byte-to-character “bridge”）。</p>
+<p>区别如下：</p>
+<ul>
+<li>字节流操作基本单元为字节，字符流操作的基本单元为 Unicode 码元。</li>
+<li>字节流默认不使用缓冲区，字符流使用缓冲区。</li>
+<li>字节流通常用于处理二进制数据，字符流通常处理文本数据。</li>
+</ul>
+<h1 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h1><h2 id="流的理解"><a href="#流的理解" class="headerlink" title="流的理解"></a>流的理解</h2><p>之所以称为流，是因为这个数据序列在不同时刻所操作的是源的不同部分。</p>
+<p>节点流：可理解为节点流量，节点流量表示一个节点上总体流量，节点流量跟方向无关，只要通过节点的单位量的集合就是节点流量。</p>
+<h2 id="高级的流"><a href="#高级的流" class="headerlink" title="高级的流"></a>高级的流</h2><p>管道（piped）流，以成对的方式工作，被写入输出管道流的数据，会被与之相联的输入管道流读取。 包括：<code>PipedInputStream</code>、<code>PipedOutputStream</code>、<code>PipedReader</code>、<code>PipedWriter</code>。</p>
+<p><code>SequenceInputStream</code>，使一组输入流的行为如同一个单独的输入流一样，依次逐个读取。</p>
+<p>Pushback 流，主要用于词法分析程序，可将数据回放到流中，如同没有被读取一样。包括：<code>PushbackInputStream</code>、<code>PushbackReader</code>。</p>
+<p><code>StreamTokenizer</code>，主要用于解析（parsing）的应用。它返回分词（token）的值和类型。分词类型可能是一个单词、数字、行结束标记或文件结束标记。</p>
+<h2 id="API-细节说明"><a href="#API-细节说明" class="headerlink" title="API 细节说明"></a>API 细节说明</h2><p>字符流和字节流的 read() 方法都返回一个 int 值，但分别只用了低 16 位和低 8 位。</p>
+<p>带缓冲的输入流仅在缓冲为空时调用本地输入 API；相对的，带缓冲的输出流仅在缓冲满时调用本地输出API。</p>
+<p>所有的输出流都有 <code>flush</code> 方法，但除非该流是带缓冲的，否则不起作用。</p>
+<p><code>PrintWriter.println()</code> 方法输出的行终结符是平台相关的。行终结符可以是回车（carriage-return）/换行（line-feed）序列、单个回车、单个换行。</p>
+<p><code>System.out</code> 是 <code>PrintStream</code> 对象，该类没有提供覆盖默认区域（Locale）的方法。</p>
+<p><code>DataStream</code> 依靠捕获 <code>EOFException</code> 来发现文件结束条件（end-of-file condition），而不是测试无效的返回值 -1。</p>
+<p><code>Scanner</code> 支持除 <code>char</code> 外所有 Java 原生类型、<code>BigInteger</code> 和 <code>BigDecimal</code> 作为 tokens。数字值可以用千分号，但这是区域（Locale）相关的。</p>
+<p>默认 <code>Scanner</code> 使用空白符作为分隔标记。<code>Character.isWhitespace()</code> 给出了所有空白符。</p>
+<p>虽然 <code>Scanner</code> 不是流，但仍应该关闭它，以明确底层的流操作已结束。</p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Eric Zong
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://ericzonglu.gitee.io/posts/java-topic-io.html" title="Java专题：IO流">http://ericzonglu.gitee.io/posts/java-topic-io.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Java%E5%9F%BA%E7%A1%80/" rel="tag"># Java基础</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/java-topic-file-path.html" rel="prev" title="Java专题：文件路径相关方法对比">
+      <i class="fa fa-chevron-left"></i> Java专题：文件路径相关方法对比
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/posts/java-topic-parameter-passing.html" rel="next" title="Java专题：参数传递的方式">
+      Java专题：参数传递的方式 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A6%82%E5%BF%B5"><span class="nav-number">1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BD%92%E7%BA%B3"><span class="nav-number">2.</span> <span class="nav-text">归纳</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%81%E7%9A%84%E5%88%86%E7%B1%BB"><span class="nav-number">2.1.</span> <span class="nav-text">流的分类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B1%BB%E5%B1%82%E6%AC%A1%E7%BB%93%E6%9E%84"><span class="nav-number">2.2.</span> <span class="nav-text">类层次结构</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AF%B4%E6%98%8E"><span class="nav-number">3.</span> <span class="nav-text">说明</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E6%B5%81"><span class="nav-number">3.1.</span> <span class="nav-text">字符流</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%B9%E8%B1%A1%E6%B5%81"><span class="nav-number">3.2.</span> <span class="nav-text">对象流</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BA%8F%E5%88%97%E5%8C%96"><span class="nav-number">3.2.1.</span> <span class="nav-text">序列化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BA%8F%E5%88%97%E5%8C%96%E7%B1%BB%E7%9A%84%E5%8F%98%E6%9B%B4"><span class="nav-number">3.2.2.</span> <span class="nav-text">序列化类的变更</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%AF%94%E8%BE%83"><span class="nav-number">4.</span> <span class="nav-text">比较</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%81-vs-%E6%96%87%E4%BB%B6"><span class="nav-number">4.1.</span> <span class="nav-text">流 vs. 文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%97%E8%8A%82%E6%B5%81-vs-%E5%AD%97%E7%AC%A6%E6%B5%81"><span class="nav-number">4.2.</span> <span class="nav-text">字节流 vs. 字符流</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%99%84%E5%BD%95"><span class="nav-number">5.</span> <span class="nav-text">附录</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%81%E7%9A%84%E7%90%86%E8%A7%A3"><span class="nav-number">5.1.</span> <span class="nav-text">流的理解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%AB%98%E7%BA%A7%E7%9A%84%E6%B5%81"><span class="nav-number">5.2.</span> <span class="nav-text">高级的流</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#API-%E7%BB%86%E8%8A%82%E8%AF%B4%E6%98%8E"><span class="nav-number">5.3.</span> <span class="nav-text">API 细节说明</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Eric Zong</p>
+  <div class="site-description" itemprop="description">这里有作为一个程序员想记录的一切。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">96</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Eric Zong</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"ericzonglu.gitee.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="模式关键字(Schema Keyword)    关键字 描述 有效值 用途     $schema 版本描述 字符串 指定 Schema 所使用的规范版本1   $id 唯一标识符 字符串 除用作唯一标识符，还能用于引用2      1. 较新的两个草案为 https:&#x2F;&#x2F;json-schema.org&#x2F;draft&#x2F;2020-12&#x2F;schema 和 http:&#x2F;&#x2F;json-schema.org&#x2F;">
+<meta property="og:type" content="website">
+<meta property="og:title" content="JSON Schema参考">
+<meta property="og:url" content="http://ericzonglu.gitee.io/_references/json-schema.html">
+<meta property="og:site_name" content="八白龙的博客">
+<meta property="og:description" content="模式关键字(Schema Keyword)    关键字 描述 有效值 用途     $schema 版本描述 字符串 指定 Schema 所使用的规范版本1   $id 唯一标识符 字符串 除用作唯一标识符，还能用于引用2      1. 较新的两个草案为 https:&#x2F;&#x2F;json-schema.org&#x2F;draft&#x2F;2020-12&#x2F;schema 和 http:&#x2F;&#x2F;json-schema.org&#x2F;">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://ericzonglu.gitee.io/image/ref_json_schema/value.png">
+<meta property="og:image" content="http://ericzonglu.gitee.io/image/ref_json_schema/object.png">
+<meta property="og:image" content="http://ericzonglu.gitee.io/image/ref_json_schema/array.png">
+<meta property="article:published_time" content="2021-04-10T16:00:00.000Z">
+<meta property="article:modified_time" content="2023-11-25T16:59:59.085Z">
+<meta property="article:author" content="Eric Zong">
+<meta property="article:tag" content="JSON">
+<meta property="article:tag" content="Schema">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://ericzonglu.gitee.io/image/ref_json_schema/value.png">
+
+<link rel="canonical" href="http://ericzonglu.gitee.io/_references/json-schema.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : false,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>JSON Schema参考 | 八白龙的博客
+</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">八白龙的博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">程序员的杂货铺</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-references">
+
+    <a href="/references/" rel="section"><i class="bookmark fa-fw"></i>参考</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+  
+  
+
+          <div class="content page posts-expand">
+            
+
+    
+    
+    
+    <div class="post-block" lang="zh-CN">
+      <header class="post-header">
+
+<h1 class="post-title" itemprop="name headline">JSON Schema参考
+</h1>
+
+<div class="post-meta">
+  
+
+</div>
+
+</header>
+
+      
+      
+      
+      <div class="post-body">
+          <h1 id="模式关键字-Schema-Keyword"><a href="#模式关键字-Schema-Keyword" class="headerlink" title="模式关键字(Schema Keyword)"></a>模式关键字(Schema Keyword)</h1><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>关键字</th>
+<th>描述</th>
+<th>有效值</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$schema</td>
+<td>版本描述</td>
+<td>字符串</td>
+<td>指定 Schema 所使用的规范版本<sup><a href="#fn_1" id="reffn_1">1</a></sup></td>
+</tr>
+<tr>
+<td>$id</td>
+<td>唯一标识符</td>
+<td>字符串</td>
+<td>除用作唯一标识符，还能用于引用<sup><a href="#fn_2" id="reffn_2">2</a></sup></td>
+</tr>
+</tbody>
+</table>
+</div>
+<blockquote id="fn_1">
+<sup>1</sup>. 较新的两个草案为 <a target="_blank" rel="noopener" href="https://json-schema.org/draft/2020-12/schema">https://json-schema.org/draft/2020-12/schema</a> 和 <a target="_blank" rel="noopener" href="http://json-schema.org/draft-07/schema。">http://json-schema.org/draft-07/schema。</a><a href="#reffn_1" title="Jump back to footnote [1] in the text."> &#8617;</a>
+</blockquote>
+<blockquote id="fn_2">
+<sup>2</sup>. 可参考有关<a href="../posts/json-schema-reuse.html" title="复用">复用</a>的相关章节。<a href="#reffn_2" title="Jump back to footnote [2] in the text."> &#8617;</a>
+</blockquote>
+<h1 id="模式注解关键字-Schema-Annotation-3"><a href="#模式注解关键字-Schema-Annotation-3" class="headerlink" title="模式注解关键字(Schema Annotation)3"></a>模式注解关键字(Schema Annotation)<sup><a href="#fn_3" id="reffn_3">3</a></sup></h1><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>关键字</th>
+<th>描述</th>
+<th>有效值</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>title</td>
+<td>标题</td>
+<td>字符串</td>
+<td>概要说明</td>
+</tr>
+<tr>
+<td>description</td>
+<td>描述信息</td>
+<td>字符串</td>
+<td>详细说明，通常较标题更长</td>
+</tr>
+</tbody>
+</table>
+</div>
+<blockquote id="fn_3">
+<sup>3</sup>. 或称“元数据关键字”。<a href="#reffn_3" title="Jump back to footnote [3] in the text."> &#8617;</a>
+</blockquote>
+<h1 id="验证关键字-Validation-Keyword"><a href="#验证关键字-Validation-Keyword" class="headerlink" title="验证关键字(Validation Keyword)"></a>验证关键字(Validation Keyword)</h1><h2 id="基本类型"><a href="#基本类型" class="headerlink" title="基本类型"></a>基本类型</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>object</td>
+<td>对象</td>
+</tr>
+<tr>
+<td>array</td>
+<td>数组</td>
+</tr>
+<tr>
+<td>string</td>
+<td>字符串</td>
+</tr>
+<tr>
+<td>number</td>
+<td>任意数字<sup><a href="#fn_4" id="reffn_4">4</a></sup></td>
+</tr>
+<tr>
+<td>integer</td>
+<td>整数<sup><a href="#fn_5" id="reffn_5">5</a></sup></td>
+</tr>
+<tr>
+<td>boolean</td>
+<td>布尔型</td>
+</tr>
+<tr>
+<td>null</td>
+<td>空</td>
+</tr>
+</tbody>
+</table>
+</div>
+<blockquote id="fn_4">
+<sup>4</sup>. 可使用指数表示法。<a href="#reffn_4" title="Jump back to footnote [4] in the text."> &#8617;</a>
+</blockquote>
+<blockquote id="fn_5">
+<sup>5</sup>. 是否可带为 0 的小数部分，取决于具体实现。有些实现可能将 <code>1.0</code> 视为整数。<a href="#reffn_5" title="Jump back to footnote [5] in the text."> &#8617;</a>
+</blockquote>
+<h2 id="通用关键字"><a href="#通用关键字" class="headerlink" title="通用关键字"></a>通用关键字</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>关键字</th>
+<th>描述</th>
+<th>有效值</th>
+<th>验证</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>type</td>
+<td>类型</td>
+<td>string/string array，取值为基本类型名</td>
+<td>取值为指定类型（之一）</td>
+</tr>
+<tr>
+<td>enum</td>
+<td>枚举</td>
+<td>string array，至少有一个元素，且无重复值</td>
+<td>取值存在于枚举中</td>
+</tr>
+<tr>
+<td>const<sup><a href="#fn_6" id="reffn_6">6</a></sup></td>
+<td>常量</td>
+<td>任意</td>
+<td>值与之相同</td>
+</tr>
+</tbody>
+</table>
+</div>
+<blockquote id="fn_6">
+<sup>6</sup>. const 等价于仅有唯一值的 enum，是后者的语法糖（syntactic sugar）。<a href="#reffn_6" title="Jump back to footnote [6] in the text."> &#8617;</a>
+</blockquote>
+<p>注意：type、enum、const 理论上可以同时使用，验证亦会同时生效，即为“交集”的效果。</p>
+<h2 id="对象相关"><a href="#对象相关" class="headerlink" title="对象相关"></a>对象相关</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>关键字</th>
+<th>描述</th>
+<th>有效值</th>
+<th>验证</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>properties</td>
+<td>属性</td>
+<td>object，属性键值对</td>
+<td>对应属性通过验证</td>
+</tr>
+<tr>
+<td>required</td>
+<td>必需属性</td>
+<td>string array，至少有一个元素，且无重复值</td>
+<td>object 实例必须有所有 required 定义的属性</td>
+</tr>
+<tr>
+<td>additionalProperties<sup><a href="#fn_7" id="reffn_7">7</a></sup></td>
+<td>其他属性</td>
+<td>boolean/object</td>
+<td>为 false 则禁止其他属性；为 object 时定义其他属性键值对</td>
+</tr>
+<tr>
+<td>maxProperties</td>
+<td>最大属性个数</td>
+<td>integer</td>
+<td>object 实例的属性个数 ≤ maxProperties</td>
+</tr>
+<tr>
+<td>minProperties</td>
+<td>最小属性个数</td>
+<td>integer</td>
+<td>object 实例的属性个数 ≥ minProperties</td>
+</tr>
+</tbody>
+</table>
+</div>
+<blockquote id="fn_7">
+<sup>7</sup>. 其他属性指的是除 properties 定义之外的属性。<a href="#reffn_7" title="Jump back to footnote [7] in the text."> &#8617;</a>
+</blockquote>
+<h2 id="数组相关"><a href="#数组相关" class="headerlink" title="数组相关"></a>数组相关</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>关键字</th>
+<th>描述</th>
+<th>有效值</th>
+<th>验证</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>items</td>
+<td>定义元素</td>
+<td>object/array</td>
+<td>所有元素通过验证<sup><a href="#fn_8" id="reffn_8">8</a></sup></td>
+</tr>
+<tr>
+<td>additionalItems</td>
+<td>长度限制</td>
+<td>boolean/object</td>
+<td>为 false 时，不允许其他元素；为 object 时，其他元素通过验证 <sup><a href="#fn_9" id="reffn_9">9</a></sup></td>
+</tr>
+<tr>
+<td>maxItems</td>
+<td>长度限制</td>
+<td>非负整数</td>
+<td>数组长度 ≤ maxItems</td>
+</tr>
+<tr>
+<td>minItems</td>
+<td>长度限制</td>
+<td>非负整数</td>
+<td>数组长度 ≥ minItems</td>
+</tr>
+<tr>
+<td>uniqueItems</td>
+<td>唯一值</td>
+<td>boolean</td>
+<td>为 true 时，不能有重复值</td>
+</tr>
+</tbody>
+</table>
+</div>
+<blockquote id="fn_8">
+<sup>8</sup>. 可配置为列表验证器(List validation)，对应为验证对象；或为元组验证器（Tuple validation），对应为验证对象数组。<a href="#reffn_8" title="Jump back to footnote [8] in the text."> &#8617;</a>
+</blockquote>
+<blockquote id="fn_9">
+<sup>9</sup>. 仅在 items 为数组时使用。<a href="#reffn_9" title="Jump back to footnote [9] in the text."> &#8617;</a>
+</blockquote>
+<h2 id="字符串相关"><a href="#字符串相关" class="headerlink" title="字符串相关"></a>字符串相关</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>关键字</th>
+<th>描述</th>
+<th>有效性</th>
+<th>验证</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>maxLength</td>
+<td>最大长度</td>
+<td>非负整数</td>
+<td>字符串的长度必须≤该值</td>
+</tr>
+<tr>
+<td>minLength</td>
+<td>最小长度</td>
+<td>非负整数</td>
+<td>字符串的长度必须≥该值</td>
+</tr>
+<tr>
+<td>pattern</td>
+<td>正则表达式</td>
+<td>字符串，有效的正则表达式<sup><a href="#fn_10" id="reffn_10">10</a></sup></td>
+<td>字符串需匹配<sup><a href="#fn_11" id="reffn_11">11</a></sup>正则表达式</td>
+</tr>
+</tbody>
+</table>
+</div>
+<blockquote id="fn_10">
+<sup>10</sup>. 使用的是 JavaScript 的正则语法，即 <a target="_blank" rel="noopener" href="https://www.ecma-international.org/publications/standards/Ecma-262.htm">ECMA 262</a>。但目前可能并未完全，使用时需特别注意。<a href="#reffn_10" title="Jump back to footnote [10] in the text."> &#8617;</a>
+</blockquote>
+<blockquote id="fn_11">
+<sup>11</sup>. 仅要求正则表达式匹配字符串中部分即可，除非正则表达式为 <code>^...$</code> 的形式。<a href="#reffn_11" title="Jump back to footnote [11] in the text."> &#8617;</a>
+</blockquote>
+<h2 id="数字相关"><a href="#数字相关" class="headerlink" title="数字相关"></a>数字相关</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>关键字</th>
+<th>描述</th>
+<th>有效值</th>
+<th>验证</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>multipleOf</td>
+<td>整数倍</td>
+<td>&gt; 0 的数</td>
+<td>取值需为指定数的整数倍</td>
+</tr>
+<tr>
+<td>maximum</td>
+<td>最大值</td>
+<td>任意数</td>
+<td>取值 ≤ maximum</td>
+</tr>
+<tr>
+<td>exclusiveMaximum</td>
+<td>最大值（不包含）</td>
+<td>任意数</td>
+<td>取值 &lt; exclusiveMaximum</td>
+</tr>
+<tr>
+<td>minimum</td>
+<td>最小值</td>
+<td>任意数</td>
+<td>取值 ≥ minimum</td>
+</tr>
+<tr>
+<td>exclusiveMinimum</td>
+<td>最小值（不包含）</td>
+<td>任意数</td>
+<td>取值 &gt; exclusiveMinimum</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h1 id="类型解析图示"><a href="#类型解析图示" class="headerlink" title="类型解析图示"></a>类型解析图示</h1><p><img src="../image/ref_json_schema/value.png" alt="value"></p>
+<p><img src="../image/ref_json_schema/object.png" alt="object"></p>
+<p><img src="../image/ref_json_schema/array.png" alt="array"></p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a target="_blank" rel="noopener" href="http://json-schema-validator.herokuapp.com/" title="在线验证工具">在线验证工具</a>：仅支持 Draft v4</p>
+<p><a target="_blank" rel="noopener" href="https://hellosean1025.github.io/json-schema-visual-editor/" title="在线编辑器">JSON-Schema-Editor</a>：在线编辑器，基于 React，在 <a target="_blank" rel="noopener" href="https://github.com/YMFE/json-schema-editor-visual">GitHub</a> 开源。</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/Julian/jsonschema" title="Python库">jsonschema</a>：GitHub 开源 Python 库，支持 Draft 7/Draft 6/Draft 4/Draft 3 等版本。</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/everit-org/json-schema">json-schema</a>：GitHub 开源 Java 库。</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/java-json-tools/json-schema-validator">json-schema-validator</a>：GitHub 开源 Java 库。</p>
+<hr>
+
+      </div>
+      
+      
+      
+    </div>
+    
+
+    
+    
+    
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A8%A1%E5%BC%8F%E5%85%B3%E9%94%AE%E5%AD%97-Schema-Keyword"><span class="nav-number">1.</span> <span class="nav-text">模式关键字(Schema Keyword)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A8%A1%E5%BC%8F%E6%B3%A8%E8%A7%A3%E5%85%B3%E9%94%AE%E5%AD%97-Schema-Annotation-3"><span class="nav-number">2.</span> <span class="nav-text">模式注解关键字(Schema Annotation)3</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%AA%8C%E8%AF%81%E5%85%B3%E9%94%AE%E5%AD%97-Validation-Keyword"><span class="nav-number">3.</span> <span class="nav-text">验证关键字(Validation Keyword)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B"><span class="nav-number">3.1.</span> <span class="nav-text">基本类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%9A%E7%94%A8%E5%85%B3%E9%94%AE%E5%AD%97"><span class="nav-number">3.2.</span> <span class="nav-text">通用关键字</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%B9%E8%B1%A1%E7%9B%B8%E5%85%B3"><span class="nav-number">3.3.</span> <span class="nav-text">对象相关</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E7%9B%B8%E5%85%B3"><span class="nav-number">3.4.</span> <span class="nav-text">数组相关</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9B%B8%E5%85%B3"><span class="nav-number">3.5.</span> <span class="nav-text">字符串相关</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E5%AD%97%E7%9B%B8%E5%85%B3"><span class="nav-number">3.6.</span> <span class="nav-text">数字相关</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%B1%BB%E5%9E%8B%E8%A7%A3%E6%9E%90%E5%9B%BE%E7%A4%BA"><span class="nav-number">4.</span> <span class="nav-text">类型解析图示</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-number">5.</span> <span class="nav-text">参考</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Eric Zong</p>
+  <div class="site-description" itemprop="description">这里有作为一个程序员想记录的一切。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">96</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Eric Zong</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

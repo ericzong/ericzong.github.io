@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"ericzonglu.gitee.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="正则表达式入门教程。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="正则表达式入门">
+<meta property="og:url" content="http://ericzonglu.gitee.io/posts/regexp-get-start.html">
+<meta property="og:site_name" content="八白龙的博客">
+<meta property="og:description" content="正则表达式入门教程。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-05-04T16:00:00.000Z">
+<meta property="article:modified_time" content="2020-10-04T13:44:47.079Z">
+<meta property="article:author" content="Eric Zong">
+<meta property="article:tag" content="入门教程">
+<meta property="article:tag" content="正则表达式">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://ericzonglu.gitee.io/posts/regexp-get-start.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>正则表达式入门 | 八白龙的博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">八白龙的博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">程序员的杂货铺</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-references">
+
+    <a href="/references/" rel="section"><i class="bookmark fa-fw"></i>参考</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://ericzonglu.gitee.io/posts/regexp-get-start.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Eric Zong">
+      <meta itemprop="description" content="这里有作为一个程序员想记录的一切。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="八白龙的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          正则表达式入门
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-05-05 00:00:00" itemprop="dateCreated datePublished" datetime="2019-05-05T00:00:00+08:00">2019-05-05</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-10-04 21:44:47" itemprop="dateModified" datetime="2020-10-04T21:44:47+08:00">2020-10-04</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E7%BB%BC%E5%90%88/" itemprop="url" rel="index"><span itemprop="name">编程综合</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p>正则表达式是一种描述字符串结构模式的形式化表达方法。</p>
+<p>它匹配的是字符或位置。因此，应按字符来解读正则表达式。</p>
+<blockquote>
+<p>正则表达式不是编程语言，因此，它需要宿主环境实现，这可能是某种编程语言或是某种文本编辑器。</p>
+<p>正则表达式流派众多，需要注意各种流派的差异。</p>
+</blockquote>
+<h1 id="字符匹配"><a href="#字符匹配" class="headerlink" title="字符匹配"></a>字符匹配</h1><p>最简单的字符自然就是描述它自身的字符，即“<strong>普通字符</strong>”。</p>
+<blockquote>
+<p>普通字符，又叫：<strong>literal（文字）</strong>、<strong>string literal（字符串字面值）</strong>、<strong>normal character（普通文本字符）</strong>……</p>
+<p>需要注意，正则表达式中，同一概念在不同的文档中所用的术语可能不同。</p>
+</blockquote>
+<p>显然，普通文本字符组成的字符串严格来说就代表它自身，还算不上模式。要表示模式需要将一些字符作为特殊字符，用以描述模式。这类字符通常称为“<strong>元字符</strong>（metacharacter）”。</p>
+<blockquote>
+<p>元字符，又称：<strong>special character（特殊字符）</strong>。</p>
+</blockquote>
+<p>比如：定义字符组的方括号、用于分组的圆括号等都是元字符，后面会一一介绍。</p>
+<p>元字符有特殊含义和作用，因此，如果要匹配元字符本身需要转义，转义前缀为 <code>\</code>。比如，要匹配圆括号应使用 <code>\(</code>、<code>\)</code>，要匹配转义前缀反斜杠需要用两个反斜杠 <code>\\</code>……</p>
+<blockquote>
+<p>如果字符串中所有字符都应被视为普通字符，而又包含过多的元字符需要转义，那么最简单的方法是将字符串定义为<strong>文字文本</strong>，使用 <code>\Q</code> 和 <code>\E</code> 包围起来。这样，字符串中的元字符就会被视为普通字符，而不需转义。</p>
+<p>比如，使用 <code>\Q\r\n\E</code> 可以匹配字符串 <code>\r\n</code> 而不是换行。</p>
+</blockquote>
+<h2 id="纵向模糊匹配"><a href="#纵向模糊匹配" class="headerlink" title="纵向模糊匹配"></a>纵向模糊匹配</h2><p><strong>纵向模糊匹配</strong>是指一个正则表达式匹配的字符串具体到某一位字符时，可以不是某个确定字符，而是多种可能。</p>
+<p>纵向模糊匹配的实现方式是<strong>字符组（character class）</strong>，从字面就可以看出它代表一组字符。</p>
+<p>字符组使用一对方括号将一组可选字符括起来，比如：<code>[abcd]</code>。</p>
+<blockquote>
+<p>字符组，也称“<strong>字符集（character set）</strong>”，由于使用方括号定义，也称“<strong>方括号表达式（bracketed expression）</strong>”。</p>
+<p>注意：字符组罗列的一组可选字符，因此它匹配的是一个字符，而不是一个字符串；另外这些字符彼此是独立的，因此，其罗列顺序不重要。</p>
+</blockquote>
+<p>显然，如果可选的字符过多，一一罗列会极为冗长繁琐，这时需要使用<strong>范围表示法</strong>。顾名思义，就是以表示范围的方式列举出可选字符。比如：<code>[a-z]</code> 即表示从 a 到 z 所有的小写字母。</p>
+<blockquote>
+<p>能以范围表示法表示，说明这些字符都是具有“自然顺序”的，比如：数字、字母、Unicode 字符……</p>
+<p>字符组基本上是一门独立的微型语言，有自己独立的元字符。</p>
+<p>中划线（-），是<strong>字符组元字符（character-class metacharacter）</strong>，但只有在字符组内部才是。当中划线紧临中括号时，它仅仅是普通字符，比如：<code>[-az]</code>、<code>[az-]</code>。因此，如果字符组需要匹配中划线时，可以将其置于这些位置。但如果一定要将其放在将被视为元字符的位置，那么，可以对其进行转义，比如：<code>[a\-z]</code>。</p>
+<p>. 和 ? 不是字符组元字符。</p>
+</blockquote>
+<p>正则表达式日常使用中，有一些字符组是固定但频繁使用的，比如数字字符、单词字符等等。显然即使使用范围表示法，还是稍显冗长了。因此，对于这些频繁使用的固定字符组会有对应的简写形式。如：<code>\d</code>（数字字符）、<code>\w</code>（单词字符）、<code>\s</code>（空白字符）……</p>
+<p>这称为“<strong>字符组简写式（character shorthand）</strong>”。</p>
+<blockquote>
+<p>字符组简写式，也称“<strong>转义字符（character escape）</strong>”。</p>
+<p>字符组简写式可以出现在普通字符组中，如：<code>[\da-f]</code>（可表示一位 16 进制的数）。</p>
+</blockquote>
+<p>不过，有时字符组中的字符很多，或者是不可列举的，但是从反面定义这样的字符组又相对容易。这时，我们需要使用“反义字符组”，定义方式与字符组类似，只是在左方括号后加一个脱字符（<code>^</code>），如：<code>[^abc]</code>。</p>
+<p><strong>反义字符组</strong>，也称“<strong>排除（型）字符组</strong>”。意为字符组代表的字符是排除所罗列的字符之外的字符。</p>
+<p>简写形式的字符组也有反义形式，比如：<code>\D</code>（非数字字符）、<code>\W</code>（非单词字符）、<code>\S</code>（非空白字符）……</p>
+<blockquote>
+<p>排除型字符组表示匹配一个未列出的字符，而不是不匹配。</p>
+<p>注意通常所说的通配符 <code>.</code>（英文句点）不能匹配任意的字符，如果想匹配任意字符可使用：<code>[\d\D]</code>、<code>[\w\W]</code>、<code>[\s\S]</code>、<code>[^]</code>。基本原理是取两个互补的字符组的并集或对空字符组取反。</p>
+</blockquote>
+<h2 id="横向模糊匹配"><a href="#横向模糊匹配" class="headerlink" title="横向模糊匹配"></a>横向模糊匹配</h2><p><strong>横向模糊匹配</strong>是指一个正则表达式可匹配的字符串的长度不是固定的。</p>
+<p>横向模糊匹配的实现方式是<strong>量词（quantifier）</strong>，其实就是重复。其标准形式为：<code>&#123;m, n&#125;</code>，表示重复匹配次数为 [m, n]。</p>
+<p>实际使用中，可能会有一些特殊情况——只想限定次数下限、确定次数，以及有一些使用频率很高的量词。因此，需要提供一些简写形式。比如：<code>&#123;m,&#125;</code>（m 次及以上）、<code>&#123;m&#125;</code>（m 次）、<code>?</code>（0 或 1 次）、<code>+</code>（1 次及以上）、<code>*</code>（0 次及以上）……</p>
+<p>默认情况下，量词是贪婪的，称为“<strong>贪婪量词</strong>”，此时，正则表达式也处于“<strong>贪婪模式</strong>”下。“贪婪”的含义是指会尽可能多地匹配字符。</p>
+<blockquote>
+<p>多个贪婪量词挨着出现并相互有冲突时，优先匹配前面的。</p>
+</blockquote>
+<p>贪婪匹配可能不总是我们想要的，这时，可在量词后加 <code>?</code>，将其转变为“<strong>非贪婪量词</strong>”，则会尽可能少地匹配字符。</p>
+<blockquote>
+<p>非贪婪量词，也称“懒惰量词”或“惰性量词”。仍可能回溯。</p>
+</blockquote>
+<p>还有一种量词，叫“<strong>占有量词（possessive quantifier）</strong>”，它会尽可能多匹配，覆盖整个目标然后尝试寻找匹配的内容，但只尝试一次，不会回溯。语法是在贪婪量词后加 <code>+</code> 后缀。</p>
+<blockquote>
+<p>并非所有宿主环境都支持占有量词。</p>
+</blockquote>
+<h2 id="分支"><a href="#分支" class="headerlink" title="分支"></a>分支</h2><p><strong>分支</strong>，也称“<strong>多选分支（alternation）</strong>”，可选择匹配多个子模式之一。</p>
+<p>分支使用 <code>|</code> 将可选子模式并列起来。如，<code>(lat|b)est</code> 可匹配字符串 latest 或 best。</p>
+<blockquote>
+<p>分支结构是惰性的，即当前面的子模式匹配上时，后面的不再尝试。因此，编写分支时需要注意子模式的顺序。</p>
+<p>分支仍可能回溯尝试其他分支。</p>
+</blockquote>
+<h1 id="位置匹配"><a href="#位置匹配" class="headerlink" title="位置匹配"></a>位置匹配</h1><p>如果只描述字符，那么，具有某些限制条件的正则表达式可能会很难编写，甚至可能无法实现。这时，就需要另一种匹配方式来补充某些限制了——这就是位置匹配。</p>
+<p><strong>位置</strong>，是相邻字符之间的位置。</p>
+<blockquote>
+<p>想必大家都用过 Word 编写文档，那么，肯定也为文本应用过样式。你可能会认为样式是应用在文本之上的。这是一个误解！想想当你未选中任何文本是不是也可以应用样式呢？是可以的。其实，样式不是应用在文本之上的，样式的应用单位就是“位置”，即相邻字符之间的位置。</p>
+<p>了解这点后，或许有助于理解“位置”这一概念。</p>
+</blockquote>
+<h2 id="开始与结尾"><a href="#开始与结尾" class="headerlink" title="开始与结尾"></a>开始与结尾</h2><p>最为常见的位置就是开头与结尾，它们分别用 <code>^</code> 与 <code>$</code> 表示。</p>
+<p>默认情况下，<code>^</code> 与 <code>$</code> 分别匹配的是给定文本的两头。所谓的默认情况，实际上是指“<strong>单行模式</strong>”，即文本被视为单行，也就只有一头一尾。</p>
+<p>但实际情况是，给定的文本可能包含多行，而我们想要匹配每一行的开头与结尾，这时，正则表达式需要工作在“<strong>多行模式</strong>”下。多行模式下，<code>^</code> 与 <code>$</code> 分别匹配行开头与行结尾。则如果文本有 n 行，则应有 n 头 n 尾。</p>
+<blockquote>
+<p>单行模式与多行模式的设置在不同语言中可能方式不同，比如在 JS 中使用 m 选项：<code>/^|$/gm</code>。</p>
+</blockquote>
+<h2 id="单词边界"><a href="#单词边界" class="headerlink" title="单词边界"></a>单词边界</h2><p><code>\b</code> 和 <code>\B</code> 分别代表<strong>单词边界（word boundary）</strong>和<strong>非单词边界</strong>。</p>
+<p>比如，<code>\btest\b</code> 将匹配独立的单词 test，而不会匹配诸如 testcard 这种包含 test 的单词等。</p>
+<h2 id="环视"><a href="#环视" class="headerlink" title="环视"></a>环视</h2><p><strong>环视（lookaround）</strong>，限制位置前后内容需（不）匹配给定子模式。</p>
+<p>环视给定了子模式，但是它会丢弃匹配内容，只关注是否匹配。因此，又称为“<strong>断言</strong>”。</p>
+<blockquote>
+<p>环视丢弃了匹配内容，因此，它是非捕获分组。</p>
+</blockquote>
+<p>从限制方向上看，可以限制位置左或右方；从限制方式上看，可以确定或否定匹配。因此，组合起来就有 4 种环视类型：肯定顺序环视（<code>(?=p)</code>）、否定顺序环视（<code>(?!p)</code>）、肯定逆序环视（<code>(?&lt;=p)</code>）、否定逆序环视（<code>(?&lt;!p)</code>）。</p>
+<blockquote>
+<p>上述环视语法中的 <code>p</code> 指的是子模式。</p>
+</blockquote>
+<h1 id="捕获数据"><a href="#捕获数据" class="headerlink" title="捕获数据"></a>捕获数据</h1><p>正则表达式中，圆括号将导致分组，通常分组匹配的内容将被捕获，捕获的内容可以在正则表达式里反向引用，或在 API 里引用。</p>
+<p><strong>捕获分组（capturing group）</strong>默认情况下，每对圆括号都是一个分组，匹配的数据会捕获到该分组中。</p>
+<p>显然，括号是可以嵌套的，当存在嵌套时，分组以开/左括号为准，即分组的索引号以开括号出现先后为准。</p>
+<p><strong>反向引用（back reference）</strong>，在正则表达式中，允许使用 <code>\index</code> 反向引用分组。</p>
+<blockquote>
+<p>反向引用的不是子模式，而是子模式匹配的文本内容。</p>
+<p>正则表达式引用不存在分组时，通常不会报错，而是匹配反向引用字符本身。</p>
+<p>分组后有量词的话，分组最终捕获到的数据是最后一次的匹配。</p>
+</blockquote>
+<p>通常情况下，使用括号会导致分组和数据捕获，通常这也是我们使用括号的目的，但有时，使用括号的目的不是这样，而只是这了提升优先级。</p>
+<p>此时，我们使用括号但又不想分组，就需要使用<strong>非捕获分组（non-capturing group）</strong>，即在开括号后紧跟问号和冒号： <code>(?:p)</code>。</p>
+<blockquote>
+<p>由于字符序列的优先级比分支要高，因此，对于一些分支结构而言需要使用括号提升其优先级。</p>
+<p>比如，要匹配字符串 good 与 food，正则表达式不能写为 <code>g|food</code>，这样匹配的是 g  和 food，而应写为 <code>(g|f)ood</code>。</p>
+<p>可是，这样将会导致分组捕获，而这不是我们需要的，要避免分组捕获正则表达式要写为非捕获分组的形式，即 <code>(:?g|f)ood</code>。</p>
+<p>分组是可命名的，称为“<strong>命名分组（named group）</strong>”，语法大致是 <code>(?&lt;name&gt;p)</code>（并非所有宿主环境都支持，支持的语法也不尽相同）。</p>
+<p><strong>原子分组（atomic group）</strong>，可关闭回溯，语法：<code>(?&gt;p)</code>。</p>
+</blockquote>
+<h1 id="回溯法"><a href="#回溯法" class="headerlink" title="回溯法"></a>回溯法</h1><p><strong>回溯（backtracking）</strong>，正则表达式在匹配过程中会尝试逐步向前匹配，直至匹配失败，则会回退几个步骤，尝试其他匹配。</p>
+<p>构造不佳的正则表达式在匹配过程中可能导致<strong>灾难性回溯(catastrophic backtracking)</strong>，使得匹配效率低下。</p>
+<blockquote>
+<p>回溯法本质上是深度优先搜索算法。</p>
+<p>正则引擎分两种：</p>
+<ul>
+<li>NFA，非确定型有限自动机，表达式主导（regex-directed）引擎，特性：匹配慢，编译快</li>
+<li>DFA，确定型有限自动机，文本主导（text-directed）引擎</li>
+</ul>
+</blockquote>
+<h1 id="构建正则"><a href="#构建正则" class="headerlink" title="构建正则"></a>构建正则</h1><h2 id="准确性"><a href="#准确性" class="headerlink" title="准确性"></a>准确性</h2><p>匹配预期的字符串，不匹配非预期的字符串。</p>
+<h2 id="可读性"><a href="#可读性" class="headerlink" title="可读性"></a>可读性</h2><p>正则表达式本身书写的可读性并不好，但是可以通过添加注释来增强可读性，语法为：<code>(?#comment)</code>。</p>
+<blockquote>
+<p>如果想在注释中添加空格、制表符、换行等，需启用“忽略模式里的空白符”选项。此时，<code>#</code> 后至行尾都是注释。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">(?&lt;=    # 断言要匹配的文本的前缀</span><br><span class="line">&lt;(\w+)&gt; # 查找尖括号括起来的字母或数字(即HTML/XML标签)</span><br><span class="line">)       # 前缀结束</span><br><span class="line">.*      # 匹配任意文本</span><br><span class="line">(?=     # 断言要匹配的文本的后缀</span><br><span class="line">&lt;\/\1&gt;  # 查找尖括号括起来的内容：前面是一个&quot;/&quot;，后面是先前捕获的标签</span><br><span class="line">)       # 后缀结束</span><br></pre></td></tr></table></figure>
+</blockquote>
+<h2 id="效率"><a href="#效率" class="headerlink" title="效率"></a>效率</h2><p>使用具体型字符组来代替通配符，来消除回溯。</p>
+<p>使用非捕获型分组。</p>
+<p>独立出确定字符。</p>
+<blockquote>
+<p>加快判断是否匹配失败，加快移位的速度。</p>
+</blockquote>
+<p>提取分支公共部分。</p>
+<blockquote>
+<p>减少匹配中可消除的重复。</p>
+</blockquote>
+<p>减少分支的数量，缩小它们的范围。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><h2 id="关于字符匹配方式"><a href="#关于字符匹配方式" class="headerlink" title="关于字符匹配方式"></a>关于字符匹配方式</h2><p>字符匹配不外乎是纵向模糊匹配（字符组）、横向模糊匹配（量词）、分支以及它们的组合。</p>
+<blockquote>
+<p><strong>如何描述字符串？</strong></p>
+<p>最简单的方式就是依次说出字符串的每个字符是什么，这就是确定描述。确定描述只能用于描述确定的某个字符串，而不能描述某类字符串。</p>
+<p>如果想要描述某类字符串，就要使用正则表达式。本质上说，正则表达式是一种非确定的描述方式，描述的是字符串模式。但是，同样它需要逐位进行描述，只是不是用确定的某个字符来描述，而是用一系列的字符来描述，这就是字符组。</p>
+<p>更进一步，如果字符串中某段序列中的字符都属于某个字符集合，那么就可以通过指明重复次数来进行简写，这就是量词。从某种程度上说，量词是一种简写方式，但并不仅限于简写。</p>
+<p>编写正则表达式的底层逻辑大致是这样的：将目标字符串集合中的所有字符串逐一归纳为正则表达式（当然一个字符串归纳出的正则表达式不是唯一的），然后取正则表达式的<u>交集</u>求得统一的正则表达式。问题在于，求交集的结果可能是空，这时可行的方案就是把不能统一的部分分别列出来，作为可选项。这就是分支。</p>
+<p>梳理一下：正则表达式使用字符组描述某位上的字符，使用量词描述可重用度，而分支将不能协调的子模式部分并起来。</p>
+</blockquote>
+<h2 id="关于位置匹配"><a href="#关于位置匹配" class="headerlink" title="关于位置匹配"></a>关于位置匹配</h2><p>位置匹配也称为“<strong>锚（anchor）</strong>”。</p>
+<p>开头、结尾、单词边界等等是<strong>简单锚</strong>；而环视是<strong>复杂锚</strong>。</p>
+<blockquote>
+<p><strong>锚（anchor）</strong>，又称“<strong>锚位符</strong>”或“<strong>锚点</strong>”。</p>
+<p><strong>如何描述位置？</strong></p>
+<p>简单来说，位置是根据周围的字符确定的。</p>
+<p><strong>各类环视的名称</strong></p>
+<p>如果你看了很多正则表达式的书籍或文章，那么会发环视的叫法很多。下面一一看下。</p>
+<p><strong>环视（lookaround）</strong>，应该是字面最贴切的名称。而它只关注匹配与否，因此又称为<strong>断言（assertion）</strong>。又由于位置匹配都是<strong>零宽（zero-width）</strong>的，所以又称“<strong>零宽断言（zero-width）</strong>”。</p>
+</blockquote>
+<p>如果一个正则表达式全是位置匹配，那么，其匹配结果是空字符串。</p>
+<p>可以用连续多个位置匹配表达式来限制同一个位置，等价于交集运算。</p>
+<p>位置是可以替换为字符的，这相当于插入操作。</p>
+<h2 id="正则表达式结构组成"><a href="#正则表达式结构组成" class="headerlink" title="正则表达式结构组成"></a>正则表达式结构组成</h2><p>正则结构一般可分为如下部件：</p>
+<ul>
+<li>字面量。<code>a \n \.</code></li>
+<li>字符组。<code>[0-9] \d</code></li>
+<li>量词。<code>a&#123;1, 3&#125;</code></li>
+<li>分支。<code>abc|bcd</code></li>
+<li>锚。<code>^ \b (?=\d)</code></li>
+<li>分组。<code>(ab) (?:ab)</code></li>
+<li>反向引用。<code>\2</code></li>
+</ul>
+<h2 id="正则表达式的使用"><a href="#正则表达式的使用" class="headerlink" title="正则表达式的使用"></a>正则表达式的使用</h2><p>通常使用正则表达式目的有下列几种：</p>
+<ul>
+<li>验证</li>
+<li>切分</li>
+<li>提取</li>
+<li>替换</li>
+</ul>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p>《JavaScript正则表达式迷你书》</p>
+<p>《学习正则表达式》</p>
+<p>《精通正则表达式》</p>
+<p><a target="_blank" rel="noopener" href="https://www.regular-expressions.info/">https://www.regular-expressions.info/</a></p>
+<p><a target="_blank" rel="noopener" href="https://docs.microsoft.com/zh-cn/dotnet/standard/base-types/regular-expression-language-quick-reference">正则表达式语言 - 快速参考（.Net）</a></p>
+<p><a target="_blank" rel="noopener" href="http://www.regexlab.com/zh/regref.htm">regex laboratory</a></p>
+<p><a target="_blank" rel="noopener" href="http://deerchao.net/tutorials/regex/regex.htm">正则表达式30分钟入门教程</a></p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Eric Zong
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://ericzonglu.gitee.io/posts/regexp-get-start.html" title="正则表达式入门">http://ericzonglu.gitee.io/posts/regexp-get-start.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/" rel="tag"># 入门教程</a>
+              <a href="/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" rel="tag"># 正则表达式</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/scss-get-start.html" rel="prev" title="SCSS入门">
+      <i class="fa fa-chevron-left"></i> SCSS入门
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/posts/powershell-get-start.html" rel="next" title="PowerShell入门：语言篇">
+      PowerShell入门：语言篇 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A6%82%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E5%8C%B9%E9%85%8D"><span class="nav-number">2.</span> <span class="nav-text">字符匹配</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BA%B5%E5%90%91%E6%A8%A1%E7%B3%8A%E5%8C%B9%E9%85%8D"><span class="nav-number">2.1.</span> <span class="nav-text">纵向模糊匹配</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A8%AA%E5%90%91%E6%A8%A1%E7%B3%8A%E5%8C%B9%E9%85%8D"><span class="nav-number">2.2.</span> <span class="nav-text">横向模糊匹配</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E6%94%AF"><span class="nav-number">2.3.</span> <span class="nav-text">分支</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BD%8D%E7%BD%AE%E5%8C%B9%E9%85%8D"><span class="nav-number">3.</span> <span class="nav-text">位置匹配</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%80%E5%A7%8B%E4%B8%8E%E7%BB%93%E5%B0%BE"><span class="nav-number">3.1.</span> <span class="nav-text">开始与结尾</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%95%E8%AF%8D%E8%BE%B9%E7%95%8C"><span class="nav-number">3.2.</span> <span class="nav-text">单词边界</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%8E%AF%E8%A7%86"><span class="nav-number">3.3.</span> <span class="nav-text">环视</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8D%95%E8%8E%B7%E6%95%B0%E6%8D%AE"><span class="nav-number">4.</span> <span class="nav-text">捕获数据</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9B%9E%E6%BA%AF%E6%B3%95"><span class="nav-number">5.</span> <span class="nav-text">回溯法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9E%84%E5%BB%BA%E6%AD%A3%E5%88%99"><span class="nav-number">6.</span> <span class="nav-text">构建正则</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%86%E7%A1%AE%E6%80%A7"><span class="nav-number">6.1.</span> <span class="nav-text">准确性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%AF%E8%AF%BB%E6%80%A7"><span class="nav-number">6.2.</span> <span class="nav-text">可读性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%88%E7%8E%87"><span class="nav-number">6.3.</span> <span class="nav-text">效率</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">7.</span> <span class="nav-text">总结</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E%E5%AD%97%E7%AC%A6%E5%8C%B9%E9%85%8D%E6%96%B9%E5%BC%8F"><span class="nav-number">7.1.</span> <span class="nav-text">关于字符匹配方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E%E4%BD%8D%E7%BD%AE%E5%8C%B9%E9%85%8D"><span class="nav-number">7.2.</span> <span class="nav-text">关于位置匹配</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%BB%93%E6%9E%84%E7%BB%84%E6%88%90"><span class="nav-number">7.3.</span> <span class="nav-text">正则表达式结构组成</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-number">7.4.</span> <span class="nav-text">正则表达式的使用</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-number">8.</span> <span class="nav-text">参考</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Eric Zong</p>
+  <div class="site-description" itemprop="description">这里有作为一个程序员想记录的一切。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">96</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Eric Zong</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

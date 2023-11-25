@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"ericzonglu.gitee.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="讨论Java名字及其重用。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java专题：名字及其重用">
+<meta property="og:url" content="http://ericzonglu.gitee.io/posts/java-topic-name.html">
+<meta property="og:site_name" content="八白龙的博客">
+<meta property="og:description" content="讨论Java名字及其重用。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-01-05T16:00:00.000Z">
+<meta property="article:modified_time" content="2020-10-03T16:37:24.976Z">
+<meta property="article:author" content="Eric Zong">
+<meta property="article:tag" content="Java基础">
+<meta property="article:tag" content="Java入门教程">
+<meta property="article:tag" content="Java对比">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://ericzonglu.gitee.io/posts/java-topic-name.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Java专题：名字及其重用 | 八白龙的博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">八白龙的博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">程序员的杂货铺</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-references">
+
+    <a href="/references/" rel="section"><i class="bookmark fa-fw"></i>参考</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://ericzonglu.gitee.io/posts/java-topic-name.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Eric Zong">
+      <meta itemprop="description" content="这里有作为一个程序员想记录的一切。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="八白龙的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Java专题：名字及其重用
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-01-06 00:00:00" itemprop="dateCreated datePublished" datetime="2019-01-06T00:00:00+08:00">2019-01-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-10-04 00:37:24" itemprop="dateModified" datetime="2020-10-04T00:37:24+08:00">2020-10-04</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/%E4%B8%93%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">专题</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h1><h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>名字：用来引用在程序中声明实体的标识符（序列）。</p>
+<p>名字分为：简单名和限定名。</p>
+<ul>
+<li>简单名：由单个标识符构成。</li>
+<li>限定名：由标识符序列构成；（递归定义）由一个名字、一个“.”符号和一个标识符构成。</li>
+</ul>
+<h2 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h2><p>消除名字二义性是通过使用名字出现位置的上下文来实现的。</p>
+<p>名字是标识符，但标识符不一定是名字。</p>
+<blockquote>
+<p>名字与标识符的区别有一定的复杂性，不太易于理解，这里简单说明下，详细参见《Java 语言规范》。</p>
+<ul>
+<li>在被声明时，标识符仅仅是标识符；</li>
+<li>域访问表达式、方法调用表达式、方法引用表达式、限定的类实例创建表达式，使用标识符；</li>
+<li>Array.length 是限定名。</li>
+</ul>
+<p>标号语句的标号（即俗称的“标签”）只是标识符，由于标号与名字使用的上下文不存在交集，所以即使它们同名也不会相互遮掩。</p>
+</blockquote>
+<h1 id="名字重用"><a href="#名字重用" class="headerlink" title="名字重用"></a>名字重用</h1><h2 id="覆写（override）"><a href="#覆写（override）" class="headerlink" title="覆写（override）"></a>覆写（override）</h2><p>一个实例方法可以覆写在其超类中可访问到的具有相同签名的所有实例方法，从而使能了动态分派（dynamic dispatch）；</p>
+<p>换句话说，VM 将基于实例的运行期类型来选择要调用的覆写方法。</p>
+<p>覆写是面向对象编程技术的基础，并且是唯一没有被普遍劝阻的名字重用形式。</p>
+<h2 id="隐藏（hide）"><a href="#隐藏（hide）" class="headerlink" title="隐藏（hide）"></a>隐藏（hide）</h2><p>隐藏，只作用于本应继承但因子类中的声明而没有被继承的成员。</p>
+<p>一个域、静态方法或成员类型可以分别隐藏在其超类中可访问到的具有相同名字（对方法而言就是相同的方法签名）的所有域、静态方法或成员类型。</p>
+<p>隐藏一个成员将阻止其被继承。</p>
+<h2 id="重载（overload）"><a href="#重载（overload）" class="headerlink" title="重载（overload）"></a>重载（overload）</h2><p>在某个类中的方法可以重载另一个方法，只要它们具有相同的名字和不同的签名。由调用所指定的重载方法是在编译期选定的。</p>
+<h2 id="遮蔽（shadow）"><a href="#遮蔽（shadow）" class="headerlink" title="遮蔽（shadow）"></a>遮蔽（shadow）</h2><p>一个声明只能遮蔽类型相同的另一个声明。即一个变量、方法或类型可以分别遮蔽在一个闭合的文本范围内的具有相同名字的所有变量、方法或类型。</p>
+<p>如果一个实体被遮蔽了，那么用它的简单名是无法引用到它的；根据实体的不同，有时根本就无法引用到它。</p>
+<p>包声明永远不会遮蔽其他声明；按需类型导入声明、按需静态导入声明永远都不会遮蔽其他声明。</p>
+<p>局部变量、形参、异常参数、局部类都只能用简单名引用，因此，它们通常不能被遮蔽，否则将不能被引用到，故是一个编译时错误。</p>
+<p>一个例外情况是，可以被嵌套类型中的对应实体名字所遮蔽。</p>
+<p>添加一个私有类声明，由于遮蔽，可能间接地修改了一个现有公共方法的返回类型，而这是一个不兼容的API修改，因为我们修改了一个被导出 API 所使用的名字的含义。</p>
+<p>尽管遮蔽通常是被劝阻的，但是有一种通用的惯用法确实涉及遮蔽。构造器经常将来自其所在类的某个域名重用为一个参数，以传递这个命名域的值。</p>
+<p>这种惯用法并不是没有风险，但是大多数Java程序员都认为这种风格带来的实惠要超过其风险。</p>
+<h2 id="遮掩（obscure）"><a href="#遮掩（obscure）" class="headerlink" title="遮掩（obscure）"></a>遮掩（obscure）</h2><p>一个声明遮掩类型不同的另一个声明。变量声明可以遮掩类型和包声明，而类型声明也可以遮掩包声明。（优先级为：变量名 &gt; 类型名 &gt; 包名）</p>
+<p>本身就属于某个范围的成员在该范围内与静态导入相比具有优先权。</p>
+<blockquote>
+<p>后果之一是与 Object 的方法具有相同名字的静态方法不能通过静态导入而得到使用。</p>
+</blockquote>
+<p>遮掩是唯一一种两个名字位于不同的名字空间的名字重用形式，这些名字空间包括：变量、包、方法或类型。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">包名被域声明遮掩，使用import。</span><br><span class="line">包名或域名被参数或局部变量声明遮掩，可修改参数或局部变量名。</span><br><span class="line">如果一个类型或一个包被遮掩了，那么你不能通过其简单名引用到它，除非是在这样一个上下文环境中，即语法只允许在其名字空间中出现一种名字。</span><br><span class="line">遵守命名习惯就可以极大地消除产生遮掩的可能性。</span><br></pre></td></tr></table></figure>
+<h1 id="完全限定名与规范名"><a href="#完全限定名与规范名" class="headerlink" title="完全限定名与规范名"></a>完全限定名与规范名</h1><p>简单类型（基本数据类型）、具名包、顶层类、顶层接口都有完全限定名和规范名；成员类、成员接口、数组类型可以有。</p>
+<p>简单来说，大部分情况下，它们是相同的。区别仅存在于嵌套类和继承相关的情况下，比如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> p;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">C1</span> </span>&#123; <span class="class"><span class="keyword">class</span> <span class="title">N1</span> </span>&#123;&#125; &#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">C2</span> <span class="keyword">extends</span> <span class="title">C1</span> </span>&#123;&#125; </span><br></pre></td></tr></table></figure>
+<p>p.C1.N1 和 p.C2.N1 都是完全限定名，但只有 p.C1.N1 是规范名。</p>
+<p>注意：完全限定名和规范名同 Class.getName() 方法返回的名称是有区别的，主要是体现在嵌套类和数组的表示上。</p>
+<p>Java API 中没有方法返回完全限定名（不唯一），但 Class.getCanonicalName() 方法可返回规范名。</p>
+<h1 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h1><h2 id="遮蔽"><a href="#遮蔽" class="headerlink" title="遮蔽"></a>遮蔽</h2><h3 id="遮蔽类型"><a href="#遮蔽类型" class="headerlink" title="遮蔽类型"></a>遮蔽类型</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ShadowClass</span> </span>&#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">String</span> </span>&#123;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">String</span><span class="params">(java.lang.String string)</span> </span>&#123;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="keyword">public</span> java.lang.<span class="function">String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">&quot;Just custom String&quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(java.lang.String[] args)</span> </span>&#123;</span><br><span class="line">        String str = <span class="keyword">new</span> String(<span class="string">&quot;Test&quot;</span>);</span><br><span class="line">        System.out.println(str);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="局部变量遮蔽域"><a href="#局部变量遮蔽域" class="headerlink" title="局部变量遮蔽域"></a>局部变量遮蔽域</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ShadowFieldByLocal</span> </span>&#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">int</span> i = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">        System.out.println(i); <span class="comment">// 0, access local variable;</span></span><br><span class="line">        System.out.println(ShadowFieldByLocal.i); <span class="comment">// 1, access field</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="内部类变量遮蔽外围类的域"><a href="#内部类变量遮蔽外围类的域" class="headerlink" title="内部类变量遮蔽外围类的域"></a>内部类变量遮蔽外围类的域</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ShadowLocalByInternalField</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="class"><span class="keyword">class</span> <span class="title">InternalClass</span> </span>&#123;</span><br><span class="line">            <span class="function"><span class="keyword">void</span> <span class="title">print</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                <span class="keyword">int</span> i = <span class="number">1</span>;</span><br><span class="line">                System.out.println(ShadowLocalByInternalField.<span class="keyword">this</span>.i); <span class="comment">// 0, access field</span></span><br><span class="line">                System.out.println(i); <span class="comment">// 1, access local variable</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        InternalClass in = <span class="keyword">new</span> InternalClass();</span><br><span class="line">        in.print();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">new</span> ShadowLocalByInternalField().test();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Eric Zong
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://ericzonglu.gitee.io/posts/java-topic-name.html" title="Java专题：名字及其重用">http://ericzonglu.gitee.io/posts/java-topic-name.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Java%E5%9F%BA%E7%A1%80/" rel="tag"># Java基础</a>
+              <a href="/tags/Java%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/" rel="tag"># Java入门教程</a>
+              <a href="/tags/Java%E5%AF%B9%E6%AF%94/" rel="tag"># Java对比</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/java-tool-maven-01.html" rel="prev" title="Maven笔记：入门篇">
+      <i class="fa fa-chevron-left"></i> Maven笔记：入门篇
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/posts/java-kp-keyword-volatile.html" rel="next" title="Java知识点：volatile关键字">
+      Java知识点：volatile关键字 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="nav-number">1.</span> <span class="nav-text">基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89"><span class="nav-number">1.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%B4%E6%98%8E"><span class="nav-number">1.2.</span> <span class="nav-text">说明</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%90%8D%E5%AD%97%E9%87%8D%E7%94%A8"><span class="nav-number">2.</span> <span class="nav-text">名字重用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A6%86%E5%86%99%EF%BC%88override%EF%BC%89"><span class="nav-number">2.1.</span> <span class="nav-text">覆写（override）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9A%90%E8%97%8F%EF%BC%88hide%EF%BC%89"><span class="nav-number">2.2.</span> <span class="nav-text">隐藏（hide）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%87%8D%E8%BD%BD%EF%BC%88overload%EF%BC%89"><span class="nav-number">2.3.</span> <span class="nav-text">重载（overload）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%81%AE%E8%94%BD%EF%BC%88shadow%EF%BC%89"><span class="nav-number">2.4.</span> <span class="nav-text">遮蔽（shadow）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%81%AE%E6%8E%A9%EF%BC%88obscure%EF%BC%89"><span class="nav-number">2.5.</span> <span class="nav-text">遮掩（obscure）</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%8C%E5%85%A8%E9%99%90%E5%AE%9A%E5%90%8D%E4%B8%8E%E8%A7%84%E8%8C%83%E5%90%8D"><span class="nav-number">3.</span> <span class="nav-text">完全限定名与规范名</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B"><span class="nav-number">4.</span> <span class="nav-text">示例</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%81%AE%E8%94%BD"><span class="nav-number">4.1.</span> <span class="nav-text">遮蔽</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%81%AE%E8%94%BD%E7%B1%BB%E5%9E%8B"><span class="nav-number">4.1.1.</span> <span class="nav-text">遮蔽类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F%E9%81%AE%E8%94%BD%E5%9F%9F"><span class="nav-number">4.1.2.</span> <span class="nav-text">局部变量遮蔽域</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%85%E9%83%A8%E7%B1%BB%E5%8F%98%E9%87%8F%E9%81%AE%E8%94%BD%E5%A4%96%E5%9B%B4%E7%B1%BB%E7%9A%84%E5%9F%9F"><span class="nav-number">4.1.3.</span> <span class="nav-text">内部类变量遮蔽外围类的域</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Eric Zong</p>
+  <div class="site-description" itemprop="description">这里有作为一个程序员想记录的一切。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">96</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Eric Zong</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
