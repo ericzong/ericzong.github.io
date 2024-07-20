@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.4.0">
+<meta name="generator" content="Hexo 7.3.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -257,12 +257,12 @@
 <p>笔者在 Win10 下使用 POI 4.1.2 版本读写 Excel 文件时遇到了一个奇怪的问题，经过一翻探索终于找到了解决方案。故有此记。</p>
 </blockquote>
 <p>闲话不多说，先上代码！</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">    File excelFile = FileUtils.toFile(getClass().getResource(<span class="string">&quot;/test.xlsx&quot;</span>));</span><br><span class="line">    File outputDir = <span class="keyword">new</span> File(<span class="string">&quot;E:/test&quot;</span>);</span><br><span class="line">    FileUtils.copyFileToDirectory(excelFile, outputDir);</span><br><span class="line">    File copyFile = FileUtils.getFile(outputDir, excelFile.getName());</span><br><span class="line">      </span><br><span class="line">    Workbook workbook = WorkbookFactory.create(copyFile); </span><br><span class="line"></span><br><span class="line">    <span class="comment">// 读取 Excel 文件内容</span></span><br><span class="line">    <span class="comment">// 修改 Excel 内容</span></span><br><span class="line"></span><br><span class="line">    FileOutputStream stream = <span class="keyword">new</span> FileOutputStream(copyFile);</span><br><span class="line">    workbook.write(stream);</span><br><span class="line">    IOUtils.close(stream);</span><br><span class="line">    IOUtils.close(workbook);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">test</span><span class="params">()</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">    <span class="type">File</span> <span class="variable">excelFile</span> <span class="operator">=</span> FileUtils.toFile(getClass().getResource(<span class="string">&quot;/test.xlsx&quot;</span>));</span><br><span class="line">    <span class="type">File</span> <span class="variable">outputDir</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">File</span>(<span class="string">&quot;E:/test&quot;</span>);</span><br><span class="line">    FileUtils.copyFileToDirectory(excelFile, outputDir);</span><br><span class="line">    <span class="type">File</span> <span class="variable">copyFile</span> <span class="operator">=</span> FileUtils.getFile(outputDir, excelFile.getName());</span><br><span class="line">      </span><br><span class="line">    <span class="type">Workbook</span> <span class="variable">workbook</span> <span class="operator">=</span> WorkbookFactory.create(copyFile); </span><br><span class="line"></span><br><span class="line">    <span class="comment">// 读取 Excel 文件内容</span></span><br><span class="line">    <span class="comment">// 修改 Excel 内容</span></span><br><span class="line"></span><br><span class="line">    <span class="type">FileOutputStream</span> <span class="variable">stream</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileOutputStream</span>(copyFile);</span><br><span class="line">    workbook.write(stream);</span><br><span class="line">    IOUtils.close(stream);</span><br><span class="line">    IOUtils.close(workbook);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>执行以上代码时，很奇怪的地方在于，只读取文件并不会有任何问题。但是，如果修改了内容并要回写文件就会报以下错误：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">org.apache.poi.ooxml.POIXMLException: java.io.EOFException: Unexpected end of ZLIB input stream</span><br></pre></td></tr></table></figure>
 <p>最初笔者以为是什么资源未正确关闭引起的，仔细检查后并未发现有不妥之处。经过一番搜索，在 Stack Overflow 发现了一个相关帖子，提及这可能是 POI 的一个 Bug，建议不要使用文件对象创建 <code>Workbook</code>，而应使用输入流。</p>
 <p>据此，将创建代码改为如下形式：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Workbook workbook = WorkbookFactory.create(<span class="keyword">new</span> FileInputStream(copyFile));</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Workbook</span> <span class="variable">workbook</span> <span class="operator">=</span> WorkbookFactory.create(<span class="keyword">new</span> <span class="title class_">FileInputStream</span>(copyFile));</span><br></pre></td></tr></table></figure>
 <p>错误就此解决。</p>
 
     </div>
@@ -377,20 +377,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-count">148</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-count">35</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">96</span>
+        <span class="site-state-item-count">99</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -420,7 +420,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2023</span>
+  <span itemprop="copyrightYear">2024</span>
   <span class="with-love">
     <i class="user"></i>
   </span>

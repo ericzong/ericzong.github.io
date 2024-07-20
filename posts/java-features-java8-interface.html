@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.4.0">
+<meta name="generator" content="Hexo 7.3.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -258,7 +258,7 @@
 </blockquote>
 <p>对于接口类型而言，Java 8 中最大的改进在于支持在接口中声明<strong>默认方法</strong>和<strong>静态方法</strong>。</p>
 <h1 id="接口默认方法"><a href="#接口默认方法" class="headerlink" title="接口默认方法"></a>接口默认方法</h1><p>什么都别说，先上语法：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">MyInterface</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">default</span> <span class="keyword">void</span> <span class="title">defaultMethod</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 默认方法</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">MyInterface</span> &#123;</span><br><span class="line">  <span class="keyword">default</span> <span class="keyword">void</span> <span class="title function_">defaultMethod</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="comment">// 默认方法</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>显示，默认方法重用了 <code>default</code> 关键字，以表明该方法是一个接口默认方法，可实现方法体。</p>
 <p>从之前的版本来看，Java 使用接口规避了多继承带来的问题，但同时引入了另一个问题：接口难以演进！</p>
 <p>试想，如果要给一个接口添加一个方法，会发生什么？</p>
@@ -275,7 +275,7 @@
 <p>因此，应该意识到，试图为接口添加 <code>Object</code> 中已有方法为默认方法会导致编译错误。比如，想要为接口添加 <code>toString()</code> 方法。</p>
 </blockquote>
 <h1 id="接口静态方法"><a href="#接口静态方法" class="headerlink" title="接口静态方法"></a>接口静态方法</h1><p>依旧先看代码：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">StaticInterface</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">staticMethod</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 静态方法</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">StaticInterface</span> &#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">staticMethod</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="comment">// 静态方法</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>接口中声明的静态方法与普通的静态方法没有本质区别，也是使用类似 <code>Interface.staticMethod()</code> 的方式调用。</p>
 <p>而接口支持静态方法给了我们编写“工具类”提供了另一种思路。编写一个只提供静态方法的工具类，并不算是严格意义上的面向对象编程。而另一方面，为了使用者不“意外”地创建工具类对象，通常还要将构造器私有化。一个更“优雅”的方式是使用抽象类，以避免意外实例化，而抽象类本身却是暗示使用者应该派生它。总而言之，工具类的实现，无论是使用一个普通类，还是抽象类，都有些许瑕疵，而使用接口则是一种更为“纯粹”的方式。</p>
 <p>另一个好处是，接口的实现实体与其辅助方法之间不再彼此孤立的。因此，使用者不再需要臆测某个对象是否有对应的辅助工具类，而只需查看其接口即可。</p>
@@ -398,20 +398,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-count">148</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-count">35</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">96</span>
+        <span class="site-state-item-count">99</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -441,7 +441,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2023</span>
+  <span itemprop="copyrightYear">2024</span>
   <span class="with-love">
     <i class="user"></i>
   </span>

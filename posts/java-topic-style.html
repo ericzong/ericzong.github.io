@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.4.0">
+<meta name="generator" content="Hexo 7.3.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -258,17 +258,17 @@
 <p>这些规则的制定，通常是为了有效规避当时的一些编程环境的“劣势”，其中比较突出的是，从现在的角度看来，小得可怜的硬盘和内存，以及狭窄的屏幕。</p>
 <p>因此，使用 Tab 缩进将使源代码文件更小，80 列、大括号同行、不加空行等将使一屏上显示更多的代码。</p>
 <p>C代码：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span> </span>&#123;  </span><br><span class="line">       <span class="keyword">int</span> a = rand() % <span class="number">100</span>;  </span><br><span class="line">       <span class="keyword">if</span> (a &gt; <span class="number">25</span>) &#123;  </span><br><span class="line">               call_a_function();  </span><br><span class="line">               call_another_function();  </span><br><span class="line">       &#125; <span class="keyword">else</span> &#123;  </span><br><span class="line">               call_b_function();  </span><br><span class="line">       &#125; <span class="comment">// end if  </span></span><br><span class="line">&#125; <span class="comment">// end main  </span></span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> *argv[])</span> &#123;  </span><br><span class="line">       <span class="type">int</span> a = rand() % <span class="number">100</span>;  </span><br><span class="line">       <span class="keyword">if</span> (a &gt; <span class="number">25</span>) &#123;  </span><br><span class="line">               call_a_function();  </span><br><span class="line">               call_another_function();  </span><br><span class="line">       &#125; <span class="keyword">else</span> &#123;  </span><br><span class="line">               call_b_function();  </span><br><span class="line">       &#125; <span class="comment">// end if  </span></span><br><span class="line">&#125; <span class="comment">// end main  </span></span><br></pre></td></tr></table></figure>
 <h2 id="2000年的宽松风格"><a href="#2000年的宽松风格" class="headerlink" title="2000年的宽松风格"></a>2000年的宽松风格</h2><p>宽松风格基本使用微软的 C/C# 约定，使用 4 个空格缩进、不限制代码行长度、大括号单独一行。</p>
 <p>规则变得“宽松”是因为编程环境的改善，存储和显示不再是稀缺资源，因而不用再过度节省。</p>
 <p>C代码：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span>  </span></span><br><span class="line"><span class="function"></span>&#123;  </span><br><span class="line">   <span class="keyword">int</span> a = rand() % <span class="number">100</span>;  </span><br><span class="line">   </span><br><span class="line">   <span class="keyword">if</span> (a &gt; <span class="number">25</span>)  </span><br><span class="line">   &#123;  </span><br><span class="line">       call_a_function();  </span><br><span class="line">       call_another_function();  </span><br><span class="line">   &#125;  </span><br><span class="line">   <span class="keyword">else</span>  </span><br><span class="line">   &#123;  </span><br><span class="line">       call_b_function();  </span><br><span class="line">   &#125;  </span><br><span class="line">&#125;  </span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> *argv[])</span>  </span><br><span class="line">&#123;  </span><br><span class="line">   <span class="type">int</span> a = rand() % <span class="number">100</span>;  </span><br><span class="line">   </span><br><span class="line">   <span class="keyword">if</span> (a &gt; <span class="number">25</span>)  </span><br><span class="line">   &#123;  </span><br><span class="line">       call_a_function();  </span><br><span class="line">       call_another_function();  </span><br><span class="line">   &#125;  </span><br><span class="line">   <span class="keyword">else</span>  </span><br><span class="line">   &#123;  </span><br><span class="line">       call_b_function();  </span><br><span class="line">   &#125;  </span><br><span class="line">&#125;  </span><br></pre></td></tr></table></figure>
 <h2 id="2010年的典型风格"><a href="#2010年的典型风格" class="headerlink" title="2010年的典型风格"></a>2010年的典型风格</h2><p>典型风格称为“Kernighan &amp; Ritchie 风格”，是 C 衍生语言设计者所遵循的风格，其规则为：</p>
 <blockquote>
 <p>当秉承 K＆R 时，每一个函数左括号都应在下一行中，并与开头行有相同的缩进。括号中的语句应该缩进，右括号应该与函数开头有相同的缩进，并单独一行。 对于代码块内的控制语句，左括号应与控制语句在同一行中，右括号单独一行（除非有 <code>else</code> 或 <code>while</code> 关键字）。</p>
 </blockquote>
 <p>C代码：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span>  </span></span><br><span class="line"><span class="function"></span>&#123;  </span><br><span class="line">   <span class="keyword">int</span> a = rand() % <span class="number">100</span>;  </span><br><span class="line">       </span><br><span class="line">   <span class="keyword">if</span> (a &gt; <span class="number">25</span>) &#123;  </span><br><span class="line">       call_a_function();  </span><br><span class="line">       call_another_function();  </span><br><span class="line">   &#125; <span class="keyword">else</span> &#123;  </span><br><span class="line">       call_b_function();  </span><br><span class="line">   &#125;  </span><br><span class="line">&#125;  </span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> *argv[])</span>  </span><br><span class="line">&#123;  </span><br><span class="line">   <span class="type">int</span> a = rand() % <span class="number">100</span>;  </span><br><span class="line">       </span><br><span class="line">   <span class="keyword">if</span> (a &gt; <span class="number">25</span>) &#123;  </span><br><span class="line">       call_a_function();  </span><br><span class="line">       call_another_function();  </span><br><span class="line">   &#125; <span class="keyword">else</span> &#123;  </span><br><span class="line">       call_b_function();  </span><br><span class="line">   &#125;  </span><br><span class="line">&#125;  </span><br></pre></td></tr></table></figure>
 <h1 id="优缺点"><a href="#优缺点" class="headerlink" title="优缺点"></a>优缺点</h1><p>各年代风格在它产生的时候，无疑是利大于弊的，否则就不会有这么多程序员遵守，但是，从今天的眼光看，它们其中一些就有点“过时”了， 至少，将不再像当时那般重要了。</p>
 <p>下面，我们以今天的眼光来审视一下这些规则当下的价值如何。</p>
 <h2 id="Tab-空格缩进？"><a href="#Tab-空格缩进？" class="headerlink" title="Tab/空格缩进？"></a>Tab/空格缩进？</h2><p>使用 Tab 还是使用空格缩进代码呢？这是一个永恒的争议话题。 事实上，无论是使用 Tab 还是空格缩进都没有太大的问题，唯一的差异可能是，使用空格缩进的代码在不同编辑器的显示上通常是一致的。 但是，使用 Tab 缩进的代码在不同编辑器里显示可能是不一致的，这取决于编辑器把一个 Tab 替换为多少个字符宽度的缩进。不过， 目前主流的编辑器通常支持用户自定义 Tab 的缩进宽度，这也就不是什么问题了，除非你总是在不同的编程环境中工作，并且总是替换编辑器。</p>
@@ -403,20 +403,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-count">148</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-count">35</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">96</span>
+        <span class="site-state-item-count">99</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -446,7 +446,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2023</span>
+  <span itemprop="copyrightYear">2024</span>
   <span class="with-love">
     <i class="user"></i>
   </span>

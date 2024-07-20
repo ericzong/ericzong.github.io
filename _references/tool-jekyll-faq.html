@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.4.0">
+<meta name="generator" content="Hexo 7.3.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -229,7 +229,7 @@
 <h1 id="msys2-配置源"><a href="#msys2-配置源" class="headerlink" title="msys2 配置源"></a>msys2 配置源</h1><p>默认情况下，msys2 下载软件包可能会很慢，可以修改以下几个配置文件修改其下载源：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"># MSYS2_ROOT\etc\pacman.d\mirrorlist.mingw32</span><br><span class="line">Server = http://mirrors.ustc.edu.cn/msys2/mingw/i686/</span><br><span class="line">Server = https://mirrors.tuna.tsinghua.edu.cn/msys2/mingw/i686</span><br><span class="line"></span><br><span class="line"># MSYS2_ROOT\etc\pacman.d\mirrorlist.mingw64</span><br><span class="line">Server = http://mirrors.ustc.edu.cn/msys2/mingw/x86_64/</span><br><span class="line">Server = http://mirror.bit.edu.cn/msys2/REPOS/</span><br><span class="line">Server = https://mirrors.tuna.tsinghua.edu.cn/msys2/mingw/x86_64</span><br><span class="line"></span><br><span class="line"># MSYS2_ROOT\etc\pacman.d\mirrorlist.msys</span><br><span class="line">Server = http://mirrors.ustc.edu.cn/msys2/msys/$arch/</span><br><span class="line">Server = https://mirrors.tuna.tsinghua.edu.cn/msys2/msys/$arch</span><br></pre></td></tr></table></figure>
 <h1 id="RubyGems-配置源"><a href="#RubyGems-配置源" class="headerlink" title="RubyGems 配置源"></a>RubyGems 配置源</h1><p>默认情况下，<code>gem install</code> 命令下载软件包可能较慢，可通过以下命令配置镜像源：</p>
-<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gem sources -<span class="literal">-add</span> https://gems.ruby<span class="literal">-china</span>.com/ -<span class="literal">-remove</span> https://rubygems.org/</span><br></pre></td></tr></table></figure>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gem sources <span class="literal">--add</span> https://gems.ruby<span class="literal">-china</span>.com/ <span class="literal">--remove</span> https://rubygems.org/</span><br></pre></td></tr></table></figure>
 <h1 id="各种转义"><a href="#各种转义" class="headerlink" title="各种转义"></a>各种转义</h1><p>有时我们可能在文档中想要显示成对的双花括号（即 <code>&#123;&#123;</code> 和 <code>&#125;&#125;</code>），但这会被 Liquid 替换为对象或变量值。</p>
 <p>最简单的一种解决方案是，在双花括号间插入空格：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123; &#123; content &#125; &#125;</span><br></pre></td></tr></table></figure>
@@ -316,20 +316,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-count">148</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-count">35</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">96</span>
+        <span class="site-state-item-count">99</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -359,7 +359,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2023</span>
+  <span itemprop="copyrightYear">2024</span>
   <span class="with-love">
     <i class="user"></i>
   </span>

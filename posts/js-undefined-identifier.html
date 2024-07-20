@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.4.0">
+<meta name="generator" content="Hexo 7.3.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -261,12 +261,12 @@
 <p>为什么需要两个代表“无”的值？简单地说，这是个历史遗留问题。</p>
 <p>最初，Brendan Eich 设计 JS 时，只有 <code>null</code> 没有 <code>undefined</code>。但是，由于 <code>typeof null</code> 的结果是 ‘object’ —— 现在普遍认为这是 JS 的一个 bug —— 加上 JS 数据类型分为原始类型和对象类型，因此，Brendan Eich 觉得代表“无”的值最好不是对象以及其他一些原因，最终导致增加了 <code>undefined</code>。</p>
 <p>由于是后加入的，所以 <code>undefined</code> 与 <code>null</code> 在实现与限制上有较大的不同。本质上说，<code>null</code>  是一个字面值，而 <code>undefined</code> 是一个全局变量——虽然，通常也把它视为字面值。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 浏览器中</span></span><br><span class="line"><span class="built_in">window</span>.undefined === <span class="literal">undefined</span>; <span class="comment">// true</span></span><br><span class="line"><span class="comment">// Node.js 中</span></span><br><span class="line"><span class="built_in">global</span>.undefined === <span class="literal">undefined</span>; <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 浏览器中</span></span><br><span class="line"><span class="variable language_">window</span>.<span class="property">undefined</span> === <span class="literal">undefined</span>; <span class="comment">// true</span></span><br><span class="line"><span class="comment">// Node.js 中</span></span><br><span class="line"><span class="variable language_">global</span>.<span class="property">undefined</span> === <span class="literal">undefined</span>; <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
 <p>对于 <code>null</code> 而言，它不是一个合法的标识符，因此，如果试图声明名为 <code>null</code> 的变量，会抛出异常。</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> <span class="literal">null</span> = <span class="number">0</span>; <span class="comment">// SyntaxError: Unexpected token null</span></span><br></pre></td></tr></table></figure>
 <p>但是，<code>undefined</code> 不同，它本身就是一个全局变量，因此，<code>undefined</code> 显然是一个合法标识符，因此，可以声明名为 <code>undefined</code> 的变量。</p>
 <p>但这并不代表可以修改全局的 <code>undefined</code>，在最新的宿主环境中，它通常是只读的。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 大多数最新版浏览器中</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.getOwnPropertyDescriptor(<span class="built_in">window</span>, <span class="literal">undefined</span>));</span><br><span class="line"><span class="comment">// Node.js 中</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.getOwnPropertyDescriptor(<span class="built_in">global</span>, <span class="literal">undefined</span>));</span><br><span class="line"><span class="comment">// &#123;value: undefined, writable: false, enumerable: false, configurable: false&#125;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 大多数最新版浏览器中</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title class_">Object</span>.<span class="title function_">getOwnPropertyDescriptor</span>(<span class="variable language_">window</span>, <span class="literal">undefined</span>));</span><br><span class="line"><span class="comment">// Node.js 中</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title class_">Object</span>.<span class="title function_">getOwnPropertyDescriptor</span>(<span class="variable language_">global</span>, <span class="literal">undefined</span>));</span><br><span class="line"><span class="comment">// &#123;value: undefined, writable: false, enumerable: false, configurable: false&#125;</span></span><br></pre></td></tr></table></figure>
 <blockquote>
 <p><code>undefined</code> 的只读特性是不确定的，尤其在老的浏览器版本中，它可能是可写的，比如 IE8。</p>
 <p>在 IE8 中执行代码 <code>console.log(Object.getOwnPropertyDescriptor(window, undefined));</code> 会得到如下结果：</p>
@@ -398,20 +398,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-count">148</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-count">35</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">96</span>
+        <span class="site-state-item-count">99</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -441,7 +441,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2023</span>
+  <span itemprop="copyrightYear">2024</span>
   <span class="with-love">
     <i class="user"></i>
   </span>

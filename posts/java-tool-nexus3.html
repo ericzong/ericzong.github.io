@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.4.0">
+<meta name="generator" content="Hexo 7.3.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -274,9 +274,9 @@
 <p>Nexus 启动成功后，即可通过 <a target="_blank" rel="noopener" href="http://localhost:8081/">http://localhost:8081/</a> 访问。</p>
 <p>第一次进入 Nexus 管理页面时，应该使用默认的管理员帐号（admin/admin123）登录，并修改密码。</p>
 <h1 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h1><p><code>&lt;nexus&gt;/bin/nexus.vmoptions</code> 可对 Nexus 的 JVM 参数进行一些配置，主要可以配置下内存参数。</p>
-<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 内存分配</span></span><br><span class="line"><span class="attr">-Xms256M</span></span><br><span class="line"><span class="attr">-Xmx1200M</span></span><br><span class="line"><span class="comment"># 数据目录</span></span><br><span class="line"><span class="meta">-Dkaraf.data</span>=<span class="string">../sonatype-work/nexus3</span></span><br><span class="line"><span class="meta">-Djava.io.tmpdir</span>=<span class="string">../sonatype-work/nexus3/tmp</span></span><br><span class="line"><span class="meta">-XX</span>:<span class="string">LogFile=../sonatype-work/nexus3/log/jvm.log</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 内存分配</span></span><br><span class="line"><span class="attr">-Xms256M</span></span><br><span class="line"><span class="attr">-Xmx1200M</span></span><br><span class="line"><span class="comment"># 数据目录</span></span><br><span class="line"><span class="attr">-Dkaraf.data</span>=<span class="string">../sonatype-work/nexus3</span></span><br><span class="line"><span class="attr">-Djava.io.tmpdir</span>=<span class="string">../sonatype-work/nexus3/tmp</span></span><br><span class="line"><span class="attr">-XX</span>:<span class="string">LogFile=../sonatype-work/nexus3/log/jvm.log</span></span><br></pre></td></tr></table></figure>
 <p><code>&lt;sonatype-work&gt;\nexus3\etc\nexus.properties</code> 可配置端口、内容路径等参数。</p>
-<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 端口</span></span><br><span class="line"><span class="meta">application-port</span>=<span class="string">8888</span></span><br><span class="line"><span class="comment"># 内容路径</span></span><br><span class="line"><span class="meta">nexus-context-path</span>=<span class="string">/components/</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 端口</span></span><br><span class="line"><span class="attr">application-port</span>=<span class="string">8888</span></span><br><span class="line"><span class="comment"># 内容路径</span></span><br><span class="line"><span class="attr">nexus-context-path</span>=<span class="string">/components/</span></span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>注意，上面两个参数会改变 Nexus 的访问路径，如果按上面的配置，最终的访问路径应该是：<code>localhost:8888/components/</code>。</p>
 </blockquote>
@@ -361,12 +361,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/posts/java-framework-active-jdbc-03.html" rel="prev" title="ActiveJDBC笔记：3 编程技巧">
-      <i class="fa fa-chevron-left"></i> ActiveJDBC笔记：3 编程技巧
+    <a href="/posts/java-kp-keyword-static.html" rel="prev" title="Java知识点：static关键字">
+      <i class="fa fa-chevron-left"></i> Java知识点：static关键字
     </a></div>
       <div class="post-nav-item">
-    <a href="/posts/java-framework-active-jdbc-01.html" rel="next" title="ActiveJDBC笔记：1 入门">
-      ActiveJDBC笔记：1 入门 <i class="fa fa-chevron-right"></i>
+    <a href="/posts/java-framework-active-jdbc-02.html" rel="next" title="ActiveJDBC笔记：2 基本使用">
+      ActiveJDBC笔记：2 基本使用 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -440,20 +440,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-count">148</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-count">35</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">96</span>
+        <span class="site-state-item-count">99</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -483,7 +483,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2023</span>
+  <span itemprop="copyrightYear">2024</span>
   <span class="with-love">
     <i class="user"></i>
   </span>

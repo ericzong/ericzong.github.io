@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.4.0">
+<meta name="generator" content="Hexo 7.3.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -258,7 +258,7 @@
 <p>Java 16 中使得普通局部类也可以显式声明为 <code>static</code> 的。这样做的一个好处是，局部记录类可以很容易地转换为“普通局部类”。</p>
 <h1 id="密封类（预览特性第2版）"><a href="#密封类（预览特性第2版）" class="headerlink" title="密封类（预览特性第2版）"></a>密封类（预览特性第2版）</h1><p>该特性在 Java 15 中引入，本版本继续作为预览特性。新加入了两项增强改进：<strong>窄化引用转换（Narrowing Reference Conversion）</strong>和<strong>不相交类型（Disjoint Types）</strong>。</p>
 <p>简单来说，这是一个关于强制类型转换的特性。之前的 Java 版本中，如果要把一个类型的变量强转为另一类型，则要求两个类型是“父子”关系，否则会是一个编译错误。但是，应该注意到有这样一个场景：一个类 A 既是类 B 的子类，又是接口 L 的实现类。因此，类 B 和接口 L 之间就存在转换的可能。但如果除了 null 外，不可能存在值同时是这两种类型，则两种类型就是<strong>不相交类型</strong>，不能进行转换。比如：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> sealed <span class="class"><span class="keyword">interface</span> <span class="title">Shape</span> <span class="title">permits</span> <span class="title">Polygon</span> </span>&#123; &#125;</span><br><span class="line"><span class="keyword">public</span> non-sealed <span class="class"><span class="keyword">interface</span> <span class="title">Polygon</span> <span class="keyword">extends</span> <span class="title">Shape</span> </span>&#123; &#125;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">UtahTeapot</span> </span>&#123; &#125;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Ring</span> </span>&#123; &#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">work</span><span class="params">(Shape s)</span> </span>&#123;</span><br><span class="line">    UtahTeapot u = (UtahTeapot) s;  <span class="comment">// Error</span></span><br><span class="line">    Ring r = (Ring) s;              <span class="comment">// Permitted</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">sealed</span> <span class="keyword">interface</span> <span class="title class_">Shape</span> <span class="keyword">permits</span> Polygon &#123; &#125;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">non-sealed</span> <span class="keyword">interface</span> <span class="title class_">Polygon</span> <span class="keyword">extends</span> <span class="title class_">Shape</span> &#123; &#125;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">class</span> <span class="title class_">UtahTeapot</span> &#123; &#125;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Ring</span> &#123; &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">work</span><span class="params">(Shape s)</span> &#123;</span><br><span class="line">    <span class="type">UtahTeapot</span> <span class="variable">u</span> <span class="operator">=</span> (UtahTeapot) s;  <span class="comment">// Error</span></span><br><span class="line">    <span class="type">Ring</span> <span class="variable">r</span> <span class="operator">=</span> (Ring) s;              <span class="comment">// Permitted</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><code>s</code> 不能从 <code>Shape</code> 转为 <code>UtahTeapot</code> 是因为 <code>UtahTeapot</code> 是 <code>final</code> 的，不可能有子类来实现 <code>Shape</code> 接口——即不相交。而 <code>Ring</code> 不是 <code>final</code> 的，可能有子类实现 <code>Shape</code> 接口。</p>
 <h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/16/language/index.html">Oracle doc - Java Language Updates 16</a></p>
 
@@ -375,20 +375,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-count">148</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-count">35</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">96</span>
+        <span class="site-state-item-count">99</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -418,7 +418,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2023</span>
+  <span itemprop="copyrightYear">2024</span>
   <span class="with-love">
     <i class="user"></i>
   </span>

@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.4.0">
+<meta name="generator" content="Hexo 7.3.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -258,13 +258,13 @@
 
       
         <h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p>Git 分支本质上是指向提交对象的可变指针。由于分支操作是指针操作，并不需要创建文件副本，因此，相当迅速。</p>
-<h1 id="本地分支操作"><a href="#本地分支操作" class="headerlink" title="本地分支操作"></a>本地分支操作</h1><h2 id="查看"><a href="#查看" class="headerlink" title="查看"></a>查看</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 查看当前HEAD所指的分支历史</span></span><br><span class="line">git log --oneline --decorate</span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看所有分支</span></span><br><span class="line">git branch</span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看所有分支最后一次提交</span></span><br><span class="line">git branch -v</span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看已/未合并到当前分支的分支</span></span><br><span class="line">git branch &lt;--merged | --no-merged&gt;</span><br></pre></td></tr></table></figure>
+<h1 id="本地分支操作"><a href="#本地分支操作" class="headerlink" title="本地分支操作"></a>本地分支操作</h1><h2 id="查看"><a href="#查看" class="headerlink" title="查看"></a>查看</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看当前HEAD所指的分支历史</span></span><br><span class="line">git log --oneline --decorate</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看所有分支</span></span><br><span class="line">git branch</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看所有分支最后一次提交</span></span><br><span class="line">git branch -v</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看已/未合并到当前分支的分支</span></span><br><span class="line">git branch &lt;--merged | --no-merged&gt;</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>说明：</p>
 <p><code>git branch</code> 列出的分支中前面带“*”的代表当前检出的分支。</p>
 <p>已合并分支不仅包括 <code>git merge</code> 合并的分支，还包括当前分支的上游分支。</p>
 </blockquote>
-<h2 id="创建"><a href="#创建" class="headerlink" title="创建"></a>创建</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 创建一个新分支</span></span><br><span class="line">git branch [BRANCH_NAME]</span><br><span class="line"><span class="meta">#</span><span class="bash"> 创建新分支并切换到新分支</span></span><br><span class="line">git checkout -b [BRANCH_NAME]</span><br></pre></td></tr></table></figure>
+<h2 id="创建"><a href="#创建" class="headerlink" title="创建"></a>创建</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">创建一个新分支</span></span><br><span class="line">git branch [BRANCH_NAME]</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">创建新分支并切换到新分支</span></span><br><span class="line">git checkout -b [BRANCH_NAME]</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>说明：</p>
 <p><code>git branch</code> 会在当前所在的提交对象上创建一个指针。注意仅创建了分支，但不会自动切换。</p>
@@ -319,9 +319,9 @@
 <li>克隆仓库时，自动创建跟踪 origin/master 的 master 分支；</li>
 <li>从一个远程分支检出一个本地分支时，自动创建跟踪分支。</li>
 </ol>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 本地分支和远程分支名称可不相同</span></span><br><span class="line">git checkout -b &lt;LOCAL_BRANCH&gt; &lt;SHORT_NAME&gt;/&lt;REMOTE_BRANCH&gt;</span><br><span class="line"><span class="meta">#</span><span class="bash"> 快捷方式，本地分支和远程分支名称相同</span></span><br><span class="line">git checkout --track &lt;SHORT_NAME&gt;/&lt;REMOTE_BRANCH&gt;</span><br><span class="line"><span class="meta">#</span><span class="bash"> 设置已有本地分支跟踪远程分支</span></span><br><span class="line">git branch &lt;-u | --set-upstream-to&gt; &lt;SHORT_NAME&gt;/&lt;REMOTE_BRANCH&gt;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看所有跟踪分支</span></span><br><span class="line">git branch -vv</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">本地分支和远程分支名称可不相同</span></span><br><span class="line">git checkout -b &lt;LOCAL_BRANCH&gt; &lt;SHORT_NAME&gt;/&lt;REMOTE_BRANCH&gt;</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">快捷方式，本地分支和远程分支名称相同</span></span><br><span class="line">git checkout --track &lt;SHORT_NAME&gt;/&lt;REMOTE_BRANCH&gt;</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">设置已有本地分支跟踪远程分支</span></span><br><span class="line">git branch &lt;-u | --set-upstream-to&gt; &lt;SHORT_NAME&gt;/&lt;REMOTE_BRANCH&gt;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看所有跟踪分支</span></span><br><span class="line">git branch -vv</span><br></pre></td></tr></table></figure>
 <h2 id="删除-1"><a href="#删除-1" class="headerlink" title="删除"></a>删除</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push &lt;SHORT_NAME&gt; --delete &lt;BRANCH&gt;</span><br></pre></td></tr></table></figure>
-<h1 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h1><h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><h3 id="重命名分支"><a href="#重命名分支" class="headerlink" title="重命名分支"></a>重命名分支</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 1. 重命名本地分支（本地分支名称修改；远程分支名称不变；跟踪关系不变）</span></span><br><span class="line">git branch -m &lt;old_local_branch_name&gt; &lt;new_local_branch_name&gt;</span><br><span class="line"><span class="meta">#</span><span class="bash"> 2. 删除远程分支（本地分支对应的远程分支改变为缺失状态）</span></span><br><span class="line">git push origin --delete &lt;old_remote_branch_name&gt;</span><br><span class="line"><span class="meta">#</span><span class="bash"> 3. 推送本地分支（新名称的远程分支被创建；本地分支仍跟踪旧远程分支，缺失状态）</span></span><br><span class="line">git push origin &lt;new_local_branch_name&gt;</span><br><span class="line"><span class="meta">#</span><span class="bash"> 4. 跟踪新远程分支</span></span><br><span class="line">git branch -u origin/&lt;new_remote_branch_name&gt;</span><br></pre></td></tr></table></figure>
+<h1 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h1><h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><h3 id="重命名分支"><a href="#重命名分支" class="headerlink" title="重命名分支"></a>重命名分支</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">1. 重命名本地分支（本地分支名称修改；远程分支名称不变；跟踪关系不变）</span></span><br><span class="line">git branch -m &lt;old_local_branch_name&gt; &lt;new_local_branch_name&gt;</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">2. 删除远程分支（本地分支对应的远程分支改变为缺失状态）</span></span><br><span class="line">git push origin --delete &lt;old_remote_branch_name&gt;</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">3. 推送本地分支（新名称的远程分支被创建；本地分支仍跟踪旧远程分支，缺失状态）</span></span><br><span class="line">git push origin &lt;new_local_branch_name&gt;</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">4. 跟踪新远程分支</span></span><br><span class="line">git branch -u origin/&lt;new_remote_branch_name&gt;</span><br></pre></td></tr></table></figure>
 <h3 id="本地简单变基"><a href="#本地简单变基" class="headerlink" title="本地简单变基"></a>本地简单变基</h3><p>假设我们有一个“空”的本地仓库，现在进行一些开发后，创建一个分支，然后在新分支上进行后续开发，然后将新分支通过变基合并回master分支，最后删除新分支。</p>
 <p>主要步骤如下：</p>
 <ol>
@@ -332,37 +332,37 @@
 <li>删除 v1 分支。</li>
 </ol>
 <p>首先，查看下仓库目录，它应该是这样的：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> ls -a</span></span><br><span class="line">./  ../  .git/  .gitignore</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">ls</span> -a</span></span><br><span class="line">./  ../  .git/  .gitignore</span><br></pre></td></tr></table></figure>
 <p>创建 1.txt、2.txt、3.txt 等3个文件，模拟开发。</p>
 <p>查看下当前仓库的分支情况：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git branch</span></span><br><span class="line">* master</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git branch</span></span><br><span class="line">* master</span><br></pre></td></tr></table></figure>
 <p>可见，当前仅有 master 分支。创建 v1 分支，并查看仓库分支：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git branch v1</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git branch -v</span></span><br><span class="line">* master a0cf45a init</span><br><span class="line">  v1     a0cf45a init</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git branch v1</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git branch -v</span></span><br><span class="line">* master a0cf45a init</span><br><span class="line">  v1     a0cf45a init</span><br></pre></td></tr></table></figure>
 <p>注意，这里查看分支命令增加了 <code>-v</code> 参数，这会得到更多的分支信息，包括提交 ID 和注释。</p>
 <p>从上面结果可以看到，master 和 v1 分支的 ID 都是“a0cf45a”，这其实说明当前 master 和 v1 指向的是同一次提交。</p>
 <p>然后将修改（增加的文件）提交。</p>
 <p>v1 分支创建成功了，现在我们可以切换到它上面继续工作了：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git checkout v1</span></span><br><span class="line">Switched to branch &#x27;v1&#x27;</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git checkout v1</span></span><br><span class="line">Switched to branch &#x27;v1&#x27;</span><br></pre></td></tr></table></figure>
 <p>当然，我们也可以快捷地使用带 <code>-b</code> 参数的 <code>checkout</code> 命令创建并切换到一个新分支：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git checkout -b v1</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git checkout -b v1</span></span><br></pre></td></tr></table></figure>
 <p>该命令会直接创建 v1 分支，并切换到其上。当然，必须指定一个不存在的分支，否则会报错提示已存在。</p>
 <p>在 v1 分支中创建 4.txt、5.txt、6.txt 文件，提交，切换回 master 分支。</p>
 <p>这时，就可以执行变基操作了：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git rebase v1</span></span><br><span class="line">First, rewinding head to replay your work on top of it...</span><br><span class="line">Applying: develop</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git rebase v1</span></span><br><span class="line">First, rewinding head to replay your work on top of it...</span><br><span class="line">Applying: develop</span><br></pre></td></tr></table></figure>
 <p>当然，也可以不切换回master分支，直接执行如下命令：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git rebase v1 master</span></span><br><span class="line">First, rewinding head to replay your work on top of it...</span><br><span class="line">Fast-forwarded master to v1.</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git rebase v1 master</span></span><br><span class="line">First, rewinding head to replay your work on top of it...</span><br><span class="line">Fast-forwarded master to v1.</span><br></pre></td></tr></table></figure>
 <p>此时，变基后会自动切换回master分支。</p>
 <p>再查看目录，会发现目录中已经有了4.txt、5.txt、6.txt 三个文件了。</p>
 <p>最后，v1 分支的开发任务已完成，通常应该删除它：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git branch -d v1</span></span><br><span class="line">Deleted branch v1 (was 3eb945c).</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git branch -d v1</span></span><br><span class="line">Deleted branch v1 (was 3eb945c).</span><br></pre></td></tr></table></figure>
 <h2 id="技巧"><a href="#技巧" class="headerlink" title="技巧"></a>技巧</h2><h3 id="引用远程分支"><a href="#引用远程分支" class="headerlink" title="引用远程分支"></a>引用远程分支</h3><p>在跟踪分支中，可通过 <code>@&#123;upstream&#125;</code> 或 <code>@&#123;u&#125;</code> 引用远程分支。比如：在 master 分支可使用 <code>git merge @&#123;u&#125;</code> 来取代 <code>git merge origin/master</code>。</p>
 <h3 id="从-GitHub-克隆多分支项目"><a href="#从-GitHub-克隆多分支项目" class="headerlink" title="从 GitHub 克隆多分支项目"></a>从 GitHub 克隆多分支项目</h3><p>当我们从 GitHub 克隆一个多分支项目时，会发现只能“看到” master 分支。比如：以<a target="_blank" rel="noopener" href="https://github.com/getify/You-Dont-Know-JS/">《You Don’t Know JS》</a>为例。</p>
 <p>当将该项目克隆到本地后，查看其分支情况：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git branch</span></span><br><span class="line">* master</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git branch</span></span><br><span class="line">* master</span><br></pre></td></tr></table></figure>
 <p>可见，本地只有 master 分支。但是，我们查看所有分支是可以看到其他远程分支的：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git branch -a</span></span><br><span class="line">* master</span><br><span class="line">  remotes/origin/1ed-zh-CN</span><br><span class="line">  remotes/origin/HEAD -&gt; origin/master</span><br><span class="line">  remotes/origin/master</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git branch -a</span></span><br><span class="line">* master</span><br><span class="line">  remotes/origin/1ed-zh-CN</span><br><span class="line">  remotes/origin/HEAD -&gt; origin/master</span><br><span class="line">  remotes/origin/master</span><br></pre></td></tr></table></figure>
 <p>由此可知，还有一个叫为“1ed-zh-CN”的中文版分支，我们直接检出这个分支，即会自动跟踪对应的远程分支：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git checkout 1ed-zh-CN</span></span><br><span class="line">Switched to a new branch &#x27;1ed-zh-CN&#x27;</span><br><span class="line">Branch &#x27;1ed-zh-CN&#x27; set up to track remote branch &#x27;1ed-zh-CN&#x27; from &#x27;origin&#x27;.</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git checkout 1ed-zh-CN</span></span><br><span class="line">Switched to a new branch &#x27;1ed-zh-CN&#x27;</span><br><span class="line">Branch &#x27;1ed-zh-CN&#x27; set up to track remote branch &#x27;1ed-zh-CN&#x27; from &#x27;origin&#x27;.</span><br></pre></td></tr></table></figure>
 
     </div>
 
@@ -477,20 +477,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-count">148</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-count">35</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">96</span>
+        <span class="site-state-item-count">99</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -520,7 +520,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2023</span>
+  <span itemprop="copyrightYear">2024</span>
   <span class="with-love">
     <i class="user"></i>
   </span>

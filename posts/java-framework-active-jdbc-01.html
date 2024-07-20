@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.4.0">
+<meta name="generator" content="Hexo 7.3.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -277,7 +277,7 @@
 <p>官方的入门教程详细例举了 CURD 操作示例，值得注意的是其查询操作，从代码可以看出，它不使用原生 SQL，也不使用类似 HQL 的语言，而是使用将关键字包装为方法、数据包装为方法参数的形式编写（这种形式不仅限于 Java，其他语言中也有类似的框架及用法），就好像这样：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Employee&gt; people = Employee.where(<span class="string">&quot;department = ? and hire_date &gt; ? &quot;</span>, <span class="string">&quot;IT&quot;</span>, hireDate)</span><br><span class="line">    .offset(<span class="number">21</span>)</span><br><span class="line">    .limit(<span class="number">10</span>)</span><br><span class="line">    .orderBy(<span class="string">&quot;hire_date asc&quot;</span>);</span><br></pre></td></tr></table></figure>
 <p>另外，其数据模型类必需继承自框架 Model 基类，而且也不必声明属性与表字段映射，ActiveJDBC 本身也不进行这样的映射。如果没有特别的需要，甚至只需要定义一个空的模型类，如下面这样：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span> <span class="keyword">extends</span> <span class="title">Model</span> </span>&#123;&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Person</span> <span class="keyword">extends</span> <span class="title class_">Model</span> &#123;&#125;</span><br></pre></td></tr></table></figure>
 <p>简单看下 Model 类的源码就知道，Model 类提供了许多数据操作方法，因此，严格说来，继承自它的模型类并不是单纯的 POJO。</p>
 <h1 id="植入（Instrumentation）"><a href="#植入（Instrumentation）" class="headerlink" title="植入（Instrumentation）"></a>植入（Instrumentation）</h1><p>创建好数据表，配置好 ActiveJDBC 依赖，并参考示例使用 ActiveJDBC 提代的 API 编写好代码，然后编译运行，会得到如下的异常信息：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">failed to determine Model class name, are you sure models have been instrumented?</span><br></pre></td></tr></table></figure>
@@ -327,12 +327,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/posts/java-tool-nexus3.html" rel="prev" title="Nexus3应用笔记">
-      <i class="fa fa-chevron-left"></i> Nexus3应用笔记
+    <a href="/posts/java-framework-active-jdbc-03.html" rel="prev" title="ActiveJDBC笔记：3 编程技巧">
+      <i class="fa fa-chevron-left"></i> ActiveJDBC笔记：3 编程技巧
     </a></div>
       <div class="post-nav-item">
-    <a href="/posts/java-framework-active-jdbc-02.html" rel="next" title="ActiveJDBC笔记：2 基本使用">
-      ActiveJDBC笔记：2 基本使用 <i class="fa fa-chevron-right"></i>
+    <a href="/posts/java-framework-testng.html" rel="next" title="TestNG学习笔记">
+      TestNG学习笔记 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -406,20 +406,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-count">148</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-count">35</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">96</span>
+        <span class="site-state-item-count">99</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -449,7 +449,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2023</span>
+  <span itemprop="copyrightYear">2024</span>
   <span class="with-love">
     <i class="user"></i>
   </span>

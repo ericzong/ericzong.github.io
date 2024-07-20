@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.4.0">
+<meta name="generator" content="Hexo 7.3.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -289,7 +289,7 @@
 <p>Proxy 字典对象中，<code>httpProxy</code> 和 <code>sslProxy</code> 分别指定 http 和 https 协议的代理地址。一般都需要指定，比如不指定 <code>sslProxy</code> 则 https 协议的页面请求就不会经过代理。</p>
 <p><code>proxyType</code> 使用手动设置，值为 <code>MANUAL</code>。它是必需的，否则将导致错误。（Java 版本中 <code>ProxyType</code> 是个枚举值，可以看到所有支持的类型，以及它们的说明。）</p>
 <p>【Java 版】</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Proxy proxy = <span class="keyword">new</span> Proxy();</span><br><span class="line">proxy.setHttpProxy(<span class="string">&quot;&lt;HOST:PORT&gt;&quot;</span>);</span><br><span class="line">proxy.setSslProxy(<span class="string">&quot;&lt;HOST:PORT&gt;&quot;</span>);</span><br><span class="line">options.setCapability(<span class="string">&quot;proxy&quot;</span>, proxy);</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Proxy</span> <span class="variable">proxy</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Proxy</span>();</span><br><span class="line">proxy.setHttpProxy(<span class="string">&quot;&lt;HOST:PORT&gt;&quot;</span>);</span><br><span class="line">proxy.setSslProxy(<span class="string">&quot;&lt;HOST:PORT&gt;&quot;</span>);</span><br><span class="line">options.setCapability(<span class="string">&quot;proxy&quot;</span>, proxy);</span><br></pre></td></tr></table></figure>
 </blockquote>
 <h2 id="页面加载策略"><a href="#页面加载策略" class="headerlink" title="页面加载策略"></a>页面加载策略</h2><p>默认配置下，打开新页面时，Selenium 会等待所有资源下载完成。但对于有大量资源的页面不太友好，可以选择仅等到 DOM 就绪，或者不等待——不过要注意对测试稳定性的影响。</p>
 <p>原理上说，Selenium 检测的是 <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/API/Document/readyState"><code>document.readyState</code></a> 属性，与加载策略对应关系如下：</p>
@@ -324,7 +324,7 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">options = Options()</span><br><span class="line">options.page_load_strategy = <span class="string">&#x27;eager&#x27;</span></span><br><span class="line">driver = webdriver.Chrome(options=options)</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>【Java 版】</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ChromeOptions chromeOptions = <span class="keyword">new</span> ChromeOptions();</span><br><span class="line">chromeOptions.setPageLoadStrategy(PageLoadStrategy.EAGER);</span><br><span class="line">WebDriver driver = <span class="keyword">new</span> ChromeDriver(chromeOptions);</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">ChromeOptions</span> <span class="variable">chromeOptions</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ChromeOptions</span>();</span><br><span class="line">chromeOptions.setPageLoadStrategy(PageLoadStrategy.EAGER);</span><br><span class="line"><span class="type">WebDriver</span> <span class="variable">driver</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ChromeDriver</span>(chromeOptions);</span><br></pre></td></tr></table></figure>
 <p>与 Python 差异不大，Java 的主要区别在于“封装”方面：</p>
 <ol>
 <li>使用 set 方法设置加载策略；</li>
@@ -363,7 +363,7 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">options = webdriver.ChromeOptions()</span><br><span class="line">options.binary_location = <span class="string">&#x27;/path/to/chrome&#x27;</span></span><br><span class="line">webdriver.Chrome(options=options)</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>【Java 版】</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ChromeOptions options = <span class="keyword">new</span> ChromeOptions();</span><br><span class="line">options.setBinary(<span class="string">&quot;/path/to/chrome&quot;</span>);</span><br><span class="line">ChromeDriver driver = <span class="keyword">new</span> ChromeDriver(options);</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">ChromeOptions</span> <span class="variable">options</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ChromeOptions</span>();</span><br><span class="line">options.setBinary(<span class="string">&quot;/path/to/chrome&quot;</span>);</span><br><span class="line"><span class="type">ChromeDriver</span> <span class="variable">driver</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ChromeDriver</span>(options);</span><br></pre></td></tr></table></figure>
 </blockquote>
 <h2 id="驱动文件路径识别与自定义"><a href="#驱动文件路径识别与自定义" class="headerlink" title="驱动文件路径识别与自定义"></a>驱动文件路径识别与自定义</h2><p>未配置 chromedriver 路径的情况下，Selenium 尝试在 <code>PATH</code> 环境变量下的路径查找。</p>
 <p>找不到则报错，如果不想设置环境变量，可以在代码中指定 chromedriver 路径。正确的方法是将路径通过 Service 传入：</p>
@@ -373,7 +373,7 @@
 <p>当然，有一种更简洁的方法，就是在构造的时候直接传入路径，如：<code>webdriver.Chrome(&#39;/path/to/chromedriver&#39;)</code>。但是构造参数 <code>executable_path</code> 已废弃，该方法不推荐使用。</p>
 <p>【Java 版】</p>
 <p>Java 也应在 Service 中传入 chromedriver 路径，但是 <code>ChromeDriverService</code> 构造器参数太多又不像 Python 可以设置默认值，所以需要借助 <code>Builder</code> 来构造：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.openqa.selenium.chrome.ChromeDriverService.Builder;</span><br><span class="line"></span><br><span class="line"><span class="keyword">final</span> Builder builder = <span class="keyword">new</span> Builder();</span><br><span class="line">builder.usingDriverExecutable(<span class="keyword">new</span> File(chromedriver));</span><br><span class="line">ChromeDriverService service = builder.build();</span><br><span class="line">WebDrvier driver = <span class="keyword">new</span> ChromeDriver(service, options);</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.openqa.selenium.chrome.ChromeDriverService.Builder;</span><br><span class="line"></span><br><span class="line"><span class="keyword">final</span> <span class="type">Builder</span> <span class="variable">builder</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Builder</span>();</span><br><span class="line">builder.usingDriverExecutable(<span class="keyword">new</span> <span class="title class_">File</span>(chromedriver));</span><br><span class="line"><span class="type">ChromeDriverService</span> <span class="variable">service</span> <span class="operator">=</span> builder.build();</span><br><span class="line"><span class="type">WebDrvier</span> <span class="variable">driver</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ChromeDriver</span>(service, options);</span><br></pre></td></tr></table></figure>
 <p>不过 Java 还有一个极简的方案，将系统属性 <code>webdriver.chrome.driver</code> 设置为 chromedriver 路径即可：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">System.setProperty(<span class="string">&quot;webdriver.chrome.driver&quot;</span>, <span class="string">&quot;/path/to/chromedriver&quot;</span>);</span><br></pre></td></tr></table></figure>
 </blockquote>
@@ -382,7 +382,7 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 方法一</span></span><br><span class="line">options.headless = <span class="literal">True</span></span><br><span class="line"><span class="comment"># 方法二</span></span><br><span class="line">options.add_argument(<span class="string">&quot;headless&quot;</span>)</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>【Java 版】</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 方法一</span></span><br><span class="line">options.setHeadless(<span class="keyword">true</span>);</span><br><span class="line"><span class="comment">// 方法二</span></span><br><span class="line">options.addArguments(<span class="string">&quot;headless&quot;</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 方法一</span></span><br><span class="line">options.setHeadless(<span class="literal">true</span>);</span><br><span class="line"><span class="comment">// 方法二</span></span><br><span class="line">options.addArguments(<span class="string">&quot;headless&quot;</span>)</span><br></pre></td></tr></table></figure>
 </blockquote>
 <h2 id="加载扩展程序"><a href="#加载扩展程序" class="headerlink" title="加载扩展程序"></a>加载扩展程序</h2><p>默认情况下，启动的 Chrome 是全新的，不带扩展程序的，如果想使用扩展程序需要编码加载。</p>
 <p>要加载扩展程序，首先需要获得扩展程序文件，这可以通过网站 <a target="_blank" rel="noopener" href="http://crxextractor.com/">http://crxextractor.com/</a> 下载。</p>
@@ -390,7 +390,7 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 加载 .crx</span></span><br><span class="line">options.add_extension(<span class="string">&#x27;/path/to/extension.crx&#x27;</span>)</span><br><span class="line"><span class="comment"># 加载解压的扩展程序文件夹</span></span><br><span class="line">options.add_argument(<span class="string">&#x27;load-extension=/path/to/extension-dir&#x27;</span>);</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>【Java 版】</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 加载 .crx</span></span><br><span class="line">options.addExtensions(<span class="keyword">new</span> File(<span class="string">&quot;/path/to/extension.crx&quot;</span>));</span><br><span class="line"><span class="comment">// 加载解压的扩展程序文件夹</span></span><br><span class="line">options.addArguments(<span class="string">&quot;load-extension=/path/to/extension-dir&quot;</span>);</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 加载 .crx</span></span><br><span class="line">options.addExtensions(<span class="keyword">new</span> <span class="title class_">File</span>(<span class="string">&quot;/path/to/extension.crx&quot;</span>));</span><br><span class="line"><span class="comment">// 加载解压的扩展程序文件夹</span></span><br><span class="line">options.addArguments(<span class="string">&quot;load-extension=/path/to/extension-dir&quot;</span>);</span><br></pre></td></tr></table></figure>
 </blockquote>
 <h2 id="启动参数"><a href="#启动参数" class="headerlink" title="启动参数"></a>启动参数</h2><p>Chrome 一般的配置参数使用 <code>options.add_argument(arg)</code> 进行设置。</p>
 <blockquote>
@@ -472,7 +472,7 @@
 <h3 id="用户数据目录（User-Data-Directory）"><a href="#用户数据目录（User-Data-Directory）" class="headerlink" title="用户数据目录（User Data Directory）"></a>用户数据目录（User Data Directory）</h3><p>默认情况下，Chrome 每次启动都是全新的，这是因为 Selenium 每次都会自动创建一个新的“用户数据目录”。</p>
 <p>我们可以自行创建一个用户数据目录，并指定 Chrome 使用它启动。</p>
 <p>直接使用 Chrome 应用程序加上 <code>user-data-dir</code> 参数，就能在指定路径创建一个用户数据目录：</p>
-<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chrome.exe -<span class="literal">-user</span><span class="literal">-data</span><span class="literal">-dir</span>=/path/to/my<span class="literal">-profile</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chrome.exe <span class="literal">--user-data-dir</span>=/path/to/my<span class="literal">-profile</span></span><br></pre></td></tr></table></figure>
 <p>再在 Selenium 启动 Chrome 前配置好 <code>user-data-dir</code> 即可：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">options.add_argument(<span class="string">r&#x27;user-data-dir=/path/to/my-profile&#x27;</span>)</span><br></pre></td></tr></table></figure>
 <p>这样，每次启动时，包括插件在内的绝大多数浏览器设置都将保留。</p>
@@ -566,7 +566,7 @@
 <p>Python 版本中，<code>FirefoxProfile</code> 已废弃，虽然依然可用，但会输出警告。</p>
 <p>【Java 版】</p>
 <p>Java 版本中，<code>FirefoxProfile</code> 并未废弃，仍然可用：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">FirefoxProfile profile = <span class="keyword">new</span> FirefoxProfile(<span class="keyword">new</span> File(<span class="string">&quot;/path/to/profile-dir&quot;</span>));</span><br><span class="line">options.setProfile(profile);</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">FirefoxProfile</span> <span class="variable">profile</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FirefoxProfile</span>(<span class="keyword">new</span> <span class="title class_">File</span>(<span class="string">&quot;/path/to/profile-dir&quot;</span>));</span><br><span class="line">options.setProfile(profile);</span><br></pre></td></tr></table></figure>
 </blockquote>
 <h3 id="代理-2"><a href="#代理-2" class="headerlink" title="代理"></a>代理</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用手动配置代码</span></span><br><span class="line">options.set_preference(<span class="string">&#x27;network.proxy.type&#x27;</span>, <span class="number">1</span>)</span><br><span class="line"><span class="comment"># HTTP 代理</span></span><br><span class="line">options.set_preference(<span class="string">&#x27;network.proxy.http&#x27;</span>, <span class="string">&#x27;localhost&#x27;</span>)</span><br><span class="line">options.set_preference(<span class="string">&#x27;network.proxy.http_port&#x27;</span>, <span class="number">9085</span>)</span><br><span class="line"><span class="comment"># HTTPS 代理</span></span><br><span class="line">options.set_preference(<span class="string">&#x27;network.proxy.ssl&#x27;</span>, <span class="string">&#x27;localhost&#x27;</span>)</span><br><span class="line">options.set_preference(<span class="string">&#x27;network.proxy.ssl_port&#x27;</span>, <span class="number">9085</span>)</span><br><span class="line"><span class="comment"># SOCKS 代理</span></span><br><span class="line">options.set_preference(<span class="string">&#x27;network.proxy.socks&#x27;</span>, <span class="string">&#x27;localhost&#x27;</span>)</span><br><span class="line">options.set_preference(<span class="string">&#x27;network.proxy.socks_port&#x27;</span>, <span class="number">9084</span>)</span><br></pre></td></tr></table></figure>
 <blockquote>
@@ -580,7 +580,7 @@
 <p>【Java 版本】</p>
 <p>对于 Python 版本而言，Firefox 的配置废弃了 <code>FirefoxProfile</code>，而直接在 <code>Options</code> 上进行。</p>
 <p>但是，Java 版本并未废弃 <code>FirefoxProfile</code>，也没有在 <code>Options</code> 上添加 <code>setPreference()</code> 方法。所以，还是要使用 <code>FirefoxProfile</code> 进行设置：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">FirefoxProfile profile = <span class="keyword">new</span> FirefoxProfile();</span><br><span class="line">profile.setPreference(<span class="string">&quot;network.proxy.socks&quot;</span>, <span class="string">&quot;localhost&quot;</span>);</span><br><span class="line">profile.setPreference(<span class="string">&quot;network.proxy.socks_port&quot;</span>, <span class="number">9084</span>);</span><br><span class="line">options.setProfile(profile);</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">FirefoxProfile</span> <span class="variable">profile</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FirefoxProfile</span>();</span><br><span class="line">profile.setPreference(<span class="string">&quot;network.proxy.socks&quot;</span>, <span class="string">&quot;localhost&quot;</span>);</span><br><span class="line">profile.setPreference(<span class="string">&quot;network.proxy.socks_port&quot;</span>, <span class="number">9084</span>);</span><br><span class="line">options.setProfile(profile);</span><br></pre></td></tr></table></figure>
 </blockquote>
 <h3 id="自动下载-1"><a href="#自动下载-1" class="headerlink" title="自动下载"></a>自动下载</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">options.set_preference(<span class="string">&#x27;browser.download.useDownloadDir&#x27;</span>, <span class="literal">True</span>)</span><br><span class="line">options.set_preference(<span class="string">&#x27;browser.download.folderList&#x27;</span>, <span class="number">2</span>)</span><br><span class="line">options.set_preference(<span class="string">&#x27;browser.download.manager.showWhenStarting&#x27;</span>, <span class="literal">False</span>)</span><br><span class="line">options.set_preference(<span class="string">&#x27;browser.download.dir&#x27;</span>, <span class="string">&#x27;/path/to/download/dir&#x27;</span>)</span><br></pre></td></tr></table></figure>
 <h1 id="扩展讨论"><a href="#扩展讨论" class="headerlink" title="扩展讨论"></a>扩展讨论</h1><h2 id="第三方库管理驱动"><a href="#第三方库管理驱动" class="headerlink" title="第三方库管理驱动"></a>第三方库管理驱动</h2><p>如果测试环境的浏览器会自动升级，那么，为了不频繁的替换驱动文件、修改配置或代码，一个推荐的做法是使用第三方库来管理驱动——WebDriver Manager 就是个这样的库。</p>
@@ -726,20 +726,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-count">148</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-count">35</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">96</span>
+        <span class="site-state-item-count">99</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -769,7 +769,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2023</span>
+  <span itemprop="copyrightYear">2024</span>
   <span class="with-love">
     <i class="user"></i>
   </span>

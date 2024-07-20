@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.4.0">
+<meta name="generator" content="Hexo 7.3.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -264,7 +264,7 @@
 <p>即表单类型呢就是 <code>multipart/form-data</code>，字面上看就是“分为多个部分的表单数据”。以什么分割呢，就是后面的 <code>boundary</code>，意即分隔线——它是随机生成的一个字符串，在 <code>body</code> 中用以 <code>--$&#123;bound&#125;</code> 分割各数据字段。</p>
 <p>基本原理搞明白了，那就要撸代码发请求了。</p>
 <h1 id="使用-Python-发请求"><a href="#使用-Python-发请求" class="headerlink" title="使用 Python 发请求"></a>使用 Python 发请求</h1><p>这里笔者使用 Python 的 requests 库来完成请求。话不多说，上代码：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">test_upload_file</span>(<span class="params">self</span>):</span></span><br><span class="line">    upload_api_url = self.host + self.upload_api_path</span><br><span class="line">    file = &#123;</span><br><span class="line">        <span class="string">&#x27;file&#x27;</span>: <span class="built_in">open</span>(self.attachment_file, <span class="string">&#x27;rb&#x27;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    data = &#123;</span><br><span class="line">        <span class="string">&#x27;env&#x27;</span>: <span class="string">&#x27;dev&#x27;</span>,</span><br><span class="line">        <span class="string">&#x27;filePath&#x27;</span>: self.filepath</span><br><span class="line">    &#125;</span><br><span class="line">    response = requests.post(upload_api_url, files=file, data=data)</span><br><span class="line">    <span class="built_in">print</span>(response.text)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">test_upload_file</span>(<span class="params">self</span>):</span><br><span class="line">    upload_api_url = <span class="variable language_">self</span>.host + <span class="variable language_">self</span>.upload_api_path</span><br><span class="line">    file = &#123;</span><br><span class="line">        <span class="string">&#x27;file&#x27;</span>: <span class="built_in">open</span>(<span class="variable language_">self</span>.attachment_file, <span class="string">&#x27;rb&#x27;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    data = &#123;</span><br><span class="line">        <span class="string">&#x27;env&#x27;</span>: <span class="string">&#x27;dev&#x27;</span>,</span><br><span class="line">        <span class="string">&#x27;filePath&#x27;</span>: <span class="variable language_">self</span>.filepath</span><br><span class="line">    &#125;</span><br><span class="line">    response = requests.post(upload_api_url, files=file, data=data)</span><br><span class="line">    <span class="built_in">print</span>(response.text)</span><br></pre></td></tr></table></figure>
 <p>Python 代码很简单，只需要指定接口 URL，并传入要上传的文件，以及要提交的其他数据字段，发送一个 post 请求就 OK 啦！</p>
 <p>只需要注意几点：</p>
 <ol>
@@ -385,20 +385,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-count">148</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-count">35</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">96</span>
+        <span class="site-state-item-count">99</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -428,7 +428,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2023</span>
+  <span itemprop="copyrightYear">2024</span>
   <span class="with-love">
     <i class="user"></i>
   </span>

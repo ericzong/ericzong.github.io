@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.4.0">
+<meta name="generator" content="Hexo 7.3.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -289,7 +289,7 @@
 <p>Java 7 加入多重捕获（multicatch）语法：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">catch</span>(ExceptionType | ExceptionType2 ex)</span><br><span class="line">&#123;</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
 <p>Java 7 还加入了 Try-with-resources（TWR）语法，用以管理自动关闭的资源：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>(AutoCloseableImp auto = ...)</span><br><span class="line">&#123;</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>(<span class="type">AutoCloseableImp</span> <span class="variable">auto</span> <span class="operator">=</span> ...)</span><br><span class="line">&#123;</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
 <h1 id="新特性"><a href="#新特性" class="headerlink" title="新特性"></a>新特性</h1><h2 id="多重异常捕获（multicatch）"><a href="#多重异常捕获（multicatch）" class="headerlink" title="多重异常捕获（multicatch）"></a>多重异常捕获（multicatch）</h2><p>多重 catch 子句可捕获的异常是表示其异常参数类型的并集中的类型。</p>
 <p>实际上，多重异常捕获是编译器把捕获多个异常的 catch 子句转换成了多个 catch 子句，在每个 catch 子句中捕获一个异常。</p>
 <p>多重异常捕获catch子句中异常参数的具体类型是所有列出异常在类继承层次结构上的最小祖先类。 因为所有异常都是 <code>Exception</code> 类的后代，所以这样一个最小的上界总是会存在的。</p>
@@ -335,9 +335,9 @@
 <li>将错误处理代码与常规代码分离；</li>
 <li>强制用户处理特定异常（受检异常）。</li>
 </ol>
-<h1 id="惯用技巧"><a href="#惯用技巧" class="headerlink" title="惯用技巧"></a>惯用技巧</h1><h2 id="双层捕获关闭流"><a href="#双层捕获关闭流" class="headerlink" title="双层捕获关闭流"></a>双层捕获关闭流</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">InputStream in = ...;</span><br><span class="line"><span class="keyword">try</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">try</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// code that might throw exception</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">finally</span></span><br><span class="line">    &#123;</span><br><span class="line">        in.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">catch</span>(IOException e)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// show error message</span></span><br><span class="line">&#125;  </span><br></pre></td></tr></table></figure>
+<h1 id="惯用技巧"><a href="#惯用技巧" class="headerlink" title="惯用技巧"></a>惯用技巧</h1><h2 id="双层捕获关闭流"><a href="#双层捕获关闭流" class="headerlink" title="双层捕获关闭流"></a>双层捕获关闭流</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">InputStream</span> <span class="variable">in</span> <span class="operator">=</span> ...;</span><br><span class="line"><span class="keyword">try</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">try</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// code that might throw exception</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">finally</span></span><br><span class="line">    &#123;</span><br><span class="line">        in.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">catch</span>(IOException e)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// show error message</span></span><br><span class="line">&#125;  </span><br></pre></td></tr></table></figure>
 <p>说明：内层的 <code>try</code> 语句块只有一个职责，就是确保关闭输入流。 外层的 <code>try</code> 语句块也只有一个职责，就是确保报告出现的错误。 这种设计方式不仅清楚，而且还具有一个功能，就是将会报告 <code>finally</code> 子句中出现的错误。</p>
-<h2 id="抛出受检异常"><a href="#抛出受检异常" class="headerlink" title="抛出受检异常"></a>抛出受检异常</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ThrowCheckedExceptionToUnckecked</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        doThrow(<span class="keyword">new</span> SQLException());</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">doThrow</span><span class="params">(Exception e)</span> </span>&#123;</span><br><span class="line">        ThrowCheckedExceptionToUnckecked.&lt;RuntimeException&gt; doThrow0(e);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@SuppressWarnings(&quot;unchecked&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> &lt;E extends Exception&gt; <span class="function"><span class="keyword">void</span> <span class="title">doThrow0</span><span class="params">(Exception e)</span> <span class="keyword">throws</span> E </span>&#123;</span><br><span class="line">        <span class="keyword">throw</span> (E) e;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;  </span><br></pre></td></tr></table></figure>
+<h2 id="抛出受检异常"><a href="#抛出受检异常" class="headerlink" title="抛出受检异常"></a>抛出受检异常</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ThrowCheckedExceptionToUnckecked</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span></span><br><span class="line">    &#123;</span><br><span class="line">        doThrow(<span class="keyword">new</span> <span class="title class_">SQLException</span>());</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">doThrow</span><span class="params">(Exception e)</span> &#123;</span><br><span class="line">        ThrowCheckedExceptionToUnckecked.&lt;RuntimeException&gt; doThrow0(e);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@SuppressWarnings(&quot;unchecked&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> &lt;E <span class="keyword">extends</span> <span class="title class_">Exception</span>&gt; <span class="keyword">void</span> <span class="title function_">doThrow0</span><span class="params">(Exception e)</span> <span class="keyword">throws</span> E &#123;</span><br><span class="line">        <span class="keyword">throw</span> (E) e;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;  </span><br></pre></td></tr></table></figure>
 <p>说明：对于受检异常捕获/抛出检查是由编译器进行的，而非 JVM。而通过泛型的特殊应用，我们可以绕过编译器检查抛出受检异常。</p>
 <h1 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h1><h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><ul>
 <li><p>异常转译</p>
@@ -460,20 +460,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-count">148</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-count">35</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">96</span>
+        <span class="site-state-item-count">99</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -503,7 +503,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2023</span>
+  <span itemprop="copyrightYear">2024</span>
   <span class="with-love">
     <i class="user"></i>
   </span>

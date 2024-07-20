@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.4.0">
+<meta name="generator" content="Hexo 7.3.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -413,7 +413,7 @@
 <p>也许，有人会想 <code>Object[] array = new Object[] &#123;&#125;</code> 就能创建匿名类数组，遗憾地是这仅仅是创建了一个 Object 数组。</p>
 <p>因此，目前来看，至少我们不能以“常规”的方式来创建匿名类数组。</p>
 <p>有没有其他方式来创建呢？答案是有的。通过 Array 类相关实例化方法就可以创建一个匿名类数组：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Data d = <span class="keyword">new</span> Data() &#123;&#125;;</span><br><span class="line">Data[] array = (Data[]) Array.newInstance(d.getClass(), <span class="number">10</span>);</span><br><span class="line"><span class="comment">// array.getName(): [Lcom.ericzong.java.sample.api.ClassNameTest$4;</span></span><br><span class="line"><span class="comment">// array.getCanonicalName(): null</span></span><br><span class="line"><span class="comment">// array.getSimpleName(): []</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Data</span> <span class="variable">d</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Data</span>() &#123;&#125;;</span><br><span class="line">Data[] array = (Data[]) Array.newInstance(d.getClass(), <span class="number">10</span>);</span><br><span class="line"><span class="comment">// array.getName(): [Lcom.ericzong.java.sample.api.ClassNameTest$4;</span></span><br><span class="line"><span class="comment">// array.getCanonicalName(): null</span></span><br><span class="line"><span class="comment">// array.getSimpleName(): []</span></span><br></pre></td></tr></table></figure>
 <h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>由于无名，所以导致匿名类在与名称相关的方面都比较特别。</p>
 <p>无名 →  无构造器 → 必需在声明时实例化；</p>
 <p>无名 → 无类型字面量 → 无法声明（数组）变量</p>
@@ -456,12 +456,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/posts/java-topic-why-final.html" rel="prev" title="Java专题：为什么内部类访问的外部局部变量必须是final的？">
-      <i class="fa fa-chevron-left"></i> Java专题：为什么内部类访问的外部局部变量必须是final的？
+    <a href="/posts/java-topic-object-clone.html" rel="prev" title="Java专题：对象拷贝">
+      <i class="fa fa-chevron-left"></i> Java专题：对象拷贝
     </a></div>
       <div class="post-nav-item">
-    <a href="/posts/java-kp-keyword-static.html" rel="next" title="Java知识点：static关键字">
-      Java知识点：static关键字 <i class="fa fa-chevron-right"></i>
+    <a href="/posts/java-kp-keyword-final.html" rel="next" title="Java知识点：final关键字">
+      Java知识点：final关键字 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -535,20 +535,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-count">148</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-count">35</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">96</span>
+        <span class="site-state-item-count">99</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -578,7 +578,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2023</span>
+  <span itemprop="copyrightYear">2024</span>
   <span class="with-love">
     <i class="user"></i>
   </span>

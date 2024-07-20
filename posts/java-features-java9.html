@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.4.0">
+<meta name="generator" content="Hexo 7.3.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -265,7 +265,7 @@
 <li>集合是否可序列化取决于所有元素是否可序列化</li>
 </ol>
 <h1 id="私有接口方法"><a href="#私有接口方法" class="headerlink" title="私有接口方法"></a>私有接口方法</h1><p>Java 8 新特性允许我们在接口中添加默认（<code>default</code>）方法和静态（<code>static</code>）方法。 但是，前者是供实现类调用，而后者是供其他类调用的，总之，是供“外部”调用的。可是，加入两者后，引发了一个问题：在不将方法暴露为 API 的情况下，代码无法复用。因此，Java 9 可以向接口添加私有辅助方法来解决此问题：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">MyInterface</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">normalInterfaceMethod</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">default</span> <span class="keyword">void</span> <span class="title">interfaceMethodWithDefault</span><span class="params">()</span> </span>&#123;  init(); &#125;</span><br><span class="line">    <span class="function"><span class="keyword">default</span> <span class="keyword">void</span> <span class="title">anotherDefaultMethod</span><span class="params">()</span> </span>&#123; init(); &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// This method is not part of the public API exposed by MyInterface</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">()</span> </span>&#123; System.out.println(<span class="string">&quot;Initializing&quot;</span>); &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">MyInterface</span> &#123;</span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">normalInterfaceMethod</span><span class="params">()</span>;</span><br><span class="line">    <span class="keyword">default</span> <span class="keyword">void</span> <span class="title function_">interfaceMethodWithDefault</span><span class="params">()</span> &#123;  init(); &#125;</span><br><span class="line">    <span class="keyword">default</span> <span class="keyword">void</span> <span class="title function_">anotherDefaultMethod</span><span class="params">()</span> &#123; init(); &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// This method is not part of the public API exposed by MyInterface</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">init</span><span class="params">()</span> &#123; System.out.println(<span class="string">&quot;Initializing&quot;</span>); &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h1 id="更简洁的TWR语句"><a href="#更简洁的TWR语句" class="headerlink" title="更简洁的TWR语句"></a>更简洁的TWR语句</h1><p>如果已经有了一个 <code>final</code> 或事实 <code>final</code> 的资源变量，则可以直接使用，而不必再在 <code>try</code> 子句中声明新的变量。但是，还是需要将这些变量列在 <code>try</code> 子句中。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// New and improved try-with-resources statement in Java SE 9</span></span><br><span class="line"><span class="keyword">try</span> (resource1; resource2) &#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h1 id="REPL-JShell"><a href="#REPL-JShell" class="headerlink" title="REPL (JShell)"></a>REPL (JShell)</h1><p>Java 9 之前，要想体验 Java，通常不得不写一个“Hello World!”类——里面充斥着各种基础概念、语法及固定写法等等，对初学者很不友好，刚开始体验就弄得一头雾水。而其他诸如 Python、Node.js 等主流的语言都自带交互式命令行程序，可以很轻松地体验及测试一些特性。</p>
@@ -392,20 +392,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-count">148</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-count">35</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">96</span>
+        <span class="site-state-item-count">99</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -435,7 +435,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2023</span>
+  <span itemprop="copyrightYear">2024</span>
   <span class="with-love">
     <i class="user"></i>
   </span>

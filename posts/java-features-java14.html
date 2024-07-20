@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.4.0">
+<meta name="generator" content="Hexo 7.3.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -272,7 +272,7 @@
 </ul>
 <p>文本块中的换行会导致在代表的文本中插入换行，那么，如果文本行超长，仅仅想在源代码级别换行该怎么办呢？答案是使用“续行符”。</p>
 <p>在行末插入“续行符”，以 <code>\</code> 反斜杠表示。如：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">String singleLine = <span class="string">&quot;&quot;</span><span class="string">&quot;</span></span><br><span class="line"><span class="string">          Hello \</span></span><br><span class="line"><span class="string">          World</span></span><br><span class="line"><span class="string">          &quot;</span><span class="string">&quot;&quot;</span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">singleLine</span> <span class="operator">=</span> <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">          Hello \</span></span><br><span class="line"><span class="string">          World</span></span><br><span class="line"><span class="string">          &quot;&quot;&quot;</span>;</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>大多数语言的续行符都是反斜杠。</p>
 </blockquote>
@@ -283,7 +283,7 @@
 </blockquote>
 <h1 id="instanceof操作符的模式匹配（预览特性）"><a href="#instanceof操作符的模式匹配（预览特性）" class="headerlink" title="instanceof操作符的模式匹配（预览特性）"></a><code>instanceof</code>操作符的模式匹配（预览特性）</h1><p>这个特性名称听起来很高大上，其实涉及的只是 <code>instanceof</code> 操作符的很小一个改进。</p>
 <h2 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h2><p>通常，<code>instanceof</code> 操作符用以判断一个变量是否是某种类型，如果是，就转型为该类型进行处理——这就是大家熟悉的“instanceof-and-cast 习惯用法”。比如下面这段计算矩形周长的代码：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (shape <span class="keyword">instanceof</span> Rectangle) &#123;</span><br><span class="line">    Rectangle s = (Rectangle) shape;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">2</span> * s.length() + <span class="number">2</span> * s.width();</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (shape <span class="keyword">instanceof</span> Rectangle) &#123;</span><br><span class="line">    <span class="type">Rectangle</span> <span class="variable">s</span> <span class="operator">=</span> (Rectangle) shape;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">2</span> * s.length() + <span class="number">2</span> * s.width();</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
 <p>很容易发现，第 2 行那条转型语句通常就是那样固定，写了还可能写错，那有什么必要写呢？所以，那就简化掉吧。现在可以这样写了：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (shape <span class="keyword">instanceof</span> Rectangle s) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">2</span> * s.length() + <span class="number">2</span> * s.width();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>可以看到，现在我们在使用 <code>instanceof</code> 进行类型测试的同时，就声明了一个变量——如果类型测试的结果为 <code>true</code>，就会将被测对象转型后赋值给新声明的变量——这样就可以直接使用，而不再需要手动的类型转换了。</p>
@@ -307,7 +307,7 @@
 </blockquote>
 <h1 id="记录（Record，预览特性"><a href="#记录（Record，预览特性" class="headerlink" title="记录（Record，预览特性)"></a>记录（Record，预览特性)</h1><p>终于，Java 又新增了一种新的类型声明——记录（Record）。跟 <code>enum</code>  一样，<code>record</code> 也是一种受限的类。<br>通常，它用作数据载体。</p>
 <p>与其说 <code>record</code> 是一种新类型，不如说它是一种类模板，使用者仅需提供少量与数据相关的信息，编译器就会根据这些信息自动生成相关方法。因此，其语法很简洁，看起来是这样子的：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">record</span> <span class="title">Rectangle</span><span class="params">(<span class="keyword">float</span> length, <span class="keyword">float</span> width)</span> </span>&#123; &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">record</span> <span class="title class_">Rectangle</span><span class="params">(<span class="type">float</span> length, <span class="type">float</span> width)</span> &#123; &#125;</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>注意，紧随类名后，就罗列了所有的数据字段。<br>看起来很像声明了一个方法，但实际上不是。</p>
 </blockquote>
@@ -325,13 +325,13 @@
 <li><code>getter</code> 访问器允许自定义。</li>
 </ul>
 <p>另外，构造器是可以重载的，只是重载的构造器第一行必需要调用另一个构造器。比如：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">record</span> <span class="title">Rectangle</span><span class="params">(<span class="keyword">float</span> length, <span class="keyword">float</span> width)</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">Rectangle</span><span class="params">(<span class="keyword">float</span> length)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>(length, <span class="number">100</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">Rectangle</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>(<span class="number">100</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">record</span> <span class="title class_">Rectangle</span><span class="params">(<span class="type">float</span> length, <span class="type">float</span> width)</span> &#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="title function_">Rectangle</span><span class="params">(<span class="type">float</span> length)</span> &#123;</span><br><span class="line">		<span class="built_in">this</span>(length, <span class="number">100</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">public</span> <span class="title function_">Rectangle</span><span class="params">()</span> &#123;</span><br><span class="line">		<span class="built_in">this</span>(<span class="number">100</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="Compact构造器"><a href="#Compact构造器" class="headerlink" title="Compact构造器"></a>Compact构造器</h2><p>如果没有编写构造器，构造器是由编译器推断生成的。但并不是说不可以自定义构造器，只是在构造器中不能再给数据字段赋值，只能做诸如数据字段的合法性校验等操作。</p>
 <blockquote>
 <p>或许是因为能力有限，才称为“Compact 构造器”吧！<br>尝试在自定义的构造器中给数据字段赋值，会得到一个“无法为最终变量xxx分配值”的错误。</p>
 </blockquote>
 <p>构造器声明语法如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">record</span> <span class="title">Rectangle</span><span class="params">(<span class="keyword">float</span> length, <span class="keyword">float</span> width)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> Rectangle &#123;</span><br><span class="line">        <span class="keyword">if</span> (length &lt;= <span class="number">0</span> || width &lt;= <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">&quot;length or width must be greater than 0.&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">record</span> <span class="title class_">Rectangle</span><span class="params">(<span class="type">float</span> length, <span class="type">float</span> width)</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> Rectangle &#123;</span><br><span class="line">        <span class="keyword">if</span> (length &lt;= <span class="number">0</span> || width &lt;= <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">IllegalArgumentException</span>(<span class="string">&quot;length or width must be greater than 0.&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>呃……类声明语法像方法，构造器语法像类声明，也是够了！</p>
 </blockquote>
@@ -342,7 +342,7 @@
 <li>记录不能声明实例变量（其实例变量均只能是数据字段）以及实例初始化器</li>
 <li>记录的数据字段也都是隐式 <code>final</code> 的</li>
 </ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">record</span> <span class="title">Rectangle</span><span class="params">(<span class="keyword">double</span> length, <span class="keyword">double</span> width)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 错误，只能声明为 static</span></span><br><span class="line">    BiFunction&lt;Double, Double, Double&gt; diagonal;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 错误，实例初始化器是不允许的</span></span><br><span class="line">    &#123;</span><br><span class="line">        diagonal = (x, y) -&gt; Math.sqrt(x*x + y*y);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">record</span> <span class="title class_">Rectangle</span><span class="params">(<span class="type">double</span> length, <span class="type">double</span> width)</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 错误，只能声明为 static</span></span><br><span class="line">    BiFunction&lt;Double, Double, Double&gt; diagonal;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 错误，实例初始化器是不允许的</span></span><br><span class="line">    &#123;</span><br><span class="line">        diagonal = (x, y) -&gt; Math.sqrt(x*x + y*y);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>记录类的超类是 <code>java.lang.Record</code>。</p>
 </blockquote>
@@ -355,7 +355,7 @@
 <li>内部可声明：静态方法、静态变量、静态初始化器、构造器、实例方法以及嵌套类型</li>
 <li>可以注解记录和它的各个数据字段</li>
 </ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 泛型记录</span></span><br><span class="line">record Triangle&lt;C extends Coordinate&gt; (C top, C left, C right) &#123; &#125;</span><br><span class="line"><span class="comment">// 注解</span></span><br><span class="line"><span class="class"><span class="keyword">record</span> <span class="title">Rectangle</span><span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="class">    @GreaterThanZero <span class="keyword">double</span> length,</span></span></span><br><span class="line"><span class="params"><span class="class">    @GreaterThanZero <span class="keyword">double</span> width)</span> </span>&#123; &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 泛型记录</span></span><br><span class="line"><span class="keyword">record</span> <span class="title class_">Triangle</span>&lt;C <span class="keyword">extends</span> <span class="title class_">Coordinate</span>&gt; (C top, C left, C right) &#123; &#125;</span><br><span class="line"><span class="comment">// 注解</span></span><br><span class="line"><span class="keyword">record</span> <span class="title class_">Rectangle</span><span class="params">(</span></span><br><span class="line"><span class="params">    @GreaterThanZero <span class="type">double</span> length,</span></span><br><span class="line"><span class="params">    @GreaterThanZero <span class="type">double</span> width)</span> &#123; &#125;</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>注意，注解是同时应用于：规范构造器参数、记录类组件、私有字段和访问器方法等，除非声明中有指定注解应用的目标（<code>@Target</code>）。</p>
 </blockquote>
@@ -477,20 +477,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-count">148</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-count">35</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">96</span>
+        <span class="site-state-item-count">99</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -520,7 +520,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2023</span>
+  <span itemprop="copyrightYear">2024</span>
   <span class="with-love">
     <i class="user"></i>
   </span>

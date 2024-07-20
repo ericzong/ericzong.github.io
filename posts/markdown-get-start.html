@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.4.0">
+<meta name="generator" content="Hexo 7.3.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -298,7 +298,7 @@
 <p>atx 样式的标题如下：</p>
 <figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="section"># 一级标题</span></span><br><span class="line"><span class="section">## 二级标题 ####</span></span><br><span class="line"><span class="section">###### 六级标题 ##</span></span><br></pre></td></tr></table></figure>
 <p>atx 最多支持六级标题。<code>#</code> 闭合是可选，并且闭合字符数量不必与开始的匹配。</p>
-<h2 id="分隔线"><a href="#分隔线" class="headerlink" title="分隔线"></a>分隔线</h2><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="section"><span class="strong">**<span class="emphasis">*</span></span></span></span><br><span class="line"><span class="emphasis"><span class="strong"><span class="section">---</span></span></span></span><br><span class="line"><span class="emphasis"><span class="strong"><span class="section"><span class="strong">__<span class="emphasis">_</span></span></span></span></span></span><br></pre></td></tr></table></figure>
+<h2 id="分隔线"><a href="#分隔线" class="headerlink" title="分隔线"></a>分隔线</h2><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="section"><span class="strong">***</span></span></span><br><span class="line"><span class="strong"><span class="section">---</span></span></span><br><span class="line"><span class="strong"><span class="section">__<span class="emphasis">_</span></span></span></span><br></pre></td></tr></table></figure>
 <p>分隔线有 3 种候选的标记符号：<code>*</code>（星号）、<code>-</code>（连接线）、<code>_</code>（下划线）。</p>
 <p>需要 3 个及以上字符，且除空格和制表符外，行内无其他字符。</p>
 <p>使用 <code>-</code>（连接线）时，与上一段落间至少应有一空行，否则会将上一行文字解释为二级标题。</p>
@@ -346,7 +346,7 @@
 <p>并非所有 Markdown 编辑器都支持文本对齐特性，但通常都能正常解析表格。</p>
 </blockquote>
 <h1 id="行级元素"><a href="#行级元素" class="headerlink" title="行级元素"></a>行级元素</h1><h2 id="超链接"><a href="#超链接" class="headerlink" title="超链接"></a>超链接</h2><h3 id="自动链接"><a href="#自动链接" class="headerlink" title="自动链接"></a>自动链接</h3><p>在 Markdown 中，如果要将一个 URL 或 email 标记为超链接，最简单的是使用“自动链接”，即使用 <code>&lt;&gt;</code> 将其包裹起来：</p>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml">&lt;http://myurl.com&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="language-xml">&lt;http://myurl.com&gt;</span></span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>自动链接在大多数 Markdown 编辑器中的预览效果是，URL 或 email 原样显示的超链接。</p>
 <p>部分编辑器中，直接书写的 URL 即便不用 <code>&lt;&gt;</code> 包裹也会以超链接的形式预览显示。</p>
@@ -453,7 +453,7 @@
 <h2 id="YAML-Front-Matter"><a href="#YAML-Front-Matter" class="headerlink" title="YAML Front Matter"></a>YAML Front Matter</h2><p>YAML Front Matter 主要用于提供文档信息，在 jekyll 中会使用到：</p>
 <figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line"><span class="section">title: 标题</span></span><br><span class="line"><span class="section">---</span></span><br></pre></td></tr></table></figure>
 <h2 id="转义"><a href="#转义" class="headerlink" title="转义"></a>转义</h2><p>由于 Markdown 语法使用了一些常用符号作为标记，当要使用这些符号的字面量时，需要用 <code>\</code> 进行转义，可转义的字符有：</p>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">\   backslash</span><br><span class="line">`   backtick</span><br><span class="line"><span class="bullet">*</span>   asterisk</span><br><span class="line"><span class="emphasis">_   underscore</span></span><br><span class="line"><span class="emphasis">&#123;&#125;  curly braces</span></span><br><span class="line"><span class="emphasis">[]  square brackets</span></span><br><span class="line"><span class="emphasis">()  parentheses</span></span><br><span class="line"><span class="emphasis">#   hash mark</span></span><br><span class="line"><span class="emphasis">+   plus sign</span></span><br><span class="line"><span class="emphasis">-   minus sign (hyphen)</span></span><br><span class="line"><span class="emphasis">.   dot</span></span><br><span class="line"><span class="emphasis">!   exclamation mark</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">\   backslash</span><br><span class="line">`   backtick</span><br><span class="line"><span class="bullet">*</span>   asterisk</span><br><span class="line">_   underscore</span><br><span class="line">&#123;&#125;  curly braces</span><br><span class="line">[]  square brackets</span><br><span class="line">()  parentheses</span><br><span class="line"><span class="section">#   hash mark</span></span><br><span class="line"><span class="bullet">+</span>   plus sign</span><br><span class="line"><span class="bullet">-</span>   minus sign (hyphen)</span><br><span class="line">.   dot</span><br><span class="line">!   exclamation mark</span><br></pre></td></tr></table></figure>
 <h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h1><p>本文讲述了大部分常用的 Markdown 语法，但并非全部。至少 Markdown 还支持公式以及流程图，不过这些内容比较多且繁杂，会采用专题的方式对其进行讲解。</p>
 <h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><h2 id="文章"><a href="#文章" class="headerlink" title="文章"></a>文章</h2><p><a target="_blank" rel="noopener" href="https://linux.cn/article-8399-1.html">《GitHub 风格的 Markdown 正式规范》发布</a>：GFM 规范发布说明</p>
 <p><a target="_blank" rel="noopener" href="https://markdown-zh.readthedocs.io/en/latest/">Markdown：语法（中文翻译版）</a></p>
@@ -581,20 +581,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-count">148</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-count">35</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">96</span>
+        <span class="site-state-item-count">99</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -624,7 +624,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2023</span>
+  <span itemprop="copyrightYear">2024</span>
   <span class="with-love">
     <i class="user"></i>
   </span>

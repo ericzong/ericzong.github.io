@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.4.0">
+<meta name="generator" content="Hexo 7.3.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -259,7 +259,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">type[] identifier;</span><br><span class="line">type identifier[];</span><br></pre></td></tr></table></figure>
 <p>第一种声明方式是把[]作为类型的一部分，第二种则作为变量声明符的一部分。第二种语法继承自C，不推荐使用。</p>
 <p>不过，这两种声明方式是可以混合使用的，这种“混合标记法”很特别但不太常见，比如：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">byte</span>[] b[]; <span class="comment">// 等价于 byte[][] b;</span></span><br><span class="line"><span class="keyword">byte</span>[] b1, b2, b3[];</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">byte</span>[] b[]; <span class="comment">// 等价于 byte[][] b;</span></span><br><span class="line"><span class="type">byte</span>[] b1, b2, b3[];</span><br></pre></td></tr></table></figure>
 <p>在声明单个数组变量时，“混合标记法”看起来很奇怪，所以通常要么用上述第一种声明语法，要么用第二种； 但是在一个声明语句中声明多个源数组成员类型相同的数组变量时，“混合标记法”是相当简洁的。</p>
 <blockquote>
 <p>无论什么情况下，我们都应该尽量使用第一种声明语法，它使得数组类型更为清晰直观，可读性较强。 第二种声明语法或说“混合标记法”从可读性上来说都是比较差的，而且在一条声明语句中声明多个变量也是不推荐的。</p>
@@ -267,22 +267,22 @@
 <h1 id="数组创建及初始化"><a href="#数组创建及初始化" class="headerlink" title="数组创建及初始化"></a>数组创建及初始化</h1><p>数组可以在声明的同时创建。</p>
 <p>数组的创建有两种方式：数组创建表达式或数组初始化器。</p>
 <h2 id="数组创建表达式"><a href="#数组创建表达式" class="headerlink" title="数组创建表达式"></a>数组创建表达式</h2><p>语法如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">type[] array = <span class="keyword">new</span> type[length];</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">type[] array = <span class="keyword">new</span> <span class="title class_">type</span>[length];</span><br></pre></td></tr></table></figure>
 <p>比如：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">double</span>[] ds = <span class="keyword">new</span> <span class="keyword">double</span>[<span class="number">10</span>];</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">double</span>[] ds = <span class="keyword">new</span> <span class="title class_">double</span>[<span class="number">10</span>];</span><br></pre></td></tr></table></figure>
 <p>使用数组创建表达式创建数组时，只指定了数组长度，而没有指定数组元素的初始值，系统将为每个元素赋默认初始值， 这称为“<strong>动态初始化</strong>”。设置默认初始值的操作是通过将数组元素对应的内存“清零”而达成的。</p>
 <h2 id="数组初始化器"><a href="#数组初始化器" class="headerlink" title="数组初始化器"></a>数组初始化器</h2><p>语法如下：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">type[] array = &#123;e1, ...&#125;;</span><br></pre></td></tr></table></figure>
 <p>比如：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span>[] ints = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>,&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span>[] ints = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>,&#125;;</span><br></pre></td></tr></table></figure>
 <p>数组初始化器是用花括号括起来并用逗号分隔的表达式列表。最后一个表达式后的逗号是可选的（有则会被忽略）， 这一特性使得维护长列表变得更容易。</p>
 <p>使用数组初始化器创建数组时，指定的是所有数组元素的初始值，系统将根据表达式列表分配相应长度的空间，由于数组元素初始值是指定的， 所以也叫“静态初始化”。</p>
 <p>需要注意的是，数组初始化器是一个数组常量，而数组常量只能在初始化操作中使用。因此，如果不是声明赋值就不能使用数组初始化器， 否则是一个编译错误。如果只是一般的为数组变量赋值，应该使用以下语法：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">array = <span class="keyword">new</span> type[]&#123;e1, ...&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">array = <span class="keyword">new</span> <span class="title class_">type</span>[]&#123;e1, ...&#125;;</span><br></pre></td></tr></table></figure>
 <h1 id="数组的嵌套"><a href="#数组的嵌套" class="headerlink" title="数组的嵌套"></a>数组的嵌套</h1><p>数组的元素也可以是数组，这就形成了嵌套，数组声明中方括号对数量表示数组嵌套的深度，每一对方括号对应一个维度。</p>
 <p>Java中的数组均属于嵌套数组，而常提及的“多维数组”，严格来说，在Java中是没有对应概念的，但是C#中有多维数组。 因此，对比Java和C#中相应的数组概念，将有助于我们理解数组的嵌套和多维。</p>
 <p>C#中多维数组指数组有多个维度，比如：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span>[,] array = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">4</span>, <span class="number">2</span>]; <span class="comment">// C#</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span>[,] array = <span class="keyword">new</span> <span class="title class_">int</span>[<span class="number">4</span>, <span class="number">2</span>]; <span class="comment">// C#</span></span><br></pre></td></tr></table></figure>
 <p>声明创建了一个二维数组，是4行2列的。严格来说，Java中没有与之对应的多维数组的概念与语法。</p>
 <p>C#中还有一种数组叫作“交错数组”。交错数组是元素为数组的数组。交错数组元素的维度和大小可以不同。交错数组有时称为“数组的数组”。</p>
 <p>C#中交错数组的概念跟Java中的嵌套数组的概念就很类似了，而且语法也几乎一样。</p>
@@ -291,10 +291,10 @@
 <p>在Java语言中，通俗意义上的“<strong>多维数组</strong>”概念上指的其实是每个级别的子数组维度都相同的嵌套数组，通常说的是“<strong>矩形数组</strong>”的概念。</p>
 </blockquote>
 <p>而嵌套数组最大的特点是，数组元素的维度和大小可以不同，这种与“矩形数组”相区别的嵌套数组通常称为“<strong>参差数组</strong>”。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span>[][] ints = &#123; &#123;<span class="number">1</span>, <span class="number">2</span>&#125;, &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125; &#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span>[][] ints = &#123; &#123;<span class="number">1</span>, <span class="number">2</span>&#125;, &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125; &#125;;</span><br></pre></td></tr></table></figure>
 <h1 id="数组的复制"><a href="#数组的复制" class="headerlink" title="数组的复制"></a>数组的复制</h1><p>嵌套数组的clone是浅复制，即它只创建单个新数组，子数组是共享的。</p>
 <p>通常更多的是数组数据的复制，<code>System</code>类中提供了复制数组数据的方法：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">arraycopy</span><span class="params">(Object src, <span class="keyword">int</span> srcPos, Object dest, <span class="keyword">int</span> destPos, <span class="keyword">int</span> length)</span></span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">arraycopy</span><span class="params">(Object src, <span class="type">int</span> srcPos, Object dest, <span class="type">int</span> destPos, <span class="type">int</span> length)</span></span><br></pre></td></tr></table></figure>
 <p>此外，在<code>java.util.Arrays</code>类中提供了更多数组操作的方法，当然也包括复制数据的方法。</p>
 <h1 id="数组类型"><a href="#数组类型" class="headerlink" title="数组类型"></a>数组类型</h1><p>尽管数组类型不是类，但是每一个数组的Class对象起到的作用都像是如此：直接超类是<code>Object</code>；实现<code>Cloneable</code>和<code>java.io.Serializable</code>接口。</p>
 <p>但是，值得注意的是，数组类型的超类型关系与超类关系不同。<code>Integer[]</code>的直接超类型是<code>Number[]</code>，但直接超类是<code>Object</code>。</p>
@@ -412,20 +412,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-count">148</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-count">35</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">96</span>
+        <span class="site-state-item-count">99</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -455,7 +455,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2023</span>
+  <span itemprop="copyrightYear">2024</span>
   <span class="with-love">
     <i class="user"></i>
   </span>

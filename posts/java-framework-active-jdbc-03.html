@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.4.0">
+<meta name="generator" content="Hexo 7.3.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -261,7 +261,7 @@
       
         <h1 id="编程技巧"><a href="#编程技巧" class="headerlink" title="编程技巧"></a>编程技巧</h1><p>ActiveJDBC 提供了很多便捷方法，使得编码更为简洁。</p>
 <h2 id="链式编程"><a href="#链式编程" class="headerlink" title="链式编程"></a>链式编程</h2><p><code>model.set()</code> 方法返回当前模型对象，所以可以进行链式编程：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> Person().set(<span class="string">&quot;first_name&quot;</span>, <span class="string">&quot;Marilyn&quot;</span>).set(<span class="string">&quot;last_name&quot;</span>, <span class="string">&quot;Monroe&quot;</span>).set(<span class="string">&quot;dob&quot;</span>, <span class="string">&quot;1935-12-06&quot;</span>).saveIt();</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> <span class="title class_">Person</span>().set(<span class="string">&quot;first_name&quot;</span>, <span class="string">&quot;Marilyn&quot;</span>).set(<span class="string">&quot;last_name&quot;</span>, <span class="string">&quot;Monroe&quot;</span>).set(<span class="string">&quot;dob&quot;</span>, <span class="string">&quot;1935-12-06&quot;</span>).saveIt();</span><br></pre></td></tr></table></figure>
 <h2 id="批量赋值"><a href="#批量赋值" class="headerlink" title="批量赋值"></a>批量赋值</h2><p><code>model.set()</code> 方法有一批量赋值的重载形式 <code>set(String[] attributeNames, Object[] values)</code>。</p>
 <h2 id="Map-初始化"><a href="#Map-初始化" class="headerlink" title="Map 初始化"></a>Map 初始化</h2><p><code>model.fromMap(map)</code> 可以使用 Map 为模型对象赋值。</p>
 <h2 id="命令行参数式初始化"><a href="#命令行参数式初始化" class="headerlink" title="命令行参数式初始化"></a>命令行参数式初始化</h2><p><code>model.set(Object... namesAndValues)</code> 可以类似命令行参数的形式给模型对象赋值。</p>
@@ -305,12 +305,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/posts/java-kp-keyword-final.html" rel="prev" title="Java知识点：final关键字">
-      <i class="fa fa-chevron-left"></i> Java知识点：final关键字
+    <a href="/posts/java-framework-active-jdbc-02.html" rel="prev" title="ActiveJDBC笔记：2 基本使用">
+      <i class="fa fa-chevron-left"></i> ActiveJDBC笔记：2 基本使用
     </a></div>
       <div class="post-nav-item">
-    <a href="/posts/java-tool-nexus3.html" rel="next" title="Nexus3应用笔记">
-      Nexus3应用笔记 <i class="fa fa-chevron-right"></i>
+    <a href="/posts/java-framework-active-jdbc-01.html" rel="next" title="ActiveJDBC笔记：1 入门">
+      ActiveJDBC笔记：1 入门 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -384,20 +384,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-count">148</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-count">35</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">96</span>
+        <span class="site-state-item-count">99</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -427,7 +427,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2023</span>
+  <span itemprop="copyrightYear">2024</span>
   <span class="with-love">
     <i class="user"></i>
   </span>

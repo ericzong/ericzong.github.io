@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.4.0">
+<meta name="generator" content="Hexo 7.3.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -268,7 +268,7 @@
 <p>Windows Terminal 是微软新推出的终端程序，推荐用户在新版本系统中使用它。<br>Windows Terminal 启动后，通常默认工作在 PowerShell 交互环境下（当然这是可配置的）。</p>
 </blockquote>
 <h1 id="上手"><a href="#上手" class="headerlink" title="上手"></a>上手</h1><p>首先，我们应该清楚自己正工作在什么 PowerShell 版本下。通过查看 <code>$PSVersionTable</code> 可以知道：</p>
-<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="variable">$PSVersionTable</span></span><br><span class="line"></span><br><span class="line">Name                                Value</span><br><span class="line">----                                    -----</span><br><span class="line">PSVersion                           <span class="number">5.1</span>.<span class="number">19041.1645</span></span><br><span class="line">PSEdition                           Desktop</span><br><span class="line">PSCompatibleVersions     &#123;<span class="number">1.0</span>, <span class="number">2.0</span>, <span class="number">3.0</span>, <span class="number">4.0</span>...&#125;</span><br><span class="line">BuildVersion                     <span class="number">10.0</span>.<span class="number">19041.1645</span></span><br><span class="line">CLRVersion                       <span class="number">4.0</span>.<span class="number">30319.42000</span></span><br><span class="line">WSManStackVersion       <span class="number">3.0</span></span><br><span class="line">PSRemotingProtocolVersion <span class="number">2.3</span></span><br><span class="line">SerializationVersion        <span class="number">1.1</span>.<span class="number">0.1</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="variable">$PSVersionTable</span></span><br><span class="line"></span><br><span class="line">Name                                Value</span><br><span class="line"><span class="literal">----</span>                                    <span class="literal">-----</span></span><br><span class="line">PSVersion                           <span class="number">5.1</span>.<span class="number">19041.1645</span></span><br><span class="line">PSEdition                           Desktop</span><br><span class="line">PSCompatibleVersions     &#123;<span class="number">1.0</span>, <span class="number">2.0</span>, <span class="number">3.0</span>, <span class="number">4.0</span>...&#125;</span><br><span class="line">BuildVersion                     <span class="number">10.0</span>.<span class="number">19041.1645</span></span><br><span class="line">CLRVersion                       <span class="number">4.0</span>.<span class="number">30319.42000</span></span><br><span class="line">WSManStackVersion       <span class="number">3.0</span></span><br><span class="line">PSRemotingProtocolVersion <span class="number">2.3</span></span><br><span class="line">SerializationVersion        <span class="number">1.1</span>.<span class="number">0.1</span></span><br></pre></td></tr></table></figure>
 <p>那到底要怎么入手使用 PowerShell 呢？<br>对于一个命令行工具而言，最有效的学习方法就是查看其内置帮助。<br>从内置帮助开始学习 PowerShell 有两个核心抓手：<code>Get-Command</code> 和 <code>Get-Help</code>。前者用于查找命令，后者常用于查看命令的帮助。</p>
 <h2 id="初探帮助系统"><a href="#初探帮助系统" class="headerlink" title="初探帮助系统"></a>初探帮助系统</h2><p>因此，我们可以通过执行 <code>Get-Help</code> 命令查看帮助系统说明。</p>
 <figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看帮助说明</span></span><br><span class="line"><span class="built_in">Get-Help</span></span><br><span class="line"><span class="comment"># 查看指定命令的帮助信息</span></span><br><span class="line"><span class="built_in">Get-Help</span> [[-<span class="type">Name</span>] &lt;<span class="built_in">string</span>&gt;]</span><br></pre></td></tr></table></figure>
@@ -495,20 +495,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-count">148</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-count">35</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">96</span>
+        <span class="site-state-item-count">99</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -538,7 +538,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2023</span>
+  <span itemprop="copyrightYear">2024</span>
   <span class="with-love">
     <i class="user"></i>
   </span>

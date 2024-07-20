@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.4.0">
+<meta name="generator" content="Hexo 7.3.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -252,9 +252,9 @@
 </blockquote>
 <h1 id="var声明的局部变量"><a href="#var声明的局部变量" class="headerlink" title="var声明的局部变量"></a>var声明的局部变量</h1><p>Java 是静态语言，所以变量声明时需要指定类型。</p>
 <p>但是，对于局部变量而言，通常在声明时就会给其赋值。比如：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">String hi = <span class="string">&quot;Hello! World!&quot;</span>;</span><br><span class="line">String ha = <span class="keyword">new</span> String(<span class="string">&quot;Hahaha!&quot;</span>);</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">hi</span> <span class="operator">=</span> <span class="string">&quot;Hello! World!&quot;</span>;</span><br><span class="line"><span class="type">String</span> <span class="variable">ha</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">String</span>(<span class="string">&quot;Hahaha!&quot;</span>);</span><br></pre></td></tr></table></figure>
 <p>这种场景下，我们实际是可以从等号右侧的值推断出左侧变量的类型的。换句话说，显式声明变量的类型是完全没有必要的。<br>因此，Java 10 加入了局部变量类型推断的能力，使得不必做无谓的工作量。仅仅将类型名替换为 <code>var</code> 即可，如：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> hi = <span class="string">&quot;Hello! World!&quot;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">var</span> <span class="variable">hi</span> <span class="operator">=</span> <span class="string">&quot;Hello! World!&quot;</span></span><br></pre></td></tr></table></figure>
 <p><code>var</code> 看起来像 JavaScript 的 <code>var</code> 关键字，但是，并不意味着 Java 因此拥有了动态类型。</p>
 <blockquote>
 <p>基于兼容性考虑，<code>var</code> 并非关键字，而仅仅是一个保留类型名。换句话说，声明 <code>var</code> 作变量名是完全合法的。</p>
@@ -267,7 +267,7 @@
 <li>未给变量赋值，或所赋值无法确认类型时，也是不合法的。</li>
 <li>变更 <code>var</code> 变量类型是非法的。<code>var</code> 并不意味着动态类型，因此不能重新赋值一个不兼容的类型值。</li>
 </ol>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 未赋值，没有推断依据</span></span><br><span class="line"><span class="keyword">var</span> one; </span><br><span class="line"><span class="comment">// null 没有明确类型</span></span><br><span class="line"><span class="keyword">var</span> nullValue = <span class="keyword">null</span>; </span><br><span class="line"><span class="comment">// Lambda 表达式类型本身就需要根据目标类型进行推断，形成循环推断依赖</span></span><br><span class="line"><span class="keyword">var</span> supplier = () -&gt; <span class="string">&quot;Lambda&quot;</span>;</span><br><span class="line"><span class="comment">// 由于潜在的复杂性，并未实现该推断场景</span></span><br><span class="line"><span class="keyword">var</span> arr = &#123; <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span> &#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 未赋值，没有推断依据</span></span><br><span class="line"><span class="keyword">var</span> one; </span><br><span class="line"><span class="comment">// null 没有明确类型</span></span><br><span class="line"><span class="type">var</span> <span class="variable">nullValue</span> <span class="operator">=</span> <span class="literal">null</span>; </span><br><span class="line"><span class="comment">// Lambda 表达式类型本身就需要根据目标类型进行推断，形成循环推断依赖</span></span><br><span class="line"><span class="type">var</span> <span class="variable">supplier</span> <span class="operator">=</span> () -&gt; <span class="string">&quot;Lambda&quot;</span>;</span><br><span class="line"><span class="comment">// 由于潜在的复杂性，并未实现该推断场景</span></span><br><span class="line"><span class="type">var</span> <span class="variable">arr</span> <span class="operator">=</span> &#123; <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span> &#125;;</span><br></pre></td></tr></table></figure>
 <h1 id="优点-vs-缺点"><a href="#优点-vs-缺点" class="headerlink" title="优点 vs. 缺点"></a>优点 vs. 缺点</h1><p><code>var</code> 变量主要有以下优点：</p>
 <ol>
 <li>简洁，提高了可读性；</li>
@@ -394,20 +394,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-count">148</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-count">35</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">96</span>
+        <span class="site-state-item-count">99</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -437,7 +437,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2023</span>
+  <span itemprop="copyrightYear">2024</span>
   <span class="with-love">
     <i class="user"></i>
   </span>

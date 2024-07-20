@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.4.0">
+<meta name="generator" content="Hexo 7.3.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -268,7 +268,7 @@
 <h2 id="模型与数据库关联"><a href="#模型与数据库关联" class="headerlink" title="模型与数据库关联"></a>模型与数据库关联</h2><p>默认情况下，模型与“default”数据库关联，但可使用 @DbName 注释覆盖。</p>
 <h2 id="缓存"><a href="#缓存" class="headerlink" title="缓存"></a>缓存</h2><p>使用 @Cached 注解指定缓存模型。</p>
 <h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><p>放置于 classpath 根目录：</p>
-<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#inside file: activejdbc.properties</span></span><br><span class="line"><span class="comment">#or EHCache:</span></span><br><span class="line"><span class="meta">cache.manager</span>=<span class="string">org.javalite.activejdbc.cache.EHCacheManager</span></span><br><span class="line"><span class="comment">#cache.manager=org.javalite.activejdbc.cache.OSCacheManager</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#inside file: activejdbc.properties</span></span><br><span class="line"><span class="comment">#or EHCache:</span></span><br><span class="line"><span class="attr">cache.manager</span>=<span class="string">org.javalite.activejdbc.cache.EHCacheManager</span></span><br><span class="line"><span class="comment">#cache.manager=org.javalite.activejdbc.cache.OSCacheManager</span></span><br></pre></td></tr></table></figure>
 <p>详细缓存提供器配置参考：<a target="_blank" rel="noopener" href="http://javalite.io/caching">http://javalite.io/caching</a></p>
 <h3 id="清除"><a href="#清除" class="headerlink" title="清除"></a>清除</h3><p>破坏性操作（插入、更新、删除）后系统将清除与此表相关（本表及关联表）的缓存。</p>
 <p>但是，如果不想清除关联表缓存，可以在本模型上注解 @UnrelatedTo(RelatedModel.class)。</p>
@@ -301,9 +301,9 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@BelongsToPolymorphic(</span></span><br><span class="line"><span class="meta">parents     = &#123; Parent1.class, Parent2.class&#125;, </span></span><br><span class="line"><span class="meta">typeLabels  = &#123;&quot;Parent1&quot;,     &quot;Parent2&quot;&#125; )</span></span><br></pre></td></tr></table></figure>
 <h2 id="管理时间"><a href="#管理时间" class="headerlink" title="管理时间"></a>管理时间</h2><p>如果表中存在 created_at 和 updated_at 列，并且其类型对应 java.sql.Timestamp，那么，框架将自动管理这些时间列。除非使用 model.manageTime(false); 禁用。</p>
 <h2 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h2><h3 id="验证方法"><a href="#验证方法" class="headerlink" title="验证方法"></a>验证方法</h3><p>通常，我们在静态初始化块中进行属性存在验证，使用 Model.validatePresenceOf() 方法：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">XXX</span> <span class="keyword">extends</span> <span class="title">Model</span> </span>&#123;</span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">    	validatePresenceOf(<span class="string">&quot;xxx&quot;</span>, <span class="string">&quot;yyy&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">XXX</span> <span class="keyword">extends</span> <span class="title class_">Model</span> &#123;</span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">    	validatePresenceOf(<span class="string">&quot;xxx&quot;</span>, <span class="string">&quot;yyy&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>当然，Model 中还包含其他一些 validate 方法。甚至，你可以自定义一个验证器（Validator/ValidatorAdapter）。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CustomValidator</span> <span class="keyword">extends</span> <span class="title">ValidatorAdapter</span> </span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">void</span> <span class="title">validate</span><span class="params">(Model m)</span></span>&#123;</span><br><span class="line">       <span class="keyword">boolean</span> valid = <span class="keyword">true</span>;</span><br><span class="line">      <span class="comment">// perform whatever validation logic, then add errors to model if validation did not pass:</span></span><br><span class="line">      <span class="keyword">if</span>(!valid)</span><br><span class="line">         m.addValidator(<span class="keyword">this</span>, <span class="string">&quot;custom_error&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CustomValidator</span> <span class="keyword">extends</span> <span class="title class_">ValidatorAdapter</span> &#123;</span><br><span class="line">   <span class="keyword">void</span> <span class="title function_">validate</span><span class="params">(Model m)</span>&#123;</span><br><span class="line">       <span class="type">boolean</span> <span class="variable">valid</span> <span class="operator">=</span> <span class="literal">true</span>;</span><br><span class="line">      <span class="comment">// perform whatever validation logic, then add errors to model if validation did not pass:</span></span><br><span class="line">      <span class="keyword">if</span>(!valid)</span><br><span class="line">         m.addValidator(<span class="built_in">this</span>, <span class="string">&quot;custom_error&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>验证方法一般均是静态方法，因此，你也可以在模型类外部调用。</p>
 <h3 id="附加验证"><a href="#附加验证" class="headerlink" title="附加验证"></a>附加验证</h3><p>Model 中的验证方法可能会返回 ValidationBuilder 子类对象，其上声明了一些附加验证方法。</p>
 <h3 id="触发验证"><a href="#触发验证" class="headerlink" title="触发验证"></a>触发验证</h3><p>以下操作会触发验证：</p>
@@ -314,24 +314,24 @@
 <li>Model.createIt()</li>
 </ul>
 <h3 id="获取验证消息"><a href="#获取验证消息" class="headerlink" title="获取验证消息"></a>获取验证消息</h3><p>执行验证后，可通过如下方法获取错误消息：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Map&lt;String, String&gt; errors = model.errors();</span><br><span class="line">String xxxError = errors.get(<span class="string">&quot;xxx&quot;</span>);</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Map&lt;String, String&gt; errors = model.errors();</span><br><span class="line"><span class="type">String</span> <span class="variable">xxxError</span> <span class="operator">=</span> errors.get(<span class="string">&quot;xxx&quot;</span>);</span><br></pre></td></tr></table></figure>
 <h3 id="客制化消息"><a href="#客制化消息" class="headerlink" title="客制化消息"></a>客制化消息</h3><p>Model 中的验证方法会返回一个 ValidationBuilder 对象，其 message() 方法可定制验证失败时的消息。</p>
 <p>上文已知验证方法可以在模型类外进行调用，因此，客制化消息也可以在外部添加。</p>
 <p><strong>静态参数</strong></p>
 <p>message() 方法不仅可以直接传入消息文本，还可以传入 activejdbc_messages 资源绑定（resource bundle）中的键值。在资源文件中可以使用占位符 {0}、{1} ……它们顺序引用验证器中除第一个属性参数外的第 2、3……参数。</p>
 <p>如官网例子中，activejdbc_messages.properties 条目如下：</p>
-<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">temperature.outside.limits</span> = <span class="string">Temperature is outside acceptable limits, while it needs to be between &#123;0&#125; and &#123;1&#125;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">temperature.outside.limits</span> = <span class="string">Temperature is outside acceptable limits, while it needs to be between &#123;0&#125; and &#123;1&#125;</span></span><br></pre></td></tr></table></figure>
 <p>则如下验证：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">validateRange(<span class="string">&quot;temp&quot;</span>, <span class="number">10</span>, <span class="number">2000</span>).message(<span class="string">&quot;temperature.outside.limits&quot;</span>);</span><br></pre></td></tr></table></figure>
 <p>获取到的失败消息会是：Temperature is outside acceptable limits, while it needs to be between 10 and 2000。</p>
 <p><strong>动态参数</strong></p>
 <p>当然，占位符可以超出验证器参数数量，超出的占位符需要在获取消息时提供值，条目如下：</p>
-<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">temperature.outside.limits</span> = <span class="string">Temperature is outside acceptable limits, while it needs to be between &#123;0&#125; and &#123;1&#125; for user: &#123;2&#125;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">temperature.outside.limits</span> = <span class="string">Temperature is outside acceptable limits, while it needs to be between &#123;0&#125; and &#123;1&#125; for user: &#123;2&#125;</span></span><br></pre></td></tr></table></figure>
 <p>使用如上相同的验证，则显然缺少 {2} 的值，因此，需要在获取消息时提供，如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">String message = temp.errors().get(<span class="string">&quot;temp&quot;</span>, user.getName());</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">message</span> <span class="operator">=</span> temp.errors().get(<span class="string">&quot;temp&quot;</span>, user.getName());</span><br></pre></td></tr></table></figure>
 <p><strong>国际化</strong></p>
 <p>由于可以使用资源文件，所以很容易进行国际化，如需要给 errors() 传入一个 Locale 对象即可获取国际化消息：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">String message = temp.errors(<span class="keyword">new</span> Locale(<span class="string">&quot;de&quot;</span>, <span class="string">&quot;DE&quot;</span>)).get(temp);</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">message</span> <span class="operator">=</span> temp.errors(<span class="keyword">new</span> <span class="title class_">Locale</span>(<span class="string">&quot;de&quot;</span>, <span class="string">&quot;DE&quot;</span>)).get(temp);</span><br></pre></td></tr></table></figure>
 <h2 id="转换器"><a href="#转换器" class="headerlink" title="转换器"></a>转换器</h2><p>转换器跟验证器用法类似，通常也放置于模型类的静态初始化块中，常用的有如下一些：</p>
 <p>dateFormat()、timestampFormat()、blankToNull()、zeroToNull()……</p>
 <p>注意，如果设置的类型错误，将得到一个数据库底层的异常。</p>
@@ -353,17 +353,17 @@
 <h3 id="处理大结果集"><a href="#处理大结果集" class="headerlink" title="处理大结果集"></a>处理大结果集</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Model.findWith(<span class="keyword">final</span> ModelListener listener, String query, Object ... params)</span><br></pre></td></tr></table></figure>
 <h3 id="Dump"><a href="#Dump" class="headerlink" title="Dump"></a>Dump</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Model.findAll().dump();</span><br></pre></td></tr></table></figure>
 <h3 id="限制和排序"><a href="#限制和排序" class="headerlink" title="限制和排序"></a>限制和排序</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lazyList.limit(limit).offset(offset).orderBy(orderBy);</span><br></pre></td></tr></table></figure>
-<h3 id="分页"><a href="#分页" class="headerlink" title="分页"></a>分页</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> Paginator(modelClass, pageSize, query, params).orderBy(orderBy);</span><br><span class="line">paginator.getPage(pageNumber);</span><br><span class="line">paginator.getCurrentPage();</span><br><span class="line">paginator.pageCount();</span><br></pre></td></tr></table></figure>
+<h3 id="分页"><a href="#分页" class="headerlink" title="分页"></a>分页</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> <span class="title class_">Paginator</span>(modelClass, pageSize, query, params).orderBy(orderBy);</span><br><span class="line">paginator.getPage(pageNumber);</span><br><span class="line">paginator.getCurrentPage();</span><br><span class="line">paginator.pageCount();</span><br></pre></td></tr></table></figure>
 <h3 id="延迟加载"><a href="#延迟加载" class="headerlink" title="延迟加载"></a>延迟加载</h3><p>默认 ActiveJDBC 查询是延迟加载的。</p>
 <p>可急切加载一对多、多对一、多对多的上下级关系：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">lazyList.include(ParentOrChildClass);</span><br><span class="line">lazyList.toMaps();</span><br></pre></td></tr></table></figure>
 <h2 id="级联删除"><a href="#级联删除" class="headerlink" title="级联删除"></a>级联删除</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">// 深层删除</span><br><span class="line">model.deleteCascade();</span><br><span class="line"></span><br><span class="line">// 跳过指定关联</span><br><span class="line">associations = Model.getMetaModel().getAssociationForTarget(&quot;xxx&quot;);</span><br><span class="line">model.deleteCascadeExcept(associations);</span><br><span class="line"></span><br><span class="line">// 浅层删除</span><br><span class="line">// 一对多、多态关联，删除当前记录和直接子记录</span><br><span class="line">// 多对多，删除当前记录和关系表记录</span><br><span class="line">model.deleteCascadeShallow();</span><br></pre></td></tr></table></figure>
-<h2 id="批处理"><a href="#批处理" class="headerlink" title="批处理"></a>批处理</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Model.updateAll(<span class="string">&quot;columnName = ?&quot;</span>, params);</span><br><span class="line">Model.update(<span class="string">&quot;columnName = ?&quot;</span>, <span class="string">&quot;columnName2 = &#x27;value&#x27;&quot;</span>, params);</span><br><span class="line">Model.deleteAll();</span><br><span class="line">Model.delete(query, params);</span><br><span class="line"></span><br><span class="line">PreparedStatement ps = Base.startBatch(stm);</span><br><span class="line">Base.addBatch(ps, params);</span><br><span class="line">...</span><br><span class="line">Base.executeBatch(ps);</span><br><span class="line">ps.close();</span><br></pre></td></tr></table></figure>
+<h2 id="批处理"><a href="#批处理" class="headerlink" title="批处理"></a>批处理</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Model.updateAll(<span class="string">&quot;columnName = ?&quot;</span>, params);</span><br><span class="line">Model.update(<span class="string">&quot;columnName = ?&quot;</span>, <span class="string">&quot;columnName2 = &#x27;value&#x27;&quot;</span>, params);</span><br><span class="line">Model.deleteAll();</span><br><span class="line">Model.delete(query, params);</span><br><span class="line"></span><br><span class="line"><span class="type">PreparedStatement</span> <span class="variable">ps</span> <span class="operator">=</span> Base.startBatch(stm);</span><br><span class="line">Base.addBatch(ps, params);</span><br><span class="line">...</span><br><span class="line">Base.executeBatch(ps);</span><br><span class="line">ps.close();</span><br></pre></td></tr></table></figure>
 <h2 id="生命周期"><a href="#生命周期" class="headerlink" title="生命周期"></a>生命周期</h2><h3 id="注册外部监听"><a href="#注册外部监听" class="headerlink" title="注册外部监听"></a>注册外部监听</h3><p>需要实现 CallbackListener 接口或继承 CallbackAdapter，并注册其对象：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Model.callbackWith(callback);</span><br></pre></td></tr></table></figure>
 <h3 id="重写-Model-回调"><a href="#重写-Model-回调" class="headerlink" title="重写 Model 回调"></a>重写 Model 回调</h3><p>Model 继承自抽象类 CallbackSupport，与 CallbackAdapter 类似，重写需要的回调方法即可。</p>
 <p>从源代码上看，Model 本身的回调是先于外部回调触发的。</p>
-<h2 id="事务管理"><a href="#事务管理" class="headerlink" title="事务管理"></a>事务管理</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Base.openTransaction();</span><br><span class="line">Base.commitTransaction();</span><br><span class="line">Base.rollbackTransaction();</span><br><span class="line"></span><br><span class="line">Base.connection().setAutocommit(<span class="keyword">false</span>);</span><br></pre></td></tr></table></figure>
+<h2 id="事务管理"><a href="#事务管理" class="headerlink" title="事务管理"></a>事务管理</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Base.openTransaction();</span><br><span class="line">Base.commitTransaction();</span><br><span class="line">Base.rollbackTransaction();</span><br><span class="line"></span><br><span class="line">Base.connection().setAutocommit(<span class="literal">false</span>);</span><br></pre></td></tr></table></figure>
 <h2 id="转换成其他文本格式"><a href="#转换成其他文本格式" class="headerlink" title="转换成其他文本格式"></a>转换成其他文本格式</h2><h3 id="XML"><a href="#XML" class="headerlink" title="XML"></a>XML</h3><p>model.toXml(pretty, declaration, attributeNames)</p>
 <p>当然，调用 include() 方法后，还可以生成依赖对象节点。lazyList 也可以生成 XML 文档。</p>
 <h3 id="JSON"><a href="#JSON" class="headerlink" title="JSON"></a>JSON</h3><p>model.toJson(pretty, attributeNames)</p>
@@ -405,12 +405,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/posts/java-framework-active-jdbc-01.html" rel="prev" title="ActiveJDBC笔记：1 入门">
-      <i class="fa fa-chevron-left"></i> ActiveJDBC笔记：1 入门
+    <a href="/posts/java-tool-nexus3.html" rel="prev" title="Nexus3应用笔记">
+      <i class="fa fa-chevron-left"></i> Nexus3应用笔记
     </a></div>
       <div class="post-nav-item">
-    <a href="/posts/java-framework-testng.html" rel="next" title="TestNG学习笔记">
-      TestNG学习笔记 <i class="fa fa-chevron-right"></i>
+    <a href="/posts/java-framework-active-jdbc-03.html" rel="next" title="ActiveJDBC笔记：3 编程技巧">
+      ActiveJDBC笔记：3 编程技巧 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -484,20 +484,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-count">148</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-count">35</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">96</span>
+        <span class="site-state-item-count">99</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -527,7 +527,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2023</span>
+  <span itemprop="copyrightYear">2024</span>
   <span class="with-love">
     <i class="user"></i>
   </span>

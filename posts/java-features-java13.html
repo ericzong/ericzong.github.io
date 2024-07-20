@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.4.0">
+<meta name="generator" content="Hexo 7.3.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -258,7 +258,7 @@
 </blockquote>
 <h1 id="文本块（预览特性）"><a href="#文本块（预览特性）" class="headerlink" title="文本块（预览特性）"></a>文本块（预览特性）</h1><p>在 Java 13 之前，对多行字符串的支持并不友好：不仅需要拼接，还需要显式地插入转义形式的行终结符，甚至如果涉及双引号、TAB 等特殊字符时也要使用转义。</p>
 <p>因此，Java 13 引入了“文本块”，用以优化对多行字符串的支持。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">String html = <span class="string">&quot;&quot;</span><span class="string">&quot;</span></span><br><span class="line"><span class="string">          &lt;html&gt;</span></span><br><span class="line"><span class="string">            &lt;body&gt;</span></span><br><span class="line"><span class="string">              &lt;p&gt;Hello, world&lt;/p&gt;</span></span><br><span class="line"><span class="string">            &lt;/body&gt;</span></span><br><span class="line"><span class="string">          &lt;/html&gt;</span></span><br><span class="line"><span class="string">          &quot;</span><span class="string">&quot;&quot;</span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">html</span> <span class="operator">=</span> <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">          &lt;html&gt;</span></span><br><span class="line"><span class="string">            &lt;body&gt;</span></span><br><span class="line"><span class="string">              &lt;p&gt;Hello, world&lt;/p&gt;</span></span><br><span class="line"><span class="string">            &lt;/body&gt;</span></span><br><span class="line"><span class="string">          &lt;/html&gt;</span></span><br><span class="line"><span class="string">          &quot;&quot;&quot;</span>;</span><br></pre></td></tr></table></figure>
 <p>如上所示，文本块使用“三个双引号”（下文简称“三引号”）界定。</p>
 <p>起始三引号后应跟行终结符。因此，文本块不可能写作一行，这是符合其设计目标的——支持多行字符串。</p>
 <blockquote>
@@ -273,7 +273,7 @@
 <p>文本块的语法大都很简单，唯一值得讨论的是其缩进规则。</p>
 <p>可以想见，由于代码需要缩进格式化，所以不可能保留文本块中所有行的前缀缩进，并且不能在代码格式化后影响原缩进。</p>
 <p>因此，文本块中每行的缩进具有自动移除的特性，编译器会查找缩进最少的行，然后对每一行文本移除该缩进量。即是一种“相对缩进”的概念。<br>而起始三引号行不会参与缩进的计算，这是为了简化缩进规则；但是，结束三引号行会。一个排版技巧是使用结束三引号来调整缩进。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">String indentedByToSpaces = <span class="string">&quot;&quot;</span><span class="string">&quot;</span></span><br><span class="line"><span class="string">          First line </span></span><br><span class="line"><span class="string">          Second line</span></span><br><span class="line"><span class="string">        &quot;</span><span class="string">&quot;&quot;</span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">indentedByToSpaces</span> <span class="operator">=</span> <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">          First line </span></span><br><span class="line"><span class="string">          Second line</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span>;</span><br></pre></td></tr></table></figure>
 <p>如上代码，结束的三引号缩进与其他行不一致，且为最少缩进，所以自动移除缩进以它为准——这使得文本保留了部分缩进。</p>
 <p>不过，很显然这个技巧只适用于以新行结尾的文本块。否则，只好使用 String 类新增的缩进相关方法来处理。</p>
 <blockquote>
@@ -285,7 +285,7 @@
 </blockquote>
 <p>除了会移除缩进外，编译器也会移除每行结尾的空白字符。</p>
 <h1 id="Switch表达式（预览特性）"><a href="#Switch表达式（预览特性）" class="headerlink" title="Switch表达式（预览特性）"></a>Switch表达式（预览特性）</h1><p>这是关于“Switch 表达式特性”自 Java 12 后的第二个预览版。基本上没有太大区别，唯一一点调整是：不再使用 <code>break</code> 为表达式返回值，而改用 <code>yield</code> 关键字了。</p>
-<h1 id="关于预览特性的启用"><a href="#关于预览特性的启用" class="headerlink" title="关于预览特性的启用"></a>关于预览特性的启用</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 编译并执行</span></span><br><span class="line">javac --enable-preview --release 13 -d classes MyApp.java</span><br><span class="line">java --enable-preview -cp classes MyApp</span><br><span class="line"><span class="meta">#</span><span class="bash"> 启动 JShell</span></span><br><span class="line">jshell --enable-preview</span><br><span class="line"><span class="meta">#</span><span class="bash"> 直接编译执行独立源文件</span></span><br><span class="line">javac --enable-preview --release 13 MyApp.java</span><br></pre></td></tr></table></figure>
+<h1 id="关于预览特性的启用"><a href="#关于预览特性的启用" class="headerlink" title="关于预览特性的启用"></a>关于预览特性的启用</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">编译并执行</span></span><br><span class="line">javac --enable-preview --release 13 -d classes MyApp.java</span><br><span class="line">java --enable-preview -cp classes MyApp</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">启动 JShell</span></span><br><span class="line">jshell --enable-preview</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">直接编译执行独立源文件</span></span><br><span class="line">javac --enable-preview --release 13 MyApp.java</span><br></pre></td></tr></table></figure>
 <h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/13/text_blocks/index.html">Oracle - Programmer’s Guide To Text Blocks</a></p>
 <p><a target="_blank" rel="noopener" href="https://cr.openjdk.java.net/~jlaskey/Strings/TextBlocksGuide_v11.html">Programmer’s Guide To Text Blocks</a></p>
 <p><a target="_blank" rel="noopener" href="https://nipafx.dev/java-13-text-blocks/">Definitive Guide To Text Blocks In Java 13</a></p>
@@ -404,20 +404,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-count">148</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-count">35</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">96</span>
+        <span class="site-state-item-count">99</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -447,7 +447,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2023</span>
+  <span itemprop="copyrightYear">2024</span>
   <span class="with-love">
     <i class="user"></i>
   </span>

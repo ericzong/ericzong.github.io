@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.4.0">
+<meta name="generator" content="Hexo 7.3.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -269,12 +269,12 @@
 <blockquote>
 <p>安装成功后，建议先用 <code>sass --help</code> 查看下帮助。</p>
 </blockquote>
-<h2 id="命令行使用"><a href="#命令行使用" class="headerlink" title="命令行使用"></a>命令行使用</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 将 .scss 编译为 .css</span> </span><br><span class="line">sass input.scss output.css</span><br><span class="line"><span class="meta">#</span><span class="bash"> 监视文件</span></span><br><span class="line">sass --watch input.scss:output.css</span><br><span class="line"><span class="meta">#</span><span class="bash"> 监视文件夹</span></span><br><span class="line">sass --watch app/sass:public/stylesheets</span><br></pre></td></tr></table></figure>
+<h2 id="命令行使用"><a href="#命令行使用" class="headerlink" title="命令行使用"></a>命令行使用</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">将 .scss 编译为 .css</span> </span><br><span class="line">sass input.scss output.css</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">监视文件</span></span><br><span class="line">sass --watch input.scss:output.css</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">监视文件夹</span></span><br><span class="line">sass --watch app/sass:public/stylesheets</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>风格参数：<code>--styple &lt;nested | expanded | compact | compressed&gt;</code></p>
 </blockquote>
 <p>两种语法间可以进行转换：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Sass =&gt; SCSS</span></span><br><span class="line">sass-convert style.sass style.scss</span><br><span class="line"><span class="meta">#</span><span class="bash"> SCSS =&gt; Sass</span></span><br><span class="line">sass-convert style.scss style.sass</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Sass =&gt; SCSS</span></span><br><span class="line">sass-convert style.sass style.scss</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">SCSS =&gt; Sass</span></span><br><span class="line">sass-convert style.scss style.sass</span><br></pre></td></tr></table></figure>
 <h2 id="可选工具"><a href="#可选工具" class="headerlink" title="可选工具"></a>可选工具</h2><p>如果不习惯命令行使用，也可以使用 IDE 工具。比如，<a target="_blank" rel="noopener" href="http://koala-app.com/">Koala</a>。</p>
 <h1 id="基础语法"><a href="#基础语法" class="headerlink" title="基础语法"></a>基础语法</h1><p>SCSS 语法是 CSS3 的超集，因此，除了 CSS 的功能外，SCSS 还允许使用变量、嵌套规则、混合器、导入、函数、指令等。</p>
 <h2 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h2><blockquote>
@@ -312,7 +312,7 @@
 <figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$number1</span>: <span class="number">10</span>;</span><br><span class="line"><span class="variable">$number2</span>: <span class="number">10px</span>;</span><br></pre></td></tr></table></figure>
 <h3 id="布尔值"><a href="#布尔值" class="headerlink" title="布尔值"></a>布尔值</h3><p>除 <code>false</code> 和 <code>null</code> 外，其他都被视为 <code>true</code>。</p>
 <h3 id="颜色"><a href="#颜色" class="headerlink" title="颜色"></a>颜色</h3><p>颜色值可以是：十六进制符号、rgb、rgba、hsl、hsla、关键词……</p>
-<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$color1</span>: blue;</span><br><span class="line"><span class="variable">$color2</span>: <span class="number">#fff</span>;</span><br><span class="line"><span class="variable">$color3</span>: rgba(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, .<span class="number">5</span>);</span><br><span class="line"><span class="variable">$color</span>: darken(<span class="variable">$color</span>, <span class="number">20%</span>);</span><br><span class="line"><span class="variable">$color</span>: (green + red);</span><br></pre></td></tr></table></figure>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$color1</span>: blue;</span><br><span class="line"><span class="variable">$color2</span>: <span class="number">#fff</span>;</span><br><span class="line"><span class="variable">$color3</span>: <span class="built_in">rgba</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, .<span class="number">5</span>);</span><br><span class="line"><span class="variable">$color</span>: <span class="built_in">darken</span>(<span class="variable">$color</span>, <span class="number">20%</span>);</span><br><span class="line"><span class="variable">$color</span>: (green + red);</span><br></pre></td></tr></table></figure>
 <h3 id="null"><a href="#null" class="headerlink" title="null"></a>null</h3><figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$null1</span>: null;</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p><code>null</code> 不能进行字符串连接，否则报错。</p>
@@ -362,7 +362,7 @@
 <p>过度嵌套仍然会使得规则难以维护，最佳实践是：不过度使用嵌套。</p>
 </blockquote>
 <h3 id="引用父选择器"><a href="#引用父选择器" class="headerlink" title="引用父选择器"></a>引用父选择器</h3><p>使用 <code>&amp;</code> 可以引用父选择器。常见于嵌套规则中定义伪类。</p>
-<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-id">#main</span> &#123;</span><br><span class="line">	<span class="selector-tag">a</span> &#123;</span><br><span class="line">		<span class="attribute">text-decoration</span>: none;</span><br><span class="line">		&amp;<span class="selector-pseudo">:hover</span> &#123; <span class="comment">// #main a:hover</span></span><br><span class="line">			<span class="attribute">text-decoration</span>: underline;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	&amp;-note &#123; <span class="comment">// #main-note</span></span><br><span class="line">		<span class="attribute">background-color</span>: red;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-id">#main</span> &#123;</span><br><span class="line">	<span class="selector-tag">a</span> &#123;</span><br><span class="line">		<span class="selector-tag">text</span>-decoration: none;</span><br><span class="line">		&amp;<span class="selector-pseudo">:hover</span> &#123; <span class="comment">// #main a:hover</span></span><br><span class="line">			<span class="selector-tag">text</span>-decoration: underline;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	&amp;-note &#123; <span class="comment">// #main-note</span></span><br><span class="line">		<span class="attribute">background-color</span>: red;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>显而易见，新选择器相当于父选择器添加了一个后缀。但注意，它引用的是完整的父选择器。</p>
 <p>有文档提及，当父选择器不能应用后缀时，将抛出一个错误。但是没有给出例子，笔者尚未发现这样的实例。</p>
@@ -622,20 +622,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-count">148</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-count">35</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">96</span>
+        <span class="site-state-item-count">99</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -665,7 +665,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2023</span>
+  <span itemprop="copyrightYear">2024</span>
   <span class="with-love">
     <i class="user"></i>
   </span>

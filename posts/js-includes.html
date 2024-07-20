@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.4.0">
+<meta name="generator" content="Hexo 7.3.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -266,14 +266,14 @@
 <li>如果左操作数不是 <code>Symbol</code> 类型，将强制转换为字符串（左操作数可为带 <code>toString()</code> 函数的对象）；</li>
 <li>作用于数组时，左操作数可以是索引。（注意，字符串对象有类似数组的结构）。</li>
 </ol>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> names = [<span class="string">&#x27;Eric&#x27;</span>, <span class="string">&#x27;Zong&#x27;</span>];</span><br><span class="line"><span class="number">0</span> <span class="keyword">in</span> names; <span class="comment">// true，包含数组索引</span></span><br><span class="line"><span class="string">&#x27;Eric&#x27;</span> <span class="keyword">in</span> names; <span class="comment">// false，不能判断数组是否包含某个元素</span></span><br><span class="line"><span class="string">&#x27;length&#x27;</span> <span class="keyword">in</span> names; <span class="comment">// true，包含属性</span></span><br><span class="line"><span class="built_in">Symbol</span>.iterator <span class="keyword">in</span> names; <span class="comment">// true，ES6+</span></span><br><span class="line"><span class="keyword">let</span> indexObj = &#123; <span class="function"><span class="title">toString</span>(<span class="params"></span>)</span> &#123;<span class="keyword">return</span> <span class="number">0</span>&#125; &#125;;</span><br><span class="line">indexObj <span class="keyword">in</span> names; <span class="comment">// true，等价于 0 in names</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> names = [<span class="string">&#x27;Eric&#x27;</span>, <span class="string">&#x27;Zong&#x27;</span>];</span><br><span class="line"><span class="number">0</span> <span class="keyword">in</span> names; <span class="comment">// true，包含数组索引</span></span><br><span class="line"><span class="string">&#x27;Eric&#x27;</span> <span class="keyword">in</span> names; <span class="comment">// false，不能判断数组是否包含某个元素</span></span><br><span class="line"><span class="string">&#x27;length&#x27;</span> <span class="keyword">in</span> names; <span class="comment">// true，包含属性</span></span><br><span class="line"><span class="title class_">Symbol</span>.<span class="property">iterator</span> <span class="keyword">in</span> names; <span class="comment">// true，ES6+</span></span><br><span class="line"><span class="keyword">let</span> indexObj = &#123; <span class="title function_">toString</span>(<span class="params"></span>) &#123;<span class="keyword">return</span> <span class="number">0</span>&#125; &#125;;</span><br><span class="line">indexObj <span class="keyword">in</span> names; <span class="comment">// true，等价于 0 in names</span></span><br></pre></td></tr></table></figure>
 <h1 id="indexOf-方法"><a href="#indexOf-方法" class="headerlink" title="indexOf()方法"></a><code>indexOf()</code>方法</h1><p>字符串与数组上均存在 <code>indexOf()</code> 方法，但严格来说它们都不是判断方法，因此注意，其返回的不是布尔值，而是索引数值。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 字符串方法</span></span><br><span class="line">str.indexOf(searchValue[, fromIndex = <span class="number">0</span>])</span><br><span class="line"><span class="comment">// 数组方法，ES5+</span></span><br><span class="line">arr.indexOf(searchElement[, fromIndex = <span class="number">0</span>])</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 字符串方法</span></span><br><span class="line">str.<span class="title function_">indexOf</span>(searchValue[, fromIndex = <span class="number">0</span>])</span><br><span class="line"><span class="comment">// 数组方法，ES5+</span></span><br><span class="line">arr.<span class="title function_">indexOf</span>(searchElement[, fromIndex = <span class="number">0</span>])</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>应该注意 2 个方法在开始搜索索引参数（<code>fromIndex</code>）上的行为差异。</p>
 <p>注意 ES 支持版本。</p>
 </blockquote>
-<h1 id="includes-方法"><a href="#includes-方法" class="headerlink" title="includes()方法"></a><code>includes()</code>方法</h1><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 字符串方法，ES6+</span></span><br><span class="line">str.includes(searchString[, position])</span><br><span class="line"><span class="comment">// 数组方法，ES7+</span></span><br><span class="line">arr.includes(valueToFind[, fromIndex])</span><br></pre></td></tr></table></figure>
+<h1 id="includes-方法"><a href="#includes-方法" class="headerlink" title="includes()方法"></a><code>includes()</code>方法</h1><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 字符串方法，ES6+</span></span><br><span class="line">str.<span class="title function_">includes</span>(searchString[, position])</span><br><span class="line"><span class="comment">// 数组方法，ES7+</span></span><br><span class="line">arr.<span class="title function_">includes</span>(valueToFind[, fromIndex])</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>应该注意 2 个方法在开始搜索索引参数上的行为差异。</p>
 <p>注意 ES 支持版本。</p>
@@ -400,20 +400,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-count">148</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-count">35</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">96</span>
+        <span class="site-state-item-count">99</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -443,7 +443,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2023</span>
+  <span itemprop="copyrightYear">2024</span>
   <span class="with-love">
     <i class="user"></i>
   </span>

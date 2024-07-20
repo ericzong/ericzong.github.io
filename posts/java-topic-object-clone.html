@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.4.0">
+<meta name="generator" content="Hexo 7.3.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -287,7 +287,7 @@
 <p>而且，话说回来，完全的深拷贝也许也不是我们想要的。</p>
 <p>所以，提供一个浅拷贝实现，并支持深拷贝扩展应该算是比较恰当的设计。</p>
 <h2 id="clone-方法"><a href="#clone-方法" class="headerlink" title="clone() 方法"></a>clone() 方法</h2><p>Java 使用 <code>clone()</code> 方法拷贝对象，该方法是 <code>Object</code> 对象声明的，如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">native</span> Object <span class="title">clone</span><span class="params">()</span> <span class="keyword">throws</span> CloneNotSupportedException</span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">protected</span> <span class="keyword">native</span> Object <span class="title function_">clone</span><span class="params">()</span> <span class="keyword">throws</span> CloneNotSupportedException;</span><br></pre></td></tr></table></figure>
 <p>注意：<code>clone()</code> 方法是一个本地方法，换句话说，它不是 Java 本身实现的。</p>
 <h2 id="实现深拷贝"><a href="#实现深拷贝" class="headerlink" title="实现深拷贝"></a>实现深拷贝</h2><p>Java 扩展实现深拷贝是容易的，只需要被拷贝对象对应的类实现 <code>Cloneable</code> 这个标记接口，并重写 <code>clone()</code> 方法，将访问权限放宽为 <code>public</code> 即可。</p>
 <p>定制的 <code>clone()</code> 方法大概内容如下（这里不给示例代码了）：</p>
@@ -338,10 +338,13 @@
 
         
     <div class="post-nav">
-      <div class="post-nav-item"></div>
       <div class="post-nav-item">
-    <a href="/posts/java-topic-why-final.html" rel="next" title="Java专题：为什么内部类访问的外部局部变量必须是final的？">
-      Java专题：为什么内部类访问的外部局部变量必须是final的？ <i class="fa fa-chevron-right"></i>
+    <a href="/posts/java-topic-why-final.html" rel="prev" title="Java专题：为什么内部类访问的外部局部变量必须是final的？">
+      <i class="fa fa-chevron-left"></i> Java专题：为什么内部类访问的外部局部变量必须是final的？
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/posts/java-topic-get-classname.html" rel="next" title="Java专题：获取类名">
+      Java专题：获取类名 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -415,20 +418,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-count">148</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-count">35</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">96</span>
+        <span class="site-state-item-count">99</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -458,7 +461,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2023</span>
+  <span itemprop="copyrightYear">2024</span>
   <span class="with-love">
     <i class="user"></i>
   </span>

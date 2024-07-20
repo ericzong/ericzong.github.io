@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.4.0">
+<meta name="generator" content="Hexo 7.3.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -252,13 +252,13 @@
 </blockquote>
 <h1 id="var用于Lambda表达式"><a href="#var用于Lambda表达式" class="headerlink" title="var用于Lambda表达式"></a>var用于Lambda表达式</h1><p>在 Java 10 中已经加入了基于 <code>var</code> 声明的局部变量类型推断的能力。</p>
 <p>Java 11 对这项能力进行了增强，它允许在 Lambda 表达式中使用 <code>var</code> 声明形参。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt; varInLambda = Arrays.asList(<span class="string">&quot;Formal parameter&quot;</span>, </span><br><span class="line">    <span class="string">&quot;type inference&quot;</span>, <span class="string">&quot;with lambda&quot;</span>, <span class="keyword">null</span>);</span><br><span class="line">String title = list.stream()</span><br><span class="line">    .map((<span class="keyword">var</span> x) -&gt; x.toUpperCase())</span><br><span class="line">    .collect(Collectors.joining(<span class="string">&quot; &quot;</span>));</span><br><span class="line"></span><br><span class="line">System.out.println(title);</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt; varInLambda = Arrays.asList(<span class="string">&quot;Formal parameter&quot;</span>, </span><br><span class="line">    <span class="string">&quot;type inference&quot;</span>, <span class="string">&quot;with lambda&quot;</span>, <span class="literal">null</span>);</span><br><span class="line"><span class="type">String</span> <span class="variable">title</span> <span class="operator">=</span> list.stream()</span><br><span class="line">    .map((<span class="keyword">var</span> x) -&gt; x.toUpperCase())</span><br><span class="line">    .collect(Collectors.joining(<span class="string">&quot; &quot;</span>));</span><br><span class="line"></span><br><span class="line">System.out.println(title);</span><br></pre></td></tr></table></figure>
 <h1 id="有什么用？"><a href="#有什么用？" class="headerlink" title="有什么用？"></a>有什么用？</h1><p>上面的代码，不使用 <code>var</code> 声明变量反而更简洁，甚至括号都可以省略。那么，使用 <code>var</code> 声明有什么好处么？</p>
 <p>答案是，如果要给形参加注解，那就不得不为其显式声明类型，或者以 <code>var</code> 声明。例如上面的代码如果要校验参数不能为空，则：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.jetbrains.annotations.NotNull;</span><br><span class="line"></span><br><span class="line">List&lt;String&gt; varInLambda = Arrays.asList(<span class="string">&quot;Formal parameter&quot;</span>, </span><br><span class="line">    <span class="string">&quot;type inference&quot;</span>, <span class="string">&quot;with lambda&quot;</span>, <span class="keyword">null</span>);</span><br><span class="line">String title = list.stream()</span><br><span class="line">    .map((<span class="meta">@NotNull</span> <span class="keyword">var</span> x) -&gt; x.toUpperCase())</span><br><span class="line">    .collect(Collectors.joining(<span class="string">&quot; &quot;</span>));</span><br><span class="line"></span><br><span class="line">System.out.println(title);</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.jetbrains.annotations.NotNull;</span><br><span class="line"></span><br><span class="line">List&lt;String&gt; varInLambda = Arrays.asList(<span class="string">&quot;Formal parameter&quot;</span>, </span><br><span class="line">    <span class="string">&quot;type inference&quot;</span>, <span class="string">&quot;with lambda&quot;</span>, <span class="literal">null</span>);</span><br><span class="line"><span class="type">String</span> <span class="variable">title</span> <span class="operator">=</span> list.stream()</span><br><span class="line">    .map((<span class="meta">@NotNull</span> <span class="keyword">var</span> x) -&gt; x.toUpperCase())</span><br><span class="line">    .collect(Collectors.joining(<span class="string">&quot; &quot;</span>));</span><br><span class="line"></span><br><span class="line">System.out.println(title);</span><br></pre></td></tr></table></figure>
 <h1 id="限制条件"><a href="#限制条件" class="headerlink" title="限制条件"></a>限制条件</h1><p>不过，需要注意的是，在 Lambda 表达式中使用 <code>var</code> 声明形参是有限制的，简单的一句话：<br>要用 <code>var</code> 就所有参数都用，不能混用。</p>
 <p>因此，以下形式的混用都是不合法的：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(<span class="keyword">var</span> x, y) -&gt; x.process(y)</span><br><span class="line">(<span class="keyword">var</span> x, <span class="keyword">int</span> y) -&gt; x.process(y)</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(<span class="keyword">var</span> x, y) -&gt; x.process(y)</span><br><span class="line">(<span class="keyword">var</span> x, <span class="type">int</span> y) -&gt; x.process(y)</span><br></pre></td></tr></table></figure>
 <p>（完）</p>
 
     </div>
@@ -374,20 +374,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-count">148</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-count">35</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">96</span>
+        <span class="site-state-item-count">99</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -417,7 +417,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2023</span>
+  <span itemprop="copyrightYear">2024</span>
   <span class="with-love">
     <i class="user"></i>
   </span>

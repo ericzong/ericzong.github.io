@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.4.0">
+<meta name="generator" content="Hexo 7.3.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -259,32 +259,32 @@
       
         <h1 id="函数定义"><a href="#函数定义" class="headerlink" title="函数定义"></a>函数定义</h1><p>函数是执行特定任务的代码块。</p>
 <p>函数是“可调用对象”，仅当有代码调用时其中的代码才被执行。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 函数定义一（函数声明）</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">funcName</span>(<span class="params">param1, param2, ...</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 执行代码</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 函数定义一（函数声明）</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">funcName</span>(<span class="params">param1, param2, ...</span>) &#123;</span><br><span class="line">    <span class="comment">// 执行代码</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>以上就是函数声明语法。它包括：关键字 <code>function</code>、函数名、参数列表和函数体。</p>
 <blockquote>
 <p>对于 Java 而言，是以方法签名来区分所调用的方法，所谓方法签名=方法名+参数列表。</p>
 <p>而 JavaScript 与之不同，仅以函数名来区分所调用的函数，与参数列表无关。换言之，同一个函数可以传入任何数量的参数。即是说，由于没有签名，所以 JavaScript 不直接支持函数重载。</p>
 </blockquote>
 <p>另外，还可以通过名为“函数表达式”的方式定义函数：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">// 函数定义二（函数表达式）</span></span><br><span class="line"><span class="keyword">const</span> func = <span class="function"><span class="keyword">function</span> <span class="title">funcName</span>(<span class="params">param1, param2, ...</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 执行代码</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">// 函数定义二（函数表达式）</span></span><br><span class="line"><span class="keyword">const</span> func = <span class="keyword">function</span> <span class="title function_">funcName</span>(<span class="params">param1, param2, ...</span>) &#123;</span><br><span class="line">    <span class="comment">// 执行代码</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>本质上，这仅仅是声明了一个函数，并把它赋值给了一个变量（ES6 中通常赋值给常量）。当然，赋值号右边的函数名是可以省略的，除非需要在其函数体内递归调用自身。</p>
 <blockquote>
 <p>将一个函数赋值给变量在 JavaScript 中是可行的，因为，在 JavaScript 中函数是“一等公民”，本质上也是一种数值。</p>
 </blockquote>
 <p>除了这两种定义方式外，还可以使用 <code>Function</code> 构造函数来定义函数：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 函数定义三（构造函数）</span></span><br><span class="line"><span class="keyword">const</span> func = <span class="keyword">new</span> <span class="built_in">Function</span>(param1, param2, ..., funcBody);</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 函数定义三（构造函数）</span></span><br><span class="line"><span class="keyword">const</span> func = <span class="keyword">new</span> <span class="title class_">Function</span>(param1, param2, ..., funcBody);</span><br></pre></td></tr></table></figure>
 <p><code>Function</code> 构造函数的最后一个参数是要创建的函数对象的函数体，之前的参数都是函数对象的传入参数。</p>
 <blockquote>
 <p>很少会使用构造函数来创建函数，因为其性能比较差。</p>
 </blockquote>
 <h1 id="函数调用"><a href="#函数调用" class="headerlink" title="函数调用"></a>函数调用</h1><p>与大多数语言类似，JavaScript 也是在函数名后追加一对圆括号来进行函数调用，函数的参数置于括号之中。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">functionName(param1, param2, ...);</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">functionName</span>(param1, param2, ...);</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>与 Java 类语言不同的是，JavaScript 函数调用时参数传递限制更为宽松。虽然仍需要依序传入参数，但是，不必传入所有参数，也可以传入更多参数。</p>
 </blockquote>
 <p>编写代码时，函数通常都是先定义后调用。但是，也可以在函数定义的同时调用它，通常这称为，立即执行函数表达式（IIFE，Immediately Invoked Function Expression），即在声明的同时执行该函数。</p>
 <p>常见形式有：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 形式一</span></span><br><span class="line">(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;...&#125;)();</span><br><span class="line"><span class="comment">// 形式二</span></span><br><span class="line">(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;...&#125;());</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 形式一</span></span><br><span class="line">(<span class="keyword">function</span>(<span class="params"></span>)&#123;...&#125;)();</span><br><span class="line"><span class="comment">// 形式二</span></span><br><span class="line">(<span class="keyword">function</span>(<span class="params"></span>)&#123;...&#125;());</span><br></pre></td></tr></table></figure>
 <p>显然，IIFE 中的函数只能被执行一次，后续代码将没有办法再引用到它，更别说执行了。</p>
 <p>但是，使用 IIFE 的目的通常是为了创建一个局部的作用域，以免局部变量扩散到外层作用域（通常是全局）中。</p>
 <blockquote>
@@ -440,20 +440,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-count">148</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-count">35</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">96</span>
+        <span class="site-state-item-count">99</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -483,7 +483,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2023</span>
+  <span itemprop="copyrightYear">2024</span>
   <span class="with-love">
     <i class="user"></i>
   </span>

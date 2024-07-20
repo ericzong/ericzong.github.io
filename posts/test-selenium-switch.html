@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.4.0">
+<meta name="generator" content="Hexo 7.3.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -290,7 +290,7 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 打开新标签页并切换到新标签页</span></span><br><span class="line">driver.switch_to.new_window(<span class="string">&#x27;tab&#x27;</span>)</span><br><span class="line"><span class="comment"># 打开一个新窗口并切换到新窗口</span></span><br><span class="line">driver.switch_to.new_window(<span class="string">&#x27;window&#x27;</span>)</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>【Java 版】</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 新建并转到新标签页 </span></span><br><span class="line">WebDriver window2 = driver.switchTo().newWindow(WindowType.TAB);</span><br><span class="line"><span class="comment">// 新建并转到新窗口 </span></span><br><span class="line">WebDriver window1 = driver.switchTo().newWindow(WindowType.WINDOW);</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 新建并转到新标签页 </span></span><br><span class="line"><span class="type">WebDriver</span> <span class="variable">window2</span> <span class="operator">=</span> driver.switchTo().newWindow(WindowType.TAB);</span><br><span class="line"><span class="comment">// 新建并转到新窗口 </span></span><br><span class="line"><span class="type">WebDriver</span> <span class="variable">window1</span> <span class="operator">=</span> driver.switchTo().newWindow(WindowType.WINDOW);</span><br></pre></td></tr></table></figure>
 </blockquote>
 <p>注意，焦点会切换到新建窗口。</p>
 <h1 id="切换到“子文档”"><a href="#切换到“子文档”" class="headerlink" title="切换到“子文档”"></a>切换到“子文档”</h1><p>涉及“子文档”的结构包括“<strong>框架集（frameset）</strong>”和“<strong>内嵌框架（iframe）</strong>”，前者已弃用很少见了，后者仍经常使用，因此将以 iframe 为例说明。</p>
@@ -448,20 +448,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-count">148</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-count">35</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">96</span>
+        <span class="site-state-item-count">99</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -491,7 +491,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2023</span>
+  <span itemprop="copyrightYear">2024</span>
   <span class="with-love">
     <i class="user"></i>
   </span>

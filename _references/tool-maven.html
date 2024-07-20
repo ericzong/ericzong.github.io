@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.4.0">
+<meta name="generator" content="Hexo 7.3.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -663,7 +663,7 @@
 </ol>
 <p>有任何一个 profile 通过默认激活外的其他任意一种方式被激活，所有默认激活配置失效。</p>
 <p>详见<a href="!--swig￼1--&gt;/references/maven-settings-reference#profile">pom.xml配置</a>和<a href="!--swig￼2--&gt;/references/maven-settings-reference#profile-1">settings.xml配置</a>。</p>
-<h1 id="命令参考"><a href="#命令参考" class="headerlink" title="命令参考"></a>命令参考</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 生成项目骨架</span></span><br><span class="line">mvn archetype:generate</span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看已解析依赖（Resolved Dependency）</span></span><br><span class="line">mvn dependency:list</span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看依赖树</span></span><br><span class="line">mvn dependency:tree</span><br><span class="line"><span class="meta">#</span><span class="bash"> 分析依赖</span></span><br><span class="line">mvn dependency:analyze</span><br><span class="line"><span class="meta">#</span><span class="bash"> 清理编译部署</span></span><br><span class="line">mvn clean deploy site-deploy</span><br><span class="line"><span class="meta">#</span><span class="bash"> 跳过测试</span></span><br><span class="line">mvn package -DskipTests</span><br><span class="line"><span class="meta">#</span><span class="bash"> 跳过测试代码编译（跳过编译也就不会执行测试）</span></span><br><span class="line">mvn package -Dmaven.test.skip=true</span><br><span class="line"><span class="meta">#</span><span class="bash"> 动态指定运行的测试用例，可使用通配符（*）及用逗号（,）分隔多个测试类</span></span><br><span class="line">mvn test -Dtest=XxxTest</span><br><span class="line"><span class="meta">#</span><span class="bash"> 激活 profile</span></span><br><span class="line">mvn clean install -Pdev-x,dev-y</span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看当前激活的 profile</span></span><br><span class="line">mvn help:active-profiles</span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看当前所有 profile</span></span><br><span class="line">mvn help:all-profiles</span><br></pre></td></tr></table></figure>
+<h1 id="命令参考"><a href="#命令参考" class="headerlink" title="命令参考"></a>命令参考</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">生成项目骨架</span></span><br><span class="line">mvn archetype:generate</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看已解析依赖（Resolved Dependency）</span></span><br><span class="line">mvn dependency:list</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看依赖树</span></span><br><span class="line">mvn dependency:tree</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">分析依赖</span></span><br><span class="line">mvn dependency:analyze</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">清理编译部署</span></span><br><span class="line">mvn clean deploy site-deploy</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">跳过测试</span></span><br><span class="line">mvn package -DskipTests</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">跳过测试代码编译（跳过编译也就不会执行测试）</span></span><br><span class="line">mvn package -Dmaven.test.skip=true</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">动态指定运行的测试用例，可使用通配符（*）及用逗号（,）分隔多个测试类</span></span><br><span class="line">mvn test -Dtest=XxxTest</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">激活 profile</span></span><br><span class="line">mvn clean install -Pdev-x,dev-y</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看当前激活的 profile</span></span><br><span class="line">mvn help:active-profiles</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看当前所有 profile</span></span><br><span class="line">mvn help:all-profiles</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>分析依赖的命令结果中主要有两个部分。</p>
 <p>Used undeclared dependencies，项目中使用到但未显式声明的依赖。使用主要指 import 导入等，通过直接依赖传递引入，升级直接依赖时可能导致问题。</p>
@@ -746,20 +746,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-count">148</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-count">35</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">96</span>
+        <span class="site-state-item-count">99</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -789,7 +789,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2023</span>
+  <span itemprop="copyrightYear">2024</span>
   <span class="with-love">
     <i class="user"></i>
   </span>

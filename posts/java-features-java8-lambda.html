@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.4.0">
+<meta name="generator" content="Hexo 7.3.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -259,9 +259,9 @@
 <h1 id="Lambda-表达式是什么？"><a href="#Lambda-表达式是什么？" class="headerlink" title="Lambda 表达式是什么？"></a>Lambda 表达式是什么？</h1><p>Lambda 表达式，在其他语言中，对等概念有：闭包、匿名函数、代码块等等。简单来说，它是一段代码，但是它可以作为“值”赋值给变量——这当然包括为方法传参——即所谓的“<strong>行为参数化</strong>”。</p>
 <p>Java 8 之前的版本下，通常只有“数据”可以通过变量传递，而如果要传递的是“行为”，命令模式可能是个不错的选择——但是，我们会发现，我们的原意是传递一些代码，最终却传递了一个对象。为此，还需要声明相关接口和类……WTF。这就好比旧时的资本家所说的：我想雇佣的是一双手，结果来的是一个人。</p>
 <p>在没有 Lambda 表达式的年代里，经常会看到以下代码：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Runnable runnable = <span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    System.out.println(<span class="string">&quot;没有 Lambda 的执行方法&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Runnable</span> <span class="variable">runnable</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Runnable</span>() &#123;</span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">    System.out.println(<span class="string">&quot;没有 Lambda 的执行方法&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>这段代码实际的意图是想传递代码 <code>System.out.println(&quot;没有 Lambda 的执行方法&quot;);</code> 以便在稍后执行它，仅此而已。那如果使用 Lambda 表达式编写会是什么样呢？</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Runnable lambda = () -&gt; System.out.println(<span class="string">&quot;Running from Lambda&quot;</span>);</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Runnable</span> <span class="variable">lambda</span> <span class="operator">=</span> () -&gt; System.out.println(<span class="string">&quot;Running from Lambda&quot;</span>);</span><br></pre></td></tr></table></figure>
 <p>等号右边的就是 Lambda 表达式。是不是简洁了很多，最重要的是，代码本身对其意图的表达更清晰了。</p>
 <h1 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h1><p>那么，Lambda 表达式到底怎么写呢？从上面的示例其实已经可以看到其基本构成了。</p>
 <p>Java 8 为 Lambda 表达式引入了新的操作符 <code>-&gt;</code>，称为“<strong>Lambda 操作符</strong>”，由于它像一个箭头，也可称为“<strong>箭头操作符</strong>”。<code>-&gt;</code> 左侧是参数列表，右侧是执行代码块——也称“<strong>Lambda体</strong>”。比较完整的语法格式如下：</p>
@@ -297,11 +297,11 @@
 </ul>
 <p>这三个位置都表明，Lambda 表达式是有类型的，它是某个类型的对象。那它是什么类型的对象呢？</p>
 <p>这里再看一下上文中的示例：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Runnable lambda = () -&gt; System.out.println(<span class="string">&quot;Running from Lambda&quot;</span>);</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Runnable</span> <span class="variable">lambda</span> <span class="operator">=</span> () -&gt; System.out.println(<span class="string">&quot;Running from Lambda&quot;</span>);</span><br></pre></td></tr></table></figure>
 <p>Lambda 表达式出现在赋值上下文中，很显然，它被赋值给了一个 <code>Runnable</code> 接口变量，换句话说，这个 Lambda 表达式实际是一个 <code>Runnable</code> 接口对象。</p>
 <h1 id="函数式接口"><a href="#函数式接口" class="headerlink" title="函数式接口"></a>函数式接口</h1><p>事实上，所有 Lambda 表达式的类型都是一个有且仅有一个抽象方法的接口，这被称为“<strong>函数式接口</strong>”——这也是 Java 8 新增特性。</p>
 <p>函数式接口可以自定义，仅仅需要为接口添加新注解 <code>@FunctionalInterface</code> 即可。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@FunctionalInterface</span></span><br><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">MyFunctionalInterface</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">action</span><span class="params">(String param)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@FunctionalInterface</span></span><br><span class="line"><span class="keyword">interface</span> <span class="title class_">MyFunctionalInterface</span> &#123;</span><br><span class="line">  <span class="keyword">void</span> <span class="title function_">action</span><span class="params">(String param)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>Java 8 定义了很多函数式接口（参考<a href="../_references/java-functional-interface.html" title="Java函数式接口参考">这里</a>），因此，大部分情况下不需要自定义。</p>
 <h1 id="方法引用"><a href="#方法引用" class="headerlink" title="方法引用"></a>方法引用</h1><p>你应该注意到了，在上文编写 Lambda 表达式时，执行的代码块都是自行编写的。但如果有现有的代码可以引用，那就方便很多。</p>
 <p>要引用现有的代码——其实就是方法——就需要用到 Java 8 新加入的特性，称为“<strong>方法引用</strong>”。</p>
@@ -432,20 +432,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-count">148</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-count">35</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">96</span>
+        <span class="site-state-item-count">99</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -475,7 +475,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2023</span>
+  <span itemprop="copyrightYear">2024</span>
   <span class="with-love">
     <i class="user"></i>
   </span>

@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.4.0">
+<meta name="generator" content="Hexo 7.3.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -552,18 +552,18 @@
 <p>但 semver 不是 Node 内核模块，因此需要安装。</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install --save semver</span><br><span class="line">yarn add semver</span><br></pre></td></tr></table></figure>
 <p>可利用其判断一个确定版本是否满足某个语义化版本：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> semver = <span class="built_in">require</span>(<span class="string">&#x27;semver&#x27;</span>);</span><br><span class="line">semver.satisfies(<span class="string">&#x27;1.2.3&#x27;</span>, <span class="string">&#x27;1.x&#x27;</span>); <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> semver = <span class="built_in">require</span>(<span class="string">&#x27;semver&#x27;</span>);</span><br><span class="line">semver.<span class="title function_">satisfies</span>(<span class="string">&#x27;1.2.3&#x27;</span>, <span class="string">&#x27;1.x&#x27;</span>); <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
 <p>该模块还可以进行版本有效性检查、版本标准化、比较版本大小、计算特定版本号等等，并且提供命令行工具。（详见 <a href="#参考">参考</a> 部分对应的说明文档链接）</p>
 <h1 id="其他字段"><a href="#其他字段" class="headerlink" title="其他字段"></a>其他字段</h1><h2 id="scripts"><a href="#scripts" class="headerlink" title="scripts"></a>scripts</h2><p>运行脚本命令缩写。</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;scripts&quot;</span>: &#123;</span><br><span class="line">    <span class="attr">&quot;start&quot;</span>: <span class="string">&quot;node index.js&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">&quot;scripts&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;start&quot;</span><span class="punctuation">:</span> <span class="string">&quot;node index.js&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
 <h2 id="bin"><a href="#bin" class="headerlink" title="bin"></a>bin</h2><p>指定内部命令可执行文件位置。</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;bin&quot;</span>: &#123;</span><br><span class="line">    <span class="attr">&quot;oneTool&quot;</span>: <span class="string">&quot;./bin/oneTool.js&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">&quot;bin&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;oneTool&quot;</span><span class="punctuation">:</span> <span class="string">&quot;./bin/oneTool.js&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
 <blockquote>
 <p><code>node_modules/.bin</code> 目录下建立符号链接 <code>oneTool</code>。而 <code>node_modules/.bin</code> 目录在运行时会加入 <code>PATH</code> 变量中，因此，可以直接使用这些命令。</p>
 </blockquote>
 <h2 id="main"><a href="#main" class="headerlink" title="main"></a>main</h2><p>指定加载入口文件，默认值为 <code>index.js</code>。</p>
 <h2 id="engines"><a href="#engines" class="headerlink" title="engines"></a>engines</h2><p>指定该模块运行的平台版本。</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;engines&quot;</span>: &#123;</span><br><span class="line">    <span class="attr">&quot;node&quot;</span>: <span class="string">&quot;&gt;=10&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;npm&quot;</span>: <span class="string">&quot;&gt;=6&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;yarn&quot;</span>: <span class="string">&quot;&gt;=1&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">&quot;engines&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;node&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&gt;=10&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;npm&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&gt;=6&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;yarn&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&gt;=1&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
 <h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a target="_blank" rel="noopener" href="https://semver.org/lang/zh-CN/">语义化版本规范</a></p>
 <p><a target="_blank" rel="noopener" href="https://yarnpkg.com/zh-Hans/docs/dependency-versions">yarn 文档 - 依赖的版本</a></p>
 <p><a target="_blank" rel="noopener" href="https://docs.npmjs.com/misc/semver">npm 文档 - npm-semver</a></p>
@@ -644,20 +644,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-count">148</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-count">35</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">96</span>
+        <span class="site-state-item-count">99</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -687,7 +687,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2023</span>
+  <span itemprop="copyrightYear">2024</span>
   <span class="with-love">
     <i class="user"></i>
   </span>

@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.4.0">
+<meta name="generator" content="Hexo 7.3.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -266,9 +266,9 @@
 <p>说明：<code>--global</code> 选项指明该配置是全局的，但如果仅仅想当前工程使用该配置，则不需要指定该选项。</p>
 </blockquote>
 <p>Git 的配置项都是以“键-值对”的形式指定的，如果值输入错误了，再执行一次正确的命令即可；如果是键输入错误了，最好删除它，可以用命令删除，也可以直接编辑配置文件：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git config --global --unset &lt;KEY&gt;</span><br><span class="line"><span class="meta">#</span><span class="bash"> 直接编辑配置文件</span></span><br><span class="line">git config --global --edit</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git config --global --unset &lt;KEY&gt;</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">直接编辑配置文件</span></span><br><span class="line">git config --global --edit</span><br></pre></td></tr></table></figure>
 <h2 id="别名"><a href="#别名" class="headerlink" title="别名"></a>别名</h2><p>Git 命令行原生不具有命令补齐功能——当然，可以安装 posh-git 一类的扩展为其增加该功能——一个方便命令快速输入的技巧是为常用命令设置别名。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 配置别名</span></span><br><span class="line">git config --global alias.&lt;NAME&gt; &lt;COMMAND&gt;</span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看已配置的别名</span></span><br><span class="line">git config --global --get-regexp alias</span><br><span class="line"><span class="meta">#</span><span class="bash"> 删除别名</span></span><br><span class="line">git config --global --unset alias.&lt;NAME&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">配置别名</span></span><br><span class="line">git config --global alias.&lt;NAME&gt; &lt;COMMAND&gt;</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看已配置的别名</span></span><br><span class="line">git config --global --get-regexp alias</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">删除别名</span></span><br><span class="line">git config --global --unset alias.&lt;NAME&gt;</span><br></pre></td></tr></table></figure>
 <p>别名不仅仅是命令的缩写，还可以包含命令选项，比如我常用的别名有以下这些：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">* &gt; git config --global --get-regexp alias</span><br><span class="line">alias.unstage reset HEAD --</span><br><span class="line">alias.last log -1 HEAD</span><br><span class="line">alias.ss status -s</span><br><span class="line">alias.aa add .</span><br><span class="line">alias.cm commit -m</span><br><span class="line">alias.ps push</span><br><span class="line">alias.co checkout</span><br><span class="line">alias.bc branch</span><br><span class="line">alias.acm commit -a -m</span><br><span class="line">alias.cg config --global</span><br><span class="line">alias.bl branch -a</span><br></pre></td></tr></table></figure>
 <p>而且，不仅可以为 Git 子命令设置别名，也可以调用外部命令，其形式为 <code>!command</code>。</p>
@@ -317,7 +317,7 @@
 <blockquote>
 <p>GitHub 发布了各种常见工程的忽略配置文件，可以从 <a target="_blank" rel="noopener" href="https://github.com/github/gitignore">这里</a> 获取。</p>
 </blockquote>
-<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 编辑器</span></span><br><span class="line">git config --global core.editor=vim</span><br></pre></td></tr></table></figure>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">编辑器</span></span><br><span class="line">git config --global core.editor=vim</span><br></pre></td></tr></table></figure>
 <h1 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h1><h2 id="创建库"><a href="#创建库" class="headerlink" title="创建库"></a>创建库</h2><p>通常有两种方式，但无论如何，总需要事先创建一个远程仓库。</p>
 <p>方法一：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone &lt;URL&gt;</span><br></pre></td></tr></table></figure>
@@ -328,7 +328,7 @@
 <p><code>clone</code> 会自动设置默认分支（通常是 master 分支）跟踪。</p>
 </blockquote>
 <p>方法二：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 在工程根目录执行</span></span><br><span class="line">git init</span><br><span class="line">git add .</span><br><span class="line">git commit -m &quot;comment&quot;</span><br><span class="line">git remote add origin &lt;URL&gt;</span><br><span class="line"><span class="meta">#</span><span class="bash"> 场景1：远程仓库不为空</span></span><br><span class="line">git pull --rebase origin master</span><br><span class="line"><span class="meta">#</span><span class="bash"> 场景2：远程仓库为空</span></span><br><span class="line">git push -u origin master</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">在工程根目录执行</span></span><br><span class="line">git init</span><br><span class="line">git add .</span><br><span class="line">git commit -m &quot;comment&quot;</span><br><span class="line">git remote add origin &lt;URL&gt;</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">场景1：远程仓库不为空</span></span><br><span class="line">git pull --rebase origin master</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">场景2：远程仓库为空</span></span><br><span class="line">git push -u origin master</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>说明：该方法适用于中途建库。基本思路是，首先创建本地仓库，然后指定远程仓库，最后将本地内容推送到远程仓库。其中可能出现两种场景，一种是远程仓库为空，另一种是不为空。前者很简单，直接推送即可；后者由于远程仓库已有内容，所以需要先拉取并变基，然后才能推送。</p>
 </blockquote>
@@ -398,9 +398,9 @@
 <blockquote>
 <p>说明：</p>
 <p>移动或重命名不能操作未跟踪的文件，等价于如下操作：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash">mv &lt;FILE_FROM&gt; &lt;FILE_TO&gt;</span></span><br><span class="line">git rm &lt;FILE_FROM&gt;</span><br><span class="line"><span class="meta">&gt;</span><span class="bash">git add &lt;FILE_TO&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">&gt;</span><span class="language-bash"><span class="built_in">mv</span> &lt;FILE_FROM&gt; &lt;FILE_TO&gt;</span></span><br><span class="line">git rm &lt;FILE_FROM&gt;</span><br><span class="line"><span class="meta prompt_">&gt;</span><span class="language-bash">git add &lt;FILE_TO&gt;</span></span><br></pre></td></tr></table></figure>
 </blockquote>
-<h3 id="提交"><a href="#提交" class="headerlink" title="提交"></a>提交</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git commit -m &lt;COMMENT&gt;</span><br><span class="line"><span class="meta">#</span><span class="bash"> 修改上一次提交</span></span><br><span class="line">git commit --amend</span><br></pre></td></tr></table></figure>
+<h3 id="提交"><a href="#提交" class="headerlink" title="提交"></a>提交</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git commit -m &lt;COMMENT&gt;</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">修改上一次提交</span></span><br><span class="line">git commit --amend</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>说明：命令执行后 Git 会打开编辑器用以修改上次提交的注释。如果命令执行前暂存区为空，则仅仅修改了上一次的提交注释；但是如果暂存区有文件，则会合并入上一次提交的历史记录中。</p>
 </blockquote>
@@ -408,9 +408,9 @@
 <blockquote>
 <p><strong>注意：这是一个危险操作，工作副本将被覆盖。</strong></p>
 </blockquote>
-<h2 id="已提交未推送查询"><a href="#已提交未推送查询" class="headerlink" title="已提交未推送查询"></a>已提交未推送查询</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 次数</span></span><br><span class="line">git status </span><br><span class="line"><span class="meta">#</span><span class="bash"> 描述</span></span><br><span class="line">git cherry -v</span><br><span class="line"><span class="meta">#</span><span class="bash"> 详细信息</span></span><br><span class="line">git log master ^origin/master</span><br></pre></td></tr></table></figure>
-<h2 id="远程仓库操作"><a href="#远程仓库操作" class="headerlink" title="远程仓库操作"></a>远程仓库操作</h2><h3 id="查看"><a href="#查看" class="headerlink" title="查看"></a>查看</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 查看所有远程服务器简写、地址</span></span><br><span class="line">git remote [-v | --verbose]</span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看某远程仓库信息</span></span><br><span class="line">git remote show [REMOTE_NAME]</span><br></pre></td></tr></table></figure>
-<h3 id="添加、移除和重命名"><a href="#添加、移除和重命名" class="headerlink" title="添加、移除和重命名"></a>添加、移除和重命名</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 添加远程仓库</span></span><br><span class="line">git remote add &lt;SHORT_NAME&gt; &lt;URL&gt;</span><br><span class="line"><span class="meta">#</span><span class="bash"> 重命名</span></span><br><span class="line">git remote rename &lt;OLD_SHORT_NAME&gt; &lt;NEW_SHORT_NAME&gt;</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 移除</span></span></span><br><span class="line">git remote rm &lt;MISS_NAME&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="已提交未推送查询"><a href="#已提交未推送查询" class="headerlink" title="已提交未推送查询"></a>已提交未推送查询</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">次数</span></span><br><span class="line">git status </span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">描述</span></span><br><span class="line">git cherry -v</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">详细信息</span></span><br><span class="line">git log master ^origin/master</span><br></pre></td></tr></table></figure>
+<h2 id="远程仓库操作"><a href="#远程仓库操作" class="headerlink" title="远程仓库操作"></a>远程仓库操作</h2><h3 id="查看"><a href="#查看" class="headerlink" title="查看"></a>查看</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看所有远程服务器简写、地址</span></span><br><span class="line">git remote [-v | --verbose]</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看某远程仓库信息</span></span><br><span class="line">git remote show [REMOTE_NAME]</span><br></pre></td></tr></table></figure>
+<h3 id="添加、移除和重命名"><a href="#添加、移除和重命名" class="headerlink" title="添加、移除和重命名"></a>添加、移除和重命名</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">添加远程仓库</span></span><br><span class="line">git remote add &lt;SHORT_NAME&gt; &lt;URL&gt;</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">重命名</span></span><br><span class="line">git remote rename &lt;OLD_SHORT_NAME&gt; &lt;NEW_SHORT_NAME&gt;</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 移除</span></span></span><br><span class="line">git remote rm &lt;MISS_NAME&gt;</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>注意：远程仓库简写名只是本地仓库简化远程仓库地址的一种方式，它不存在于远程仓库中，对于多个本地仓库而言，重命名只会修改自身信息，不会影响其他本地仓库。</p>
 </blockquote>
@@ -420,22 +420,22 @@
 <p><code>git fetch</code> 将数据获取到本地仓库，并不会自动合并或修改工作副本。</p>
 <p><code>git pull</code> 效果相当于在 <code>fetch</code> 的基础上，合并到当前分支。</p>
 </blockquote>
-<h3 id="推送"><a href="#推送" class="headerlink" title="推送"></a>推送</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 示例：git push origin master</span></span><br><span class="line">git push [REMOTE_NAME] [BRANCH_NAME]</span><br></pre></td></tr></table></figure>
+<h3 id="推送"><a href="#推送" class="headerlink" title="推送"></a>推送</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">示例：git push origin master</span></span><br><span class="line">git push [REMOTE_NAME] [BRANCH_NAME]</span><br></pre></td></tr></table></figure>
 <h2 id="标签"><a href="#标签" class="headerlink" title="标签"></a>标签</h2><blockquote>
 <p>分类：轻量标签（lightweight）、附注标签（annotated）。</p>
 <p>轻量标签：特定提交的引用。像一个不会改变的分支。</p>
 <p>附注标签：存储在Git数据库中的一个完整对象。可校验，有附加信息。</p>
 <p>建议创建附注标签，因为即可拥有附加信息等，轻量标签通常作为临时标签。</p>
 </blockquote>
-<h3 id="查看-1"><a href="#查看-1" class="headerlink" title="查看"></a>查看</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 查看标签列表，示例：git tag -l <span class="string">&#x27;v1.0*&#x27;</span></span></span><br><span class="line">git tag [-l &lt;PATTERN&gt;]</span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看标签信息及对应的提交信息</span></span><br><span class="line">git show &lt;TAG&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="查看-1"><a href="#查看-1" class="headerlink" title="查看"></a>查看</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看标签列表，示例：git tag -l <span class="string">&#x27;v1.0*&#x27;</span></span></span><br><span class="line">git tag [-l &lt;PATTERN&gt;]</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看标签信息及对应的提交信息</span></span><br><span class="line">git show &lt;TAG&gt;</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>说明：<code>git show</code> 命令查看附注标签和轻量标签反馈信息区别在于，附注标签会显示额外的标签信息，而轻量标签没有。</p>
 </blockquote>
-<h3 id="添加、删除"><a href="#添加、删除" class="headerlink" title="添加、删除"></a>添加、删除</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 附注标签</span></span><br><span class="line">git tag -a &lt;ANNOTATE&gt; -m &lt;MESSAGE&gt;</span><br><span class="line"><span class="meta">#</span><span class="bash"> 轻量标签</span></span><br><span class="line">git tag &lt;TAG&gt;</span><br><span class="line"><span class="meta">#</span><span class="bash"> 补打标签，示例：git tag v0.0.1 e6d105</span></span><br><span class="line">git log --pretty=oneline</span><br><span class="line">git tag -a &lt;TAG&gt; &lt;CHECK_SUM&gt;</span><br><span class="line"><span class="meta">#</span><span class="bash"> 删除本地标签</span></span><br><span class="line">git tag -d &lt;TAG&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="添加、删除"><a href="#添加、删除" class="headerlink" title="添加、删除"></a>添加、删除</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">附注标签</span></span><br><span class="line">git tag -a &lt;ANNOTATE&gt; -m &lt;MESSAGE&gt;</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">轻量标签</span></span><br><span class="line">git tag &lt;TAG&gt;</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">补打标签，示例：git tag v0.0.1 e6d105</span></span><br><span class="line">git log --pretty=oneline</span><br><span class="line">git tag -a &lt;TAG&gt; &lt;CHECK_SUM&gt;</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">删除本地标签</span></span><br><span class="line">git tag -d &lt;TAG&gt;</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>说明：标签本质上来说是对某次提交的引用，因此，补打标签则需要指定某次提交即可。而提交需使用其校验和来指定，故提供校验和（或部分校验和）即可。</p>
 </blockquote>
-<h3 id="共享、移除"><a href="#共享、移除" class="headerlink" title="共享、移除"></a>共享、移除</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 推送单个标签</span></span><br><span class="line">git push origin [TAG]</span><br><span class="line"><span class="meta">#</span><span class="bash"> 推送多个标签</span></span><br><span class="line">git push origin --tags</span><br><span class="line"><span class="meta">#</span><span class="bash"> 移除</span></span><br><span class="line">git push origin --delete [tag] &lt;TAG&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="共享、移除"><a href="#共享、移除" class="headerlink" title="共享、移除"></a>共享、移除</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">推送单个标签</span></span><br><span class="line">git push origin [TAG]</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">推送多个标签</span></span><br><span class="line">git push origin --tags</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">移除</span></span><br><span class="line">git push origin --delete [tag] &lt;TAG&gt;</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>说明：<br>默认，<code>git push</code> 不会推送标签到远程仓库。要推送必须显式指定。<br>对于 GitHub 等公共的 Git 服务而言，标签一般被用来标注发布点，因此，当一个标签被推送到其上时，会压缩生成一个Release以供下载。</p>
 </blockquote>
@@ -446,7 +446,7 @@
 <h2 id="查看状态"><a href="#查看状态" class="headerlink" title="查看状态"></a>查看状态</h2><blockquote>
 <p>当需要进行 Git 操作时，通常都会先查看各文件的状态，以确定哪些文件会被处理，怎样处理。</p>
 </blockquote>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 默认是详细模式</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 当使用 --short 选项或其缩写 -s 时显示简览</span></span><br><span class="line">git status [-s|--short]</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">默认是详细模式</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">当使用 --short 选项或其缩写 -s 时显示简览</span></span><br><span class="line">git status [-s|--short]</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>说明：详细模式下会分状态列出各文件，并列出可进行的命令提示。简览模式下会每行列出一个文件，并在行首用标记标明其状态。</p>
 </blockquote>
@@ -630,20 +630,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-count">148</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-count">35</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">96</span>
+        <span class="site-state-item-count">99</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -673,7 +673,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2023</span>
+  <span itemprop="copyrightYear">2024</span>
   <span class="with-love">
     <i class="user"></i>
   </span>

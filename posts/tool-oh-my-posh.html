@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.4.0">
+<meta name="generator" content="Hexo 7.3.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -258,12 +258,12 @@
 
       
         <p>安装 oh-my-posh，这里使用 scoop 进行安装：</p>
-<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scoop install <span class="built_in">oh</span><span class="literal">-my</span><span class="literal">-posh</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scoop install <span class="built_in">oh</span><span class="literal">-my-posh</span></span><br></pre></td></tr></table></figure>
 <p>由于 oh-my-posh 使用了 Nerd Fonts 字体，所以需要安装该字体：</p>
 <figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 如果没有字体库，需要添加</span></span><br><span class="line">scoop bucket add nerd<span class="literal">-fonts</span></span><br><span class="line"><span class="comment"># 安装字体</span></span><br><span class="line">scoop install Meslo<span class="literal">-NF</span></span><br></pre></td></tr></table></figure>
 <p>再在 Windows Terminal 【设置面板-PowerShell 配置项-外观-字体】，选择 MesloLGM NF 字体即可。</p>
 <p>然后修改 Powershell 启动文件 <code>$profile</code>，增加配置：</p>
-<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 注意替换主题文件路径</span></span><br><span class="line"><span class="built_in">oh</span><span class="literal">-my</span><span class="literal">-posh</span> -<span class="literal">-init</span> -<span class="literal">-shell</span> pwsh -<span class="literal">-config</span> path\to\oh<span class="literal">-my</span><span class="literal">-posh</span>\themes\darkblood.omp.json | <span class="built_in">Invoke-Expression</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 注意替换主题文件路径</span></span><br><span class="line"><span class="built_in">oh</span><span class="literal">-my-posh</span> <span class="literal">--init</span> <span class="literal">--shell</span> pwsh <span class="literal">--config</span> path\to\oh<span class="literal">-my-posh</span>\themes\darkblood.omp.json | <span class="built_in">Invoke-Expression</span></span><br></pre></td></tr></table></figure>
 <p><a target="_blank" rel="noopener" href="https://ohmyposh.dev/">Oh My Posh 官网</a></p>
 
     </div>
@@ -378,20 +378,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-count">148</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-count">35</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">96</span>
+        <span class="site-state-item-count">99</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -421,7 +421,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2023</span>
+  <span itemprop="copyrightYear">2024</span>
   <span class="with-love">
     <i class="user"></i>
   </span>

@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.4.0">
+<meta name="generator" content="Hexo 7.3.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -268,19 +268,19 @@
 </ul>
 <p>除了由 ES6 中的箭头函数引入的新用例外，这些用例对于现代 JavaScript 均没有普世价值：</p>
 <h1 id="使用void来说明无返回值（void）的箭头函数"><a href="#使用void来说明无返回值（void）的箭头函数" class="headerlink" title="使用void来说明无返回值（void）的箭头函数"></a>使用<code>void</code>来说明无返回值（<code>void</code>）的箭头函数</h1><p>ES6 箭头函数表达式允许函数体省略花括号以使代码更为简洁，但是这在返回值是否打算被使用方面产生了二义性，因为该函数也许仅仅只是使用其副作用：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 省略花括号</span></span><br><span class="line"><span class="keyword">const</span> id = <span class="function"><span class="params">x</span> =&gt;</span> x;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 调用函数仅仅是为了副作用</span></span><br><span class="line"><span class="keyword">const</span> log = <span class="function"><span class="params">x</span> =&gt;</span> <span class="built_in">console</span>.log(x);</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 省略花括号</span></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">id</span> = x =&gt; x;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 调用函数仅仅是为了副作用</span></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">log</span> = x =&gt; <span class="variable language_">console</span>.<span class="title function_">log</span>(x);</span><br></pre></td></tr></table></figure>
 <p>控制台 API 是众所周知的，因此该示例并不具二义性，但它说明了原理。</p>
 <p>添加花括号可以显式地创建刻意返回 void 的箭头函数，但这将降低简洁性：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">const log = x =&gt; &#123;</span><br><span class="line">  console.log(x);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>该函数仍然可以在一行中格式化，但是像 Prettier 这样的自动格式化工具通常会添加换行符，并且不返回值的意图不如使用 <code>void</code> 运算符时清晰：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> log = <span class="function"><span class="params">x</span> =&gt;</span> <span class="keyword">void</span> <span class="built_in">console</span>.log(x);</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title function_">log</span> = x =&gt; <span class="keyword">void</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(x);</span><br></pre></td></tr></table></figure>
 <p>像这样使用 <code>void</code> 的最明显的好处是减少了行数；尤其是像 CPS 这样的编程风格，它们经常依赖 void 回调。</p>
 <h2 id="类型系统与-void-类型"><a href="#类型系统与-void-类型" class="headerlink" title="类型系统与 void 类型"></a>类型系统与 <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Void_type" title="wiki void 类型">void 类型</a></h2><p>许多类型系统，包括 TypeScript 的类型系统，都具有 void 类型的概念，这使得 <code>void</code> 运算符对无返回值函数的使用是互补的并且更易于识别。</p>
 <h2 id="React-useEffect-钩子"><a href="#React-useEffect-钩子" class="headerlink" title="React useEffect 钩子"></a>React <a target="_blank" rel="noopener" href="https://reactjs.org/docs/hooks-effect.html" title="React useEffect 钩子"><code>useEffect</code></a> 钩子</h2><p><code>void</code> 的常见实用案例是 React 中的 <code>useEffect</code> 钩子：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">useEffect(<span class="function">() =&gt;</span> <span class="keyword">void</span> (<span class="built_in">document</span>.title = <span class="string">&#x27;example&#x27;</span>));</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">useEffect</span>(<span class="function">() =&gt;</span> <span class="title function_">void</span> (<span class="variable language_">document</span>.<span class="property">title</span> = <span class="string">&#x27;example&#x27;</span>));</span><br></pre></td></tr></table></figure>
 <p>这是一个特别突出的例子，因为 <code>useEffect</code> 钩子可以使用它的回调返回值来清理效果，所以意外地返回一个函数可能是一个运行时错误。</p>
 <h1 id="在异步-IIFES-中使用-void"><a href="#在异步-IIFES-中使用-void" class="headerlink" title="在异步 IIFES 中使用 void"></a>在异步 IIFES 中使用 <code>void</code></h1><p>对于使用 <code>void</code> 运算符的异步的立即调用函数表达式（IIFES），还有另外一个但不太重要的用例。传统的 IIFES 用于实现模块化作用域，因为 JS 没有块作用域或实际的模块，但是现代 JS 两者兼具，所以 IIFES 除了一种情况外，在很大程度上没有意义：在<a target="_blank" rel="noopener" href="https://2ality.com/2019/12/top-level-await.html" title="模块顶层 await">模块的顶层</a>使用 <code>await</code> 或 <code>for-await-of</code> 语法：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> (<span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">  <span class="keyword">await</span> fetch(something);</span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">void</span> (<span class="title function_">async</span> () =&gt; &#123;</span><br><span class="line">  <span class="keyword">await</span> <span class="title function_">fetch</span>(something);</span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure>
 <p>这是一个足够流行的用例，为此存在第 3 阶段的建议。由于优先级，仍需在函数表达式周围加上括号，但是使用 <code>void</code> 解决了前括号不能与 ASI 一起使用的问题（更具体地说，如果没有显式分号行终止符，则括号会中断）。</p>
 <h1 id="风格指南与-no-void"><a href="#风格指南与-no-void" class="headerlink" title="风格指南与 no-void"></a>风格指南与 <a target="_blank" rel="noopener" href="https://eslint.org/docs/rules/no-void"><code>no-void</code></a></h1><p>流行的风格指南，比如 Airbnb 和标准 JS，使用 <code>no-void</code> ESLint 规则来阻止使用 <code>void</code> 运算符，但是可以说这是一种疏忽而应由用户重写。</p>
 <ul>
@@ -292,9 +292,9 @@
 <p>（精彩留言，归纳、概述、意译）</p>
 <p><strong>话题一</strong>：</p>
 <p>为什么需要用</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">useEffect(<span class="function">() =&gt;</span> <span class="keyword">void</span> (<span class="built_in">document</span>.title = <span class="string">&#x27;example&#x27;</span>));</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">useEffect</span>(<span class="function">() =&gt;</span> <span class="title function_">void</span> (<span class="variable language_">document</span>.<span class="property">title</span> = <span class="string">&#x27;example&#x27;</span>));</span><br></pre></td></tr></table></figure>
 <p>代替</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">useEffect(<span class="function">() =&gt;</span> &#123; <span class="built_in">document</span>.title = <span class="string">&#x27;example&#x27;</span> &#125;);</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">useEffect</span>(<span class="function">() =&gt;</span> &#123; <span class="variable language_">document</span>.<span class="property">title</span> = <span class="string">&#x27;example&#x27;</span> &#125;);</span><br></pre></td></tr></table></figure>
 <p>后者比使用 <code>void</code> 更短并更具可读性。</p>
 <p><strong>作者答疑</strong>：</p>
 <p>启用 <a target="_blank" rel="noopener" href="https://eslint.org/docs/rules/brace-style"><code>brace-style</code></a> 的 ESLint 或 Prettier 会将带有花括号的块体（body） 格式化为三行，而不是一行。<code>void</code> 使无返回值更为明显，而相对地，忽略 <code>return</code> 语句可能仍是错误的。</p>
@@ -420,20 +420,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-count">148</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-count">35</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">96</span>
+        <span class="site-state-item-count">99</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -463,7 +463,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2023</span>
+  <span itemprop="copyrightYear">2024</span>
   <span class="with-love">
     <i class="user"></i>
   </span>

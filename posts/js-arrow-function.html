@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.4.0">
+<meta name="generator" content="Hexo 7.3.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -257,7 +257,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="箭头函数是什么？"><a href="#箭头函数是什么？" class="headerlink" title="箭头函数是什么？"></a>箭头函数是什么？</h1><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> hi = <span class="function">() =&gt;</span> &#123; <span class="built_in">console</span>.log(<span class="string">&#x27;Hello, world!&#x27;</span> &#125;</span><br></pre></td></tr></table></figure>
+        <h1 id="箭头函数是什么？"><a href="#箭头函数是什么？" class="headerlink" title="箭头函数是什么？"></a>箭头函数是什么？</h1><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="title function_">hi</span> = (<span class="params"></span>) =&gt; &#123; <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Hello, world!&#x27;</span> &#125;</span><br></pre></td></tr></table></figure>
 <p>上面的代码等号右侧部分是一个 ES6 标准新增的一种函数，由于其定义语法使用“箭头”（<code>=&gt;</code>），因此称为“箭头函数”。</p>
 <p>如果你了解其他的一些语言，那么会发现许多语言都有类似语法，而甚至一些语言开始没有，随后也陆续加入了。实际上，在计算机编程中，这被称为“lambda 表达式”，是一种匿名函数。</p>
 <p>显然，它的语法简洁，表现优雅，极其适合编写短小的函数。</p>
@@ -265,7 +265,7 @@
 <h1 id="关于this"><a href="#关于this" class="headerlink" title="关于this"></a>关于<code>this</code></h1><p>箭头函数不绑定 <code>this</code>，它从自己作用域链的上一层继承 <code>this</code>。</p>
 <p>不绑定 <code>this</code> 导致了一系列的后果，其中比较重要的是：箭头函数不能用作构造函数、<code>call()/apply()/bind()</code> 均不能改变 <code>this</code> 指向……</p>
 <p>笔者在阮一峰老师的《ECMAScript 6入门》中读到“<a target="_blank" rel="noopener" href="http://es6.ruanyifeng.com/#docs/function#%E4%BD%BF%E7%94%A8%E6%B3%A8%E6%84%8F%E7%82%B9">使用注意点</a>”章节时，被其首个关于 <code>this</code> 的示例搞懵了，示例代码如下：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;id:&#x27;</span>, <span class="built_in">this</span>.id);</span><br><span class="line">  &#125;, <span class="number">100</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> id = <span class="number">21</span>;</span><br><span class="line"></span><br><span class="line">foo.call(&#123; <span class="attr">id</span>: <span class="number">42</span> &#125;);</span><br><span class="line"><span class="comment">// id: 42</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">foo</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;id:&#x27;</span>, <span class="variable language_">this</span>.<span class="property">id</span>);</span><br><span class="line">  &#125;, <span class="number">100</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> id = <span class="number">21</span>;</span><br><span class="line"></span><br><span class="line">foo.<span class="title function_">call</span>(&#123; <span class="attr">id</span>: <span class="number">42</span> &#125;);</span><br><span class="line"><span class="comment">// id: 42</span></span><br></pre></td></tr></table></figure>
 <p>文章中说箭头函数中 <code>this</code> 是固定的，随后也举例说明 <code>call()/apply()/bind()</code> 均不能修改箭头函数的 <code>this</code> 指向。</p>
 <p>笔者当时的纠结在于，在上述环境中执行 <code>foo()</code> 将输出 <code>id: 21</code>——<code>this</code> 变了呀！！！（不可否认，这种描述在笔者的思维模式下很容易被引入坑中，最后笔者结合上下文以及其他资料才搞明白。）</p>
 <p>本质上来说，箭头函数没有自己的 <code>this</code>，它的 <code>this</code> 继承自作用域链的上一层，“固定”的其实是这个继承关系，而这个继承的 <code>this</code> 代表什么是可变的。</p>
@@ -276,12 +276,12 @@
 <p>但是，如果我们把以上代码保存在 <code>demo.js</code> 文件中，并通过 <code>node demo.js</code> 执行，会发现 <code>foo()</code> 的执行结果输出 <code>id: undefined</code>。你可以尝试输出 <code>this</code>，通常会看到一个空对象，说明此时 <code>this</code> 指向的不是全局对象 <code>global</code>。那它指向的是什么对象呢？答案是指向 <code>module.exports</code>。这是由于对于 Node.js 而言，每个文件都是一个模块，它的顶级作用域不是全局作用域而是模块作用域。因此，很好理解此时 <code>this</code> 的指向了。</p>
 </blockquote>
 <h1 id="返回对象字面量"><a href="#返回对象字面量" class="headerlink" title="返回对象字面量"></a>返回对象字面量</h1><p>试图使用“简写体”形式<code>params =&gt; &#123;object: literal&#125;</code> 返回一个对象字面量是不行的：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> func = <span class="function">() =&gt;</span> &#123; <span class="attr">foo</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;&#125; &#125;; </span><br><span class="line"><span class="comment">// SyntaxError: function statement requires a name</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> <span class="title function_">func</span> = (<span class="params"></span>) =&gt; &#123; <span class="attr">foo</span>: <span class="keyword">function</span>(<span class="params"></span>) &#123;&#125; &#125;; </span><br><span class="line"><span class="comment">// SyntaxError: function statement requires a name</span></span><br></pre></td></tr></table></figure>
 <p>这跟语法解析有关，对象字面量的花括号会被解析为“块体”形式下的块定界符。这通常会导致语法错误，可在编码时通过语法检查发现。但是，在某些情况下却是符合语法的：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> func = <span class="function">() =&gt;</span> &#123; <span class="attr">foo</span>: <span class="number">1</span> &#125;;</span><br><span class="line"><span class="comment">// Calling func() returns undefined!</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> <span class="title function_">func</span> = (<span class="params"></span>) =&gt; &#123; <span class="attr">foo</span>: <span class="number">1</span> &#125;;</span><br><span class="line"><span class="comment">// Calling func() returns undefined!</span></span><br></pre></td></tr></table></figure>
 <p>上例中的 <code>foo</code> 被解析为一个标签，随后执行了一条语句 <code>1</code>。没有返回值，所以调用结果会是 <code>undefined</code>。</p>
 <p>解决方案是将对象字面量包裹在圆括号中：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> func = <span class="function">() =&gt;</span> (&#123; <span class="attr">foo</span>: <span class="number">1</span> &#125;);</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> <span class="title function_">func</span> = (<span class="params"></span>) =&gt; (&#123; <span class="attr">foo</span>: <span class="number">1</span> &#125;);</span><br></pre></td></tr></table></figure>
 <h1 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h1><p>不绑定 <code>arguments</code>， 可使用 <code>rest</code> 参数代替。也不绑定 <code>caller</code> 和 <code>callee</code> 等。</p>
 <p>箭头函数没有<code>prototype</code>属性。</p>
 <p>箭头函数不能用作生成器。</p>
@@ -403,20 +403,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-count">148</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-count">35</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">96</span>
+        <span class="site-state-item-count">99</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -446,7 +446,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2023</span>
+  <span itemprop="copyrightYear">2024</span>
   <span class="with-love">
     <i class="user"></i>
   </span>

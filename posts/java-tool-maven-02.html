@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.4.0">
+<meta name="generator" content="Hexo 7.3.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -281,7 +281,7 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[WARNING] &#x27;version&#x27; contains an expression but should be a constant.</span><br><span class="line">...</span><br><span class="line">[WARNING] It is highly recommended to fix these problems because they threaten the stability of your build.</span><br><span class="line">[WARNING] For this reason, future Maven versions might no longer support building such malformed projects.</span><br></pre></td></tr></table></figure>
 <p>从警告可知，Maven 期望版本号是一个常量，因此，这样配置有稳定性问题，并且未来的 Maven 可能不支持。总之，这不是一种推荐的配置方法。</p>
 <p>正确的方法应该是使用 <a target="_blank" rel="noopener" href="http://www.mojohaus.org/versions-maven-plugin/index.html">Versions Maven Plugin</a> 进行版本升级。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 更新版本</span></span><br><span class="line">mvn versions:set -DoldVersion=* -DnewVersion=0.1.2-SNAPSHOT -DprocessAllModules=true -DallowSnapshots=true</span><br><span class="line"><span class="meta">#</span><span class="bash"> 确认修改</span></span><br><span class="line">mvn versions:commit</span><br><span class="line"><span class="meta">#</span><span class="bash"> 撤销修改</span></span><br><span class="line">mvn versions:revert</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">更新版本</span></span><br><span class="line">mvn versions:set -DoldVersion=* -DnewVersion=0.1.2-SNAPSHOT -DprocessAllModules=true -DallowSnapshots=true</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">确认修改</span></span><br><span class="line">mvn versions:commit</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">撤销修改</span></span><br><span class="line">mvn versions:revert</span><br></pre></td></tr></table></figure>
 
     </div>
 
@@ -396,20 +396,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-count">148</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-count">35</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">96</span>
+        <span class="site-state-item-count">99</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -439,7 +439,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2023</span>
+  <span itemprop="copyrightYear">2024</span>
   <span class="with-love">
     <i class="user"></i>
   </span>

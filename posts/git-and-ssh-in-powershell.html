@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.4.0">
+<meta name="generator" content="Hexo 7.3.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -277,7 +277,7 @@
 <blockquote>
 <p>注意，以下命令如无特别说明都将在 Git bash 下执行，直到说明在 PowerShell 中使用时。</p>
 </blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls -al ~/.ssh</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">ls</span> -al ~/.ssh</span><br></pre></td></tr></table></figure>
 <p>如果之前没有配置过 SSH，那么可能不存在 <code>~/.ssh</code> 目录，或它是空的。</p>
 <blockquote>
 <p>如果该目录存在内容，确认不是你自己配置的，或与你共用当前系统用户的其他人所配置则可删除它们。</p>
@@ -365,7 +365,7 @@
 <h2 id="push时仍要求输入用户密码"><a href="#push时仍要求输入用户密码" class="headerlink" title="push时仍要求输入用户密码"></a>push时仍要求输入用户密码</h2><p>通常应该是远程仓库使用的是 HTTPS URL，通过如下命令查看：</p>
 <figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git remote <span class="literal">-vv</span></span><br><span class="line"><span class="comment"># origin  https://github.com/username/project.git (fetch)</span></span><br><span class="line"><span class="comment"># origin  https://github.com/username/project.git (push)</span></span><br></pre></td></tr></table></figure>
 <p>只需要先移除远程仓库，重新添加 SSH URL 的远程仓库即可：</p>
-<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git remote <span class="built_in">rm</span> origin</span><br><span class="line">git remote add origin git@github.com:username/project.git</span><br><span class="line">git push -<span class="literal">-set</span><span class="literal">-upstream</span> origin master</span><br></pre></td></tr></table></figure>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git remote <span class="built_in">rm</span> origin</span><br><span class="line">git remote add origin git@github.com:username/project.git</span><br><span class="line">git push <span class="literal">--set-upstream</span> origin master</span><br></pre></td></tr></table></figure>
 <h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a target="_blank" rel="noopener" href="https://git-scm.com/book/zh/v2/Git-%E5%B7%A5%E5%85%B7-%E5%87%AD%E8%AF%81%E5%AD%98%E5%82%A8">《Pro Git》Git 工具 - 凭证存储</a></p>
 <p><a target="_blank" rel="noopener" href="https://github.com/dahlbyk/posh-git">GitHub - posh-git</a></p>
 
@@ -483,20 +483,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-count">148</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-count">35</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">96</span>
+        <span class="site-state-item-count">99</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -526,7 +526,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2023</span>
+  <span itemprop="copyrightYear">2024</span>
   <span class="with-love">
     <i class="user"></i>
   </span>

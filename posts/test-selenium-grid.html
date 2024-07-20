@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.4.0">
+<meta name="generator" content="Hexo 7.3.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -269,7 +269,7 @@
 <p>我们可以独立启动任一组件，但是通常会启动一组组件，使 Grid 工作在相应模式下。</p>
 <h1 id="Standalone"><a href="#Standalone" class="headerlink" title="Standalone"></a>Standalone</h1><p>独立模式，Grid 最简单的模式，会启动所有组件，使当前主机成为一台可独立执行测试的远程计算机。</p>
 <p>命令行直接执行 Java 命令即可启动：</p>
-<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java <span class="literal">-jar</span> selenium<span class="literal">-server</span>-&lt;version&gt;.jar standalone</span><br></pre></td></tr></table></figure>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java <span class="literal">-jar</span> selenium<span class="literal">-server-</span>&lt;version&gt;.jar standalone</span><br></pre></td></tr></table></figure>
 <p>当看到输出信息“Started Selenium Standalone…”即说明启动成功。</p>
 <p>默认情况下，将监听 <code>4444</code> 端口，通过该端口即可远程调用。</p>
 <blockquote>
@@ -290,12 +290,12 @@
 <p>而且，通常也不需要通过 <code>options.set_capability()</code> 来设置，创建不同类型的 <code>Options</code> 时，会“内置”对应的 <code>browserName</code>。</p>
 </blockquote>
 <h1 id="Hub-amp-Nodes"><a href="#Hub-amp-Nodes" class="headerlink" title="Hub &amp; Nodes"></a>Hub &amp; Nodes</h1><p>经典的“集线器 + 节点”模式。可以在不同远程主机上分别部署集线器和多个节点。适合中小型规模测试。</p>
-<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 启动集线器</span></span><br><span class="line">java <span class="literal">-jar</span> selenium<span class="literal">-server</span>-&lt;version&gt;.jar  hub</span><br><span class="line"><span class="comment"># 启动节点</span></span><br><span class="line">java <span class="literal">-jar</span> selenium<span class="literal">-server</span>-&lt;version&gt;.jar  node -<span class="literal">-hub</span> http://host:<span class="number">4444</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 启动集线器</span></span><br><span class="line">java <span class="literal">-jar</span> selenium<span class="literal">-server-</span>&lt;version&gt;.jar  hub</span><br><span class="line"><span class="comment"># 启动节点</span></span><br><span class="line">java <span class="literal">-jar</span> selenium<span class="literal">-server-</span>&lt;version&gt;.jar  node <span class="literal">--hub</span> http://host:<span class="number">4444</span></span><br></pre></td></tr></table></figure>
 <p>hub 角色会启动除 Nodes 外所有组件，而相反，node 角色只启动 Nodes 组件。</p>
 <p><code>RemoteDriver</code> 连接集线器服务即可。</p>
 <h1 id="分布式"><a href="#分布式" class="headerlink" title="分布式"></a>分布式</h1><p>大型分布式部署，各个组件分别单独启动，适合大型测试。</p>
 <p>由于组件之间的依赖关系，需要按一定的顺序启动各组件。</p>
-<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 启动 Event Bus（事件总线）</span></span><br><span class="line">java <span class="literal">-jar</span> selenium<span class="literal">-server</span>-&lt;version&gt;.jar  event<span class="literal">-bus</span></span><br><span class="line"><span class="comment"># 启动 Session Map（会话表）</span></span><br><span class="line">java <span class="literal">-jar</span> selenium<span class="literal">-server</span>-&lt;version&gt;.jar sessions</span><br><span class="line"><span class="comment"># 启动 Session Queue（会话队列）</span></span><br><span class="line">java <span class="literal">-jar</span> selenium<span class="literal">-server</span>-&lt;version&gt;.jar sessionqueue</span><br><span class="line"><span class="comment"># 启动 Distributor（分发器）</span></span><br><span class="line">java <span class="literal">-jar</span> selenium<span class="literal">-server</span>-&lt;version&gt;.jar distributor -<span class="literal">-sessions</span> http://localhost:<span class="number">5556</span> -<span class="literal">-sessionqueue</span> http://localhost:<span class="number">5559</span> -<span class="literal">-bind</span><span class="literal">-bus</span> false</span><br><span class="line"><span class="comment"># 启动 Router（路由）</span></span><br><span class="line">java <span class="literal">-jar</span> selenium<span class="literal">-server</span>-&lt;version&gt;.jar router -<span class="literal">-sessions</span> http://localhost:<span class="number">5556</span> -<span class="literal">-distributor</span> http://localhost:<span class="number">5553</span> -<span class="literal">-sessionqueue</span> http://localhost:<span class="number">5559</span></span><br><span class="line"><span class="comment"># 启动节点</span></span><br><span class="line">java <span class="literal">-jar</span> selenium<span class="literal">-server</span>-&lt;version&gt;.jar node</span><br></pre></td></tr></table></figure>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 启动 Event Bus（事件总线）</span></span><br><span class="line">java <span class="literal">-jar</span> selenium<span class="literal">-server-</span>&lt;version&gt;.jar  event<span class="literal">-bus</span></span><br><span class="line"><span class="comment"># 启动 Session Map（会话表）</span></span><br><span class="line">java <span class="literal">-jar</span> selenium<span class="literal">-server-</span>&lt;version&gt;.jar sessions</span><br><span class="line"><span class="comment"># 启动 Session Queue（会话队列）</span></span><br><span class="line">java <span class="literal">-jar</span> selenium<span class="literal">-server-</span>&lt;version&gt;.jar sessionqueue</span><br><span class="line"><span class="comment"># 启动 Distributor（分发器）</span></span><br><span class="line">java <span class="literal">-jar</span> selenium<span class="literal">-server-</span>&lt;version&gt;.jar distributor <span class="literal">--sessions</span> http://localhost:<span class="number">5556</span> <span class="literal">--sessionqueue</span> http://localhost:<span class="number">5559</span> <span class="literal">--bind-bus</span> false</span><br><span class="line"><span class="comment"># 启动 Router（路由）</span></span><br><span class="line">java <span class="literal">-jar</span> selenium<span class="literal">-server-</span>&lt;version&gt;.jar router <span class="literal">--sessions</span> http://localhost:<span class="number">5556</span> <span class="literal">--distributor</span> http://localhost:<span class="number">5553</span> <span class="literal">--sessionqueue</span> http://localhost:<span class="number">5559</span></span><br><span class="line"><span class="comment"># 启动节点</span></span><br><span class="line">java <span class="literal">-jar</span> selenium<span class="literal">-server-</span>&lt;version&gt;.jar node</span><br></pre></td></tr></table></figure>
 <p>注意，<code>RemoteDriver</code> 连接的是路由服务。</p>
 <h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a target="_blank" rel="noopener" href="https://www.selenium.dev/zh-cn/documentation/grid/components/">Selenium 文档 - 服务网格的组件</a>：介绍各种 Selenium Server 组件的概念</p>
 <p><a target="_blank" rel="noopener" href="https://www.selenium.dev/zh-cn/documentation/grid/getting_started/#distributed">Selenium 文档 - 分布式部署</a>：介绍 Selenium Server 分布部署步骤</p>
@@ -414,20 +414,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-count">148</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-count">35</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">96</span>
+        <span class="site-state-item-count">99</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -457,7 +457,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2023</span>
+  <span itemprop="copyrightYear">2024</span>
   <span class="with-love">
     <i class="user"></i>
   </span>

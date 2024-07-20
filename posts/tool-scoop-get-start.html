@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.4.0">
+<meta name="generator" content="Hexo 7.3.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -329,12 +329,12 @@
 <p>其原理是将 <code>bin</code> 目录重新添加到 <code>path</code>  环境变量的最前面。</p>
 </blockquote>
 <h2 id="多线程下载"><a href="#多线程下载" class="headerlink" title="多线程下载"></a>多线程下载</h2><p>默认情况下，Scoop 在下载应用时是单线程的，直接的感受是——慢，借助 aria2 可以使 Scoop 具有多线程下载的能力。当然，你需要先安装 aria2，然后执行以下命令：</p>
-<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">scoop install aria2</span><br><span class="line">scoop config aria2<span class="literal">-enabled</span> true</span><br><span class="line">scoop config aria2<span class="literal">-retry</span><span class="literal">-wait</span> <span class="number">3</span></span><br><span class="line">scoop config aria2<span class="operator">-split</span> <span class="number">5</span></span><br><span class="line">scoop config aria2<span class="literal">-max</span><span class="literal">-connection</span><span class="literal">-per</span><span class="literal">-server</span> <span class="number">5</span></span><br><span class="line">scoop config aria2<span class="literal">-min</span><span class="operator">-split</span><span class="literal">-size</span> <span class="number">5</span>M</span><br></pre></td></tr></table></figure>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">scoop install aria2</span><br><span class="line">scoop config aria2<span class="literal">-enabled</span> true</span><br><span class="line">scoop config aria2<span class="literal">-retry-wait</span> <span class="number">3</span></span><br><span class="line">scoop config aria2<span class="operator">-split</span> <span class="number">5</span></span><br><span class="line">scoop config aria2<span class="literal">-max-connection-per-server</span> <span class="number">5</span></span><br><span class="line">scoop config aria2<span class="literal">-min-split-size</span> <span class="number">5</span>M</span><br></pre></td></tr></table></figure>
 <h2 id="代理配置"><a href="#代理配置" class="headerlink" title="代理配置"></a>代理配置</h2><h3 id="命令行代理"><a href="#命令行代理" class="headerlink" title="命令行代理"></a>命令行代理</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">set http_proxy=http://host:port</span><br><span class="line">set https_proxy=http://host:port</span><br><span class="line">set http_proxy_user=</span><br><span class="line">set http_proxy_pass=</span><br></pre></td></tr></table></figure>
 <h3 id="通过代理安装-scoop"><a href="#通过代理安装-scoop" class="headerlink" title="通过代理安装 scoop"></a>通过代理安装 scoop</h3><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># If you want to use a proxy that isn&#x27;t already configured in Internet Options</span></span><br><span class="line">[<span class="type">net.webrequest</span>]::defaultwebproxy = <span class="built_in">new-object</span> net.webproxy <span class="string">&quot;http://proxy.example.org:8080&quot;</span></span><br><span class="line"><span class="comment"># If you want to use the Windows credentials of the logged-in user to authenticate with your proxy</span></span><br><span class="line">[<span class="type">net.webrequest</span>]::defaultwebproxy.credentials = [<span class="type">net.credentialcache</span>]::defaultcredentials</span><br><span class="line"><span class="comment"># If you want to use other credentials (replace &#x27;username&#x27; and &#x27;password&#x27;)</span></span><br><span class="line">[<span class="type">net.webrequest</span>]::defaultwebproxy.credentials = <span class="built_in">new-object</span> net.networkcredential <span class="string">&#x27;username&#x27;</span>, <span class="string">&#x27;password&#x27;</span></span><br></pre></td></tr></table></figure>
 <h3 id="为-scoop-配置代理"><a href="#为-scoop-配置代理" class="headerlink" title="为 scoop 配置代理"></a>为 scoop 配置代理</h3><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">scoop config proxy [<span class="type">username</span>:<span class="type">password</span><span class="selector-tag">@</span>]host:port</span><br><span class="line">scoop config <span class="built_in">rm</span> proxy</span><br><span class="line"></span><br><span class="line">scoop config proxy currentuser@default</span><br><span class="line">scoop config proxy user:password@default</span><br><span class="line">scoop config proxy none <span class="comment"># 绕过代理直连</span></span><br></pre></td></tr></table></figure>
 <h3 id="为-git-配置代理"><a href="#为-git-配置代理" class="headerlink" title="为 git 配置代理"></a>为 git 配置代理</h3><p>scoop 很多更新操作是基于 GitHub 的，因此，通常也会为 git 配置代理。</p>
-<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config -<span class="literal">-global</span> http.proxy http://host:port</span><br><span class="line">git config -<span class="literal">-global</span> https.proxy https://host:port</span><br></pre></td></tr></table></figure>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config <span class="literal">--global</span> http.proxy http://host:port</span><br><span class="line">git config <span class="literal">--global</span> https.proxy https://host:port</span><br></pre></td></tr></table></figure>
 <h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><h2 id="命令列表"><a href="#命令列表" class="headerlink" title="命令列表"></a>命令列表</h2><div class="table-container">
 <table>
 <thead>
@@ -555,20 +555,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-count">148</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-count">35</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">96</span>
+        <span class="site-state-item-count">99</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -598,7 +598,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2023</span>
+  <span itemprop="copyrightYear">2024</span>
   <span class="with-love">
     <i class="user"></i>
   </span>

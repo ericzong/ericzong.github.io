@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.4.0">
+<meta name="generator" content="Hexo 7.3.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -261,7 +261,7 @@
 <p>Java 8 之前，反射对方法参数的支持是有限的，某些信息甚至通过反射根本无法获取到。对此，Java 8 添加了一些增强特性。</p>
 <p>主要的源码级改动是为 <code>Method</code> 和 <code>Constructor</code> 类新增了父类 <code>java.lang.reflect.Executable</code>，该父类提供了方法 <code>getParameters()</code> 返回参数数组。注意这个参数数组元素对应的 <code>java.lang.reflect.Parameter</code> 类也是 Java 8 新增的。通过它可以得到参数的更多信息，比如：名称、修饰符等等。</p>
 <p>下面的测试类展示了如何获取参数名称：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MethodParameterReflectionTest</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doSth</span><span class="params">(String justName)</span> </span>&#123;</span><br><span class="line">    System.out.println(justName);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Test</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testGetMethodParameterName</span><span class="params">()</span> <span class="keyword">throws</span> NoSuchMethodException </span>&#123;</span><br><span class="line">    Method doSthMethod = MethodParameterReflectionTest.class.getMethod(<span class="string">&quot;doSth&quot;</span>, String.class);</span><br><span class="line">    Parameter[] params = doSthMethod.getParameters();</span><br><span class="line">    Parameter param = params[<span class="number">0</span>];</span><br><span class="line">    System.out.println(param.isNamePresent() + <span class="string">&quot;: &quot;</span> + param.getName());</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MethodParameterReflectionTest</span> &#123;</span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">doSth</span><span class="params">(String justName)</span> &#123;</span><br><span class="line">    System.out.println(justName);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Test</span></span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testGetMethodParameterName</span><span class="params">()</span> <span class="keyword">throws</span> NoSuchMethodException &#123;</span><br><span class="line">    <span class="type">Method</span> <span class="variable">doSthMethod</span> <span class="operator">=</span> MethodParameterReflectionTest.class.getMethod(<span class="string">&quot;doSth&quot;</span>, String.class);</span><br><span class="line">    Parameter[] params = doSthMethod.getParameters();</span><br><span class="line">    <span class="type">Parameter</span> <span class="variable">param</span> <span class="operator">=</span> params[<span class="number">0</span>];</span><br><span class="line">    System.out.println(param.isNamePresent() + <span class="string">&quot;: &quot;</span> + param.getName());</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>But，通常情况下得到的参数名应该形如 <code>arg0</code>。原因在于，形参名默认是不会写入 .class 文件，如果要，则需要添加编译器选项 <code>-parameters</code>。</p>
 <p>IDEA 中，在 Java 编译器设置中为项目（即 Module）配置 <code>-parameters</code> 编译器选项即可。如下图：</p>
 <p><img src="../image/post_java-features-java8-method-parameter-reflection/idea-settings.png" alt="IDEA Settings"></p>
@@ -379,20 +379,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-count">148</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-count">35</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">96</span>
+        <span class="site-state-item-count">99</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -422,7 +422,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2023</span>
+  <span itemprop="copyrightYear">2024</span>
   <span class="with-love">
     <i class="user"></i>
   </span>

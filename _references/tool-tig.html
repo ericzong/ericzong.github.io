@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.4.0">
+<meta name="generator" content="Hexo 7.3.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -759,7 +759,7 @@
 </tbody>
 </table>
 </div>
-<h1 id="版本限定"><a href="#版本限定" class="headerlink" title="版本限定"></a>版本限定</h1><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 路径限定</span></span><br><span class="line">tig Makefile README</span><br><span class="line"><span class="comment"># 路径限定，特殊路径放在 -- 后</span></span><br><span class="line">tig -- status</span><br><span class="line"><span class="comment"># 日期/数字限定</span></span><br><span class="line">tig -<span class="literal">-since</span>=<span class="number">1</span>.month</span><br><span class="line">tig -<span class="literal">-n400</span></span><br><span class="line">tig -<span class="literal">-after</span>=<span class="string">&quot;May 5th&quot;</span> -<span class="literal">-before</span>=<span class="string">&quot;2006-05-16 15:44&quot;</span></span><br><span class="line">tig -<span class="literal">-after</span>=May.<span class="number">5</span>th</span><br><span class="line"><span class="comment"># 提交范围限定</span></span><br><span class="line">tig tag<span class="literal">-1</span>.<span class="number">0</span>..tag<span class="literal">-2</span>.<span class="number">0</span></span><br><span class="line">tig origin..HEAD</span><br><span class="line"><span class="comment"># 可达性限定</span></span><br><span class="line">tig tag<span class="literal">-2</span>.<span class="number">0</span> ^tag<span class="literal">-1</span>.<span class="number">0</span></span><br><span class="line"><span class="comment"># 组合限定</span></span><br><span class="line">tig -<span class="literal">-since</span>=<span class="number">1</span>.month <span class="literal">-n20</span> -- Documentation/</span><br><span class="line"><span class="comment"># 检查所有仓库引用</span></span><br><span class="line">tig -<span class="literal">-all</span> -<span class="literal">-since</span>=<span class="number">1</span>.week -- Makefile</span><br></pre></td></tr></table></figure>
+<h1 id="版本限定"><a href="#版本限定" class="headerlink" title="版本限定"></a>版本限定</h1><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 路径限定</span></span><br><span class="line">tig Makefile README</span><br><span class="line"><span class="comment"># 路径限定，特殊路径放在 -- 后</span></span><br><span class="line">tig <span class="literal">--</span> status</span><br><span class="line"><span class="comment"># 日期/数字限定</span></span><br><span class="line">tig <span class="literal">--since</span>=<span class="number">1</span>.month</span><br><span class="line">tig <span class="literal">--n400</span></span><br><span class="line">tig <span class="literal">--after</span>=<span class="string">&quot;May 5th&quot;</span> <span class="literal">--before</span>=<span class="string">&quot;2006-05-16 15:44&quot;</span></span><br><span class="line">tig <span class="literal">--after</span>=May.<span class="number">5</span>th</span><br><span class="line"><span class="comment"># 提交范围限定</span></span><br><span class="line">tig tag<span class="literal">-1</span>.<span class="number">0</span>..tag<span class="literal">-2</span>.<span class="number">0</span></span><br><span class="line">tig origin..HEAD</span><br><span class="line"><span class="comment"># 可达性限定</span></span><br><span class="line">tig tag<span class="literal">-2</span>.<span class="number">0</span> ^tag<span class="literal">-1</span>.<span class="number">0</span></span><br><span class="line"><span class="comment"># 组合限定</span></span><br><span class="line">tig <span class="literal">--since</span>=<span class="number">1</span>.month <span class="literal">-n20</span> <span class="literal">--</span> Documentation/</span><br><span class="line"><span class="comment"># 检查所有仓库引用</span></span><br><span class="line">tig <span class="literal">--all</span> <span class="literal">--since</span>=<span class="number">1</span>.week <span class="literal">--</span> Makefile</span><br></pre></td></tr></table></figure>
 
       </div>
       
@@ -835,20 +835,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-count">148</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-count">35</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">96</span>
+        <span class="site-state-item-count">99</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -878,7 +878,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2023</span>
+  <span itemprop="copyrightYear">2024</span>
   <span class="with-love">
     <i class="user"></i>
   </span>

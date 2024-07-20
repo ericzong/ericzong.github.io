@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.4.0">
+<meta name="generator" content="Hexo 7.3.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -275,7 +275,7 @@
 <li><p><code>Ctrl + C</code> 仅当在多行输入状态时才与 <code>.break</code> 等效，且比其更强大，不要求当前命令行是“干净”的。单行输入状态时，如果有任何输入，<code>Ctrl + C</code> 将丢弃当前行，开启一个新行；如果没有任何输入，将提示 <code>(To exit, press ^C again or type .exit)</code>，再按一次 <code>Ctrl + C</code> 退出 <code>REPL</code>。</p>
 </li>
 <li><p>普通情况下进入的 <code>REPL</code> （比如仅使用 <code>node</code> 进入的），<code>.clear</code> 与 <code>.break</code> 是等效的。但是，如果 <code>REPL</code> 是通过执行某个运行 <code>repl.start()</code> 的脚本进入的，那么 <code>.clear</code> 的另一个效果是清理该 <code>REPL</code> 的上下文对象。比如：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"># repl.js</span><br><span class="line"><span class="keyword">const</span> repl = <span class="built_in">require</span>(<span class="string">&#x27;repl&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> context = repl.start().context;</span><br><span class="line">context.msg = <span class="string">&#x27;hello world!&#x27;</span></span><br><span class="line"># 执行脚本并进入 REPL</span><br><span class="line">P&gt; node repl.js</span><br><span class="line">&gt; msg</span><br><span class="line"><span class="string">&#x27;hello world!&#x27;</span></span><br><span class="line">&gt; .clear</span><br><span class="line">Clearing context...</span><br><span class="line">&gt; msg</span><br><span class="line"><span class="attr">Thrown</span>:</span><br><span class="line"><span class="built_in">ReferenceError</span>: msg is not defined</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"># repl.<span class="property">js</span></span><br><span class="line"><span class="keyword">const</span> repl = <span class="built_in">require</span>(<span class="string">&#x27;repl&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> context = repl.<span class="title function_">start</span>().<span class="property">context</span>;</span><br><span class="line">context.<span class="property">msg</span> = <span class="string">&#x27;hello world!&#x27;</span></span><br><span class="line"># 执行脚本并进入 <span class="variable constant_">REPL</span></span><br><span class="line">P&gt; node repl.<span class="property">js</span></span><br><span class="line">&gt; msg</span><br><span class="line"><span class="string">&#x27;hello world!&#x27;</span></span><br><span class="line">&gt; .<span class="property">clear</span></span><br><span class="line"><span class="title class_">Clearing</span> context...</span><br><span class="line">&gt; msg</span><br><span class="line"><span class="title class_">Thrown</span>:</span><br><span class="line"><span class="title class_">ReferenceError</span>: msg is not defined</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>使用 <code>Ctrl + D</code> 退出 <code>REPL</code> 要求当前命令行没有任何输入，否则无效。如果有输入，可以先按 <code>Ctrl + C</code> 丢弃当前行，再按 <code>Ctrl + D</code>。</p>
 </li>
@@ -355,20 +355,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-count">148</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-count">35</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">96</span>
+        <span class="site-state-item-count">99</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -398,7 +398,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2023</span>
+  <span itemprop="copyrightYear">2024</span>
   <span class="with-love">
     <i class="user"></i>
   </span>

@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.4.0">
+<meta name="generator" content="Hexo 7.3.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -265,7 +265,7 @@
 </blockquote>
 <h1 id="怎么使用？"><a href="#怎么使用？" class="headerlink" title="怎么使用？"></a>怎么使用？</h1><p>事实上，只有有跟远程 SVN 库进行交互操作的时候，我们才会使用 <code>git svn</code> 桥接命令，而对本地库的操作仍然使用 Git 命令，这与一般的 Git 仓库没有不同。</p>
 <h2 id="远程交互"><a href="#远程交互" class="headerlink" title="远程交互"></a>远程交互</h2><p>主要与远程 SVN 库的交互操作有：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 从 SVN 克隆</span></span><br><span class="line">git svn clone [-r&lt;start-revision&gt;[:&lt;end-revision&gt;]] &lt;svn-url&gt; [dir] [-s] [--prefix=svn/]</span><br><span class="line"><span class="meta">#</span><span class="bash"> 从 SVN 更新，等价于 svn update</span></span><br><span class="line">git svn rebase</span><br><span class="line"><span class="meta">#</span><span class="bash"> 提交到 SVN</span></span><br><span class="line">git svn dcommit</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">从 SVN 克隆</span></span><br><span class="line">git svn clone [-r&lt;start-revision&gt;[:&lt;end-revision&gt;]] &lt;svn-url&gt; [dir] [-s] [--prefix=svn/]</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">从 SVN 更新，等价于 svn update</span></span><br><span class="line">git svn rebase</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">提交到 SVN</span></span><br><span class="line">git svn dcommit</span><br></pre></td></tr></table></figure>
 <blockquote>
 <ul>
 <li><code>git svn clone</code></li>
@@ -274,9 +274,9 @@
 <p>​    <code>--prefix=svn/</code>：统一为 SVN 远程分支添加前缀，以免与 Git 分支冲突。</p>
 <p>​    <code>-r</code>：若 SVN 提交历史过多，克隆会很慢，因此，可只克隆部分版本。比如：<code>-r1000:HEAD</code> 只克隆版本号为 1000 到最新版本号之间的版本代码；而 <code>-rHEAD</code> 只会克隆最新版本号的代码。</p>
 </blockquote>
-<h2 id="冲突解决流程"><a href="#冲突解决流程" class="headerlink" title="冲突解决流程"></a>冲突解决流程</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git svn rebase</span><br><span class="line"><span class="meta">#</span><span class="bash"> 手动解决冲突</span></span><br><span class="line">git add</span><br><span class="line">git rebase --continue</span><br><span class="line">git svn dcommit</span><br></pre></td></tr></table></figure>
-<h2 id="分支管理"><a href="#分支管理" class="headerlink" title="分支管理"></a>分支管理</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 创建 SVN 远程分支，如：create_by_git</span></span><br><span class="line">git svn branch &lt;branch-name&gt; </span><br><span class="line"><span class="meta">#</span><span class="bash"> 删除 SVN 远程分支，如：svn/create_by_git</span></span><br><span class="line">git branch -D -r &lt;remote-branch-name&gt;</span><br><span class="line"><span class="meta">#</span><span class="bash"> 创建 SVN 标签，如：v1.0</span></span><br><span class="line">git svn tag &lt;tag-name&gt;</span><br><span class="line"><span class="meta">#</span><span class="bash"> 删除 SVN 远程标签，如：svn/tags/v1.0</span></span><br><span class="line">git svn branch -D -r &lt;remote-tag-name&gt;</span><br><span class="line"><span class="meta">#</span><span class="bash"> 跟踪 SVN 远程分支，3 处远程分支名应任意但一致</span></span><br><span class="line">git config --add svn-remote.&lt;remote-branch-name&gt;.url /path/to/brach/dir</span><br><span class="line">git config --add svn-remote.&lt;remote-branch-name&gt;.fetch :refs/remotes/&lt;remote-branch-name&gt;</span><br></pre></td></tr></table></figure>
-<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> SVN 日志</span></span><br><span class="line">git svn blame [filename]</span><br><span class="line"><span class="meta">#</span><span class="bash"> SVN 信息</span></span><br><span class="line">git svn info</span><br></pre></td></tr></table></figure>
+<h2 id="冲突解决流程"><a href="#冲突解决流程" class="headerlink" title="冲突解决流程"></a>冲突解决流程</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git svn rebase</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">手动解决冲突</span></span><br><span class="line">git add</span><br><span class="line">git rebase --continue</span><br><span class="line">git svn dcommit</span><br></pre></td></tr></table></figure>
+<h2 id="分支管理"><a href="#分支管理" class="headerlink" title="分支管理"></a>分支管理</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">创建 SVN 远程分支，如：create_by_git</span></span><br><span class="line">git svn branch &lt;branch-name&gt; </span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">删除 SVN 远程分支，如：svn/create_by_git</span></span><br><span class="line">git branch -D -r &lt;remote-branch-name&gt;</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">创建 SVN 标签，如：v1.0</span></span><br><span class="line">git svn tag &lt;tag-name&gt;</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">删除 SVN 远程标签，如：svn/tags/v1.0</span></span><br><span class="line">git svn branch -D -r &lt;remote-tag-name&gt;</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">跟踪 SVN 远程分支，3 处远程分支名应任意但一致</span></span><br><span class="line">git config --add svn-remote.&lt;remote-branch-name&gt;.url /path/to/brach/dir</span><br><span class="line">git config --add svn-remote.&lt;remote-branch-name&gt;.fetch :refs/remotes/&lt;remote-branch-name&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">SVN 日志</span></span><br><span class="line">git svn blame [filename]</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">SVN 信息</span></span><br><span class="line">git svn info</span><br></pre></td></tr></table></figure>
 <h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a href="file:///D:/program/scoop/apps/git/2.24.0.windows.2/mingw64/share/doc/git-doc/git-svn.html">Git doc - git-svn</a></p>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_33285292/article/details/83929543">CSDN - 使用Git管理SVN</a></p>
 <p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/h2zZhou/p/6136948.html">cnblogs - git-svn：通过git来管理svn代码</a></p>
@@ -395,20 +395,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-count">148</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-count">35</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">96</span>
+        <span class="site-state-item-count">99</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -438,7 +438,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2023</span>
+  <span itemprop="copyrightYear">2024</span>
   <span class="with-love">
     <i class="user"></i>
   </span>

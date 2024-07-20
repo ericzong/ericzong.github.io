@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.4.0">
+<meta name="generator" content="Hexo 7.3.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -267,7 +267,7 @@
 <li>静态导入</li>
 </ol>
 <p>下面的示例展示了全部的用法：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.ericzong.java.sample.syntax;</span><br><span class="line"><span class="comment">// 静态导入，可导入静态成员，这里导入的是静态方法</span></span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> com.ericzong.java.sample.syntax.StaticTest.StaticClass.test;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StaticTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        test();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 静态成员类，嵌套类的一种</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">StaticClass</span> </span>&#123;</span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> test; <span class="comment">// 静态变量</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">static</span> &#123; <span class="comment">// 静态初始化块</span></span><br><span class="line">            test = <span class="number">42</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span> </span>&#123; <span class="comment">// 静态方法</span></span><br><span class="line">            System.out.println(test);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.ericzong.java.sample.syntax;</span><br><span class="line"><span class="comment">// 静态导入，可导入静态成员，这里导入的是静态方法</span></span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> com.ericzong.java.sample.syntax.StaticTest.StaticClass.test;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">StaticTest</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        test();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 静态成员类，嵌套类的一种</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">class</span> <span class="title class_">StaticClass</span> &#123;</span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> test; <span class="comment">// 静态变量</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">static</span> &#123; <span class="comment">// 静态初始化块</span></span><br><span class="line">            test = <span class="number">42</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">test</span><span class="params">()</span> &#123; <span class="comment">// 静态方法</span></span><br><span class="line">            System.out.println(test);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>示例基本说明了 static 关键字的各种用法，但有些细节还是有必要进一步说明。</p>
 <h1 id="静态成员类"><a href="#静态成员类" class="headerlink" title="静态成员类"></a>静态成员类</h1><p>静态成员类，学术一点的说法是“静态嵌套类”。嵌套类的一种，另一种常见的嵌套类是内部类。它们之间的一个区别是：内部类需要隐式地持有一个外部类引用，而静态嵌套类不需要。</p>
 <h1 id="静态方法"><a href="#静态方法" class="headerlink" title="静态方法"></a>静态方法</h1><p>静态方法，也称“类方法”。</p>
@@ -316,12 +316,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/posts/java-topic-get-classname.html" rel="prev" title="Java专题：获取类名">
-      <i class="fa fa-chevron-left"></i> Java专题：获取类名
+    <a href="/posts/java-kp-keyword-final.html" rel="prev" title="Java知识点：final关键字">
+      <i class="fa fa-chevron-left"></i> Java知识点：final关键字
     </a></div>
       <div class="post-nav-item">
-    <a href="/posts/java-kp-keyword-final.html" rel="next" title="Java知识点：final关键字">
-      Java知识点：final关键字 <i class="fa fa-chevron-right"></i>
+    <a href="/posts/java-tool-nexus3.html" rel="next" title="Nexus3应用笔记">
+      Nexus3应用笔记 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -395,20 +395,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-count">148</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-count">35</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">96</span>
+        <span class="site-state-item-count">99</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -438,7 +438,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2023</span>
+  <span itemprop="copyrightYear">2024</span>
   <span class="with-love">
     <i class="user"></i>
   </span>
