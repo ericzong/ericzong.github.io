@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"ericzonglu.gitee.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="消点法，借助三角形面积计算图形中线段比例的一种通用方法。可用于计算机证明几何问题。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="几何·消点法">
+<meta property="og:url" content="http://ericzonglu.gitee.io/posts/math-xiaodianfa.html">
+<meta property="og:site_name" content="八白龙的博客">
+<meta property="og:description" content="消点法，借助三角形面积计算图形中线段比例的一种通用方法。可用于计算机证明几何问题。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://ericzonglu.gitee.io/image/post_math-xiaodianfa/gong-gao.jpg">
+<meta property="og:image" content="http://ericzonglu.gitee.io/image/post_math-xiaodianfa/gong-bian.jpg">
+<meta property="og:image" content="http://ericzonglu.gitee.io/image/post_math-xiaodianfa/xiaodianfa-liti.png">
+<meta property="article:published_time" content="2024-07-25T15:30:00.000Z">
+<meta property="article:modified_time" content="2024-07-28T08:30:18.334Z">
+<meta property="article:author" content="Eric Zong">
+<meta property="article:tag" content="几何">
+<meta property="article:tag" content="定理">
+<meta property="article:tag" content="通用方法">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://ericzonglu.gitee.io/image/post_math-xiaodianfa/gong-gao.jpg">
+
+<link rel="canonical" href="http://ericzonglu.gitee.io/posts/math-xiaodianfa.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>几何·消点法 | 八白龙的博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">八白龙的博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">程序员的杂货铺</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-references">
+
+    <a href="/references/" rel="section"><i class="bookmark fa-fw"></i>参考</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://ericzonglu.gitee.io/posts/math-xiaodianfa.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Eric Zong">
+      <meta itemprop="description" content="这里有作为一个程序员想记录的一切。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="八白龙的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          几何·消点法
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-07-25 23:30:00" itemprop="dateCreated datePublished" datetime="2024-07-25T23:30:00+08:00">2024-07-25</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-07-28 16:30:18" itemprop="dateModified" datetime="2024-07-28T16:30:18+08:00">2024-07-28</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E5%AD%A6/" itemprop="url" rel="index"><span itemprop="name">数学</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>以下内容是笔者在阅读作者中璋的《写给青少年的数学故事（下）：几何妙想》一书时的读书笔记。</p>
+</blockquote>
+<p>消点法，是一种将线段间的关系与三角形面积间的关系相互转化的方法。简单地说，就是线段的比例与三角形面积的比例之间的转化。</p>
+<p>消点法的基础是面积法，而面积法基于有关三角形面积的两个定理：共高定理和共边定理。</p>
+<h1 id="共高-amp-共边定理"><a href="#共高-amp-共边定理" class="headerlink" title="共高&amp;共边定理"></a>共高&amp;共边定理</h1><p>共高定理：如果两个三角形高相同，则面积比等于底之比。</p>
+<script type="math/tex; mode=display">
+\frac {S_{△PAM}} {S_{△PBM}} = \frac {AM} {BM}</script><p><img src="/image/post_math-xiaodianfa/gong-gao.jpg" alt="共高定理"></p>
+<blockquote>
+<p>【关于证明】通过三角形面积公式，易证。</p>
+</blockquote>
+<p>共边定理：如果两个三角形底相同：</p>
+<ol>
+<li>面积比等于高之比；</li>
+<li>另一顶点连线 AB 和底（或其延长线）交于 M，则面积比等于 AM : BM。</li>
+</ol>
+<script type="math/tex; mode=display">
+\frac {S_{△QPA}} {S_{△QPB}} = \frac {AM} {BM}</script><p>\<br><img src="/image/post_math-xiaodianfa/gong-bian.jpg" alt="共高定理"></p>
+<blockquote>
+<p>【关于证明】</p>
+<ol>
+<li>与共高类似，用三角形面积公式即可证。</li>
+<li>设两三角形的高与共边的交点分别为 A’ 和 B’，则通过证明 $S<em>{△AA’M} ∽ S</em>{△BB’M}$ 即可将高之比转化为两者斜边的比。</li>
+</ol>
+</blockquote>
+<h1 id="例题"><a href="#例题" class="headerlink" title="例题"></a>例题</h1><p>已知：在 $△ABC$ 中，AD : DC = 1 : 2，BE : EC = 3 : 2。求 BF : DF。</p>
+<p><img src="/image/post_math-xiaodianfa/xiaodianfa-liti.png" alt="例题"> </p>
+<p>解：</p>
+<p>要求 BF : DF，根据共边（AE）定理可得：</p>
+<script type="math/tex; mode=display">
+\frac {BF} {DF} = \frac {S_{△AEB}} {S_{△AED}}    \qquad (1)</script><p>根据 $S_{△AEB}$ 与已知比例 BE : EC，用共边（AE）定理得：</p>
+<script type="math/tex; mode=display">
+\frac {S_{△AEB}} {S_{△AEC}} = \frac {BE} {EC}    \qquad (2)</script><p>为了把式(2)代入式(1) ，则还需要通过共高定理得：</p>
+<script type="math/tex; mode=display">
+\frac {S_{△AEC}} {S_{△AED}} = \frac {AC} {AD}    \qquad (3)</script><p>至此可将式(1)变形并将式(2)、(3)代入得：</p>
+<script type="math/tex; mode=display">
+\begin{flalign*}
+\frac {BF} {DF} & = \frac {S_{△AEB}} {S_{△AED}} 
+                  = \frac {S_{△AEB}} {S_{△AEC}} \cdot 
+                    \frac {S_{△AEC}} {S_{△AED}} \\
+& = \frac {BE} {EC} \cdot \frac {AC} {AD} & & \\
+& = \frac 3 2 \cdot \frac 3 2 & & \\
+& = \frac 9 4 
+\end{flalign*}</script><p>【解说】</p>
+<p>根据消点法，可以对图形中的点进行分组， 分组的依据是点的约束性及其约束层级。以上例题来说明，可将图中的点分为三组：</p>
+<ul>
+<li>组1：A、B、C，称为“自由点”，无约束</li>
+<li>组2：D、E，称为“约束点”，根据已知中的比例要求，受 A、B、C 约束</li>
+<li>组3：F，也是“约束点”，但更低一级，受 D、E 的约束</li>
+</ul>
+<p>消点法的原理是，约束点 D、E 由自由点 A、B、C 约束，因此可用 A、B、C 间数量关系表示。低级的约束点 F，可用 A、B、C 和 D、E 数量关系表示。</p>
+<p>因此，约束点相关的比例关系，最终可以转化为自由点相关的比例关系。消去约束点，即为消点。</p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Eric Zong
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://ericzonglu.gitee.io/posts/math-xiaodianfa.html" title="几何·消点法">http://ericzonglu.gitee.io/posts/math-xiaodianfa.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%87%A0%E4%BD%95/" rel="tag"># 几何</a>
+              <a href="/tags/%E5%AE%9A%E7%90%86/" rel="tag"># 定理</a>
+              <a href="/tags/%E9%80%9A%E7%94%A8%E6%96%B9%E6%B3%95/" rel="tag"># 通用方法</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/math-koch-curve.html" rel="prev" title="（科赫）雪花曲线及反雪花曲线的周长和面积推导">
+      <i class="fa fa-chevron-left"></i> （科赫）雪花曲线及反雪花曲线的周长和面积推导
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/posts/powershell-foreach-skip.html" rel="next" title="PowerShell专题：ForEach-Object 跳过当次循环">
+      PowerShell专题：ForEach-Object 跳过当次循环 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%B1%E9%AB%98-amp-%E5%85%B1%E8%BE%B9%E5%AE%9A%E7%90%86"><span class="nav-number">1.</span> <span class="nav-text">共高&amp;共边定理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BE%8B%E9%A2%98"><span class="nav-number">2.</span> <span class="nav-text">例题</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Eric Zong</p>
+  <div class="site-description" itemprop="description">这里有作为一个程序员想记录的一切。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">154</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">36</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">100</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Eric Zong</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>
