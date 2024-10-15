@@ -1,6 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>【专题】Markdown特殊字符和转义</title>
+    <url>//posts/markdown-escape.html</url>
+    <content><![CDATA[<h1 id="转义"><a href="#转义" class="headerlink" title="转义"></a>转义</h1><p>转义不是 Markdown 独有的概念。当语言或系统涉及处理字符串时都会存在转义。</p>
+<p>Markdown 使用 <code>\</code> 作为转义字符，可以转义以下字符：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">\  backslash  </span><br><span class="line">`  backtick  </span><br><span class="line">*  asterisk  </span><br><span class="line">_  underscore  </span><br><span class="line">&#123;&#125; curly braces  </span><br><span class="line">[] square brackets  </span><br><span class="line">() parentheses  </span><br><span class="line">#  hash mark  </span><br><span class="line">+  plus sign  </span><br><span class="line">-  minus sign (hyphen)  </span><br><span class="line">.  dot  </span><br><span class="line">!  exclamation mark</span><br></pre></td></tr></table></figure>
+<h1 id="会失效"><a href="#会失效" class="headerlink" title="\ 会失效"></a>\ 会失效</h1><p>当然<strong>理论上</strong>， <code>\</code> 可以转义任何字符，如果该字符不是特殊字符也会原样输出。这里的<strong>理论上</strong>，其实说的是转义<strong>直接</strong>出现在<strong>正文</strong>中。但如果转义出现在某些特殊结构中，转义则未必会如意料进行。</p>
+<p>比如，在表格中试图使用 <code>\|</code> 来转义表示 <code>|</code>。有的渲染器可以得到你想要的效果，但是有的不会—— <code>|</code> 是表格的列定界符，于是会多出一列。</p>
+<h1 id="其他转义方法"><a href="#其他转义方法" class="headerlink" title="其他转义方法"></a>其他转义方法</h1><p>如果 <code>\</code> 转义不生效了，那么就需要使用其他一些处理方法：</p>
+<ul>
+<li>内容放在行内代码中</li>
+<li>用 HTML 字符实体表示</li>
+</ul>
+<h2 id="行内代码"><a href="#行内代码" class="headerlink" title="行内代码"></a>行内代码</h2><p>行内代码，用反引号 <code>&#96;</code> 括起来的内容会原样输出。唯一的问题是，行内代码内容是以“代码”样式显示的。如果内容并非代码的概念，使用行内代码并不合适。</p>
+<blockquote>
+<p>【注意】</p>
+<ol>
+<li>不要将下文中的 HTML 字符实体放在行内代码中，会原样输出。</li>
+<li>行内代码中出现反引号 <code>&#96;</code> 是另一个麻烦，下文会单独讨论。</li>
+</ol>
+</blockquote>
+<h2 id="HTML-字符实体"><a href="#HTML-字符实体" class="headerlink" title="HTML 字符实体"></a>HTML 字符实体</h2><p>Markdown 兼容 HTML，因此当然可以使用 HTML 字符实体。并且这是终极解决方案，即任何 Markdown 语法范围内无法转义的字符，最终都可以用字符实体。</p>
+<blockquote>
+<p>【注意】<br><strong>既要……又要……</strong><br>上文提及，字符实体放在行内代码中会原样输出。那么，既必须使用字符实体，又要以行内代码样式显示怎么办？<br>解决方案是，行内代码不要使用 Markdown 语法，使用 HTML 标签 <code>&lt;code&gt;</code>。</p>
+<p>Obsidian 在编辑视图下不会渲染字符实体。</p>
+</blockquote>
+<h1 id="特殊字符"><a href="#特殊字符" class="headerlink" title="特殊字符"></a>特殊字符</h1><p>下面会逐一说明一些常见的特殊符号的处理方式。</p>
+<p>笔者常用的 Markdown 编辑器是 Obsidian，博客用的 Hexo，所以大多从这两方面来比较渲染效果。</p>
+<h2 id="反引号"><a href="#反引号" class="headerlink" title="反引号 `"></a>反引号 `</h2><p>反引号是行内代码的定界符，所以需要转义。</p>
+<h3 id="场景一：正文中"><a href="#场景一：正文中" class="headerlink" title="场景一：正文中"></a>场景一：正文中</h3><p>可用转义方法：</p>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">\`       Markdown 转义</span><br><span class="line"><span class="literal">&amp;#96;</span>    HTML 字符实体</span><br></pre></td></tr></table></figure>
+<h3 id="场景二：行内代码中"><a href="#场景二：行内代码中" class="headerlink" title="场景二：行内代码中"></a>场景二：行内代码中</h3><p>【方法一】Markdown 转义</p>
+<p>反引号是可以置于反引号括起来的行内代码中的。但是，为了内容中的反引号不意外“截断”行内代码，应注意：</p>
+<ul>
+<li>行内代码左右两侧的反引号为任意数量都是合法的，只要开闭配对即可。</li>
+<li>假设内容中最多有 n 个连续反引号，就应该用 n+1 个反引号括起来（有建议说，应总使用偶数个反引号）。</li>
+<li>内容中的反引号紧临边界时，最好插入一个空格隔开，否则可能被边界“吸收”而不显示（具体行为与渲染器有关）。</li>
+</ul>
+<p>【方法二】字符实体</p>
+<p>这里要使用字符实体，就不能使用反引号括起来了，否则会原样输出。</p>
+<p>应该使用 <code>&lt;code&gt;</code> 标签包裹行内代码内容。</p>
+<h2 id="竖线"><a href="#竖线" class="headerlink" title="竖线 |"></a>竖线 |</h2><p>可用转义方法：</p>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">\|        Markdown 转义</span><br><span class="line"><span class="literal">&amp;#124;</span>    HTML 字符实体</span><br></pre></td></tr></table></figure>
+<p><code>|</code> 并没有什么特殊，除非它出现在表格中。由于它是表格列的定界符，如果单元格内容中有一个 <code>|</code> 就可能会解析多出一列。</p>
+<blockquote>
+<p><strong>区别讨论</strong><br>在 Obsidian 中，使用 <code>\|</code> 转义就足够了。<br>但是，发布到 Hexo 就会多出一列。<br>所以，为了统一，<strong>最佳实践</strong>是使用字符实体。</p>
+</blockquote>
+<h2 id="抑扬符"><a href="#抑扬符" class="headerlink" title="抑扬符"></a>抑扬符</h2><p>可用转义方法：</p>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">\^       Markdown 转义</span><br><span class="line"><span class="literal">&amp;#94;</span>    HTML 字符实体</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>为什么要转义 ^？</strong><br>一个可能的解释是：避免解析为上标。但是，并非所有渲染器支持上标语法。<br>另一个笔者遇到过的问题是 <code>[^0-9]</code> 在某些渲染器中被转换为一个脚注。</p>
+</blockquote>
+<h2 id="花括号"><a href="#花括号" class="headerlink" title="花括号 {}"></a>花括号 {}</h2><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">&#123;    <span class="literal">&amp;#123;</span></span><br><span class="line">&#125;    <span class="literal">&amp;#125;</span></span><br></pre></td></tr></table></figure>
+<p>严格地说，在 Markdown 中，花括号不需要特殊转义处理。</p>
+<p>但是，当 Markdown 文档发布到诸如 Hexo 博客中时，就可能会出问题。</p>
+<p>因为，渲染引擎可能支持形如 <code>&#123;&#123;variable&#125;&#125;</code> 这样的动态代码——即使置于行内代码中也不保险。</p>
+<p><strong>最佳实践</strong>：使用字符实体转义。</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
+<li><p>W3school - <a href="https://www.w3school.com.cn/charsets/ref_html_8859.asp">HTML ISO-8859-1 参考手册</a></p>
+</li>
+<li><p><a href="https://symbl.cc/cn">SYMBL</a>：字符搜索网站，可以查看字符名字</p>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>Markdown</category>
+      </categories>
+      <tags>
+        <tag>专题</tag>
+        <tag>转义</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>功能膨胀：软件开发中“合谋的必然”</title>
     <url>//posts/feature-creep.html</url>
     <content><![CDATA[<h1 id="功能膨胀是什么？"><a href="#功能膨胀是什么？" class="headerlink" title="功能膨胀是什么？"></a>功能膨胀是什么？</h1><p>功能膨胀（Feature-creep），在产品开发过程中，不断添加新功能，直到产品变得过于复杂或臃肿的现象。</p>
@@ -583,7 +655,7 @@ x + (x-1) + (x-2) + \cdots + 1 = \frac {x(x+1)} {2}</script><p>由于要检测 1
     \hline
 \end{array}</script><p>从上表可知，根据奖品所在门的不同，一共有 3 种场景。假设我们一开始选择<strong>1号门</strong>，换选只有在<strong>场景1</strong>会输，剩余两个场景结果都是赢。因此，换选中奖的概率是 $2 \over 3$，坚持不换中奖概率是 $1 \over 3$。</p>
 <p>所以，总是应该换选！</p>
-<p>简单来说，第 1 次选错的概率是 $2 \over 3$，所以换选则选中了，即换选有 $2 \over 3$ 的概率选中。换选失掉的其实是第 1 次选中的那 $1 \over 3$ 的概率。</p>
+<p>简单来说，第 1 次选错的概率是 $2 \over 3$，所以换选则选中了，即换选有 $2 \over 3$ 的概率选中。换选失掉的其实是第 1 次选中的那 $1 \over 3$ 的概率。即是说，<strong>换选对换的是中奖概率</strong>。</p>
 ]]></content>
       <categories>
         <category>数学</category>
@@ -11730,6 +11802,10 @@ S = \prod_{k=0}^{m} \frac {1 - p_k^{a_{k+1}}} {1-p_k}</script>]]></content>
 <li>提取</li>
 <li>替换</li>
 </ul>
+<h1 id="在线工具"><a href="#在线工具" class="headerlink" title="在线工具"></a>在线工具</h1><ul>
+<li><a href="https://regexr.com/">RegExr</a>：测试工具</li>
+<li><a href="https://regex-vis.com/">Regex Vis</a>：可视化展示正则表达式</li>
+</ul>
 <h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p>《JavaScript正则表达式迷你书》</p>
 <p>《学习正则表达式》</p>
 <p>《精通正则表达式》</p>
@@ -17411,6 +17487,7 @@ m = \frac {m_0} {\sqrt {1 - \frac {v^2} {c^2}}}
 <td>diff</td>
 <td>ls</td>
 <td>ren</td>
+<td>&nbsp;</td>
 </tr>
 </tbody>
 </table>
@@ -17583,8 +17660,7 @@ m = \frac {m_0} {\sqrt {1 - \frac {v^2} {c^2}}}
 <tbody>
 <tr>
 <td>管道符号</td>
-<td>\</td>
-<td></td>
+<td>&#124;</td>
 </tr>
 <tr>
 <td>逗号</td>
@@ -17826,6 +17902,7 @@ m = \frac {m_0} {\sqrt {1 - \frac {v^2} {c^2}}}
 <tr>
 <td>[xml]</td>
 <td>XML document</td>
+<td>&nbsp;</td>
 </tr>
 </tbody>
 </table>
@@ -17928,6 +18005,7 @@ m = \frac {m_0} {\sqrt {1 - \frac {v^2} {c^2}}}
 <tr>
 <td>ValidateNotNullOrEmpty</td>
 <td>不允许为 Null 或空（包括空字符串、数组等）</td>
+<td>&nbsp;</td>
 </tr>
 </tbody>
 </table>
